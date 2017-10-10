@@ -1,4 +1,0 @@
-# Sommaire
-
-* [Introduction](README.md)
-
