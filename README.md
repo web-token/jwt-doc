@@ -105,9 +105,9 @@ It has been successfully tested using `PHP 7.1` with all algorithms.
 
 Tests vectors from the [RFC 7520](http://tools.ietf.org/html/rfc7520) are fully implemented and all tests pass.
 
-We also track bugs and code quality using [Scrutinizer-CI](https://scrutinizer-ci.com/g/Spomky-Labs/JOSE) and [Sensio Insight](https://insight.sensiolabs.com/projects/9123fbfc-7ae1-4d63-9fda-170b8ad794ee).
+We also track bugs and code quality using [Scrutinizer-CI](https://scrutinizer-ci.com/g/web-token/jwt-framework) and [Sensio Insight](https://insight.sensiolabs.com/projects/b7efa68f-8962-41cf-a2e3-4444426bc95a).
 
-Coding Standards are verified by [StyleCI](https://styleci.io/repos/22874677).
+Coding Standards are verified by [StyleCI](https://styleci.io/repos/105997386).
 
 Code coverage is analyzed by [Coveralls.io](https://coveralls.io/github/web-token/jwt-framework).
 
@@ -116,17 +116,6 @@ Code coverage is analyzed by [Coveralls.io](https://coveralls.io/github/web-toke
 * [The components](component/index.md)
 * [The bundles](bundle/index.md)
 * [The console commands](console/index.md)
-
-Examples:
-
-* Using the components:
-    * [Create keys and key sets](doc/components/examples/jwk.md)
-    * [Create and load a signed token](doc/components/examples/jws.md)
-    * [Create and load an encrypted token](doc/components/examples/jwe.md)
-* Using the bundles:
-    * [Create keys and key sets](doc/bundles/examples/jwk.md)
-    * [Create and load a signed token](doc/bundles/examples/jws.md)
-    * [Create and load an encrypted token](doc/bundles/examples/jwe.md)
 
 # Performances
 
