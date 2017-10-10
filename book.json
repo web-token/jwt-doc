@@ -1,8 +1,37 @@
 {
-    "plugins": ["theme-api"],
+    "title": "JWT Framework",
+    "author": "Florent Morselli",
+    "language": "en",
+    "plugins": ["theme-api","autocover"],
     "pluginsConfig": {
         "theme-api": {
             "theme": "dark"
+        },
+        "autocover": {
+            "font": {
+                "size": null,
+                "family": "Impact",
+                "color": "#FFF"
+            },
+            "size": {
+                "w": 1800,
+                "h": 2360
+            },
+            "background": {
+                "color": "#09F"
+            }
+        },
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "margin": {
+                "top": 56,
+                "bottom": 56,
+                "left": 62,
+                "right": 62
+            }
         }
     }
 }
