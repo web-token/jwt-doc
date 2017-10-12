@@ -41,7 +41,7 @@ You will get more information by following the command name with `--help`.
 # Installation
 
 To install the standalone application, you have to clone the repository and install the dependencies.  
-We consider that `git` and `composer`\` are correctly installed.
+We consider that `git` and `composer` are correctly installed.
 
 ```sh
 git clone https://github.com/web-token/jwt-app.git
