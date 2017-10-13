@@ -3,9 +3,9 @@
 The project comes with console commands.  
 They are available:
 
-* as a standalone command
-* through the dedicated Symfony console command
-* ~~as a PHAR \(PHP Archive\)~~ \(available soon\)
+* [as a standalone command](standalone.md)
+* [through the dedicated Symfony console command](symfony.md)
+* [as a PHAR (PHP Archive)](phar.md)
 
 # Available Commands
 
@@ -37,55 +37,3 @@ Available commands are:
   * `keyset:rotate`:          Rotate a key set.
 
 You will get more information by following the command name with `--help`.
-
-# Installation
-
-To install the standalone application, you have to clone the repository and install the dependencies.  
-We consider that `git` and `composer` are correctly installed.
-
-```sh
-git clone https://github.com/web-token/jwt-app.git
-cd jwt-app
-composer install --no-dev --optimize-autoloader --classmap-authoritative
-```
-
-## Standalone Console Command
-
-You will find the standalone console command in the `bin` folder.
-
-```sh
-./bin/jose
-```
-
-## PHAR Package Compilation
-
-You can compile this application into a single PHP Archive file \(PHAR\).  
-You must first install Box:
-
-```sh
-curl -LSs https://box-project.github.io/box2/installer.php | php
-```
-
-If everything is fine, the box command should be available:
-
-```sh
-box --version
-```
-
-Then you can build the archive. This step takes  between one and two minutes.
-
-```sh
-box build
-```
-
-When the compilation is finished, you will get a `jose.phar` file at the project root folder.  
-You can move this file wherever you want \(e.g. `/usr/local/bin`\).
-
-To use it, just execute the following line:
-
-```sh
-jose.phar
-```
-
-
-

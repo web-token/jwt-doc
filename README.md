@@ -83,10 +83,10 @@ JWKSet is fully supported.
 
 ## Supported Content Encryption Algorithms
 
-| Content Encryption Algorithm                         | Supported | Comment |
-| ---------------------------------------------------- |:---------:| ------- |
-| `A128CBC-HS256`, `A192CBC-HS384` and `A256CBC-HS512` | YES       |         |
-| `A128GCM`, `A192GCM` and `A256GCM`                   | YES       |         |
+| Content Encryption Algorithm                         | Supported |
+| ---------------------------------------------------- |:---------:|
+| `A128CBC-HS256`, `A192CBC-HS384` and `A256CBC-HS512` | YES       |
+| `A128GCM`, `A192GCM` and `A256GCM`                   | YES       |
 
 # Prerequisites
 
@@ -128,7 +128,7 @@ You can also see the [last benchmarks](benchmarks/results.md) made with our deve
 Requests for new features, bug fixed and all other ideas to make this framework useful are welcome.
 If you feel comfortable writing code, you could try to fix [opened issues where help is wanted](https://github.com/web-token/jwt-framework/labels/help+wanted) or [those that are easy to fix](https://github.com/web-token/jwt-framework/labels/easy-pick).
 
-Do not forget to [follow these best practices](https://github.com/web-token/jwt-framework/.github/CONTRIBUTING.md).
+Do not forget to [follow these best practices](https://github.com/web-token/jwt-framework/tree/master/.github/CONTRIBUTING.md).
 
 **If you think you have found a security issue, DO NOT open an issue**. You should submit your issue here. 
 

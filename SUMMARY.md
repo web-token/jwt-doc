@@ -14,5 +14,6 @@
 * [Console](console/index.md)
   * [Standalone](console/standalone.md)
   * [Symfony Console](console/symfony.md)
+  * [PHAR Archive](console/phar.md)
 * [Benchmarks](benchmarks/index.md)
   * [Result table](benchmarks/results.md)
