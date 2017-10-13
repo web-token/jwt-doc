@@ -7,6 +7,23 @@ To perform cryptographic operations (signature/verification and encryption/decry
 
 A JWK object represents a key. It contains all parameters needed by the algorithm and also information parameters.
 
+In the following examples, we have a `$jwk` variable that is a valid key. Available methods:
+
+```php
+<?php
+// Check if the key has a parameter.
+$jwk->has('kty');
+
+// Retrieve the key parameter.
+$jwk->get('kty');
+
+// Retrieve all key parameters.
+$jwk->all();
+
+// Calculate the thumbprint of the key. Acceptable hash algorithms are those returned by the PHP function "hash_algos".
+$jwk->thumbprint('sha256');
+```
+
 This framework is able to create private and public keys easily.
 It can also generate those keys from external resources.
 
@@ -14,15 +31,16 @@ Now let’s discover the `JWKFactory` object.
 
 ## Generate A New Key
 
-The `JWKFactory` can generate random keys. 5 types of keys are supported:
+The `JWKFactory` can generate random keys. 4 types of keys are supported:
 
 * Symmetric Key:
     * `oct`: octet string
-    * `none`: special key type used only with the `none` algorithm
 * Asymmetric Key:
     * `RSA`: RSA key pair
     * `EC` : Elliptic Curve key pair
     * `OKP`: Octet key pair
+
+*Note: for the `none` algorithm, the framework needs a key of type `none`. This is a specific key type that must only be used with this algorithm.*
 
 For all asymmetric keys, you will ALWAYS receive a private key. To convert this private key into a public one, you have to use the method `toPublic()`:
 
@@ -35,7 +53,7 @@ $public_key = $private_key->toPublic();
 ### Octet String
 
 The following example will show you how to create an `oct` key.
-Additional parameters will be set to limit the scope of this key (signature/verification only with the `HS256` algorithm).
+Additional parameters will be set to limit the scope of this key (e.g. signature/verification only with the `HS256` algorithm).
 
 ```php
 <?php
@@ -197,8 +215,6 @@ $key = JWKFactory::createFromCertificateFile(
 
 A JWKSet object represents a key set. It can contain several keys.
 
-*We recommend you to avoid mixing public, private or shared keys in the same key set*.
-
 ```php
 <?php
 use Jose\Component\Core\JWKSet;
@@ -210,13 +226,35 @@ $jwkset = JWKSet::createFromKeys([
 ]);
 ```
 
-The JWKSet object provided by the framework is immutable. This means that any modification of a key set will create a new key set.
-When you add a new key or remove an existing one, the method will return you a new object.
+*We recommend you to avoid mixing public, private or shared keys in the same key set*.
+
+In the following examples, we have a `$jwkset` variable that is a valid key set. Available methods:
 
 ```php
 <?php
+// Returns all keys
+$jwkset->all();
 
-$new_jwkset = $jwkset->with($jwk4);
+// Check if the key set has the key with the key ID 'KEY ID'.
+$jwkset->has('KEY ID');
+
+// Retreive the key with the key ID 'KEY ID'.
+$jwkset->get('KEY ID');
+
+// Counts the keys in the key set.
+$jwkset->count();
+
+// Adds a key to the key set.
+// /!\ This method will create a new key set. The previous key set is unchanged.
+$new_jwkset = $jwkset->with($jwk);
+
+// Removes a key to the key set.
+// /!\ This method will create a new key set. The previous key set is unchanged.
+$new_jwkset = $jwkset->without('KEY ID');
+
+// Selects a key according to the requirements.
+// The first argument is the key usage ("sig" of "enc")
+// The second argument is the algorithm to be used (optional)
+// The third argument is an associative array this constraints (optional)
+$key = $jwkset->selectKey('sig', $algorithm, ['kid' => 'KEY ID']);
 ```
-
-The JWKSet in the variable `$jwkset` is unchanged. The one in the variable `$new_jwkset` contains the new key.

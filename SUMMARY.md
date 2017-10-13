@@ -14,8 +14,5 @@
 * [Console](console/index.md)
   * [Standalone](console/standalone.md)
   * [Symfony Console](console/symfony.md)
-* Benchmarks
-  * Result table
-
-
-
+* [Benchmarks](benchmarks/index.md)
+  * [Result table](benchmarks/results.md)

@@ -19,17 +19,17 @@ It also provides a standalone console command that will help you to manager your
 
 JWS or JWE objects support every input that can be encoded into JSON:
 
-* [x] `string`, `array`, `integer`, `float`...
-* [x] Objects that implement the `\JsonSerializable` interface such as `JWK` or `JWKSet`
+* `string`, `array`, `integer`, `float`...
+* Objects that implement the `\JsonSerializable` interface such as `JWK` or `JWKSet`
 
 The [detached](https://tools.ietf.org/html/rfc7515#appendix-F) and unencoded payloads are supported.
 This means you can sign and verify payload without base64 encoding operation.
 
 ## Supported Serialization Modes
 
-* [x] Compact JSON Serialization Syntax for JWS andJWE
-* [x] Flattened JSON Serialization Syntax for JWS andJWE
-* [x] General JSON Serialization Syntax for JWS andJWE
+* Compact JSON Serialization Syntax for JWS andJWE
+* Flattened JSON Serialization Syntax for JWS andJWE
+* General JSON Serialization Syntax for JWS andJWE
 
 ## Supported Compression Methods
 
