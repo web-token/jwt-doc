@@ -1,5 +1,5 @@
-Algorithm Management
-====================
+Algorithm Management (JWA)
+==========================
 
 # Algorithm Manager
 
@@ -8,7 +8,7 @@ For each cryptographic operation you will perform, you will need at least one al
 The available algorithms depend on the cypher operation to be performed.
 Please refer to the [Signed tokens](../jws/index.md) or the [Encrypted tokens](../jwe/index.md) to know more.
 
-Those algorithms are managed by an **Algorithm Manager**.
+These algorithms are managed by an **Algorithm Manager**.
 In the following example, we will create an algorithm manager that will handle two algorithms: `PS256` and `ES512`
 
 ```php

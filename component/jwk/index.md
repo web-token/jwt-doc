@@ -1,5 +1,5 @@
-Keys And Key Sets Management
-============================
+Keys And Key Sets Management (JWK and JWKSet)
+=============================================
 
 To perform cryptographic operations (signature/verification and encryption/decryption), you will need an algorithm and a key.
 
@@ -31,7 +31,14 @@ Now let’s discover the `JWKFactory` object.
 
 ## Generate A New Key
 
-The `JWKFactory` can generate random keys. 4 types of keys are supported:
+The `JWKFactory` can generate random keys.
+This factory is available in the [`web-token/jwt-key-mgmt` component](https://github.com/web-token/jwt-key-mgmt).
+
+```sh
+composer require web-token/jwt-key-mgmt
+```
+
+4 types of keys are supported:
 
 * Symmetric Key:
     * `oct`: octet string
@@ -202,7 +209,7 @@ You can convert a X.509 Certificate into a JWK.
 use Jose\Component\KeyManagement\JWKFactory;
 
 $key = JWKFactory::createFromCertificateFile(
-    '/path/to/my/key/file.p12', // The filename
+    '/path/to/my/key/file.crt', // The filename
     [
         'use' => 'sig',         // Additional parameters
     ]

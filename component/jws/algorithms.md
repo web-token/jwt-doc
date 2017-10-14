@@ -4,7 +4,7 @@ Signature Algorithms
 # Available Algorithms
 
 This framework comes with several signature algorithms.
-These algorithms are in the following namespace: `Jose\Component\Signature\Allgorithm`.
+These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
 * HMAC with SHA-2 Functions
     * `HS256`
