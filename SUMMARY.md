@@ -7,7 +7,6 @@
     * [Key Management](component/jwk/jwk.md)
     * [Key Set Management](component/jwk/jwkset.md)
   * [Header Checker](component/header_checker/index.md)
-    * [Token Type](component/token_type/index.md)
   * [Claim Checker](component/claim_checker/index.md)
   * [Signed Tokens (JWS)](component/jws/index.md)
     * [Signature Algorithms](component/jws/algorithms.md)
