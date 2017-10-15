@@ -9,3 +9,14 @@ It also provides keys and key sets manager.
 
 Web token. This token is described in the [RFC7519](https://tools.ietf.org/html/rfc7519).
 
+## JWS
+
+A digitally signed JWT.
+
+## JWE
+
+A digitally encrypted JWT.
+
+## Nested token
+
+A JWE that contains a JWS as payload.
