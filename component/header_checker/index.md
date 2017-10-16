@@ -22,7 +22,7 @@ Please note that:
 # Header Checker Manager
 
 To create a header checker manager, you will need to add header checkers and at least one token type.
-You will find token type classes for the  JWS and JWE tokens in the `web-token/jwt-signature` and `web-token/jwt-encryption` respectively.
+You will find token type classes for the  JWS and JWE tokens in the `web-token/jwt-signature` and `web-token/jwt-encryption` components respectively.
 
 ```php
 <?php

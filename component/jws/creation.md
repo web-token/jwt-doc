@@ -41,14 +41,14 @@ $jwsBuilder = new JWSBuilder(
 Now let's create our first JWS object.
 
 ```php
-// The payload we want to sign
-$payload = [
+// The payload we want to sign. The payload MUST be a string hence we use our JSON Converter.
+$payload = $jsonConverter->encode([
     'iat' => time(),
     'nbf' => time(),
     'exp' => time() + 3600,
     'iss' => 'My service',
     'aud' => 'Your application',
-];
+]);
 
 $jws = $jwsBuilder
     ->create()                               // We want to create a new JWS

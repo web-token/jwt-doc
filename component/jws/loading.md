@@ -2,11 +2,10 @@
 JWS Loading
 ===========
 
-Signed tokens are loaded and verified by the `JWSLoader` object.
-This object requires several services for the process
+Signed tokens are loaded by a serializer or the serializer manager and verified by the `JWSVerifier` object.
+This JWSVerifier object requires several services for the process
 * an algorithm manager
 * a header checker manager
-* a serializer manager
 
 In the following example, we will use the same assumptions as the ones used during the [JWS Creation process](creation.md).
 
@@ -21,7 +20,7 @@ use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\Converter\JsonConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
-use Jose\Component\Signature\JWSLoader;
+use Jose\Component\Signature\JWSVerifier;
 use Jose\Component\Signature\JWSTokenHeaderChecker;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
@@ -55,16 +54,12 @@ $serializerManager = JWSSerializerManager::create([
     new CompactSerializer($jsonConverter),
 ]);
 
-// We instantiate our JWS Loader.
-$jwsLoader = new JWSLoader(
+// We instantiate our JWS Verifier.
+$jwsVerifier = new JWSVerifier(
     $algorithmManager,
-    $headerCheckerManager,
-    $serializerManager
+    $headerCheckerManager
 );
 ```
-
-The instantiation of the JWS Loader looks complicated but it will do almost all verification for use. 
-In our example, it will be able to drop any tokens that are not signed tokens or tokens signed with an algorithm other than `HS256`.
 
 Now we can use it with the input we receive. We will continue with the result we got during the JWS creation section.
 
@@ -73,13 +68,28 @@ Now we can use it with the input we receive. We will continue with the result we
 $token = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZXhwIjoxNTA3OTAwNTkyLCJpc3MiOiJNeSBzZXJ2aWNlIiwiYXVkIjoiWW91ciBhcHBsaWNhdGlvbiJ9.eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0';
 
 // We try to load the token.
-$jws = $jwsLoader->load($token);
+$jws = $serializerManager->unserialize($token);
 
-// We verify the signautre. This method also check the headers
-$jwsLoader->verifyWithKey($jws, $jwk);
+// We verify the signature. This method also check the headers
+$jwsVerifier->verifyWithKey($jws, $jwk);
+```
+
+OK so if not exception is thrown, then your token is correctly loaded and its header and signature are verified.
+
+Now we want to check the claims.
+The payload returned by the `$jws` variable is a string. We need to retrieve an array first.
+
+```php
+$claims = $jsonConverter->decode(
+    $jws->getPayload()
+);
 
 // Our signed tokens must contain claims that have to be checked
-$claimChecker = new Checker\ClaimCheckerManager(
+if (!is_array($claims)) {
+    throw new \InvalidArgumentException('Something went wrong.');
+}
+
+$claimChecker = Checker\ClaimCheckerManager::create(
     $jsonConverter,
     [
         new Checker\IssuedAtChecker(),
@@ -88,11 +98,10 @@ $claimChecker = new Checker\ClaimCheckerManager(
     ]
 );
 
-$claims = $claimChecker->check($jws);
+$claimChecker->check($claims);
 ```
 
-If all the checks succeeded, the variable `$claim` will contain all the claims in the payload, even those that have not been verified.
+If all the checks succeeded, the variable `$claims` will contain all the claims in the payload, even those that have not been verified.
 
 **Be careful**: in this example, we did not checked all claims (`iss` and `aud` claim checkers are missing).
 In production, each claim you use should be checked hence it is important to add necessary checkers to your claim checker manager.
-
