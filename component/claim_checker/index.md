@@ -21,7 +21,6 @@ use Jose\Component\Checker;
 
 $jsonConverter = new JsonConverter();
 $claimCheckerManager = ClaimCheckerManager::create(
-    $jsonConverter,
     [
         new Checker\IssuedAtChecker(),
         new Checker\NotBeforeChecker(),
@@ -109,12 +108,9 @@ Each claim checker you add to this factory is associated to an alias. You will t
 require_once 'vendor/autoload.php';
 
 use Jose\Component\Checker\ClaimCheckerManagerFactory;
-use Jose\Component\Core\Converter\JsonConverter;
 use Jose\Component\Checker;
 
-$jsonConverter = new JsonConverter();
-
-$claimCheckerManagerFactory = new ClaimCheckerManagerFactory($jsonConverter);
+$claimCheckerManagerFactory = new ClaimCheckerManagerFactory();
 $claimCheckerManagerFactory
     ->add('iat', new Checker\IssuedAtChecker())
     ->add('nbf', new Checker\NotBeforeChecker())

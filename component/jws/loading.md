@@ -21,7 +21,7 @@ use Jose\Component\Core\Converter\JsonConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSVerifier;
-use Jose\Component\Signature\JWSTokenHeaderChecker;
+use Jose\Component\Signature\JWSTokenSupport;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
@@ -42,7 +42,7 @@ $headerCheckerManager = HeaderCheckerManager::create(
     new Checker\AlgorithmChecker(['HS256']), // We only want to check the algorithm as we only support one.
 ],
 [
-    new JWSTokenHeaderChecker(),             // We add the JWS Token type (this manager is able to support other token types.
+    new JWSTokenSupport(),             // We add the JWS Token type (this manager is able to support other token types.
 ]
 );
 
@@ -90,7 +90,6 @@ if (!is_array($claims)) {
 }
 
 $claimChecker = Checker\ClaimCheckerManager::create(
-    $jsonConverter,
     [
         new Checker\IssuedAtChecker(),
         new Checker\NotBeforeChecker(),

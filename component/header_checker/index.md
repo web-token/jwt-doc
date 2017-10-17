@@ -31,16 +31,16 @@ require_once 'vendor/autoload.php';
 
 use Jose\Component\Checker\HeaderCheckerManager;
 use Jose\Component\Checker\AlgorithmChecker;
-use Jose\Component\Encryption\JWETokenHeaderChecker;
-use Jose\Component\Signature\JWSTokenHeaderChecker;
+use Jose\Component\Encryption\JWETokenSupport;
+use Jose\Component\Signature\JWSTokenSupport;
 
 $headerCheckerManager = HeaderCheckerManager::create(
     [
         new AlgorithmChecker(['HS256']), // We check the header "alg" (algorithm)
     ],
     [
-        new JWSTokenHeaderChecker(), // Adds JWS token type support
-        new JWETokenHeaderChecker(), // Adds JWE token type support
+        new JWSTokenSupport(), // Adds JWS token type support
+        new JWETokenSupport(), // Adds JWE token type support
     ]
 );
 ```
@@ -56,15 +56,15 @@ require_once 'vendor/autoload.php';
 
 use Jose\Component\Checker\HeaderCheckerManagerFactory;
 use Jose\Component\Checker\AlgorithmChecker;
-use Jose\Component\Encryption\JWETokenHeaderChecker;
-use Jose\Component\Signature\JWSTokenHeaderChecker;
+use Jose\Component\Encryption\JWETokenSupport;
+use Jose\Component\Signature\JWSTokenSupport;
 
 $headerCheckerManagerFactory = new HeaderCheckerManagerFactory();
 $headerCheckerManagerFactory
     ->add('signature_alg', new AlgorithmChecker(['HS256']))
     ->add('key_encryption_alg', new AlgorithmChecker(['RSA1_5']))
-    ->addTokenTypeSupport(new JWSTokenHeaderChecker())
-    ->addTokenTypeSupport(new JWETokenHeaderChecker());
+    ->addTokenTypeSupport(new JWSTokenSupport())
+    ->addTokenTypeSupport(new JWETokenSupport());
 
 $headerCheckerManagerForSignatures = $headerCheckerManagerFactory->create(['signature_alg']);
 $headerCheckerManagerForEncryption = $headerCheckerManagerFactory->create(['key_encryption_alg']);

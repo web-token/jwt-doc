@@ -58,3 +58,71 @@ $jws = $jwsBuilder
 And voilà! When you will serialize this token, the payload will not be present.
 
 # JWS Loading
+
+The loading of a signed token with a dateched payload is as easy as when the payload is attached.
+The only difference is that you have to pass the payload to the JWS Verifier when you want to check the signature.
+
+```php
+<?php
+
+require_once 'vendor/autoload.php';
+
+use Jose\Component\Checker\HeaderCheckerManager;
+use Jose\Component\Checker;
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\JWK;
+use Jose\Component\Signature\Algorithm\HS256;
+use Jose\Component\Signature\JWSVerifier;
+use Jose\Component\Signature\JWSTokenSupport;
+use Jose\Component\Signature\Serializer\JWSSerializerManager;
+use Jose\Component\Signature\Serializer\CompactSerializer;
+
+// The algorithm manager with the HS256 algorithm.
+$algorithmManager = AlgorithmManager::create([
+    new HS256(),
+]);
+
+// Our key.
+$jwk = JWK::create([
+    'kty' => 'oct',
+    'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
+]);
+
+// The header checker manager
+$headerCheckerManager = HeaderCheckerManager::create(
+    [
+        new Checker\AlgorithmChecker(['HS256']), // We only want to check the algorithm as we only support one.
+    ],
+    [
+        new JWSTokenSupport(),             // We add the JWS Token type (this manager is able to support other token types.
+    ]
+);
+
+// The JSON Converter.
+$jsonConverter = new JsonConverter();
+
+// The serializer manager. We only use the JWS Compact Serialization Mode.
+$serializerManager = JWSSerializerManager::create([
+    new CompactSerializer($jsonConverter),
+]);
+
+// We instantiate our JWS Verifier.
+$jwsVerifier = new JWSVerifier(
+    $algorithmManager,
+    $headerCheckerManager
+);
+
+// The detached payload
+$payload = '{"iat":1507896992,"nbf":1507896992,"exp":1507900592,"iss":"My service","aud":"Your application"}';
+
+// The input we want to check
+$token = 'eyJhbGciOiJIUzI1NiJ9..eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0';
+
+// We try to load the token.
+$jws = $serializerManager->unserialize($token);
+
+// We verify the signature.
+// /!\ The third argument is the detached payload.
+$jwsVerifier->verifyWithKey($jws, $jwk, $payload);
+```
