@@ -88,7 +88,7 @@ All done! Now you can instantiate your class and add it to your Claim Checker Ma
 # Replicating Claims as Header Parameters
 
 The [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3) allows to replicate some claims in the header.
-This behaviour is very useful with encrypted tokens as it helps to reject invalid tokens with decryption of the payload.
+This behaviour is very useful with encrypted tokens as it helps to reject invalid tokens without decryption of the payload.
 
 The Claim Checker Manager cannot check those replicated claims, you have to create a [custom header checker](../header_checker/index.md).
 However, to avoid duplicated classes, your claim checker can implement the `Jose\Component\Checker\HeaderCheckerInterface` interface.
