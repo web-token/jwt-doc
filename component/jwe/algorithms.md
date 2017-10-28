@@ -35,6 +35,11 @@ These algorithms are in the following namespaces:
     * `A192CBC-HS384` (class `A192CBCHS384`)
     * `A256CBC-HS512` (class `A256CBCHS512`)
 
+Please consider the following information:
+
+* The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack).
+* The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` keys.
+
 # How To Use
 
 These algorithms have to be used with the [Algorithm Manager](../jwa/index.md).
