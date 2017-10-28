@@ -31,18 +31,19 @@ $claimCheckerManager = ClaimCheckerManager::create(
 ```
 
 When instantiated, call the method `check` to check the claims of a JWT object.
+This method only accept an array. You have to retrieve this array by converting the JWT payload.
 
 ```php
-$claims = $claimCheckerManager->check($jwt);
+$claims = json_decode($jwt->getPayload, true);
+$claimCheckerManager->check($claims);
 ```
-
-The JWT object can be any object that implements the `JWTInterface` interface (e.g. `JWS` or `JWE`).
 
 # Custom Claim Checker
 
 Your application may use other claims that you will have to check therefore custom claim checkers have to be created.
 
-In this example, we will create a class that will check the claim `foo`. The claim accept only a string with the value `bar` or `bat`.
+In this example, we will create a class that will check the claim `foo`.
+The claim accept only a string with the value `bar` or `bat`.
 All claim checker have to implement the interface `Jose\Component\Checker\ClaimCheckerInterface`;
 
 ```php
@@ -92,7 +93,8 @@ This behaviour is very useful with encrypted tokens as it helps to reject invali
 The Claim Checker Manager cannot check those replicated claims, you have to create a [custom header checker](../header_checker/index.md).
 However, to avoid duplicated classes, your claim checker can implement the `Jose\Component\Checker\HeaderCheckerInterface` interface.
 
-Have a look at the `IssuedAtChecker` or the `NotBeforeChecker` classes. These checkers can be used for claim and header checks.
+Have a look at the `IssuedAtChecker` or the `NotBeforeChecker` classes.
+These checkers can be used for claim and header checks.
 
 # Claim Checker Manager Factory
 
