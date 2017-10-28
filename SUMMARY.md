@@ -26,10 +26,10 @@
   * [Symfony Console](console/symfony.md)
   * [PHAR Archive](console/phar.md)
 * [Advanced Topics](advanced/index.md)
+  * [Serialization](advanced/serialization.md)
   * Signed tokens and
     * [unprotected header](advanced/jws/unprotected_header.md)
     * [multiple signatures](advanced/jws/multiple_signatures.md)
-    * [JSON Serialization](advanced/jws/json_serialization.md)
     * [detached payload](advanced/jws/detached_payload.md)
     * [unencoded payload](advanced/jws/unencoded_payload.md)
   * Encrypted tokens and
