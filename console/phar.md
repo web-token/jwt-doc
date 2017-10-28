@@ -20,7 +20,7 @@ You can move these files wherever you want (e.g. `/usr/local/bin`).
 To use it, just execute the following line:
 
 ```sh
-./jose.phar (or just jose.phar if stored in a bin folder) 
+./jose.phar 
 ```
 
 # Update

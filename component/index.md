@@ -7,6 +7,7 @@ It also provides other nice features to create and manage keys.
 Before to start creating your first tokens, we have to create an algorithm manager and keys or key sets.
 
 * [Algorithm Management](jwa/index.md)
+* [Header Checker](header_checker/index.md) and [Claim Checker](claim_checker/index.md) 
 * [Keys and key sets](jwk/index.md)
 
 When your algorithm manager and your keys are ready, you will be able to create or load your first tokens.
