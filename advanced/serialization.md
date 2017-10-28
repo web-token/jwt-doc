@@ -95,7 +95,7 @@ Example:
 
 ## JWS Serializer Manager
 
-The serializer manager can be helpful when your application deqls more than one serialization mode.
+The serializer manager can be helpful when your application deals more than one serialization mode.
 
 ```php
 <?php
@@ -167,7 +167,7 @@ Example:
 
 ## JWE JSON General
 
-This serialization mode is similar to the JWE JSON Flattened, but may contain more than one signature.
+This serialization mode is similar to the JWE JSON Flattened, but may contain more than one recipient.
 It it a JSON object.
 
 The serializer class is `Jose\Component\Encryption\Serializer\JSONGeneralSerializer`.
@@ -197,7 +197,7 @@ Example:
 
 ## JWE Serializer Manager
 
-The serializer manager can be helpful when your application deqls more than one serialization mode.
+The serializer manager can be helpful when your application deals more than one serialization mode.
 
 ```php
 <?php

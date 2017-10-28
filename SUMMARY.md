@@ -35,6 +35,5 @@
   * Encrypted tokens and
     * [unprotected headers](advanced/jwe/unprotected_headers.md)
     * [multiple recipients](advanced/jwe/multiple_recipients.md)
-    * [JSON Serialization](advanced/jwe/json_serialization.md)
 * [Benchmarks](benchmarks/index.md)
   * [Result table](benchmarks/results.md)
