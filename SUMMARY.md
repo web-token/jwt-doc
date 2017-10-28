@@ -24,7 +24,7 @@
 * [Console](console/index.md)
   * [Standalone](console/standalone.md)
   * [Symfony Console](console/symfony.md)
-  * [PHAR Archive](console/phar.md)
+  * [PHAR Application](console/phar.md)
 * [Advanced Topics](advanced/index.md)
   * [Serialization](advanced/serialization.md)
   * Signed tokens and

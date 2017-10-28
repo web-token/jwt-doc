@@ -15,7 +15,7 @@ If everything is fine, you should have two files:
 * `jose.phar`
 * `jose.phar.pubkey`
 
-You can move these file wherever you want (e.g. `/usr/local/bin`).
+You can move these files wherever you want (e.g. `/usr/local/bin`).
 
 To use it, just execute the following line:
 
