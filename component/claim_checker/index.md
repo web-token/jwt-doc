@@ -5,6 +5,11 @@ JSON Web Tokens are mainly used to transport claims.
 When you receive a JWT, it is important to check the values of these claims.
 
 The Claim Checker Manager is responsible of this task.
+To use it, install the corresponding component:
+
+```sh
+composer require web-token/jwt-checker
+```
 
 # Claim Checker Manager
 

@@ -1,6 +1,12 @@
 Algorithm Management (JWA)
 ==========================
 
+The algorithm management is part of the `web-token/jwt-core` component:
+
+```sh
+composer require web-token/jwt-core
+```
+
 # Algorithm Manager
 
 For each cryptographic operation you will perform, you will need at least one algorithm.

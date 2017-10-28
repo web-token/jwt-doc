@@ -4,7 +4,7 @@ Header Checker
 When you receive a JWT (JWS or JWE), the loader will check the header of the token.
 In case something when wrong, the token is rejected.
 
-To use this component, install the corresponding component:
+To use the header checker, install the corresponding component:
 
 ```sh
 composer require web-token/jwt-checker
@@ -98,7 +98,7 @@ final class CustomChecker implements HeaderCheckerInterface
 {
     public function checkHeader($value)
     {
-        if (!is_array($value) || !in_array($value, ['foo', 'baar'])) {
+        if (!is_array($value) || !in_array($value, ['foo', 'bar'])) {
             throw new \InvalidArgumentException('Invalid header "custom".');
         }
     }

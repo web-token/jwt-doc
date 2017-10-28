@@ -3,6 +3,11 @@ Keys And Key Sets Management (JWK and JWKSet)
 
 To perform cryptographic operations (signature/verification and encryption/decryption), you will need an algorithm and keys or key sets.
 
+The `JWK` and `JWKSet` objects are part of the `web-token/jwt-core` component:
+
+```sh
+composer require web-token/jwt-core
+```
 # JWK
 
 A JWK object represents a key. It contains all parameters needed by the algorithm and also information parameters.
