@@ -1,38 +1,39 @@
 PHAR Application
 ================
 
-**Important: at the moment, the PHAR application compilation process is not fully achieved.**
-**You have to download the application and compile it on your own.**
-
 # Installation
 
-You must first install Box:
+To install the application, you just have to download it and download the associated public key (the application is digitally signed):
 
 ```sh
-curl -LSs https://box-project.github.io/box2/installer.php | php
+curl -OL https://github.com/web-token/jwt-app/raw/gh-pages/jose.phar
+curl -OL https://github.com/web-token/jwt-app/raw/gh-pages/jose.phar.pubkey
 ```
 
-If everything is fine, the `box` command should be available:
+If everything is fine, you should have two files:
 
-```sh
-box --version
-```
+* `jose.phar`
+* `jose.phar.pubkey`
 
-Then you can download and build the archive. This step takes  between one and two minutes.
-
-```sh
-git clone https://github.com/web-token/jwt-app.git
-cd jwt-app
-composer install --no-dev --optimize-autoloader --classmap-authoritative
-
-box build
-```
-
-When the compilation is finished, you will get a `jose.phar` file at the project root folder.  
-You can move this file wherever you want (e.g. `/usr/local/bin`).
+You can move these file wherever you want (e.g. `/usr/local/bin`).
 
 To use it, just execute the following line:
 
 ```sh
-jose.phar
+./jose.phar (or just jose.phar if stored in a bin folder) 
+```
+
+# Update
+
+The application can be updated easily:
+
+```sh
+./jose.phar selfupdate 
+```
+
+It a new version exists, it will be downloaded automatically.
+If there is something wrong with the new version, you can reinstall the previous revision:
+
+```sh
+./jose.phar rollback 
 ```
