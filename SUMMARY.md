@@ -35,6 +35,6 @@
   * Encrypted tokens and
       * [Unprotected Headers](advanced/jwe/unprotected_headers.md)
       * [Multiple Recipients](advanced/jwe/multiple_recipients.md)
-      * [Additional Authentication Data (AAD)](advanced/jwe/multiple_recipients.md)
+      * [Additional Authentication Data (AAD)](advanced/jwe/aad.md)
 * [Benchmarks](benchmarks/index.md)
   * [Result table](benchmarks/results.md)
