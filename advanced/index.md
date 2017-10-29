@@ -3,10 +3,11 @@ Advanced Topics
 
 * [Serialization](serialization.md)
 * Signed tokens and
-    * [unprotected header](jws/unprotected_header.md)
-    * [multiple signatures](jws/multiple_signatures.md)
-    * [detached payload](jws/detached_payload.md)
-    * [unencoded payload](jws/unencoded_payload.md)
+    * [Unprotected Header](jws/unprotected_header.md)
+    * [Multiple Signatures](jws/multiple_signatures.md)
+    * [Detached Payload](jws/detached_payload.md)
+    * [Unencoded Payload](jws/unencoded_payload.md)
 * Encrypted tokens and
-    * [unprotected headers](jwe/unprotected_headers.md)
-    * [multiple recipients](jwe/multiple_recipients.md)
+    * [Unprotected Headers](jwe/unprotected_headers.md)
+    * [Multiple Recipients](jwe/multiple_recipients.md)
+    * [Additional Authentication Data (AAD)](jwe/multiple_recipients.md)
