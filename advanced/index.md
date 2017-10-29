@@ -10,4 +10,4 @@ Advanced Topics
 * Encrypted tokens and
     * [Unprotected Headers](jwe/unprotected_headers.md)
     * [Multiple Recipients](jwe/multiple_recipients.md)
-    * [Additional Authentication Data (AAD)](jwe/multiple_recipients.md)
+    * [Additional Authentication Data (AAD)](jwe/aad.md)
