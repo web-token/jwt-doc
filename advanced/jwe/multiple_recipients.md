@@ -21,8 +21,6 @@ $jweBuilder
     ->build();
 ```
 
-The variable `$jwe` will be a valid JWS object with all computed signatures.
-
 **Note: when an unprotected header is set, the Compact Serialization mode is not available.**
 
 ## Key Management Modes
