@@ -22,14 +22,13 @@ JWS or JWE objects support every input that can be encoded into JSON:
 * `string`, `array`, `integer`, `float`...
 * Objects that implement the `\JsonSerializable` interface such as `JWK` or `JWKSet`
 
-The [detached](https://tools.ietf.org/html/rfc7515#appendix-F) and unencoded payloads are supported.
-This means you can sign and verify payload without base64 encoding operation.
+The [detached](https://tools.ietf.org/html/rfc7515#appendix-F) is supported.
 
 ## Supported Serialization Modes
 
-* Compact JSON Serialization Syntax for JWS andJWE
-* Flattened JSON Serialization Syntax for JWS andJWE
-* General JSON Serialization Syntax for JWS andJWE
+* Compact JSON Serialization Syntax for JWS and JWE
+* Flattened JSON Serialization Syntax for JWS and JWE
+* General JSON Serialization Syntax for JWS and JWE
 
 ## Supported Compression Methods
 
@@ -66,7 +65,7 @@ JWKSet is fully supported.
 | `PS256`, `PS384` and `PS512`   | YES       |                                                                                                    |
 | `none`                         | YES       | **Please note that this is not a secured algorithm. USE IT WITH CAUTION!**                         |
 | *`EdDSA` with `Ed25519` curve* | YES       | [For PHP 7.1, third party extension highly recommended](https://github.com/jedisct1/libsodium-php) |
-| *`EdDSA` with `Ed448` curve*   | NO        |                                                                                                    |
+| *`EdDSA` with `Ed448` curve*   | NO        | No extension or built-in implementation available                                                  |
 
 ## Supported Key Encryption Algorithms
 
@@ -79,7 +78,7 @@ JWKSet is fully supported.
 | `PBES2-HS256+A128KW`, `PBES2-HS384+A192KW` and `PBES2-HS512+A256KW` | YES       |                                                                                                    |
 | `A128GCMKW`, `A192GCMKW` and `A256GCMKW`                            | YES       |                                                                                                    |
 | `EdDSA` with `X25519` curve                                         | YES       | [For PHP 7.1, third party extension highly recommended](https://github.com/jedisct1/libsodium-php) |
-| `EdDSA` with `X448` curve                                           | NO        |                                                                                                    |
+| `EdDSA` with `X448` curve                                           | NO        | No extension or built-in implementation available                                                  |
 
 ## Supported Content Encryption Algorithms
 
@@ -101,7 +100,7 @@ Please consider the following optional requirements:
 
 # Continuous Integration
 
-It has been successfully tested using `PHP 7.1` with all algorithms.
+It has been successfully tested using `PHP 7.1`, `PHP 7.2` and `nightly` with all algorithms.
 
 Tests vectors from the [RFC 7520](http://tools.ietf.org/html/rfc7520) are fully implemented and all tests pass.
 
@@ -116,6 +115,10 @@ Code coverage is analyzed by [Coveralls.io](https://coveralls.io/github/web-toke
 * [The components](component/index.md)
 * [The bundles](bundle/index.md)
 * [The console commands](console/index.md)
+
+# Security Recommendations
+
+**To avoid security issues on your application, please follow these [Security Recommendations](security/index.md) carefully**.
 
 # Performances
 

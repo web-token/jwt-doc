@@ -27,8 +27,6 @@ You will find token type classes for the  JWS and JWE tokens in the `web-token/j
 ```php
 <?php
 
-require_once 'vendor/autoload.php';
-
 use Jose\Component\Checker\HeaderCheckerManager;
 use Jose\Component\Checker\AlgorithmChecker;
 use Jose\Component\Encryption\JWETokenSupport;
@@ -51,8 +49,6 @@ The Header Checker Manager Factory will help you to create as many Header Checke
 
 ```php
 <?php
-
-require_once 'vendor/autoload.php';
 
 use Jose\Component\Checker\HeaderCheckerManagerFactory;
 use Jose\Component\Checker\AlgorithmChecker;
@@ -79,7 +75,7 @@ The following header checkers are provided:
 
 * `AlgorithmChecker`: you already know it
 * `AudienceChecker`: checks the `aud` header parameter. This is a replicated claim as per the [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3)
-* `UnencodedPayloadChecker`: checks the `b64` hheader parameter. See [unencoded payload](../../advanced/jws/unencoded_payload.md) for more information.
+* `UnencodedPayloadChecker`: checks the `b64` header parameter. See [unencoded payload](../../advanced/jws/unencoded_payload.md) for more information.
 
 If you need, you can create you own header checker. It must implement the interface `Jose\Component\Checker\HeaderCheckerInterface`.
 In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.

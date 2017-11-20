@@ -35,7 +35,10 @@ $algorithm_manager = AlgorithmManager::create([
 # Algorithm Manager Factory
 
 Your application may need several algorithm managers for several use cases.
-For example it will send signed events to a platform and issue authentication tokens for registered users.  
+Let say:
+
+* Your application issues signed events to a platform
+* Your application issues authentication tokens for registered users.  
 
 To avoid mixing algorithms in one algorithm manager or instantiate several times the algorithms for several algorithm managers,
 this framework provides an **Algorithm Manager Factory**.

@@ -7,7 +7,6 @@ But with one difference: there are two unprotected headers:
 * Shared unprotected header applicable to all recipients.
 * Per-recipient unprotected header.
 
-
 With the example below, we will create an encrypted token for two recipient and some unprotected header parameters:
 
 ```php

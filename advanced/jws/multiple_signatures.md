@@ -20,11 +20,11 @@ The variable `$jws` will be a valid JWS object with all computed signatures.
 Next step is the serialization of these signatures.
 
 ```php
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Signature\Serializer;
 
 // The JSON Converter.
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 $manager = Serializer\JWSSerializerManager::create([
     new Serializer\CompactSerializer($jsonConverter),

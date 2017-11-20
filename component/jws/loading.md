@@ -11,16 +11,11 @@ In the following example, we will use the same assumptions as the ones used duri
 ```php
 <?php
 
-require_once 'vendor/autoload.php';
-
-use Jose\Component\Checker\HeaderCheckerManager;
-use Jose\Component\Checker;
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSVerifier;
-use Jose\Component\Signature\JWSTokenSupport;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
@@ -35,18 +30,8 @@ $jwk = JWK::create([
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
 
-// The header checker manager
-$headerCheckerManager = HeaderCheckerManager::create(
-[
-    new Checker\AlgorithmChecker(['HS256']), // We only want to check the algorithm as we only support one.
-],
-[
-    new JWSTokenSupport(),             // We add the JWS Token type (this manager is able to support other token types.
-]
-);
-
 // The JSON Converter.
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 // The serializer manager. We only use the JWS Compact Serialization Mode.
 $serializerManager = JWSSerializerManager::create([
@@ -55,8 +40,7 @@ $serializerManager = JWSSerializerManager::create([
 
 // We instantiate our JWS Verifier.
 $jwsVerifier = new JWSVerifier(
-    $algorithmManager,
-    $headerCheckerManager
+    $algorithmManager
 );
 ```
 

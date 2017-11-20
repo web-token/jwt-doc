@@ -10,7 +10,7 @@ Please note that when the Compact Serialization mode is used, the characters of 
 * From `0x2f` to `0x7e`
 
 This feature is built in the framework and is enabled when the `b64` header parameter is set to `false`.
-As per the RFC, this header MUST also be present in the critical (`crit`) header parameter.
+As per the RFC, this header MUST be protected and also listed as a critical (`crit`) header parameter.
 
 Example:
 

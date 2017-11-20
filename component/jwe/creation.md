@@ -10,10 +10,8 @@ In the following example, we will use the standard converter provided by the fra
 ```php
 <?php
 
-require_once 'vendor/autoload.php';
-
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
@@ -43,7 +41,7 @@ $jwk = JWK::create([
 ]);
 
 // The JSON Converter.
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 // We instantiate our JWE Builder.
 $jweBuilder = new JWEBuilder(

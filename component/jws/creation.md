@@ -9,10 +9,8 @@ In the following example, we will use the standard converter provided by the fra
 ```php
 <?php
 
-require_once 'vendor/autoload.php';
-
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSBuilder;
@@ -29,7 +27,7 @@ $jwk = JWK::create([
 ]);
 
 // The JSON Converter.
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 // We instantiate our JWS Builder.
 $jwsBuilder = new JWSBuilder(

@@ -31,7 +31,7 @@ The application can be updated easily:
 ./jose.phar selfupdate 
 ```
 
-It a new version exists, it will be downloaded automatically.
+If a new version exists, it will be downloaded automatically.
 If there is something wrong with the new version, you can reinstall the previous revision:
 
 ```sh

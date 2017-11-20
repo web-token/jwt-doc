@@ -18,13 +18,11 @@ In the following example, we will create a manager able to check the `aud` (Audi
 ```php
 <?php
 
-require_once 'vendor/autoload.php';
-
 use Jose\Component\Checker\ClaimCheckerManager;
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Checker;
 
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 $claimCheckerManager = ClaimCheckerManager::create(
     [
         new Checker\IssuedAtChecker(),
@@ -39,7 +37,7 @@ When instantiated, call the method `check` to check the claims of a JWT object.
 This method only accept an array. You have to retrieve this array by converting the JWT payload.
 
 ```php
-$claims = json_decode($jwt->getPayload, true);
+$claims = $jsonConverter->decode($jwt->getPayload());
 $claimCheckerManager->check($claims);
 ```
 
@@ -111,8 +109,6 @@ Each claim checker you add to this factory is associated to an alias. You will t
 
 ```php
 <?php
-
-require_once 'vendor/autoload.php';
 
 use Jose\Component\Checker\ClaimCheckerManagerFactory;
 use Jose\Component\Checker;

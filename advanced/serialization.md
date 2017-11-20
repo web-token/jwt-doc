@@ -14,6 +14,10 @@ JSON Flattened and General are not URL safe, but provides features that may fit 
 
 To use the JWS serializers, you have to install the `jwt-signature` component.
 
+```sh
+composer require web-token/jwt-signature
+```
+
 ## JWS Compact
 
 This serialization mode is probably the one you know the most.
@@ -102,10 +106,10 @@ The serializer manager can be helpful when your application deals more than one 
 
 require_once 'vendor/autoload.php';
 
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Signature\Serializer;
 
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 $manager = Serializer\JWSSerializerManager::create([
     new Serializer\CompactSerializer($jsonConverter),
@@ -204,10 +208,10 @@ The serializer manager can be helpful when your application deals more than one 
 
 require_once 'vendor/autoload.php';
 
-use Jose\Component\Core\Converter\JsonConverter;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Encryption\Serializer;
 
-$jsonConverter = new JsonConverter();
+$jsonConverter = new StandardConverter();
 
 $manager = Serializer\JWESerializerManager::create([
     new Serializer\CompactSerializer($jsonConverter),

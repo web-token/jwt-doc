@@ -20,3 +20,8 @@ A digitally encrypted JWT.
 ## Nested token
 
 A JWE that contains a JWS as payload.
+
+## AAD
+
+Additional Authenticated Data. Optional data you can use when issuing an encrypted token.
+If used, the JWE Compact Serialization will not be available. 
