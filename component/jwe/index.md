@@ -1,7 +1,7 @@
 Encrypted Tokens (JWE)
 ======================
 
-To use the encrypted tokens (JWS), you have to install the [`web-token/jwt-encryption` component](https://github.com/web-token/jwt-encryption).
+To use the encrypted tokens (JWE), you have to install the [`web-token/jwt-encryption` component](https://github.com/web-token/jwt-encryption).
 
 ```sh
 composer require web-token/jwt-encryption

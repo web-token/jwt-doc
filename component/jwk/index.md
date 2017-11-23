@@ -8,6 +8,7 @@ The `JWK` and `JWKSet` objects are part of the `web-token/jwt-core` component:
 ```sh
 composer require web-token/jwt-core
 ```
+
 # JWK
 
 A JWK object represents a key. It contains all parameters needed by the algorithm and also information parameters.
