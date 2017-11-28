@@ -1,15 +1,30 @@
 The Bundles
 ===========
 
-This framework provides several Symfony bundles that will help you to use JWS (signed tokens) and JWE (encrypted tokens).
+This framework provides a Symfony bundle that will help you to use the components within your Symfony application.
 
-Before to start creating your first tokens, we have to create an algorithm manager and keys or key sets.
+If you are using Symfony Flex, there is nothing to do, otherwise you have to enable the bundle in your kernel file
+ 
+```php
+/**
+ * {@inheritdoc}
+ */
+public function registerBundles()
+{
+    $bundles = [
+        ...
+        new Jose\Bundle\JoseFramework\JoseFrameworkBundle(),
+    ];
+
+    return $bundles;
+}
+```
+
+The bundle capabilities will depend on the components installed in your application.
+The core component is always available.
 
 * [Algorithm Management](jwa/index.md)
 * [Header and Claim Checkers](checker/index.md)
 * [Keys and key sets](jwk/index.md)
-
-When your algorithm manager, yur checkers and your keys are ready, you will be able to create or load your first tokens.
-
 * [Signed tokens](jws/index.md)
 * [Encrypted tokens](jwe/index.md)

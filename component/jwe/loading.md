@@ -68,7 +68,7 @@ $token = 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9R
 // We try to load the token.
 $jwe = $serializerManager->unserialize($token);
 
-// We decrypt the token. This method also check the headers
+// We decrypt the token. This method does NOT check the header.
 $jwe = $jweDecrypter->decryptUsingKey($jwe, $jwk);
 ```
 

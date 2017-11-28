@@ -1,3 +1,5 @@
+This document is available online at [https://web-token.spomky-labs.com](https://web-token.spomky-labs.com).
+
 # JWT Framework
 
 This framework provides an implementation of:

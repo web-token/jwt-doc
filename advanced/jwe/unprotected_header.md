@@ -1,5 +1,5 @@
-Unprotected Headers
-===================
+Unprotected Header
+==================
 
 As well as the [signed tokens](../jws/unprotected_header.md), the encrypted tokens also have unprotected header.
 But with one difference: there are two unprotected headers:
@@ -13,8 +13,8 @@ With the example below, we will create an encrypted token for two recipient and 
 $jwe = $jweBuilder
     ->create()
     ->withPayload('...')
-    ->withSharedProtectedHeaders(['enc' => 'A256GCM', 'alg' => 'A256KW'])
-    ->withSharedHeaders(['author' => 'John Doe'])
+    ->withSharedProtectedHeader(['enc' => 'A256GCM', 'alg' => 'A256KW'])
+    ->withSharedHeader(['author' => 'John Doe'])
     ->addRecipient($recipient_public_key_1, ['message' => 'Hello World!'])
     ->addRecipient($recipient_public_key_2, ['description' => 'Nice song for you'])
     ->build();

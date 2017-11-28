@@ -16,7 +16,7 @@
     * [Encryption Algorithms](component/jwe/algorithms.md)
     * [JWE Creation](component/jwe/creation.md)
     * [JWE Loading](component/jwe/loading.md)
-* [Bundles](bundle/index.md)
+* [Symfony Bundle](bundle/index.md)
   * [Key and Key Set Management](bundle/jwk/index.md)
   * [Header and Claim Checker Management](bundle/checker/index.md)
   * [Signed Tokens](bundle/jws/index.md)

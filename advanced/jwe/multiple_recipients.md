@@ -15,7 +15,7 @@ With the example below, we will create an encrypted token for three different re
 $jweBuilder
     ->create()
     ->withPayload('...')
-    ->withSharedProtectedHeaders(['enc' => 'A128GCM'])
+    ->withSharedProtectedHeader(['enc' => 'A128GCM'])
     ->addRecipient($recipient_key_1, ['alg' => 'RSA1_5'])
     ->addRecipient($recipient_key_2, ['alg' => 'RSA-OAEP-256'])
     ->build();

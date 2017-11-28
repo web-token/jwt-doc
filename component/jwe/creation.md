@@ -67,7 +67,7 @@ $payload = $jsonConverter->encode([
 $jwe = $jweBuilder
     ->create()              // We want to create a new JWE
     ->withPayload($payload) // We set the payload
-    ->withSharedProtectedHeaders([
+    ->withSharedProtectedHeader([
         'alg' => 'A256KW',        // Key Encryption Algorithm
         'enc' => 'A256CBC-HS512', // Content Encryption Algorithm
         'zip' => 'DEF'            // We enable the compression (irrelevant as the payload is small, just for the example).

@@ -8,6 +8,6 @@ Advanced Topics
     * [Detached Payload](jws/detached_payload.md)
     * [Unencoded Payload](jws/unencoded_payload.md)
 * Encrypted tokens and
-    * [Unprotected Headers](jwe/unprotected_headers.md)
+    * [Unprotected Header](jwe/unprotected_header.md)
     * [Multiple Recipients](jwe/multiple_recipients.md)
     * [Additional Authentication Data (AAD)](jwe/aad.md)

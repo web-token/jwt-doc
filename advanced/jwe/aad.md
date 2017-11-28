@@ -11,7 +11,7 @@ With the example below, we will add a dummy AAD:
 $jwe = $jweBuilder
     ->create()
     ->withPayload('...')
-    ->withSharedProtectedHeaders([
+    ->withSharedProtectedHeader([
         'enc' => 'A256CBC-HS512',
         'alg' => 'RSA-OAEP-256',
         'zip' => 'DEF',

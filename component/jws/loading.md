@@ -53,7 +53,7 @@ $token = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZ
 // We try to load the token.
 $jws = $serializerManager->unserialize($token);
 
-// We verify the signature. This method also check the headers
+// We verify the signature. This method does NOT check the header.
 $jwsVerifier->verifyWithKey($jws, $jwk);
 ```
 
