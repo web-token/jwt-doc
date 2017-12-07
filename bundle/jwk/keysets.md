@@ -112,3 +112,5 @@ jose:
             path: '/certs' # Path of the key set. Final path is hostname/route_prefix/path: https://www.foo.com/keys/certs
             max_age: 1000 # Set the max age of this key set
 ```
+
+Now went you go to the URL `http://128.0.0.1:8000/certs`, you will get your key set.

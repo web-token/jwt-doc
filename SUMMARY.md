@@ -29,8 +29,7 @@
     * [JWE serializers](bundle/jwe/serializers.md)
     * [JWE creation](bundle/jwe/creation.md)
     * [JWE decryption](bundle/jwe/loading.md)
-  * [Token Serialization](bundle/serializer/index.md)
-  * [Configuration Helper](bundle/configuration_helper/index.md)
+  * [Configuration Helper](bundle/helper/index.md)
 * [Console](console/index.md)
   * [Standalone](console/standalone.md)
   * [Symfony Console](console/symfony.md)
@@ -44,7 +43,7 @@
       * [Detached Payload](advanced/jws/detached_payload.md)
       * [Unencoded Payload](advanced/jws/unencoded_payload.md)
   * Encrypted tokens and
-      * [Unprotected Headers](advanced/jwe/unprotected_headers.md)
+      * [Unprotected Headers](advanced/jwe/unprotected_header.md)
       * [Multiple Recipients](advanced/jwe/multiple_recipients.md)
       * [Additional Authentication Data (AAD)](advanced/jwe/aad.md)
 * [Benchmarks](benchmarks/index.md)
