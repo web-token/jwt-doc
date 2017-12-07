@@ -1,8 +1,8 @@
 Claim Checker
 =============
 
-JSON Web Tokens are mainly used to transport claims.
-When you receive a JWT, it is important to check the values of these claims.
+JSON Web Tokens can be used to treansport any kind of data. They are mainly used to transport claims.
+When you receive a tokens that contains claims, it is important to check the values of these claims.
 
 The Claim Checker Manager is responsible of this task.
 To use it, install the corresponding component:
@@ -19,10 +19,8 @@ In the following example, we will create a manager able to check the `aud` (Audi
 <?php
 
 use Jose\Component\Checker\ClaimCheckerManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Checker;
 
-$jsonConverter = new StandardConverter();
 $claimCheckerManager = ClaimCheckerManager::create(
     [
         new Checker\IssuedAtChecker(),
@@ -37,6 +35,10 @@ When instantiated, call the method `check` to check the claims of a JWT object.
 This method only accept an array. You have to retrieve this array by converting the JWT payload.
 
 ```php
+use Jose\Component\Core\Converter\StandardConverter;
+
+$jsonConverter = new StandardConverter();
+
 $claims = $jsonConverter->decode($jwt->getPayload());
 $claimCheckerManager->check($claims);
 ```
@@ -47,7 +49,7 @@ Your application may use other claims that you will have to check therefore cust
 
 In this example, we will create a class that will check the claim `foo`.
 The claim accept only a string with the value `bar` or `bat`.
-All claim checker have to implement the interface `Jose\Component\Checker\ClaimCheckerInterface`;
+All claim checker have to implement the interface `Jose\Component\Checker\ClaimChecker`;
 
 ```php
 <?php
@@ -56,7 +58,8 @@ declare(strict_types=1);
 
 namespace Acme\Checker;
 
-use Jose\Component\Checker\ClaimCheckerInterface;
+use Jose\Component\Checker\ClaimChecker;
+use Jose\Component\Checker\InvalidClaimException;
 
 /**
  * Class FooChecker.
@@ -69,10 +72,10 @@ final class FooChecker implements ClaimCheckerInterface
     public function checkClaim($value)
     {
         if (!is_string($value)) { // If the value is not a string, then we throw an exception
-            throw new \InvalidArgumentException('The claim "foo" must be a string.');
+            throw new InvalidClaimException('The claim "foo" must be a string.', 'foo', $value);
         }
         if (!in_array($value, ['bar', 'bat'])) { // Check if the value is allowed
-            throw new \InvalidArgumentException('The claim "foo" must be "bar" or "bat".');
+            throw new InvalidClaimException('The claim "foo" must be "bar" or "bat".', 'foo', $value);
         }
     }
 
@@ -94,7 +97,7 @@ The [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3) allow
 This behaviour is very useful with encrypted tokens as it helps to reject invalid tokens without decryption of the payload.
 
 The Claim Checker Manager cannot check those replicated claims, you have to create a [custom header checker](../header_checker/index.md).
-However, to avoid duplicated classes, your claim checker can implement the `Jose\Component\Checker\HeaderCheckerInterface` interface.
+However, to avoid duplicated classes, your claim checker can implement the `Jose\Component\Checker\HeaderChecker` interface.
 
 Have a look at the `IssuedAtChecker` or the `NotBeforeChecker` classes.
 These checkers can be used for claim and header checks.
