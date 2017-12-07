@@ -1,22 +1,18 @@
-Key Sets Management (JWKSet)
-============================
+Key Set Management (JWKSet)
+===========================
 
 A JWKSet object represents a key set. It can contain several keys.
+This object is provided by the `web-token/jwt-core` component.
 
-```php
-<?php
-use Jose\Component\Core\JWKSet;
+You can create a JWKSet object using three static methods:
 
-$jwkset = JWKSet::createFromKeys([
-    $jwk1,
-    $jwk2,
-    $jwk3,
-]);
-```
+* `JWKSet::createFromKeys(array $keys)`: creates a JWKSet using a list of JWK objects.
+* `JWKSet::createFromJson(string $json)`: creates a JWKSet using a JSON object.
+* `JWKSet::createFromKeyData(array $values)`: creates a JWKSet using a decoded JSON object.
 
-*We recommend you to avoid mixing public, private or shared keys in the same key set*.
+Hereafter all methods available for a JWKSet object. The variable `$jwkset` is a valid JWKSet object.
 
-In the following examples, we have a `$jwkset` variable that is a valid key set. Available methods:
+**Please note a JWKSet object is an immutable object**
 
 ```php
 <?php
@@ -30,14 +26,14 @@ $jwkset->has('KEY ID');
 $jwkset->get('KEY ID');
 
 // Counts the keys in the key set.
-$jwkset->count();
+$jwkset->count(); // The method count($jwkset) has the same behaviour.
 
 // Adds a key to the key set.
-// /!\ This method will create a new key set. The previous key set is unchanged.
+// /!\ As the JWKSet object is immutable, this method will create a new key set. The previous key set is unchanged.
 $new_jwkset = $jwkset->with($jwk);
 
 // Removes a key to the key set.
-// /!\ This method will create a new key set. The previous key set is unchanged.
+// /!\ As the JWKSet object is immutable, this method will create a new key set. The previous key set is unchanged.
 $new_jwkset = $jwkset->without('KEY ID');
 
 // Selects a key according to the requirements.
@@ -45,4 +41,14 @@ $new_jwkset = $jwkset->without('KEY ID');
 // The second argument is the algorithm to be used (optional)
 // The third argument is an associative array this constraints (optional)
 $key = $jwkset->selectKey('sig', $algorithm, ['kid' => 'KEY ID']);
+
+// You can iterate on a key set
+foreach($jwkset as $kid => $jwk) {
+    // Action with the key done here
+}
+
+// The JWKSet object can be serialized into JSON
+json_encode($jwkset);
 ```
+
+*We recommend you to avoid mixing public, private or shared keys in the same key set*.
