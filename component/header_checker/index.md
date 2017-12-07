@@ -85,6 +85,7 @@ In the following example, we will check that the protected header parameter `cus
 namespace Acme\Checker;
 
 use Jose\Component\Checker\HeaderChecker;
+use Jose\Component\Checker\InvalidHeaderException;
 
 /**
  * Class CustomChecker.
@@ -94,7 +95,7 @@ final class CustomChecker implements HeaderChecker
     public function checkHeader($value)
     {
         if (!is_array($value) || !in_array($value, ['foo', 'bar'])) {
-            throw new \InvalidArgumentException('Invalid header "custom".');
+            throw new InvalidHeaderException('Invalid header "custom".', 'custom', $value);
         }
     }
 
