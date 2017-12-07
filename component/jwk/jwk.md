@@ -1,9 +1,15 @@
-Keys Management (JWK)
-=====================
+Key Management (JWK)
+====================
 
 A JWK object represents a key. It contains all parameters needed by the algorithm and also information parameters.
+This object is provided by the `web-token/jwt-core` component.
 
-In the following examples, we have a `$jwk` variable that is a valid key. Available methods:
+You can create a JWK object using two static methods:
+
+* `JWK::create(array $values)`: creates a JWK using direct values.
+* `JWK::createFromJson(string $json)`: creates a JWK using a JSON object.
+
+Hereafter all methods available for a JWK object. The variable `$jwk` is a valid JWK object.
 
 ```php
 <?php
@@ -18,17 +24,18 @@ $jwk->all();
 
 // Calculate the thumbprint of the key. Acceptable hash algorithms are those returned by the PHP function "hash_algos".
 $jwk->thumbprint('sha256');
+
+// If the key is a private key (RSA, EC, OKP), it can be converted into public:
+$public_key = $jwk->toPublic();
+
+// The JWK object can be serialized into JSON
+json_encode($jwk);
 ```
 
-This framework is able to create private and public keys easily.
-It can also generate those keys from external resources.
+# Generate A New Key
 
-Now let’s discover the `JWKFactory` object.
-
-## Generate A New Key
-
-The `JWKFactory` can generate random keys.
-This factory is available in the [`web-token/jwt-key-mgmt` component](https://github.com/web-token/jwt-key-mgmt).
+This framework is able to create private and public keys easily using the `JWKFactory`.
+It is available in the [`web-token/jwt-key-mgmt` component](https://github.com/web-token/jwt-key-mgmt).
 
 ```sh
 composer require web-token/jwt-key-mgmt
@@ -45,15 +52,9 @@ composer require web-token/jwt-key-mgmt
 
 *Note: for the `none` algorithm, the framework needs a key of type `none`. This is a specific key type that must only be used with this algorithm.*
 
-For all asymmetric keys, you will ALWAYS receive a private key. To convert this private key into a public one, you have to use the method `toPublic()`:
+For all asymmetric keys, you will ALWAYS receive a private key.
 
-```php
-<?php
-
-$public_key = $private_key->toPublic();
-```
-
-### Octet String
+## Octet String
 
 The following example will show you how to create an `oct` key.
 Additional parameters will be set to limit the scope of this key (e.g. signature/verification only with the `HS256` algorithm).
@@ -72,7 +73,7 @@ $key = JWKFactory::createOctKey(
 );
 ```
 
-### RSA Key Pair
+## RSA Key Pair
 
 The following example will show you how to create a `RSA` key.
 
@@ -89,7 +90,7 @@ $private_key = JWKFactory::createRSAKey(
     ]);
 ```
 
-### Elliptic Curve Key Pair
+## Elliptic Curve Key Pair
 
 The following example will show you how to create a `EC` key.
 
@@ -124,7 +125,7 @@ The supported curves are:
 * `Ed25519` for signature/verification only
 * `X25519` for encryption/decryption only
 
-### None Key
+## None Key
 
 The `none` key type is a special type used only for the `none` algorithm.
 
@@ -136,9 +137,9 @@ use Jose\Component\KeyManagement\JWKFactory;
 $key = JWKFactory::createNoneKey();
 ```
 
-## Create Key From External Sources
+# Create Key From External Sources
 
-### From Values
+## From Values
 
 In case you already have key values, you can create a key by passing those values as an argument:
 
@@ -157,7 +158,7 @@ $key = JWKFactory::createFromValues([
 ]);
 ```
 
-### From A Key File
+## From A Key File
 
 You can convert a PKCS#1 or PKCS#8 key file into a JWK.
 The following method supports PEM and DER formats. Encrypted keys are also supported.
@@ -176,7 +177,7 @@ $key = JWKFactory::createFromKeyFile(
 );
 ```
 
-### From A PKCS#12 Certificate
+## From A PKCS#12 Certificate
 
 You can convert a PKCS#12 Certificate into a JWK.
 Encrypted certificates are also supported.
@@ -195,7 +196,7 @@ $key = JWKFactory::createFromPKCS12CertificateFile(
 );
 ```
 
-### From A X.509 Certificate
+## From A X.509 Certificate
 
 You can convert a X.509 Certificate into a JWK.
 
