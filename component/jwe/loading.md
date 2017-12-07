@@ -1,10 +1,11 @@
-JWE Loading
-===========
+JWE Decryption
+==============
 
 Encrypted tokens are loaded by a serializer or the serializer manager and decrypted by the `JWEDecrypter` object.
 This JWEDecrypter object requires several services for the process:
-* an algorithm manager
-* a header checker manager
+* an algorithm manager with key encryption algorithms
+* an algorithm manager with content encryption algorithms
+* a compression method manager. No compression method is needed if you do not intent to compress the payload.
 
 In the following example, we will use the same assumptions as the ones used during the [JWS Creation process](creation.md).
 
@@ -12,15 +13,11 @@ In the following example, we will use the same assumptions as the ones used duri
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
-use Jose\Component\Core\JWK;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\Compression\CompressionMethodManager;
 use Jose\Component\Encryption\Compression\Deflate;
 use Jose\Component\Encryption\JWEDecrypter;
-use Jose\Component\Encryption\Serializer\JWESerializerManager;
-use Jose\Component\Encryption\Serializer\CompactSerializer;
 
 // The key encryption algorithm manager with the A256KW algorithm.
 $keyEncryptionAlgorithmManager = AlgorithmManager::create([
@@ -37,6 +34,25 @@ $compressionMethodManager = CompressionMethodManager::create([
     new Deflate(),
 ]);
 
+// We instantiate our JWE Decrypter.
+$jweDecrypter = new JWEDecrypter(
+    $keyEncryptionAlgorithmManager,
+    $contentEncryptionAlgorithmManager,
+    $compressionMethodManager
+);
+```
+
+Now we can try to deserialize and decrypt the input we receive.
+We will continue with the result we got during the JWE creation section.
+
+**Note: we do not check header parameters here, but it is very important to do it. This step is described in the Header Checker section.**
+
+```php
+use Jose\Component\Core\Converter\StandardConverter;
+use Jose\Component\Core\JWK;
+use Jose\Component\Encryption\Serializer\JWESerializerManager;
+use Jose\Component\Encryption\Serializer\CompactSerializer;
+
 // Our key.
 $jwk = JWK::create([
     'kty' => 'oct',
@@ -46,22 +62,11 @@ $jwk = JWK::create([
 // The JSON Converter.
 $jsonConverter = new StandardConverter();
 
-// The serializer manager. We only use the JWS Compact Serialization Mode.
+// The serializer manager. We only use the JWE Compact Serialization Mode.
 $serializerManager = JWESerializerManager::create([
     new CompactSerializer($jsonConverter),
 ]);
 
-// We instantiate our JWE Decrypter.
-$jweDecrypter = new JWEDecrypter(
-    $keyEncryptionAlgorithmManager,
-    $contentEncryptionAlgorithmManager,
-    $compressionMethodManager
-);
-```
-
-Now we can use it with the input we receive. We will continue with the result we got during the JWS creation section.
-
-```php
 // The input we want to decrypt
 $token = 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9RLpf3Gauf05QPNCMzPcH4XNBLmH0s3e-YWwOe57MTG844gnc-g2ywfXt_R0Q9qsR6WhkmQEhdLk2CBvfqr4ob4jFlvJK0yW.CCvfoTKO9tQlzCvbAuFAJg.PxrDlsbSRcxC5SuEJ84i9E9_R3tCyDQsEPTIllSCVxVcHiPOC2EdDlvUwYvznirYP6KMTdKMgLqxB4BwI3CWtys0fceSNxrEIu_uv1WhzJg.4DnyeLEAfB4I8Eq0UobnP8ymlX1UIfSSADaJCXr3RlU';
 
