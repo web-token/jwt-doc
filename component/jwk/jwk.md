@@ -32,6 +32,8 @@ $public_key = $jwk->toPublic();
 json_encode($jwk);
 ```
 
+**Please note a JWK object is an immutable object**
+
 # Generate A New Key
 
 This framework is able to create private and public keys easily using the `JWKFactory`.
