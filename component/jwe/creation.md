@@ -4,15 +4,18 @@ JWE Creation
 We suppose here that you have an algorithm manager and a key.
 
 The computation of a JWE is done by the `JWEBuilder` object.
-This object requires the algorithm manager and a JSON converter.
-In the following example, we will use the standard converter provided by the framework.
+This object requires the following services:
+
+* an algorithm manager with key encryption algorithms
+* an algorithm manager with content encryption algorithms
+* a compression method manager. No compression method is needed if you do not intent to compress the payload
+* and a JSON converter.
 
 ```php
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\Converter\StandardConverter;
-use Jose\Component\Core\JWK;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\Compression\CompressionMethodManager;
@@ -34,12 +37,6 @@ $compressionMethodManager = CompressionMethodManager::create([
     new Deflate(),
 ]);
 
-// Our key.
-$jwk = JWK::create([
-    'kty' => 'oct',
-    'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
-]);
-
 // The JSON Converter.
 $jsonConverter = new StandardConverter();
 
@@ -55,6 +52,14 @@ $jweBuilder = new JWEBuilder(
 Now let's create our first JWE object.
 
 ```php
+use Jose\Component\Core\JWK;
+
+// Our key.
+$jwk = JWK::create([
+    'kty' => 'oct',
+    'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
+]);
+
 // The payload we want to encrypt. The payload MUST be a string hence we use our JSON Converter.
 $payload = $jsonConverter->encode([
     'iat' => time(),
