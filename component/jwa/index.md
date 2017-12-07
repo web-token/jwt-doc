@@ -45,6 +45,8 @@ this framework provides an **Algorithm Manager Factory**.
 
 This factory will create algorithm managers on demand. It also allows the same algorithm to be instantiated multiple times but with different configuration options.
 
+Each algorithm is identified using an alias. We recommend to use the algorithm name as an alias.
+
 ```php
 <?php
 
