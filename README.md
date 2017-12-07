@@ -1,6 +1,7 @@
 This document is available online at [https://web-token.spomky-labs.com](https://web-token.spomky-labs.com).
 
-# JWT Framework
+JWT Framework
+=============
 
 This framework provides an implementation of:
 
@@ -12,7 +13,7 @@ This framework provides an implementation of:
 * JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)).
 * Unencoded Payload Option [RFC7797](https://tools.ietf.org/html/rfc7797).
 
-This framework is not just a library, it contains Symfony bundles for an easy integration into your application.
+This framework is not just a library, it also contains a Symfony bundle for an easy integration into your application.
 It also provides a standalone console command that will help you to manager your keys and key sets. 
 
 # Provided Features

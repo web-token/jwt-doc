@@ -1,10 +1,15 @@
-The Bundles
-===========
+The Jose Framework Bundle
+=========================
 
 This framework provides a Symfony bundle that will help you to use the components within your Symfony application.
+The bundle is available
 
-If you are using Symfony Flex, there is nothing to do, otherwise you have to enable the bundle in your kernel file
- 
+* when you just install the bundle (`composer require web-token/jwt-bundle`)
+* when you install the whole framework (`composer require web-token/jwt-framework`)
+
+If you just install the bundle on an application with Symfony Flex support, then there is nothing to do.
+Otherwise, you have to register the bundle:
+
 ```php
 /**
  * {@inheritdoc}
