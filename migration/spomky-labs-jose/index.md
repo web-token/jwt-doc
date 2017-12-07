@@ -1,10 +1,7 @@
 Spomky-Labs/Jose Migration
 ==========================
 
-This project is based on the [spomky-labs/jose](https://github.com/Spomky-Labs/jose) and [spomky-labs/jose-bundle](https://github.com/Spomky-Labs/jose-bundle).
-
-All components are now split in several sub-repositories.
-You can either install only the components you need or install the whole framework. 
+The following pages will help you to migrate from [spomky-labs/jose](https://github.com/Spomky-Labs/jose) and [spomky-labs/jose-bundle](https://github.com/Spomky-Labs/jose-bundle) to that new framework.
 
 * [Keys (JWK)](jwk.md)
 * [Key Sets (JWKSet)](jwkset.md)
