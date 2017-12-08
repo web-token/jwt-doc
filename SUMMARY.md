@@ -17,6 +17,7 @@
     * [JWE Creation](component/jwe/creation.md)
     * [JWE Loading](component/jwe/loading.md)
 * [Symfony Bundle](bundle/index.md)
+  * [Algorithm Management](bundle/jwa/index.md)
   * [Key and Key Set Management](bundle/jwk/index.md)
     * [Key Management (JWK)](bundle/jwk/keys.md)
     * [Key Set Management (JWKSet)](bundle/jwk/keysets.md)
