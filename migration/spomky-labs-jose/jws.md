@@ -7,7 +7,7 @@ Claim and header checkers are decoupled and can be found in the checker componen
 Why are signature and checker components not together? The main reason is that when you issue signed tokens, you do not need any checker.
 Those components are decoupled to avoid the installation of unnecessary files.
 
-The signature and loading processes have been completely reviewed.
+**The signature and loading processes have been completely reviewed.**
 
 In the examples below, we suppose we already have a JWK object (`$key`).
 
