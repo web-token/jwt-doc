@@ -37,7 +37,9 @@
   * [PHAR Application](console/phar.md)
 * [Security Recommendations](security/index.md)
 * [Advanced Topics](advanced/index.md)
+  * [Nested Tokens](advanced/nested_tokens.md)
   * [Serialization](advanced/serialization.md)
+  * [Custom Algorithm](advanced/custom_algorithm.md)
   * Signed tokens and
       * [Unprotected Header](advanced/jws/unprotected_header.md)
       * [Multiple Signatures](advanced/jws/multiple_signatures.md)

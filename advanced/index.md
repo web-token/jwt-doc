@@ -2,6 +2,8 @@ Advanced Topics
 ===============
 
 * [Serialization](serialization.md)
+* [Nested Tokens](nested_tokens.md)
+* [Custom Algorithm](custom_algorithm.md)
 * Signed tokens and
     * [Unprotected Header](jws/unprotected_header.md)
     * [Multiple Signatures](jws/multiple_signatures.md)
