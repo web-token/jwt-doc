@@ -94,3 +94,18 @@ jose:
                 key_set: 'jose.key_set.my_key_set' # JWKSet service
                 index: 0 # Use key at index 0
 ```
+
+# Custom Tags
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jwe:
+        key_name:
+            jwk: # Method
+                value: '{"kty":"oct","k":"dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g"}'
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```

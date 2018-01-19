@@ -46,3 +46,18 @@ with selected serialization modes.
 <?php
 $jwsSerializerManager = $container->get('jose.jws_serializer.serializer1');
 ```
+
+# Custom Tags
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jws:
+        serializers:
+            serializer1:
+                serializers: ['jws_compact']
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```

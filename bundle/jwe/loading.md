@@ -44,3 +44,20 @@ with selected encryption algorithms.
 <?php
 $jweDecrypter = $container->get('jose.jwe_decrypter.decrypter1');
 ```
+
+# Custom Tags
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jwe:
+        decrypters:
+            decrypter1:
+                key_encryption_algorithms: ['A256GCMKW']
+                content_encryption_algorithms: ['A256CBC-HS256']
+                compression_methods: ['DEF']
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```

@@ -42,3 +42,18 @@ with selected signature algorithms.
 <?php
 $jwsVerifier = $container->get('jose.jws_verifier.verifier1');
 ```
+
+# Custom Tags
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jws:
+        verifiers:
+            verifier1:
+                signature_algorithms: ['HS256', 'RS256', 'ES256']
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```

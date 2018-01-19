@@ -64,3 +64,18 @@ services
 
 These checkers will be loaded by the factories and you will be able to create a header or a claim checker manager using the aliases 
 `foo` or `bar`.
+
+# Custom Tags
+
+You can add custom tags and attributes to the header and claim checker managers.
+
+```yaml
+jose:
+    checkers:
+        claims:
+            checker1:
+                claims: [...]
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```
