@@ -7,7 +7,7 @@ This JWEDecrypter object requires several services for the process:
 * an algorithm manager with content encryption algorithms
 * a compression method manager. No compression method is needed if you do not intent to compress the payload.
 
-In the following example, we will use the same assumptions as the ones used during the [JWS Creation process](creation.md).
+In the following example, we will use the same assumptions as the ones used during the [JWE Creation process](creation.md).
 
 ```php
 <?php
@@ -48,6 +48,8 @@ We will continue with the result we got during the JWE creation section.
 **Note: we do not check header parameters here, but it is very important to do it. This step is described in the Header Checker section.**
 
 ```php
+<?php
+
 use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Encryption\Serializer\JWESerializerManager;
@@ -78,3 +80,58 @@ $jwe = $jweDecrypter->decryptUsingKey($jwe, $jwk);
 ```
 
 OK so if not exception is thrown, then your token is loaded and the payload correctly decrypted.
+
+# JWELoader Object
+
+To avoid duplication of code lines, you can create a `JWELoader` object.
+This object contains a serializer, a decrypter and an optional header checker (highly recommended).
+
+In the following example, the `JWELoader` object will try to unserialize the token `$token`, check the header parameters and decrypt with the key `$key`.
+
+If the decryption succeeded, the variable `$recipient` will be set with the recipient index and should be in case of multiple recipients.
+The method returns the JWE object.
+
+```php
+<?php
+
+use Jose\Component\Encryption\JWELoader;
+
+$jweLoader = new JWELoader(
+    $serializerManager,
+    $jweDecrypter,
+    $headerCheckerManager
+);
+
+$jwe = $jweLoader->loadAndDecryptWithKey($token, $key, $recipient);
+```
+
+In case you use a key set, you can use the method `loadAndDecryptWithKeySet`.
+
+# JWELoaderFactory Object
+
+The `JWELoaderFactory` object is able to create `JWELoader` objects on demand.
+It requires the following factories:
+
+* `JWESerializerManagerFactory`
+* `JWEDecrypterFactory`
+* `HeaderCheckerManagerFactory` (optional)
+
+```php
+<?php
+
+use Jose\Component\Encryption\JWELoaderFactory;
+
+$jweLoaderFactory = new JWELoaderFactory(
+    $jweSerializerManagerFactory,
+    $jweDecrypterFactory,
+    $headerCheckerManagerFactory
+);
+
+$jweLoader = $jweLoaderFactory->create(
+    ['jwe_compact'], // List of serializer aliases
+    ['A128KW'],      // List of key encryption algorithm aliases
+    ['A128KW'],      // List of content encryption algorithm aliases
+    ['DEF'],         // List of compression method aliases
+    ['alg', 'enc']   // Optional list of header checker aliases
+);
+```
