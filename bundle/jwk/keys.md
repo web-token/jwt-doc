@@ -24,6 +24,21 @@ Each key service will be an instance of the `Jose\Component\Core\JWK` class.
 
 As any other configuration values, you can use environment variables.
 
+## From A JWK From A Shared Secret
+
+This method will directly get a shared secret.
+
+```yaml
+jose:
+    keys:
+        key_name:
+            secret: # Method
+                secret: 'This is my shared secret'
+                additional_values:
+                    use: 'sig'
+                    alg: 'RS512'
+```
+
 ## From A JWK Object
 
 This method will directly get a JWK object.

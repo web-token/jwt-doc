@@ -75,6 +75,22 @@ $key = JWKFactory::createOctKey(
 );
 ```
 
+If you already have a shared secret, you can use it to create an `oct` key:
+
+```php
+<?php
+
+use Jose\Component\KeyManagement\JWKFactory;
+
+$jwk = JWKFactory::createFromSecret(
+    'My Secret Key',       // The shared secret
+    [                      // Optional additional members
+        'alg' => 'HS256',
+        'use' => 'sig'
+    ]
+);
+```
+
 ## RSA Key Pair
 
 The following example will show you how to create a `RSA` key.
