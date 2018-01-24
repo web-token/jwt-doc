@@ -44,9 +44,15 @@ When done, you have to create a client and enable the JKU Factory service by ind
 
 ```yaml
 httplug: # Example of client configuration
+    plugins:
+        cache: # We use the cache plugin
+            cache_pool: 'cache.app' # We use the PSR-6 Cache service of the application
+            config:
+                default_ttl: 1800 # TTL set to 30 min
     clients:
         acme:
             factory: 'httplug.factory.guzzle6'
+            plugins: ['httplug.plugin.cache'] # We enable the cache plugin for that client.
             
 jose:
     jku_factory:
