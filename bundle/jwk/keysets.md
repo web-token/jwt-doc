@@ -117,6 +117,8 @@ Now went you go to the URL `http://128.0.0.1:8000/certs`, you will get your key 
 
 # Custom Tags
 
+> This feature was introduced in version 1.1.
+
 You can add custom tags and attributes to the services you create.
 
 ```yaml

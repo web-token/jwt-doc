@@ -67,6 +67,8 @@ These checkers will be loaded by the factories and you will be able to create a 
 
 # Custom Tags
 
+> This feature was introduced in version 1.1.
+
 You can add custom tags and attributes to the header and claim checker managers.
 
 ```yaml

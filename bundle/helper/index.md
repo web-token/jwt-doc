@@ -77,6 +77,8 @@ jose:
                     tag_name2: {attribute1: 'foo'}
 ```
 
+> Please note that the tags have been introduced in version 1.1.
+
 Other methods are:
 
 * For the `jws` section:

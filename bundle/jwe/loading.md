@@ -47,6 +47,8 @@ $jweDecrypter = $container->get('jose.jwe_decrypter.decrypter1');
 
 # Custom Tags
 
+> This feature was introduced in version 1.1.
+
 You can add custom tags and attributes to the services you create.
 
 ```yaml
