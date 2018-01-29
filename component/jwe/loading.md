@@ -109,6 +109,8 @@ In case you use a key set, you can use the method `loadAndDecryptWithKeySet`.
 
 # JWELoaderFactory Object
 
+> This feature was introduced in version 1.1.
+
 The `JWELoaderFactory` object is able to create `JWELoader` objects on demand.
 It requires the following factories:
 

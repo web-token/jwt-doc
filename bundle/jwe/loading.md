@@ -47,6 +47,8 @@ $jweDecrypter = $container->get('jose.jwe_decrypter.decrypter1');
 
 #JWE Loader Service
 
+> This feature was introduced in version 1.1.
+
 The [`JWELoaderFactory`](../../component/jwe/loading.md) is available as a public service. You can retrieve it using the container or inject it into your services.
 It will help you to create `JWELoader` objects on demand.
 

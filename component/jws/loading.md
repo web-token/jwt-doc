@@ -85,6 +85,8 @@ In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
 
 # JWSLoaderFactory Object
 
+> This feature was introduced in version 1.1.
+
 The `JWSLoaderFactory` object is able to create `JWSLoader` objects on demand.
 It requires the following factories:
 
