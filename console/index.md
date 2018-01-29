@@ -120,6 +120,8 @@ This key type is only used by the `none` algorithm. Key parameters `alg` and `us
 
 #### From An Existing Secret
 
+> This feature was introduced in version 1.1.
+
 If you already have a secret, you can use it to create an octet key (`oct`).
 
 ```sh

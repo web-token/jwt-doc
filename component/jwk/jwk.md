@@ -75,6 +75,8 @@ $key = JWKFactory::createOctKey(
 );
 ```
 
+> The following feature was introduced in version 1.1.
+
 If you already have a shared secret, you can use it to create an `oct` key:
 
 ```php

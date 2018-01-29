@@ -26,6 +26,8 @@ As any other configuration values, you can use environment variables.
 
 ## From A JWK From A Shared Secret
 
+> This feature was introduced in version 1.1.
+
 This method will directly get a shared secret.
 
 ```yaml
