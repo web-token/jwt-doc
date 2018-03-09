@@ -42,6 +42,23 @@ $headerCheckerManager = HeaderCheckerManager::create(
 );
 ```
 
+The usage of this class is pretty easy you just have to call the `check` method.
+The first parameter is the JWT to check, the second one is the index of the signature/recipient.
+
+```php
+$headerCheckerManager->check($jwt, 0);
+```
+
+In some cases, it could be interesting to reject tokens that do not contain some mandatory header parameters.
+A list of mandatory parameters can be set as third argument. If one of those parameters is missing an exception is thrown,
+even if that header parameter have not been checked.
+
+In the following example, an exception will be thrown if the `alg`, `enc` or `crit` parameters is missing.
+
+```php
+$headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
+```
+
 # Header Checker Manager Factory
 
 The Header Checker Manager Factory will help you to create as many Header Checker Manager as you want to fit on your application requirements.
