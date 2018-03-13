@@ -38,10 +38,18 @@ final class AcmeExtension extends Extension implements PrependExtensionInterface
 Let say you want to create a JWK as a service:
 
 ```php
-ConfigurationHelper::addKey($container, 'acme_my_key', 'jwk', [
-    'value' => '{"kty":"oct","k":"dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g"}',
-    'is_public' => true,
-]);
+ConfigurationHelper::addKey(
+    $container,
+    'acme_my_key',
+    'jwk', [
+        'value' => '{"kty":"oct","k":"dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g"}',
+        'is_public' => true,
+    ],
+    [
+        'tag_name1' => [],
+        'tag_name2' => ['attribute1' => 'foo'],
+    ]
+);
 ```
 
 For the key configuration, the arguments are:
@@ -50,6 +58,7 @@ For the key configuration, the arguments are:
 * The name of the service (`acme_my_key`)
 * The key type (`jwk`)
 * An array with the expected values
+* An array with the custom tags (optional)
 
 Now a key service named `jose.key.acme_my_key` will be created. This service is public so you will be able to get it from your container
 or inject it to your services.
@@ -63,26 +72,31 @@ jose:
             jwk:
                 value: '{"kty":"oct","k":"dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g"}'
                 is_public: true
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
 ```
+
+> Please note that the tags have been introduced in version 1.1.
 
 Other methods are:
 
 * For the `jws` section:
-    * `public static function addJWSBuilder(ContainerBuilder $container, string $name, array $signatureAlgorithms, bool $is_public = true)`
-    * `public static function addJWSVerifier(ContainerBuilder $container, string $name, array $signatureAlgorithms, bool $is_public = true)`
-    * `public static function addJWSSerializer(ContainerBuilder $container, string $name, array $serializers, bool $is_public = true)`
+    * `public static function addJWSBuilder(ContainerBuilder $container, string $name, array $signatureAlgorithms, bool $is_public = true, array $tags = [])`
+    * `public static function addJWSVerifier(ContainerBuilder $container, string $name, array $signatureAlgorithms, bool $is_public = true, array $tags = [])`
+    * `public static function addJWSSerializer(ContainerBuilder $container, string $name, array $serializers, bool $is_public = true, array $tags = [])`
 * For the `jwe` section:
-    * `public static function addJWEBuilder(ContainerBuilder $container, string $name, array $keyEncryptionAlgorithm, array $contentEncryptionAlgorithms, array $compressionMethods = ['DEF'], bool $is_public = true)`
-    * `public static function addJWEDecrypter(ContainerBuilder $container, string $name, array $keyEncryptionAlgorithm, array $contentEncryptionAlgorithms, array $compressionMethods = ['DEF'], bool $is_public = true)`
-    * `public static function addJWESerializer(ContainerBuilder $container, string $name, array $serializers, bool $is_public = true)`
+    * `public static function addJWEBuilder(ContainerBuilder $container, string $name, array $keyEncryptionAlgorithm, array $contentEncryptionAlgorithms, array $compressionMethods = ['DEF'], bool $is_public = true, array $tags = [])`
+    * `public static function addJWEDecrypter(ContainerBuilder $container, string $name, array $keyEncryptionAlgorithm, array $contentEncryptionAlgorithms, array $compressionMethods = ['DEF'], bool $is_public = true, array $tags = [])`
+    * `public static function addJWESerializer(ContainerBuilder $container, string $name, array $serializers, bool $is_public = true, array $tags = [])`
 * For the `checker` section:
-    * `public static function addClaimChecker(ContainerBuilder $container, string $name, array  $claimCheckers, bool $is_public = true)`
-    * `public static function addHeaderChecker(ContainerBuilder $container, string $name, array  $headerCheckers, bool $is_public = true)`
+    * `public static function addClaimChecker(ContainerBuilder $container, string $name, array  $claimCheckers, bool $is_public = true, array $tags = [])`
+    * `public static function addHeaderChecker(ContainerBuilder $container, string $name, array  $headerCheckers, bool $is_public = true, array $tags = [])`
 * For the `keys` section:
-    * `public static function addKey(ContainerBuilder $container, string $name, string $type, array  $parameters)`
+    * `public static function addKey(ContainerBuilder $container, string $name, string $type, array  $parameters, array $tags = [])`
 * For the `key_sets` section:
-    * `public static function addKeyset(ContainerBuilder $container, string $name, string $type, array  $parameters)`
+    * `public static function addKeyset(ContainerBuilder $container, string $name, string $type, array  $parameters, array $tags = [])`
 * For the `jwk_uris` section:
-    * `public static function addKeyUri(ContainerBuilder $container, string $name, array $parameters)`
+    * `public static function addKeyUri(ContainerBuilder $container, string $name, array $parameters, array $tags = [])`
 
 Have a look at [the `spomky-labs/lexik-jose-bridge` extension](https://github.com/Spomky-Labs/lexik-jose-bridge/blob/v2.0/DependencyInjection/SpomkyLabsLexikJoseExtension.php#L78) to see how we configure the Jose Bundle without dedicated configuration

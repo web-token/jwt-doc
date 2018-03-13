@@ -53,3 +53,21 @@ with selected encryption algorithms.
 $jweBuilder = $container->get('jose.jwe_builder.builder1');
 ```
 
+# Custom Tags
+
+> This feature was introduced in version 1.1.
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jwe:
+        builders:
+            builder1:
+                key_encryption_algorithms: ['A256GCMKW']
+                content_encryption_algorithms: ['A256CBC-HS256']
+                compression_methods: ['DEF']
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```

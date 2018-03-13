@@ -120,3 +120,20 @@ jose:
 ```
 
 Now went you go to the URL `http://128.0.0.1:8000/certs`, you will get your key set.
+
+# Custom Tags
+
+> This feature was introduced in version 1.1.
+
+You can add custom tags and attributes to the services you create.
+
+```yaml
+jose:
+    jwe:
+        key_name:
+            jku: # Method
+                url: 'https://login.microsoftonline.com/common/discovery/keys'
+                tags:
+                    tag_name1: ~
+                    tag_name2: {attribute1: 'foo'}
+```
