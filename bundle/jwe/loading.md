@@ -44,3 +44,41 @@ with selected encryption algorithms.
 <?php
 $jweDecrypter = $container->get('jose.jwe_decrypter.decrypter1');
 ```
+
+#JWE Loader Service
+
+> This feature was introduced in version 1.1.
+
+The [`JWELoaderFactory`](../../component/jwe/loading.md) is available as a public service. You can retrieve it using the container or inject it into your services.
+It will help you to create `JWELoader` objects on demand.
+
+```php
+<?php
+use Jose\Component\Encryption\JWELoaderFactory;
+
+$jweLoaderFactory = $container->get(JWELoaderFactory::class);
+```
+
+You can also create `JWELoader` objects as services using the configuration of the bundle.
+
+```yaml
+jose:
+    jwe:
+        loaders:
+            jwe_loader1:
+                key_encryption_algorithms: ['A256GCMKW']
+                content_encryption_algorithms: ['A256CBC-HS256']
+                compression_methods: ['DEF']
+                header_checkers: ['alg', 'enc']
+                is_public: true
+```
+
+Or using the [`ConfigurationHelper`](../helper/index.md).
+
+```php
+<?php
+use Jose\Bundle\JoseFramework\Helper\ConfigurationHelper;
+
+...
+ConfigurationHelper::addJWELoader($container, 'jwe_loader1', ['jwe_compact'], ['A256GCMKW'], ['A256CBC-HS256'], ['DEF'], ['alg', 'enc'], true);
+```

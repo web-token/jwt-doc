@@ -4,6 +4,8 @@ JWS Loading
 Signed tokens are loaded by a serializer or the serializer manager and verified by the `JWSVerifier` object.
 This JWSVerifier object just requires an algorithm manager.
 
+# Serializer And Verifier
+
 In the following example, we will try to load a signed token. We will only use the `HS256` algorithm.
 
 ```php
@@ -30,6 +32,8 @@ We will continue with the data we got in the JWS creation section.
 **Note: we do not check header parameters here, but it is very important to do it. This step is described in the Header Checker section.**
 
 ```php
+<?php
+
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
@@ -51,3 +55,59 @@ $jwsVerifier->verifyWithKey($jws, $jwk);
 ```
 
 OK so if not exception is thrown, then your token signature is valid. You can then check the claims (if any) using the claim checker manager.
+
+# JWSLoader Object
+
+To avoid duplication of code lines, you can create a `JWSLoader` object.
+This object contains a serializer, a verifier and an optional header checker (highly recommended).
+
+In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$key`.
+The variable `$payload` corresponds to the detached payload (`null` by default).
+
+If the verification succeeded, the variable `$signautre` will be set with the signature index and should be in case of multiple signatures.
+The method returns the JWS object.
+
+```php
+<?php
+
+use Jose\Component\Signature\JWSLoader;
+
+$jwsLoader = new JWSLoader(
+    $serializerManager,
+    $jwsVerifier,
+    $headerCheckerManager
+);
+
+$jws = $jwsLoader->loadAndVerifyWithKey($token, $key, $signature, $payload);
+```
+
+In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
+
+# JWSLoaderFactory Object
+
+> This feature was introduced in version 1.1.
+
+The `JWSLoaderFactory` object is able to create `JWSLoader` objects on demand.
+It requires the following factories:
+
+* `JWSSerializerManagerFactory`
+* `JWSVerifierFactory`
+* `HeaderCheckerManagerFactory` (optional)
+
+```php
+<?php
+
+use Jose\Component\Signature\JWSLoaderFactory;
+
+$jwsLoaderFactory = new JWSLoaderFactory(
+    $jwsSerializerManagerFactory,
+    $jwsVerifierFactory,
+    $headerCheckerManagerFactory
+);
+
+$jwsLoader = $jwsLoaderFactory->create(
+    ['jws_compact'], // List of serializer aliases
+    ['HS256'],       // List of signature algorithm aliases
+    ['alg']          // Optional list of header checker aliases
+);
+```
