@@ -118,6 +118,22 @@ This key type is only used by the `none` algorithm. Key parameters `alg` and `us
 {"kty":"none","use":"sig","alg":"none"}
 ```
 
+#### From An Existing Secret
+
+> This feature was introduced in version 1.1.
+
+If you already have a secret, you can use it to create an octet key (`oct`).
+
+```sh
+./jose.phar key:generate:from_secret "This is my secret"
+```
+
+In case your secret is  binary string, you will have to encode it first (Base64) and indicate it is encoded.
+
+```sh
+./jose.phar key:generate:from_secret "VGhpcyBpcyBteSBzZWNyZXQ=" --is_b64
+```
+
 ### Key Loaders
 
 The key loader commands will loader keys from various sources.

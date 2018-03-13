@@ -34,6 +34,7 @@ $claimCheckerManager = ClaimCheckerManager::create(
 When instantiated, call the method `check` to check the claims of a JWT object.
 This method only accept an array. You have to retrieve this array by converting the JWT payload.
 
+
 ```php
 use Jose\Component\Core\Converter\StandardConverter;
 
@@ -41,6 +42,16 @@ $jsonConverter = new StandardConverter();
 
 $claims = $jsonConverter->decode($jwt->getPayload());
 $claimCheckerManager->check($claims);
+```
+
+In some cases, it could be interesting to reject tokens that do not contain some mandatory claims.
+A list of mandatory claims can be set as second argument. If one of those claims is missing an exception is thrown,
+even if the claim have not been checked.
+
+In the following example, an exception will be thrown if the `iss`, `sub` or `aud` claim is missing.
+
+```php
+$claimCheckerManager->check($claims, ['iss', 'sub', 'aud']);
 ```
 
 # Custom Claim Checker
