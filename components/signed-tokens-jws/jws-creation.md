@@ -2,7 +2,7 @@
 
 Now that you have an algorithm manager and a key, it is time to create your first signed token.
 
-This is done by the `JWSBuilder` object. This object requires the algorithm manager and a JSON converter. In the following example, we will use the standard converter provided by the framework.
+The computation is done by the `JWSBuilder` object. This object requires the algorithm manager and a JSON converter. In the following example, we will use the standard converter provided by the framework.
 
 ```php
 <?php
@@ -66,4 +66,6 @@ $token = $serializer->serialize($jws, 0); // We serialize the signature at index
 ```
 
 All good! The variable `$token` now contains a string that should be something like that: `eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZXhwIjoxNTA3OTAwNTkyLCJpc3MiOiJNeSBzZXJ2aWNlIiwiYXVkIjoiWW91ciBhcHBsaWNhdGlvbiJ9.eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0`.
+
+Other serialization modes exist. We will see them in the Advanced Topics section.
 
