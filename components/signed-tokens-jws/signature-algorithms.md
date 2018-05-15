@@ -1,8 +1,6 @@
 # Signature Algorithms
 
-## Signature Algorithms
-
-## Available Algorithms
+## Available Signature Algorithms
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
