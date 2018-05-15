@@ -53,7 +53,7 @@ $jws = $serializerManager->unserialize($token);
 $jwsVerifier->verifyWithKey($jws, $jwk);
 ```
 
-OK so if not exception is thrown, then your token signature is valid. You can then check the claims \(if any\) using the claim checker manager.
+OK so if no exception is thrown, then your token signature is valid. You can then check the claims \(if any\) using the claim checker manager.
 
 ## JWSLoader Object
 
@@ -61,7 +61,7 @@ To avoid duplication of code lines, you can create a `JWSLoader` object. This ob
 
 In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$key`. The variable `$payload` corresponds to the detached payload \(`null` by default\).
 
-If the verification succeeded, the variable `$signautre` will be set with the signature index and should be in case of multiple signatures. The method returns the JWS object.
+If the verification succeeded, the variable `$signature` will be set with the signature index and should be in case of multiple signatures. The method returns the JWS object.
 
 ```php
 <?php
