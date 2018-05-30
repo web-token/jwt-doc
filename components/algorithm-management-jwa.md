@@ -35,14 +35,14 @@ _It is not possible to set the same algorithm twice in the same algorithm manage
 
 Your application may need several algorithm managers for several use cases. Let say:
 
-* Your application issues signed events to a platform
-* Your application issues authentication tokens for registered users.  
+* Your application issues signed events,
+* Your application issues authentication tokens for registered users or a resource server.
 
 To avoid mixing algorithms in one algorithm manager or instantiate several times the algorithms for several algorithm managers, this framework provides an **Algorithm Manager Factory**.
 
 This factory will create algorithm managers on demand. It also allows the same algorithm to be instantiated multiple times but with different configuration options.
 
-Each algorithm is identified using an alias. We recommend to use the algorithm name as an alias.
+Each algorithm is identified using an alias.
 
 ```php
 <?php
@@ -61,9 +61,11 @@ $algorithm_manager_factory
 ;
 ```
 
-The first argument of the method `add` is the alias for the algorithm. **It must be unique**. As you can see in the example, we added the algorithm `PBES2-HS512+A256KW` twice: with the default configuration and with custom arguments.
+The first argument of the method `add` is the alias for the algorithm. **It must be unique**. In general, this alias corresponds to the algorithm name.
 
-Now that our algorithm manager factory is ready, we can create several algorithm managers by passing a list of aliases to the method `create`:
+As you can see in the example, we added the algorithm `PBES2-HS512+A256KW` twice: with the default configuration and with custom arguments.
+
+Now our algorithm manager factory is ready. We can create several algorithm managers by passing a list of aliases to the method `create`:
 
 ```php
 <?php
