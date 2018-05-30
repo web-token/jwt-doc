@@ -4,26 +4,35 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-* HMAC with SHA-2 Functions
+_From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
+
+* HMAC with SHA-2 Functions. Package `web-token/jwt-signature-algorithm-hmac`
   * `HS256`
   * `HS384`
   * `HS512`
-* Elliptic Curve Digital Signature Algorithm \(ECDSA\)
+* Elliptic Curve Digital Signature Algorithm \(ECDSA\). Package `web-token/jwt-signature-algorithm-ecdsa`
   * `ES256`
   * `ES384`
   * `ES512`
-* RSASSA-PKCS1 v1\_5
+* RSASSA-PKCS1 v1\_5. Package `web-token/jwt-signature-algorithm-rsa`
   * `RS256`
   * `RS384`
   * `RS512`
-* RSASSA-PSS
+* RSASSA-PSS. Package `web-token/jwt-signature-algorithm-rsa`
   * `PS256`
   * `PS384`
   * `PS512`
-* Edwards-curve Digital Signature Algorithm \(EdDSA\)
+* Edwards-curve Digital Signature Algorithm \(EdDSA\) Package `web-token/jwt-signature-algorithm-eddsa`
   * `EdDSA` \(_only with the_ `Ed25519` _curve_\)
-* Unsecured algorithm
+* Unsecured algorithm Package `web-token/jwt-signature-algorithm-none`
   * `none`
+
+**The following signature algorithms are experimental and must not be used in production unless you know what you are doing. They are proposed for testing purpose only.**
+
+They are all part of the package `web-token/jwt-signature-algorithm-experimental`
+
+* `RS1`: RSASSA-PKCS1 v1\_5 with SHA-1 hashing function.
+* `HS1`: HMAC with SHA-1 hashing function.
 
 ## How To Use
 
