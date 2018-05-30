@@ -19,5 +19,5 @@ $jws = $jwsBuilder
     ->build();
 ```
 
-_As a remainder, both _`b64`_ and _`crit`_ parameters MUST be in the protected header._
+_As a remainder, both_ `b64` _and_ `crit` _parameters MUST be in the protected header._
 

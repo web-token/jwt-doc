@@ -41,5 +41,5 @@ $checkerManager->add(new AudienceChecker('My Service'));
 $checkerManager->addTokenTypeSupport(new TokenSupport());
 ```
 
-_Please note that the header _`crit`_ is always checked._
+_Please note that the header_ `crit` _is always checked._
 

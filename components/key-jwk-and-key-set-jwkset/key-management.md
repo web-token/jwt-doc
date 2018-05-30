@@ -51,7 +51,7 @@ composer require web-token/jwt-key-mgmt
   * `EC` : Elliptic Curve key pair
   * `OKP`: Octet key pair
 
-_Note: for the _`none`_ algorithm, the framework needs a key of type _`none`_. This is a specific key type that must only be used with this algorithm._
+_Note: for the_ `none` _algorithm, the framework needs a key of type_ `none`_. This is a specific key type that must only be used with this algorithm._
 
 For all asymmetric keys, you will ALWAYS receive a private key.
 

@@ -21,7 +21,7 @@ This framework comes with several signature algorithms. These algorithms are in 
   * `PS384`
   * `PS512`
 * Edwards-curve Digital Signature Algorithm \(EdDSA\)
-  * `EdDSA` \(_only with the _`Ed25519`_ curve_\)
+  * `EdDSA` \(_only with the_ `Ed25519` _curve_\)
 * Unsecured algorithm
   * `none`
 

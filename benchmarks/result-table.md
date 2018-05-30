@@ -2,7 +2,7 @@
 
 The table hereafter is the result of all benchmarks _with our development environment_. It is given to help you to select the appropriate algorithms for your application.
 
-**The use of the algorithm **`ECDH-ES`** with curves **`P-256`**, **`P-384`** or **`P-521`** is not recommended**. The cryptographic operations with those curves are done using a pure PHP function and hence very slow.
+**The use of the algorithm** `ECDH-ES` **with curves** `P-256`**,** `P-384` **or** `P-521` **is not recommended**. The cryptographic operations with those curves are done using a pure PHP function and hence very slow.
 
 The use of the RSA algorithms with a very long key \(more that 4096 bits\) is quite slow, but offers a good protection.
 
