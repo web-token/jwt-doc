@@ -4,10 +4,7 @@
 
 ## Algorithm Manager Factory Service
 
-The Symfony Bundle provides an Algorithm Manager Factory service. The available algorithms depends on the components installed on your application:
-
-* `web-token/jwt-signature`: enables all signature algorithms.
-* `web-token/jwt-encryption`: enables all key and content encryption algorithms.
+The Symfony Bundle provides an Algorithm Manager Factory service. The available algorithms depends on the components installed on your application.
 
 ```php
 <?php
@@ -35,7 +32,7 @@ Your algorithm will be available through the algorithm manager factory service a
 
 ## PBES2-\* Algorithms
 
-The `PBES2-*` algorithms available throught the algorithm manager factory have the default configuration i.e. salt size = 62 bits and count = 4096. If these values does not fit on your needs, you can create a new algorithm service with your own values:
+When installed, the `PBES2-*` algorithms available throught the algorithm manager factory. They have the default configuration i.e. salt size = 62 bits and count = 4096. If these values does not fit on your needs, you can create a new algorithm service with your own values:
 
 ```yaml
 services:
@@ -47,7 +44,7 @@ services:
             - {'name': 'jose.algorithm', 'alias': 'Ultra-Secured PBES2-HS256+A128KW'}
 ```
 
-Then use the algorithm manager as before but with your custom alias:
+You can now use your custom alias:
 
 ```php
 $algorithmManager = $algorithmManagerFactory->create(['Ultra-Secured PBES2-HS256+A128KW']);
