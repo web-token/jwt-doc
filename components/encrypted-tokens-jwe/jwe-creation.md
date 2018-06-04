@@ -1,7 +1,5 @@
 # JWE Creation
 
-We suppose here that you have an algorithm manager and a key.
-
 The computation of a JWE is done by the `JWEBuilder` object. This object requires the following services:
 
 * an algorithm manager with key encryption algorithms
