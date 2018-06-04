@@ -8,36 +8,61 @@ This framework comes with several encryption algorithms. These algorithms are in
 
 * `Jose\Component\Encryption\Algorithm\KeyEncryption`: key encryption algorithms
 * `Jose\Component\Encryption\Algorithm\ContentEncryption`: content encryption algorithms
+
+ _From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
+
 * Key Encryption
-  * `A128KW`
-  * `A192KW`
-  * `A256KW`
-  * `A128GCMKW`
-  * `A192GCMKW`
-  * `A256GCMKW`
-  * `dir` \(class `Dir`\)
-  * `ECDH-ES` \(class `ECDHES`\) **READ THE NOTE BELOW**
-  * `ECDH-ES+A128KW` \(class `ECDHESA128KW`\) **READ THE NOTE BELOW**
-  * `ECDH-ES+A192KW` \(class `ECDHESA192KW`\) **READ THE NOTE BELOW**
-  * `ECDH-ES+A256KW` \(class `ECDHESA256KW`\) **READ THE NOTE BELOW**
-  * `PBES2-HS256+A128KW` \(class `PBES2HS256A128KW`\)
-  * `PBES2-HS384+A192KW` \(class `PBES2HS384A192KW`\)
-  * `PBES2-HS512+A259KW` \(class `PBES2HS512A1256KW`\)
-  * `RSA1_5` \(class `RSA15`\) **READ THE NOTE BELOW**
-  * `RSA-OAEP` \(class `RSAOAEP`\)
-  * `RSA-OAEP-256` \(class `RSAOAEP256`\)
+  *  Package `web-token/jwt-encryption-algorithm-aeskw`
+    * `A128KW`
+    * `A192KW`
+    * `A256KW`
+  *  Package `web-token/jwt-encryption-algorithm-aesgcmkw`
+    * `A128GCMKW`
+    * `A192GCMKW`
+    * `A256GCMKW`
+  * Package `web-token/jwt-encryption-algorithm-dir`
+    * `dir` \(class `Dir`\)
+  * Package `web-token/jwt-encryption-algorithm-ecdh-es`
+    * `ECDH-ES` \(class `ECDHES`\) **READ THE NOTE BELOW**
+    * `ECDH-ES+A128KW` \(class `ECDHESA128KW`\) **READ THE NOTE BELOW**
+    * `ECDH-ES+A192KW` \(class `ECDHESA192KW`\) **READ THE NOTE BELOW**
+    * `ECDH-ES+A256KW` \(class `ECDHESA256KW`\) **READ THE NOTE BELOW**
+  * Package `web-token/jwt-encryption-algorithm-pbes2`
+    * `PBES2-HS256+A128KW` \(class `PBES2HS256A128KW`\)
+    * `PBES2-HS384+A192KW` \(class `PBES2HS384A192KW`\)
+    * `PBES2-HS512+A259KW` \(class `PBES2HS512A1256KW`\)
+  * Package `web-token/jwt-encryption-algorithm-rsa`
+    * `RSA1_5` \(class `RSA15`\) **READ THE NOTE BELOW**
+    * `RSA-OAEP` \(class `RSAOAEP`\)
+    * `RSA-OAEP-256` \(class `RSAOAEP256`\)
+
+
+
 * Content Encryption
-  * `A128GCM`
-  * `A192GCM`
-  * `A256GCM`
-  * `A128CBC-HS256` \(class `A128CBCHS256`\)
-  * `A192CBC-HS384` \(class `A192CBCHS384`\)
-  * `A256CBC-HS512` \(class `A256CBCHS512`\)
+  * Package `web-token/jwt-encryption-algorithm-aesgcm`
+    * `A128GCM`
+    * `A192GCM`
+    * `A256GCM`
+  * Package `web-token/jwt-encryption-algorithm-aescbc`
+    * `A128CBC-HS256` \(class `A128CBCHS256`\)
+    * `A192CBC-HS384` \(class `A192CBCHS384`\)
+    * `A256CBC-HS512` \(class `A256CBCHS512`\)
 
 **IMPORTANT NOTE:**
 
 * The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack).
 * The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
+
+**The following signature algorithms are experimental and must not be used in production unless you know what you are doing. They are proposed for testing purpose only.**
+
+They are all part of the package `web-token/jwt-encryption-algorithm-experimental`
+
+* Key Encryption
+  * `A128CTR`, `A192CTR` and `A256CTR`: AES CTR based encryption.
+  * `Chacha20+Poly1305` : _Please note that this algorithm requires OpenSSL 1.1_
+  * `RSA-OAEP-384` and `RSA-OAEP-512`: Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions.
+* Content Encryption
+  * `AxxxCCM-16-128`, `AxxxCCM-16-64`, `AxxxCCM-64-128`, `AxxxCCM-64-64`: AES-CCM based aalgorithms. **xxx** can be 128 or 256.
 
 ## How To Use
 
