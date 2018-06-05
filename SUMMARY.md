@@ -32,7 +32,7 @@
     * [JWE decryption](symfony-bundle/encrypted-tokens/jwe-decryption.md)
   * [Configuration Helper](symfony-bundle/configuration-helper.md)
 * [Console](console/README.md)
-  * [Standalone](console/standalone.md)
+  * [Standalone Application](console/standalone.md)
   * [Symfony Console](console/symfony-console.md)
   * [PHAR Application](console/phar-application.md)
 * [Security Recommendations](security-recommendations.md)

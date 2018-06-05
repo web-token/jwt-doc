@@ -1,6 +1,4 @@
-# Standalone
-
-## Standalone Application
+# Standalone Application
 
 ## Installation
 
