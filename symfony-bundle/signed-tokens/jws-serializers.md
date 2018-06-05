@@ -1,7 +1,5 @@
 # JWS serializers
 
-## JWS Serializers
-
 ## JWS Serializer Manager Factory Service
 
 A `JWSSerializerManagerFactory` is available as a service in your application container:

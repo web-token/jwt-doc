@@ -1,7 +1,5 @@
 # JWS creation
 
-## Signed Token Creation
-
 ## JWS Builder Factory Service
 
 A `JWSBuilderFactory` is available as a service in your application container:
