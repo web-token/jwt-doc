@@ -1,7 +1,5 @@
 # Detached Payload
 
-## Detached Payload
-
 As per the [RFC7519](https://tools.ietf.org/html/rfc7515#appendix-F),the payload of a JWS may be detached. This framework supports this feature.
 
 ## JWS Creation
