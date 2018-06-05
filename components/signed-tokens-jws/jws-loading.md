@@ -50,10 +50,14 @@ $token = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZ
 $jws = $serializerManager->unserialize($token);
 
 // We verify the signature. This method does NOT check the header.
-$jwsVerifier->verifyWithKey($jws, $jwk);
+// The arguments are:
+// - The JWS object,
+// - The key,
+// - The index of the signature to check. See https://web-token.spomky-labs.com/advanced-topics/serialization
+$isVerified = $jwsVerifier->verifyWithKey($jws, $jwk, 0);
 ```
 
-OK so if no exception is thrown, then your token signature is valid. You can then check the claims \(if any\) using the claim checker manager.
+The method `verifyWithKey` returns a boolean. If true, then your token signature is valid. You can then check the claims \(if any\) using the claim checker manager.
 
 ## JWSLoader Object
 
