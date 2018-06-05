@@ -1,7 +1,5 @@
 # Console
 
-## Console Commands
-
 The project comes with console commands.  
 They are available:
 
