@@ -1,7 +1,5 @@
 # JWE creation
 
-## Encrypted Token Creation
-
 ## JWE Builder Factory Service
 
 A `JWEBuilderFactory` is available as a service in your application container:

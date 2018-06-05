@@ -1,7 +1,5 @@
 # JWE decryption
 
-## Encrypted Token Decryption
-
 ## JWE Decrypter Factory Service
 
 A `JWEDecrypterFactory` is available as a service in your application container:
