@@ -1,7 +1,5 @@
 # Benchmarks
 
-## Benchmarks
-
 You can easily check if an algorithm is fast enough on your platform. This project has tests for all operations with \(almost\) all algorithms.
 
 ## All algorithms
