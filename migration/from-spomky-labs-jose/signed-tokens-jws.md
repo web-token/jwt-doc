@@ -1,7 +1,5 @@
 # Signed Tokens \(JWS\)
 
-## Signed Tokens \(JWS\) Migration
-
 The JWS object, signature algorithms and token serializers are part of the signature component \(`web-token/jwt-signature`\). Claim and header checkers are decoupled and can be found in the checker component \(`web-token/jwt-checker`\).
 
 Why are signature and checker components not together? The main reason is that when you issue signed tokens, you do not need any checker. Those components are decoupled to avoid the installation of unnecessary files.

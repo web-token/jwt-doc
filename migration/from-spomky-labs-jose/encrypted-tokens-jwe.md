@@ -1,7 +1,5 @@
 # Encrypted Tokens \(JWE\)
 
-## Encrypted Tokens \(JWE\) Migration
-
 The JWE object, encryption algorithms and token serializers are part of the encryption component \(`web-token/jwt-encryption`\). Claim and header checkers are decoupled and can be found in the checker component \(`web-token/jwt-checker`\).
 
 Why are encryption and checker components not together? The main reason is that when you issue encrypted tokens, you do not need any checker. Those components are decoupled to avoid the installation of unnecessary files.
