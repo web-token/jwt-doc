@@ -1,7 +1,5 @@
 # Header and Claim Checker Management
 
-## Header And Claim Checker Managers
-
 ## Checker Manager Factory Services
 
 The Symfony Bundle provides Header and Claim Checker Manager Factory services. These services are available when the `web-token/jwt-checker` component is installed:

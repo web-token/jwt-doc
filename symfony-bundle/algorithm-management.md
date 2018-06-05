@@ -1,7 +1,5 @@
 # Algorithm Management
 
-## Algorithm Management \(JWA\)
-
 ## Algorithm Manager Factory Service
 
 The Symfony Bundle provides an Algorithm Manager Factory service. The available algorithms depends on the components installed on your application.
