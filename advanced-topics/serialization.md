@@ -1,7 +1,5 @@
 # Serialization
 
-## Serialization
-
 The [RFC7515](https://tools.ietf.org/html/rfc7515) \(JWS\) and [RFC7516](https://tools.ietf.org/html/rfc7516) \(JWE\) introduce several serialization modes.
 
 * Compact

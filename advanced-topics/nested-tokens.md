@@ -1,7 +1,5 @@
 # Nested Tokens
 
-## Nested Tokens
-
 JWT can be signed or encrypted and both operations can be performed when you needed. This library is able to create and load nested tokens using dedicated classes.
 
 The `NestedTokenLoader` and `NestedTokenBuilder` classes are available when the `web-token/jwt-encryption` component is installed. However, you must also install the following component to use it:
