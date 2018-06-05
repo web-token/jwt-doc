@@ -1,7 +1,5 @@
 # Key \(JWK\) and Key Set \(JWKSet\)
 
-## Keys And Key Sets Management \(JWK and JWKSet\)
-
 To perform cryptographic operations \(signature/verification and encryption/decryption\), you will need an algorithm and keys or key sets.
 
 The `JWK` and `JWKSet` objects are part of the `web-token/jwt-core` component:
