@@ -1,7 +1,5 @@
 # Algorithm Management \(JWA\)
 
-## Algorithm Management \(JWA\)
-
 The algorithm management is part of the `web-token/jwt-core` component:
 
 ```bash
