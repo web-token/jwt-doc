@@ -1,7 +1,5 @@
 # Security Recommendations
 
-## Security Recommendations
-
 Signed or Encrypted Tokens are not just the next trendy/popular way to authenticate users. They provide great features but when used incorrectly they can expose your application to major security issues.
 
 Please read the following recommendations carefully.

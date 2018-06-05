@@ -1,7 +1,5 @@
 # PHAR Application
 
-## PHAR Application
-
 ## Installation
 
 To install the application, you just have to download it and download the associated public key \(the application is digitally signed\):
