@@ -1,7 +1,5 @@
 # Key Management \(JWK\)
 
-A JWK object represents a key. It contains all parameters needed by the algorithm and also information parameters. This object is provided by the `web-token/jwt-core` component.
-
 You can create a JWK object using two static methods:
 
 * `JWK::create(array $values)`: creates a JWK using direct values.
