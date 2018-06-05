@@ -1,7 +1,5 @@
 # Header Checker
 
-## Header Checker
-
 When you receive a JWT \(JWS or JWE\), it is important to check its headers before any other action. In case something went wrong, the token has to be rejected.
 
 To use the header checker, install the corresponding component:

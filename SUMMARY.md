@@ -5,7 +5,7 @@
   * [Algorithm Management \(JWA\)](components/algorithm-management-jwa.md)
   * [Key \(JWK\) and Key Set \(JWKSet\)](components/key-jwk-and-key-set-jwkset/README.md)
     * [Key Management \(JWK\)](components/key-jwk-and-key-set-jwkset/key-management.md)
-    * [Key Set Management](components/key-jwk-and-key-set-jwkset/key-set-management.md)
+    * [Key Set Management \(JWKSet\)](components/key-jwk-and-key-set-jwkset/key-set-management.md)
   * [Header Checker](components/header-checker.md)
   * [Claim Checker](components/claim-checker.md)
   * [Signed Tokens \(JWS\)](components/signed-tokens-jws/README.md)

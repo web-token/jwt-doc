@@ -1,4 +1,4 @@
-# Key Set Management
+# Key Set Management \(JWKSet\)
 
 A JWKSet object represents a key set. It can contain several keys. This object is provided by the `web-token/jwt-core` component.
 

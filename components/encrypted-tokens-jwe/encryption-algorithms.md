@@ -1,9 +1,5 @@
 # Encryption Algorithms
 
-## Encryption Algorithms
-
-## Available Algorithms
-
 This framework comes with several encryption algorithms. These algorithms are in the following namespaces:
 
 * `Jose\Component\Encryption\Algorithm\KeyEncryption`: key encryption algorithms

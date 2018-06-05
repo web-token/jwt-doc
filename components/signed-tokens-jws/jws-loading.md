@@ -1,7 +1,5 @@
 # JWS Loading
 
-## JWS Loading
-
 Signed tokens are loaded by a serializer or the serializer manager and verified by the `JWSVerifier` object. This JWSVerifier object just requires an algorithm manager.
 
 ## Serializer And Verifier
