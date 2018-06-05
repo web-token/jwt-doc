@@ -32,7 +32,7 @@ json_encode($jwk);
 
 ## Generate A New Key
 
-This framework is able to create private and public keys easily using the `JWKFactory`. It is available in the [`web-token/jwt-key-mgmt` component](https://github.com/web-token/jwt-key-mgmt).
+This framework is able to create private and public keys easily using the `JWKFactory`. It is available in the `web-token/jwt-key-mgmt` component.
 
 ```bash
 composer require web-token/jwt-key-mgmt
@@ -49,11 +49,11 @@ composer require web-token/jwt-key-mgmt
 
 _Note: for the_ `none` _algorithm, the framework needs a key of type_ `none`_. This is a specific key type that must only be used with this algorithm._
 
-For all asymmetric keys, you will ALWAYS receive a private key.
-
 ### Octet String
 
-The following example will show you how to create an `oct` key. Additional parameters will be set to limit the scope of this key \(e.g. signature/verification only with the `HS256` algorithm\).
+The following example will show you how to create an `oct` key.
+
+Additional parameters will be set to limit the scope of this key \(e.g. signature/verification only with the `HS256` algorithm\).
 
 ```php
 <?php
@@ -90,6 +90,8 @@ $jwk = JWKFactory::createFromSecret(
 ### RSA Key Pair
 
 The following example will show you how to create a `RSA` key.
+
+The key size must be of 384 bits at least.
 
 ```php
 <?php
