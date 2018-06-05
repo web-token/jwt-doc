@@ -1,7 +1,5 @@
 # JWE serializers
 
-## JWE Serializers
-
 ## JWE Serializer Manager Factory Service
 
 A `JWESerializerManagerFactory` is available as a service in your application container:

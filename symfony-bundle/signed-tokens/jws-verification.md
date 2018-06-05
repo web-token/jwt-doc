@@ -1,7 +1,5 @@
 # JWS verification
 
-## Signed Token Verification
-
 ## JWS Verifier Factory Service
 
 A `JWSVerifierFactory` is available as a service in your application container:
