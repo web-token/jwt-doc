@@ -1,7 +1,5 @@
 # JWE Loading
 
-## JWE Decryption
-
 Encrypted tokens are loaded by a serializer or the serializer manager and decrypted by the `JWEDecrypter` object. This JWEDecrypter object requires several services for the process:
 
 * an algorithm manager with key encryption algorithms
