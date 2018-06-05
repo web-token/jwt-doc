@@ -1,7 +1,5 @@
 # Key Set Management \(JWKSet\)
 
-A JWKSet object represents a key set. It can contain several keys. This object is provided by the `web-token/jwt-core` component.
-
 You can create a JWKSet object using three static methods:
 
 * `JWKSet::createFromKeys(array $keys)`: creates a JWKSet using a list of JWK objects.
