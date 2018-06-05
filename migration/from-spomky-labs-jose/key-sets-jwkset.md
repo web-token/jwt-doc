@@ -1,7 +1,5 @@
 # Key Sets \(JWKSet\)
 
-## Key Set \(JWKSet\) Migration
-
 As JWK, the JWKSet object is also part of the core component \(`web-token/jwt-core`\). The constructor also changed in favor of a static method.
 
 You can now create a key set using three ways:
