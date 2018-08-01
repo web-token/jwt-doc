@@ -14,7 +14,7 @@ This framework provides an implementation of:
 * JSON Web Key Thumbprint \([RFC 7638](https://tools.ietf.org/html/rfc7638)\).
 * Unencoded Payload Option [RFC7797](https://tools.ietf.org/html/rfc7797).
 
-This framework is not just a library, it also contains a Symfony bundle for an easy integration into your application. It also provides a standalone console command that will help you to manager your keys and key sets.
+This framework is not just a library, it also contains a Symfony bundle for easy integration into your application. It also provides a standalone console command that will help you to manage your keys and key sets.
 
 ## Provided Features
 
