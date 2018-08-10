@@ -1,15 +1,15 @@
 # Nested Tokens
 
-JWT can be signed or encrypted and both operations can be performed when you needed. This library is able to create and load nested tokens using dedicated classes.
+JWT can be signed or encrypted and both. A nested token is a signed token enclosed in an encrypted one. This order is very important: signed then encrypted.
 
-The `NestedTokenLoader` and `NestedTokenBuilder` classes are available when the `web-token/jwt-encryption` component is installed. However, you must also install the following component to use it:
+The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create nested tokens with ease. They are provided by the `web-token/jwt-encryption` component. However, you must also install the following component to use it:
 
 * `web-token/jwt-checker`
 * `web-token/jwt-signature`
 
 ## Nested Token Loading
 
-To instantiate the `NestedTokenLoader`, you just need a `JWSLoader` and a `JWELoader`.
+To instantiate the `NestedTokenLoader`, you need a `JWSLoader` and a `JWELoader`.
 
 ```php
 use Jose\Component\Encryption\NestedTokenLoader;
@@ -17,7 +17,9 @@ use Jose\Component\Encryption\NestedTokenLoader;
 $nestedTokenLoader = new NestedTokenLoader($jweLoader, $jwsLoader);
 ```
 
-Its use is very straightforward, you just have to call the method `load` using the token, the encryption and signature key sets. The last argument \(`$signature` in the following example\) will represents the signature used to verify the signed token. You should use this variable if the returned `JWS` object contains more than one signature.
+Its use is very straightforward, you just have to call the method `load` using the token, the encryption and signature key sets.
+
+The last argument \(`$signature` in the following example\) will represents the signature index of the verified signature. This is only useful when multiple signature support is used.
 
 ```php
 $jws = $nestedTokenLoader->load($token, $encryptionKeySet, $signatureKeySet, $signature);
@@ -25,7 +27,12 @@ $jws = $nestedTokenLoader->load($token, $encryptionKeySet, $signatureKeySet, $si
 
 ## Nested Token Building
 
-To instantiate the `NestedTokenBuilderder`, you will need a `JWSBuilder`, a `JWEBuilder`, a `JWESerializerManager` and a `JWSSerializerManager`.
+To instantiate the `NestedTokenBuilderder`, you will need the following components:
+
+* a `JWSBuilder`,
+* a `JWEBuilder`, 
+* a `JWESerializerManager`,
+* a `JWSSerializerManager`
 
 ```php
 use Jose\Component\Encryption\NestedTokenBuilder;
@@ -55,7 +62,7 @@ $token = $builder->create(
 );
 ```
 
-As a remainder, if one of the following parameter is set, the compact serialization mode _cannot_ be used:
+As a reminder, if one of the following parameter is set, the compact serialization mode _cannot_ be used:
 
 * signature unprotected header,
 * JWE shared unprotected header,
@@ -102,14 +109,11 @@ These services can be called from the container \(unless private\) or injected i
 
 As any other services, you can create a nested token loader or builder from another bundle extension. The following bundle extension class will create the same configuration and services as above.
 
-```yaml
+```php
 class AcmeExtension extends Extension implements PrependExtensionInterface
 {
     ...
 
-    /**
-     * {@inheritdoc}
-     */
     public function prepend(ContainerBuilder $container)
     {
         ConfigurationHelper::addNestedTokenLoader($container, 'loader_1', ['jwe_compact'], ['RSA-OAEP'], ['A128GCM'], ['DEF'], [], ['jws_compact'], ['PS256'], [], true, []);
@@ -117,4 +121,6 @@ class AcmeExtension extends Extension implements PrependExtensionInterface
     }
 }
 ```
+
+
 
