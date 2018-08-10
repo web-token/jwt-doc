@@ -92,7 +92,7 @@ JWKSet is fully supported.
 
 | Content Encryption Algorithm | Supported | Comment |
 | :--- | :--- | :--- |
-| A128CBC-HS256, A192CBC+HS384 and A256CBC-HC512 | YES |  |
+| A128CBC+HS256, A192CBC+HS384 and A256CBC+HS512 | YES |  |
 | A128GCM, A192GCM and A256GCM | YES |  |
 | A128CTR, A192CTR and A256CTR | YES | From v1.2. **Not recommended. For testing purpose only.** |
 
