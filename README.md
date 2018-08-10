@@ -36,7 +36,7 @@ The [detached payload](https://tools.ietf.org/html/rfc7515#appendix-F) is suppor
 ### Supported Compression Methods
 
 | Compression Method | Supported | Comment |
-| --- | :---: | --- |
+| :--- | :--- | :--- |
 | Deflate \(`DEF`\) | YES |  |
 | GZip \(`GZ`\) | YES | _This compression method is not described in the specification_ |
 | ZLib \(`ZLIB`\) | YES | _This compression method is not described in the specification_ |
@@ -44,7 +44,7 @@ The [detached payload](https://tools.ietf.org/html/rfc7515#appendix-F) is suppor
 ### Supported Key Types \(JWK\)
 
 | Key Type | Supported | Comment |
-| --- | :---: | --- |
+| :--- | :--- | :--- |
 | oct | YES | Symmetric keys |
 | RSA | YES | RSA based asymmetric keys |
 | EC | YES | Elliptic Curves based asymmetric keys |
@@ -61,7 +61,7 @@ JWKSet is fully supported.
 ### Supported Signature Algorithms
 
 | Signature Algorithm | Supported | Comment |
-| --- | :---: | --- |
+| :--- | :--- | :--- |
 | HS256, HS384 and HS512 | YES |  |
 | ES256, ES384 and ES512 | YES |  |
 | RS256, RS384 and RS512 | YES |  |
@@ -76,7 +76,7 @@ JWKSet is fully supported.
 ### Supported Key Encryption Algorithms
 
 | Key Encryption Algorithm | Supported | Comment |
-| --- | :---: | --- |
+| :--- | :--- | :--- |
 | dir | YES |  |
 | RSA1\_5, RSA-OAEP and RSA-OAEP-256 | YES | The algorithms RSA1\_5 and RSA-OAEP are now deprecated. Please use with caution. |
 | ECDH-ES, ECDH-ES+A128KW, ECDH-ES+A192KW and ECDH-ES+A256KW | YES |  |
@@ -86,13 +86,13 @@ JWKSet is fully supported.
 | ECDH-ES with X25519 curve | YES | [With PHP 7.1, third party extension highly recommended](https://github.com/jedisct1/libsodium-php) |
 | ECDH-ES with X448 curve | NO | No extension or built-in implementation available |
 | RSA-OEAP-384 and RSA-OAEP-512 | YES | From v1.2. **Experimental. For testing purpose only.** |
-|  ChaCha20-Poly1305 | YES | From v1.2. **Experimental. For testing purpose only.** |
+| ChaCha20-Poly1305 | YES | From v1.2. **Experimental. For testing purpose only.** |
 
 ### Supported Content Encryption Algorithms
 
 | Content Encryption Algorithm | Supported | Comment |
-| --- | :---: |
-| A128CBC-HS256, A192CBC+HS384 and A256CBC-HS512 | YES |  |
+| :--- | :--- | :--- |
+| A128CBC-HS256, A192CBC+HS384 and A256CBC-HC512 | YES |  |
 | A128GCM, A192GCM and A256GCM | YES |  |
 | A128CTR, A192CTR and A256CTR | YES | From v1.2. **Not recommended. For testing purpose only.** |
 

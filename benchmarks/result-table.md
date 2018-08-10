@@ -9,7 +9,7 @@ The use of the RSA algorithms with a very long key \(more that 4096 bits\) is qu
 The PBES2\* algorithms are quite slow, but also offer a good protection \(see [https://en.wikipedia.org/wiki/PBKDF2](https://en.wikipedia.org/wiki/PBKDF2)\). Default salt size \(512 bits\) and iterations \(4096\) and custom values \(256/1024\) used for the tests. Those values can be configured if needed.
 
 | subject | groups | mean |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | sign | JWS,EdDSA,Ed25519 | 139.323μs |
 | verify | JWS,EdDSA,Ed25519 | 169.125μs |
 | sign | JWS,ECDSA,ES256 | 139.144μs |

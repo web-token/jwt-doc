@@ -40,12 +40,12 @@
   * [Nested Tokens](advanced-topics/nested-tokens.md)
   * [Serialization](advanced-topics/serialization.md)
   * [Custom Algorithm](advanced-topics/custom-algorithm.md)
-  * Signed tokens and
+  * [Signed tokens and](advanced-topics/signed-tokens-and/README.md)
     * [Unprotected Header](advanced-topics/signed-tokens-and/unprotected-header.md)
     * [Multiple Signatures](advanced-topics/signed-tokens-and/multiple-signatures.md)
     * [Detached Payload](advanced-topics/signed-tokens-and/detached-payload.md)
     * [Unencoded Payload](advanced-topics/signed-tokens-and/unencoded-payload.md)
-  * Encrypted tokens and
+  * [Encrypted tokens and](advanced-topics/encrypted-tokens-and/README.md)
     * [Unprotected Headers](advanced-topics/encrypted-tokens-and/unprotected-headers.md)
     * [Multiple Recipients](advanced-topics/encrypted-tokens-and/multiple-recipients.md)
     * [Additional Authentication Data \(AAD\)](advanced-topics/encrypted-tokens-and/additional-authentication-data-aad.md)

@@ -28,7 +28,7 @@ Each Key Encryption Algorithm has its own Key Management Mode.
 ### Key Encryption Algorithms And Associated Key Management Mode.
 
 | Algorithm  Key Management Mode | Key Encryption | Key Wrapping | Direct Key Agreement | Key Agreement with Key Wrapping | Direct Encryption |
-| --- | :---: | :---: | :---: | :---: | :---: |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | dir |  |  |  |  | X |
 | A128KW |  | X |  |  |  |
 | A192KW |  | X |  |  |  |
@@ -50,7 +50,7 @@ Each Key Encryption Algorithm has its own Key Management Mode.
 ### Compatibility table between Key Management Modes:
 
 | Key Management Mode | Key Encryption | Key Wrapping | Direct Key Agreement | Key Agreement with Key Wrapping | Direct Encryption |
-| --- | :---: | :---: | :---: | :---: | :---: |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | Key Encryption | YES | YES | NO | YES | NO |
 | Key Wrapping | YES | YES | NO | YES | NO |
 | Direct Key Agreement | NO | NO | NO | NO | NO |

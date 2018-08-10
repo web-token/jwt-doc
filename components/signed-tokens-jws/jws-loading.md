@@ -51,7 +51,7 @@ $jws = $serializerManager->unserialize($token);
 // The arguments are:
 // - The JWS object,
 // - The key,
-// - The index of the signature to check. See https://web-token.spomky-labs.com/advanced-topics/serialization
+// - The index of the signature to check. See 
 $isVerified = $jwsVerifier->verifyWithKey($jws, $jwk, 0);
 ```
 
