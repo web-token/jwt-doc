@@ -23,7 +23,7 @@ The key will be available as a container service with the ID `jose.key.key_name`
 
 As any other configuration values, you can use environment variables.
 
-### From A JWK From A Shared Secret
+### From A Shared Secret
 
 > This feature was introduced in version 1.1.
 
@@ -42,7 +42,7 @@ jose:
 
 ### From A JWK Object
 
-This method will directly get a JWK object.
+This method will directly load a JWK object.
 
 ```yaml
 jose:
