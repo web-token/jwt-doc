@@ -70,7 +70,7 @@ The method `verifyWithKey` returns a boolean. If true, then your token signature
 
 To avoid duplication of code lines, you can create a `JWSLoader` object. This object contains a serializer, a verifier and an optional header checker \(highly recommended\).
 
-In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$key`. The variable `$payload` corresponds to the detached payload \(`null` by default\).
+In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$jwk`. The variable `$payload` corresponds to the detached payload \(`null` by default\).
 
 If the verification succeeded, the variable `$signature` will be set with the signature index and should be in case of multiple signatures. The method returns the JWS object.
 
@@ -85,7 +85,7 @@ $jwsLoader = new JWSLoader(
     $headerCheckerManager
 );
 
-$jws = $jwsLoader->loadAndVerifyWithKey($token, $key, $signature, $payload);
+$jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature, $payload);
 ```
 
 In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
