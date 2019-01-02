@@ -31,6 +31,7 @@ Now we can deserialize the input we receive and check the signature using our ke
 ```php
 <?php
 
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
@@ -39,6 +40,14 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 $jwk = JWK::create([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
+]);
+
+// The JSON Converter.
+$jsonConverter = new StandardConverter();
+
+// The serializer manager. We only use the JWS Compact Serialization Mode.
+$serializerManager = JWSSerializerManager::create([
+    new CompactSerializer($jsonConverter),
 ]);
 
 // The input we want to check
@@ -61,7 +70,7 @@ The method `verifyWithKey` returns a boolean. If true, then your token signature
 
 To avoid duplication of code lines, you can create a `JWSLoader` object. This object contains a serializer, a verifier and an optional header checker \(highly recommended\).
 
-In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$key`. The variable `$payload` corresponds to the detached payload \(`null` by default\).
+In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$jwk`. The variable `$payload` corresponds to the detached payload \(`null` by default\).
 
 If the verification succeeded, the variable `$signature` will be set with the signature index and should be in case of multiple signatures. The method returns the JWS object.
 
@@ -76,7 +85,7 @@ $jwsLoader = new JWSLoader(
     $headerCheckerManager
 );
 
-$jws = $jwsLoader->loadAndVerifyWithKey($token, $key, $signature, $payload);
+$jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature, $payload);
 ```
 
 In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
