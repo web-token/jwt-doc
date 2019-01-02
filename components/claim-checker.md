@@ -1,6 +1,6 @@
 # Claim Checker
 
-JSON Web Tokens can be used to treansport any kind of data. They are mainly used to transport claims. When you receive a tokens that contains claims, it is important to check the values of these claims.
+JSON Web Tokens can be used to transport any kind of data. They are mainly used to transport claims. When you receive a tokens that contains claims, it is important to check the values of these claims.
 
 The Claim Checker Manager is responsible of this task. To use it, install the corresponding component:
 
