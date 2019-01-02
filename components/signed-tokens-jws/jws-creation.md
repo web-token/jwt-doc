@@ -65,7 +65,10 @@ $serializer = new CompactSerializer($jsonConverter); // The serializer
 $token = $serializer->serialize($jws, 0); // We serialize the signature at index 0 (we only have one signature).
 ```
 
-All good! The variable `$token` now contains a string that should be something like that: `eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZXhwIjoxNTA3OTAwNTkyLCJpc3MiOiJNeSBzZXJ2aWNlIiwiYXVkIjoiWW91ciBhcHBsaWNhdGlvbiJ9.eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0`.
+All good! The variable `$token` now contains a string that should be something like this:
+```
+eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZXhwIjoxNTA3OTAwNTkyLCJpc3MiOiJNeSBzZXJ2aWNlIiwiYXVkIjoiWW91ciBhcHBsaWNhdGlvbiJ9.eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0
+```
 
 Other serialization modes exist. We will see them in the Advanced Topics section.
 
