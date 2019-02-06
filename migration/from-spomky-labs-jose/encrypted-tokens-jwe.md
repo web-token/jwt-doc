@@ -37,7 +37,6 @@ $jwe = JWEFactory::createJWEToCompactJSON(
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\RSAOAEP256;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\Compression\CompressionMethodManager;
@@ -45,22 +44,19 @@ use Jose\Component\Encryption\Compression\Deflate;
 use Jose\Component\Encryption\JWEBuilder;
 use Jose\Component\Encryption\Serializer\CompactSerializer;
 
-$keyEncryptionAlgorithmManager = AlgorithmManager::create([
+$keyEncryptionAlgorithmManager = new AlgorithmManager([
     new RSAOAEP256(),
 ]);
 
-$contentEncryptionAlgorithmManager = AlgorithmManager::create([
+$contentEncryptionAlgorithmManager = new AlgorithmManager([
     new A256CBCHS512(),
 ]);
 
-$compressionMethodManager = CompressionMethodManager::create([
+$compressionMethodManager = new CompressionMethodManager([
     new Deflate(),
 ]);
 
-$jsonConverter = new StandardConverter();
-
 $jweBuilder = new JWEBuilder(
-    $jsonConverter,
     $keyEncryptionAlgorithmManager,
     $contentEncryptionAlgorithmManager,
     $compressionMethodManager
@@ -79,7 +75,7 @@ $jwe = $jweBuilder
     ->addRecipient($jwk)
     ->build();
 
-$serializer = new CompactSerializer($jsonConverter);
+$serializer = new CompactSerializer();
 
 $token = $serializer->serialize($jwe, 0);
 ```
@@ -115,7 +111,6 @@ $jwe = $loader->loadAndDecryptUsingKey(
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\RSAOAEP256;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\Compression\CompressionMethodManager;
@@ -124,29 +119,26 @@ use Jose\Component\Encryption\JWEBuilder;
 use Jose\Component\Encryption\Serializer\CompactSerializer;
 use Jose\Component\Encryption\Serializer\JWESerializerManager;
 
-$keyEncryptionAlgorithmManager = AlgorithmManager::create([
+$keyEncryptionAlgorithmManager = new AlgorithmManager([
     new RSAOAEP256(),
 ]);
 
-$contentEncryptionAlgorithmManager = AlgorithmManager::create([
+$contentEncryptionAlgorithmManager = new AlgorithmManager([
     new A256CBCHS512(),
 ]);
 
-$compressionMethodManager = CompressionMethodManager::create([
+$compressionMethodManager = new CompressionMethodManager([
     new Deflate(),
 ]);
 
-$jsonConverter = new StandardConverter();
-
 $jweBuilder = new JWEBuilder(
-    $jsonConverter,
     $keyEncryptionAlgorithmManager,
     $contentEncryptionAlgorithmManager,
     $compressionMethodManager
 );
 
-$serializerManager = JWESerializerManager::create([
-    new CompactSerializer($jsonConverter),
+$serializerManager = new JWESerializerManager([
+    new CompactSerializer(),
 ]);
 
 $token = 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9RLpf3Gauf05QPNCMzPcH4XNBLmH0s3e-YWwOe57MTG844gnc-g2ywfXt_R0Q9qsR6WhkmQEhdLk2CBvfqr4ob4jFlvJK0yW.CCvfoTKO9tQlzCvbAuFAJg.PxrDlsbSRcxC5SuEJ84i9E9_R3tCyDQsEPTIllSCVxVcHiPOC2EdDlvUwYvznirYP6KMTdKMgLqxB4BwI3CWtys0fceSNxrEIu_uv1WhzJg.4DnyeLEAfB4I8Eq0UobnP8ymlX1UIfSSADaJCXr3RlU';

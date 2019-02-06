@@ -7,6 +7,8 @@ The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create
 * `web-token/jwt-checker`
 * `web-token/jwt-signature`
 
+**New in version 2.0**: a new package is available: `web-token/jwt-nested-token`. This package contains all the classes and dependencies will be directly managed by composer. You can install it if needed.
+
 ## Nested Token Loading
 
 To instantiate the `NestedTokenLoader`, you need a `JWSLoader` and a `JWELoader`.
