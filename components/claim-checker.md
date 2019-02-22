@@ -18,7 +18,7 @@ In the following example, we will create a manager able to check the `aud` \(Aud
 use Jose\Component\Checker\ClaimCheckerManager;
 use Jose\Component\Checker;
 
-$claimCheckerManager = ClaimCheckerManager::create(
+$claimCheckerManager = new ClaimCheckerManager(
     [
         new Checker\IssuedAtChecker(),
         new Checker\NotBeforeChecker(),
@@ -28,14 +28,10 @@ $claimCheckerManager = ClaimCheckerManager::create(
 );
 ```
 
-When instantiated, call the method `check` to check the claims of a JWT object. This method only accept an array. You have to retrieve this array by converting the JWT payload.
+When instantiated, call the method `check` to check the claims of a JWT object. This method only accept an associative array. You have to retrieve this array by converting the JWT payload.
 
 ```php
-use Jose\Component\Core\Converter\StandardConverter;
-
-$jsonConverter = new StandardConverter();
-
-$claims = $jsonConverter->decode($jwt->getPayload());
+$claims = json_decode($jwt->getPayload(), true);
 $claimCheckerManager->check($claims);
 ```
 

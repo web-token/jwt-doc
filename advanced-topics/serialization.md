@@ -98,15 +98,12 @@ The serializer manager can be helpful when your application deals more than one 
 
 require_once 'vendor/autoload.php';
 
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Signature\Serializer;
 
-$jsonConverter = new StandardConverter();
-
 $manager = Serializer\JWSSerializerManager::create([
-    new Serializer\CompactSerializer($jsonConverter),
-    new Serializer\JSONFlattenedSerializer($jsonConverter),
-    new Serializer\JSONGeneralSerializer($jsonConverter),
+    new Serializer\CompactSerializer(),
+    new Serializer\JSONFlattenedSerializer(),
+    new Serializer\JSONGeneralSerializer(),
 ]);
 
 // Serializes the second signature (index = 1) of the variable $jws (JWS object) into JSON Flattened serialization mode.
@@ -194,15 +191,12 @@ The serializer manager can be helpful when your application deals more than one 
 
 require_once 'vendor/autoload.php';
 
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Encryption\Serializer;
 
-$jsonConverter = new StandardConverter();
-
 $manager = Serializer\JWESerializerManager::create([
-    new Serializer\CompactSerializer($jsonConverter),
-    new Serializer\JSONFlattenedSerializer($jsonConverter),
-    new Serializer\JSONGeneralSerializer($jsonConverter),
+    new Serializer\CompactSerializer(),
+    new Serializer\JSONFlattenedSerializer(),
+    new Serializer\JSONGeneralSerializer(),
 ]);
 
 // Serializes the second recipient (index = 1) of the variable $jwe (JWE object) into JSON Flattened serialization mode.

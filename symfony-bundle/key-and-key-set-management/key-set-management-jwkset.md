@@ -1,7 +1,5 @@
 # Key Set Management \(JWKSet\)
 
-## Key Set Management \(JWKSet\)
-
 ## Key Sets As Services
 
 All these methods have the following common option:

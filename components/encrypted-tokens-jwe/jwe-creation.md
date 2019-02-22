@@ -4,14 +4,12 @@ The computation of a JWE is done by the `JWEBuilder` object. This object require
 
 * an algorithm manager with key encryption algorithms
 * an algorithm manager with content encryption algorithms
-* a compression method manager. No compression method is needed if you do not intent to compress the payload
-* and a JSON converter.
+* a compression method manager. No compression method is needed if you do not intent to compress the payload.
 
 ```php
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\Compression\CompressionMethodManager;
@@ -19,26 +17,22 @@ use Jose\Component\Encryption\Compression\Deflate;
 use Jose\Component\Encryption\JWEBuilder;
 
 // The key encryption algorithm manager with the A256KW algorithm.
-$keyEncryptionAlgorithmManager = AlgorithmManager::create([
+$keyEncryptionAlgorithmManager = new AlgorithmManager([
     new A256KW(),
 ]);
 
 // The content encryption algorithm manager with the A256CBC-HS256 algorithm.
-$contentEncryptionAlgorithmManager = AlgorithmManager::create([
+$contentEncryptionAlgorithmManager = new AlgorithmManager([
     new A256CBCHS512(),
 ]);
 
 // The compression method manager with the DEF (Deflate) method.
-$compressionMethodManager = CompressionMethodManager::create([
+$compressionMethodManager = new CompressionMethodManager([
     new Deflate(),
 ]);
 
-// The JSON Converter.
-$jsonConverter = new StandardConverter();
-
 // We instantiate our JWE Builder.
 $jweBuilder = new JWEBuilder(
-    $jsonConverter,
     $keyEncryptionAlgorithmManager,
     $contentEncryptionAlgorithmManager,
     $compressionMethodManager
@@ -51,13 +45,13 @@ Now let's create our first JWE object.
 use Jose\Component\Core\JWK;
 
 // Our key.
-$jwk = JWK::create([
+$jwk = new JWK([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
 
-// The payload we want to encrypt. The payload MUST be a string hence we use our JSON Converter.
-$payload = $jsonConverter->encode([
+// The payload we want to encrypt. It MUST be a string.
+$payload = json_encode([
     'iat' => time(),
     'nbf' => time(),
     'exp' => time() + 3600,
@@ -84,7 +78,7 @@ We will use the compact serialization mode. This is the most common mode as it i
 ```php
 use Jose\Component\Encryption\Serializer\CompactSerializer;
 
-$serializer = new CompactSerializer($jsonConverter); // The serializer
+$serializer = new CompactSerializer(); // The serializer
 
 $token = $serializer->serialize($jwe, 0); // We serialize the recipient at index 0 (we only have one recipient).
 ```

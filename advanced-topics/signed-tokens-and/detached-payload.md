@@ -10,33 +10,28 @@ There is not much difference between the creation of a JWS with or without detac
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSBuilder;
 
 // The algorithm manager with the HS256 algorithm.
-$algorithmManager = AlgorithmManager::create([
+$algorithmManager = new AlgorithmManager([
     new HS256(),
 ]);
 
 // Our key.
-$jwk = JWK::create([
+$jwk = new JWK([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
 
-// The JSON Converter.
-$jsonConverter = new StandardConverter();
-
 // We instantiate our JWS Builder.
 $jwsBuilder = new JWSBuilder(
-    $jsonConverter,
     $algorithmManager
 );
 
 // The payload we want to sign
-$payload = $jsonConverter->encode([
+$payload = json_encode([
     'iat' => time(),
     'nbf' => time(),
     'exp' => time() + 3600,
@@ -61,7 +56,6 @@ The loading of a signed token with a detached payload is as easy as when the pay
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSVerifier;
@@ -69,28 +63,23 @@ use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
 // The algorithm manager with the HS256 algorithm.
-$algorithmManager = AlgorithmManager::create([
+$algorithmManager = new AlgorithmManager([
     new HS256(),
 ]);
 
 // Our key.
-$jwk = JWK::create([
+$jwk = new JWK([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
 
-// The JSON Converter.
-$jsonConverter = new StandardConverter();
-
 // The serializer manager. We only use the JWS Compact Serialization Mode.
-$serializerManager = JWSSerializerManager::create([
-    new CompactSerializer($jsonConverter),
+$serializerManager = new JWSSerializerManager([
+    new CompactSerializer(),
 ]);
 
 // We instantiate our JWS Verifier.
-$jwsVerifier = new JWSVerifier(
-    $algorithmManager
-);
+$jwsVerifier = new JWSVerifier($algorithmManager);
 
 // The detached payload
 $payload = '{"iat":1507896992,"nbf":1507896992,"exp":1507900592,"iss":"My service","aud":"Your application"}';
