@@ -66,7 +66,8 @@ $token = $serializer->serialize($jws, 0); // We serialize the signature at index
 ```
 
 All good! The variable `$token` now contains a string that should be something like this:
-```
+
+```text
 eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDc4OTY5OTIsIm5iZiI6MTUwNzg5Njk5MiwiZXhwIjoxNTA3OTAwNTkyLCJpc3MiOiJNeSBzZXJ2aWNlIiwiYXVkIjoiWW91ciBhcHBsaWNhdGlvbiJ9.eycp9PTdgO4WA-68-AMoHPwsKDr68NhjIQKz4lUkiI0
 ```
 
