@@ -122,5 +122,3 @@ class AcmeExtension extends Extension implements PrependExtensionInterface
 }
 ```
 
-
-

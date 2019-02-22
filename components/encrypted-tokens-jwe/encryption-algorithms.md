@@ -5,14 +5,14 @@ This framework comes with several encryption algorithms. These algorithms are in
 * `Jose\Component\Encryption\Algorithm\KeyEncryption`: key encryption algorithms
 * `Jose\Component\Encryption\Algorithm\ContentEncryption`: content encryption algorithms
 
- _From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
+  _From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
 
 * Key Encryption
-  *  Package `web-token/jwt-encryption-algorithm-aeskw`
+  * Package `web-token/jwt-encryption-algorithm-aeskw`
     * `A128KW`
     * `A192KW`
     * `A256KW`
-  *  Package `web-token/jwt-encryption-algorithm-aesgcmkw`
+  * Package `web-token/jwt-encryption-algorithm-aesgcmkw`
     * `A128GCMKW`
     * `A192GCMKW`
     * `A256GCMKW`
@@ -31,9 +31,6 @@ This framework comes with several encryption algorithms. These algorithms are in
     * `RSA1_5` \(class `RSA15`\) **READ THE NOTE BELOW**
     * `RSA-OAEP` \(class `RSAOAEP`\)
     * `RSA-OAEP-256` \(class `RSAOAEP256`\)
-
-
-
 * Content Encryption
   * Package `web-token/jwt-encryption-algorithm-aesgcm`
     * `A128GCM`
