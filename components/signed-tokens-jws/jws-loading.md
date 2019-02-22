@@ -14,7 +14,7 @@ use Jose\Component\Signature\Algorithm\HS256;
 use Jose\Component\Signature\JWSVerifier;
 
 // The algorithm manager with the HS256 algorithm.
-$algorithmManager = new AlgorithmManager([
+$algorithmManager = AlgorithmManager::create([
     new HS256(),
 ]);
 
@@ -31,19 +31,23 @@ Now we can deserialize the input we receive and check the signature using our ke
 ```php
 <?php
 
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Serializer\JWSSerializerManager;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
 // Our key.
-$jwk = new JWK([
+$jwk = JWK::create([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
 
+// The JSON Converter.
+$jsonConverter = new StandardConverter();
+
 // The serializer manager. We only use the JWS Compact Serialization Mode.
 $serializerManager = JWSSerializerManager::create([
-    new CompactSerializer(),
+    new CompactSerializer($jsonConverter),
 ]);
 
 // The input we want to check

@@ -17,12 +17,16 @@ $jws = $jwsBuilder
 The variable `$jws` will be a valid JWS object with all computed signatures. Next step is the serialization of these signatures.
 
 ```php
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Signature\Serializer;
 
+// The JSON Converter.
+$jsonConverter = new StandardConverter();
+
 $manager = Serializer\JWSSerializerManager::create([
-    new Serializer\CompactSerializer(),
-    new Serializer\JsonFlattenedSerializer(),
-    new Serializer\JsonGeneralSerializer(),
+    new Serializer\CompactSerializer($jsonConverter),
+    new Serializer\JsonFlattenedSerializer($jsonConverter),
+    new Serializer\JsonGeneralSerializer($jsonConverter),
 ]);
 
 $tokenWithAllSignatures = $manager->serialize('jws_json_general', $jws);

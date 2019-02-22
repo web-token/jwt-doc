@@ -21,7 +21,7 @@ use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Signature\Algorithm\PS256;
 use Jose\Component\Signature\Algorithm\ES512;
 
-$algorithm_manager = new AlgorithmManager([
+$algorithm_manager = AlgorithmManager::create([
     new PS256(),
     new ES512(),
 ]);

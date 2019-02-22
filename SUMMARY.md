@@ -31,8 +31,6 @@
     * [JWE creation](symfony-bundle/encrypted-tokens/jwe-creation.md)
     * [JWE decryption](symfony-bundle/encrypted-tokens/jwe-decryption.md)
   * [Configuration Helper](symfony-bundle/configuration-helper.md)
-  * [Events](symfony-bundle/events.md)
-  * [Profiling/Debugging](symfony-bundle/profiling-debugging.md)
 * [Console](console/README.md)
   * [Standalone Application](console/standalone.md)
   * [Symfony Console](console/symfony-console.md)

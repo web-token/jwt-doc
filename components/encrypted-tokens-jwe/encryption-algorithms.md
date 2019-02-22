@@ -74,7 +74,7 @@ use Jose\Component\Encryption\Algorithm\KeyEncryption\A128KW;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\PBES2HS256A128KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A128CBCHS256;
 
-$algorithmManager = new AlgorithmManager([
+$algorithmManager = AlgorithmManager::create([
     new A128KW(),
     new PBES2HS256A128KW(),
     new A128CBCHS256(),
@@ -96,7 +96,7 @@ Example with 16 bytes \(128 bits\) salt and 1024 counts:
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\PBES2HS256A128KW;
 
-$algorithmManager = new AlgorithmManager([
+$algorithmManager = AlgorithmManager::create([
     new PBES2HS256A128KW(16, 1024),
 ]);
 ```

@@ -35,20 +35,24 @@ $jws = JWSFactory::createJWSToCompactJSON(
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Signature\JWSBuilder;
 use Jose\Component\Signature\Algorithm\RS256;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
+// This converter wraps json_encode/json_decode with some parameters
+$jsonConverter = new StandardConverter();
+
 // This managers handles all algorithms we need to use. 
-$algorithmManager = new AlgorithmManager([
+$algorithmManager = AlgorithmManager::create([
     new RS256(),
 ]);
 
 // The JWS Builder
-$jwsBuilder = new JWSBuilder($algorithmManager);
+$jwsBuilder = new JWSBuilder($jsonConverter, $algorithmManager);
 
 // First we have to encode the payload. Now only strings are accepted.
-$payload = json_encode($claims);
+$payload = $jsonConverter->encode($claims);
 
 // We build our JWS object
 $jws = $jwsBuilder
@@ -59,7 +63,7 @@ $jws = $jwsBuilder
 
 // We need to serialize the token.
 // In this example we will use the compact serialization mode (most common mode).
-$serializer = new CompactSerializer();
+$serializer = new CompactSerializer($jsonConverter);
 $token = $serializer->serialize($jws);
 ```
 
@@ -100,6 +104,7 @@ $checker->checkJWS($jws, 0);
 ```php
 <?php
 use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Core\Converter\StandardConverter;
 use Jose\Component\Checker\ClaimCheckerManager;
 use Jose\Component\Checker\HeaderCheckerManager;
 use Jose\Component\Checker\AlgorithmChecker;
@@ -109,21 +114,22 @@ use Jose\Component\Signature\Algorithm\RS256;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 use Jose\Component\Signature\JWSTokenSupport;
 
-$serializer = new CompactSerializer();
+$jsonConverter = new StandardConverter();
+$serializer = new CompactSerializer($jsonConverter);
 
 $jws = $serializer->unserialize($input);
 
-$headerChecker = new HeaderCheckerManager(
+$headerChecker = HeaderCheckerManager::create(
     [new AlgorithmChecker(['RS256'])], // A list of header checkers
     [new JWSTokenSupport()]            // A list of token support services (we only use the JWS token type here)
 );
 
-$algorithmManager = new AlgorithmManager([
+$algorithmManager = AlgorithmManager::create([
     new RS256(),
 ]);
 $jwsVerifier = new JWSVerifier($algorithmManager);
 
-$claimChecker = new ClaimCheckerManager(
+$claimChecker = ClaimCheckerManager::create(
     [new ExpirationTimeChecker()] // A list of claim checkers
 );
 
@@ -146,7 +152,7 @@ if (!$isVerified) {
 } else {
     // We check the claims.
     // If everything is ok, claims can be used.
-    $claims = json_encode($jws->getPayload());
+    $claims = $jsonConverter->decode($jws->getPayload());
     $claimChecker->check($claims); // We check the claims.
 }
 ```

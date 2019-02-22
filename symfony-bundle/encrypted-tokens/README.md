@@ -12,10 +12,3 @@ When this component is installed, encryption algorithms are automatically handle
 * [JWE creation](jwe-creation.md),
 * [JWE decryption](jwe-decryption.md).
 
-New in version 1.3: you can use  `symfony/serializer` to serialize/unserialize your tokens:
-
-```php
-// $serializer corresponds to the Symfony serializer
-$serializer->serialize($data, 'jwe_compact');
-```
-

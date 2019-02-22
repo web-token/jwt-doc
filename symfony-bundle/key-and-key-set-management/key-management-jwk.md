@@ -1,5 +1,7 @@
 # Key Management \(JWK\)
 
+## Key Management \(JWK\)
+
 ## Keys As Services
 
 When the component is installed, you will be able to define your keys in your application configuration and load your keys from several sources or formats. All these methods have the following option:

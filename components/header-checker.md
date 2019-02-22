@@ -28,7 +28,7 @@ use Jose\Component\Checker\HeaderCheckerManager;
 use Jose\Component\Checker\AlgorithmChecker;
 use Jose\Component\Signature\JWSTokenSupport;
 
-$headerCheckerManager = new HeaderCheckerManager(
+$headerCheckerManager = HeaderCheckerManager::create(
     [
         new AlgorithmChecker(['HS256']), // We check the header "alg" (algorithm)
     ],
@@ -87,8 +87,6 @@ The following header checkers are provided:
 
 If you need, you can create you own header checker. It must implement the interface `Jose\Component\Checker\HeaderChecker`. In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.
 
-{% code-tabs %}
-{% code-tabs-item title="Acme\\Checker\\CustomChecker.php" %}
 ```php
 <?php
 
@@ -97,6 +95,9 @@ namespace Acme\Checker;
 use Jose\Component\Checker\HeaderChecker;
 use Jose\Component\Checker\InvalidHeaderException;
 
+/**
+ * Class CustomChecker.
+ */
 final class CustomChecker implements HeaderChecker
 {
     public function checkHeader($value)
@@ -119,6 +120,4 @@ final class CustomChecker implements HeaderChecker
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
