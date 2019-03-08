@@ -12,7 +12,7 @@ When this component is installed, signature algorithms are automatically handles
 * [JWS creation](jws-creation.md),
 * [JWS verification](jws-verification.md).
 
-New in version 1.3: you can use  `symfony/serializer` to serialize/unserialize your tokens:
+New in version 1.3: you can use `symfony/serializer` to serialize/unserialize your tokens:
 
 ```php
 // $serializer corresponds to the Symfony serializer

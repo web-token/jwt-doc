@@ -31,7 +31,7 @@ All events can be found in the class `Jose\Bundle\JoseFramework\Event\Events`.
   * Events::CLAIM\_CHECK\_SUCCESS
   * Events::CLAIM\_CHECK\_FAILURE
 
-### Example:
+## Example:
 
 {% code-tabs %}
 {% code-tabs-item title="App\\EventSubscriber\\JwsSubscriber.php" %}
