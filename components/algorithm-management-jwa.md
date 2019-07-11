@@ -27,8 +27,6 @@ $algorithm_manager = new AlgorithmManager([
 ]);
 ```
 
-_It is not possible to set the same algorithm twice in the same algorithm manager._
-
 ## Algorithm Manager Factory
 
 Your application may need several algorithm managers for several use cases. Let say:
@@ -61,7 +59,10 @@ $algorithm_manager_factory
 
 The first argument of the method `add` is the alias for the algorithm. **It must be unique**. In general, this alias corresponds to the algorithm name.
 
-As you can see in the example, we added the algorithm `PBES2-HS512+A256KW` twice: with the default configuration and with custom arguments.
+As you can see in the example, we added the algorithm `PBES2-HS512+A256KW` twice:
+
+* with the default configuration,
+*  with custom arguments.
 
 Now our algorithm manager factory is ready. We can create several algorithm managers by passing a list of aliases to the method `create`:
 

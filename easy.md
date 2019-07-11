@@ -80,3 +80,5 @@ $jwt = Validate::token($jws) // We want to validate the token in the variable $j
 
 If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object. This object has 2 properties: `header` and `claim` containing the loaded values.
 
+### JWE Creation And Decryption
+
