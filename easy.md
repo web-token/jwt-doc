@@ -51,3 +51,32 @@ $jws = Build::jws() // We build a JWS
 echo $jws; // The variable $jws now contains your token
 ```
 
+A token you received can be read and verified. Verification is done on the signature and the claims or header parameters you want.
+
+```php
+use Jose\Component\Core\JWK;
+use Jose\Easy\Validate;
+
+$jwk = new JWK([
+    'kty' => 'RSA',
+    'kid' => 'bilbo.baggins@hobbiton.example',
+    'use' => 'sig',
+    'n' => 'n4EPtAOCc9AlkeQHPzHStgAbgs7bTZLwUBZdR8_KuKPEHLd4rHVTeT-O-XV2jRojdNhxJWTDvNd7nqQ0VEiZQHz_AJmSCpMaJMRBSFKrKb2wqVwGU_NsYOYL-QtiWN2lbzcEe6XC0dApr5ydQLrHqkHHig3RBordaZ6Aj-oBHqFEHYpPe7Tpe-OfVfHd1E6cS6M1FZcD1NNLYD5lFHpPI9bTwJlsde3uhGqC0ZCuEHg8lhzwOHrtIQbS0FVbb9k3-tVTU4fg_3L_vniUFAKwuCLqKnS2BYwdq_mzSnbLY7h_qixoR7jig3__kRhuaxwUkRz5iaiQkqgc5gHdrNP5zw',
+    'e' => 'AQAB'
+]);
+$jwt = Validate::token($jws) // We want to validate the token in the variable $jws
+    ->algs(['RS256', 'RS512']) // The algorithms allowed to be used
+    ->exp() // We check the "exp" claim
+    ->iat(1000) // We check the "iat" claim. Leeway is 1000ms (1s)
+    ->nbf() // We check the "nbf" claim
+    ->aud('audience1') // Allowed audience
+    ->iss('issuer') // Allowed issuer
+    ->sub('subject') // Allowed subject
+    ->jti('0123456789') // Token ID
+    ->key($jwk) // Key used to verify the signature
+    ->run() // Go!
+;
+```
+
+If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object. This object has 2 properties: `header` and `claim` containing the loaded values.
+
