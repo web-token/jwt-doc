@@ -2,12 +2,7 @@
 
 JWT can be signed or encrypted and both. A nested token is a signed token enclosed in an encrypted one. This order is very important: signed then encrypted.
 
-The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create nested tokens with ease. They are provided by the `web-token/jwt-encryption` component. However, you must also install the following component to use it:
-
-* `web-token/jwt-checker`
-* `web-token/jwt-signature`
-
-**New in version 2.0**: a new package is available: `web-token/jwt-nested-token`. This package contains all the classes and dependencies will be directly managed by composer. You can install it if needed.
+The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create nested tokens with ease. Just instal the package `web-token/jwt-nested-token`. It contains all the classes and dependencies will be directly managed by composer. You can install it if needed.
 
 ## Nested Token Loading
 

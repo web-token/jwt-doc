@@ -54,12 +54,4 @@
     * [Additional Authentication Data \(AAD\)](advanced-topics/encrypted-tokens-and/additional-authentication-data-aad.md)
 * [Benchmarks](benchmarks/README.md)
   * [Result table](benchmarks/result-table.md)
-* [Migration](migration/README.md)
-  * [From spomky-labs/jose](migration/from-spomky-labs-jose/README.md)
-    * [Keys \(JWK\)](migration/from-spomky-labs-jose/keys-jwk.md)
-    * [Key Sets \(JWKSet\)](migration/from-spomky-labs-jose/key-sets-jwkset.md)
-    * [Signed Tokens \(JWS\)](migration/from-spomky-labs-jose/signed-tokens-jws.md)
-    * [Encrypted Tokens \(JWE\)](migration/from-spomky-labs-jose/encrypted-tokens-jwe.md)
-    * [Header Checking](migration/from-spomky-labs-jose/header-checking.md)
-    * [Claim Checking](migration/from-spomky-labs-jose/claim-checking.md)
 

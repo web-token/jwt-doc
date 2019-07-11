@@ -34,7 +34,8 @@ When installed, the `PBES2-*` algorithms available throught the algorithm manage
 
 ```yaml
 services:
-    Jose\Component\Encryption\Algorithm\KeyEncryption\PBES2HS256A128KW:
+    my.custom.PBES2HS256A128KW.algorithm:
+        class: Jose\Component\Encryption\Algorithm\KeyEncryption\PBES2HS256A128KW
         arguments:
             - 128   # salt size
             - 10240 # counts
