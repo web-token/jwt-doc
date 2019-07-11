@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [The "Easy" Way](easy.md)
 * [Components](components/README.md)
   * [Algorithm Management \(JWA\)](components/algorithm-management-jwa.md)
   * [Key \(JWK\) and Key Set \(JWKSet\)](components/key-jwk-and-key-set-jwkset/README.md)
