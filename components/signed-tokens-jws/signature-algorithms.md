@@ -2,8 +2,6 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-_From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
-
 * HMAC with SHA-2 Functions. Package `web-token/jwt-signature-algorithm-hmac`
   * `HS256`
   * `HS384`

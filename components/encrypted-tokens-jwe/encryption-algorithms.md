@@ -5,7 +5,7 @@ This framework comes with several encryption algorithms. These algorithms are in
 * `Jose\Component\Encryption\Algorithm\KeyEncryption`: key encryption algorithms
 * `Jose\Component\Encryption\Algorithm\ContentEncryption`: content encryption algorithms
 
-  _From v1.2, the algorithms have their own sub-packages. To avoid BC breaks, these packages are automatically installed for all v1.x of the framework. Starting at v2.0, you will have to explicitly install the algorithm packages you need._
+  \_\_
 
 * Key Encryption
   * Package `web-token/jwt-encryption-algorithm-aeskw`

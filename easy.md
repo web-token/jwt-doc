@@ -51,7 +51,7 @@ $jws = Build::jws() // We build a JWS
 echo $jws; // The variable $jws now contains your token
 ```
 
-A token you received can be read and verified. Verification is done on the signature and the claims or header parameters you want.
+A token you receive can be read and verified. Verification is done on the signature and the claims or header parameters you want.
 
 ```php
 use Jose\Component\Core\JWK;
