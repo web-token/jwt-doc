@@ -29,6 +29,7 @@ They are all part of the package `web-token/jwt-signature-algorithm-experimental
 
 * `RS1`: RSASSA-PKCS1 v1\_5 with SHA-1 hashing function.
 * `HS1`: HMAC with SHA-1 hashing function.
+* `ES256K`: Elliptic curve secp256k1 support \(v2.1+\).
 
 ## How To Use
 
