@@ -54,6 +54,6 @@
     * [Additional Authentication Data \(AAD\)](advanced-topics/encrypted-tokens-and/additional-authentication-data-aad.md)
 * [Benchmarks](benchmarks/README.md)
   * [Result table](benchmarks/result-table.md)
-* [Migration](untitled/README.md)
-  * [From v1.x to v2.0](untitled/from-v1.x-to-v2.0.md)
+* [Migration](migration/README.md)
+  * [From v1.x to v2.0](migration/from-v1.x-to-v2.0.md)
 
