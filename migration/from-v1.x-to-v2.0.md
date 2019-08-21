@@ -13,9 +13,9 @@ Next, you have to verify you don’t use any deprecated class, interface, method
 #### List of deprecations:
 
 * `Jose\Component\Core\JWK::create()`: this static function is removed. Use the constructor instead
-* `Jose\Component\Core\JWKSet::create()` : this static function is removed. Use the constructor instead
+* `Jose\Component\Core\JWKSet::createFromKeys()` : this static function is removed. Use the constructor instead
 * `Jose\Component\Core\Converter\JsonConverter`: this interface is removed. No replacement.
-* `Jose\Component\Core\Converter\StandardConverter`: this interface is removed. No replacement.
+* `Jose\Component\Core\Converter\StandardConverter`: this class is removed. No replacement.
 * `Jose\Component\Encryption\Compression\CompressionMethodManager::create()`: this static function is removed. Use the constructor instead
 * `Jose\Component\Encryption\Compression\GZip`: this class is removed. No replacement.
 * `Jose\Component\Encryption\Compression\ZLib`: this class is removed. No replacement.
