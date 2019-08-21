@@ -104,11 +104,14 @@ This framework needs at least:
 * GMP extension.
 * MBString extension.
 
-Depending on the algorithms you using, other PHP extensions may be required \(e.g. OpenSSL\).
+Depending on the algorithms you using, other PHP extensions may be required:
+
+* OpenSSL \(`ext-openssl`\): for almost all RSA and AES based algorithms,
+* Sodium \(`ext-sodium`\): for OKP key based algorithms \(`EdDSA` and `ECDH-ES` using `X25519` curve\).
 
 Please also consider the following optional requirements:
 
-* `ECDH-ES` based algorithms may be slow on your platform. We highly recommend PHP 7.3 when these algorithms are used.
+* `ECDH-ES` based algorithms may be slow on your platform. We highly recommend PHP 7.3+ when these algorithms are used \(approx 80x faster!\).
 
 ## Continuous Integration
 
@@ -118,9 +121,9 @@ It fails on PHP 8.0 \(`nightly`\) with all algorithms.
 
 Tests vectors from the [RFC 7520](http://tools.ietf.org/html/rfc7520) are fully implemented and all tests pass. Other test vector sources may be used \(e.g. new algorithm specifications\).
 
-We also track bugs and code quality using PPHStan and [Scrutinizer-CI](https://scrutinizer-ci.com/g/web-token/jwt-framework).
+We also track bugs and code quality using PHPStan and [Scrutinizer-CI](https://scrutinizer-ci.com/g/web-token/jwt-framework).
 
-Coding Standards are verified using php-cs-fixer.
+Coding Standards are verified using `php-cs-fixer`.
 
 Code coverage is analyzed by [Coveralls.io](https://coveralls.io/github/web-token/jwt-framework).
 
