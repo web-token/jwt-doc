@@ -20,6 +20,11 @@ Next, you have to verify you don’t use any deprecated class, interface, method
 * `Jose\Component\Encryption\Compression\GZip`: this class is removed. No replacement.
 * `Jose\Component\Encryption\Compression\ZLib`: this class is removed. No replacement.
 * `Jose\Component\Encryption\Serializer\JWESerializerManager::list()`: this method is removed. Please use `names()`
+* `Jose\Component\Checker\ClaimCheckerManager::create()` : this static function is removed. Use the constructor instead
+* `Jose\Component\Checker\HeaderCheckerManager::create()` : this static function is removed. Use the constructor instead
+* `Jose\Component\Core\AlgorithmManager::create()` : this static function is removed. Use the constructor instead
+* `Jose\Component\Encryption\Serializer\JWESerializerManager::create()` : this static function is removed. Use the constructor instead
+* `Jose\Component\Signature\Serializer\JWSSerializerManager::create()` : this static function is removed. Use the constructor instead
 
 With the Symfony bundle, the configuration option `jose.json_converter` is removed.
 
