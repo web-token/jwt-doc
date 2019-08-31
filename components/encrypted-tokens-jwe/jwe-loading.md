@@ -70,7 +70,7 @@ $token = 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9R
 $jwe = $serializerManager->unserialize($token);
 
 // We decrypt the token. This method does NOT check the header.
-$jwe = $jweDecrypter->decryptUsingKey($jwe, $jwk);
+$success = $jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
 ```
 
 OK so if not exception is thrown, then your token is loaded and the payload correctly decrypted.
