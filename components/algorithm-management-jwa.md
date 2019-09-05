@@ -49,11 +49,10 @@ use Jose\Component\Encryption\Algorithm\KeyEncryption\PBES2HS512A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A128CBCHS256;
 
 $algorithm_manager_factory = new AlgorithmManagerFactory();
-$algorithm_manager_factory
-    ->add('PS256', new PS256())
-    ->add('A128CBC-HS256', new A128CBCHS256())
-    ->add('PBES2-HS512+A256KW', new PBES2HS512A256KW())
-    ->add('PBES2-HS512+A256KW with custom configuration', new PBES2HS512A256KW(128, 8192))
+$algorithm_manager_factory->add('PS256', new PS256());
+$algorithm_manager_factory->add('A128CBC-HS256', new A128CBCHS256());
+$algorithm_manager_factory->add('PBES2-HS512+A256KW', new PBES2HS512A256KW());
+$algorithm_manager_factory->add('PBES2-HS512+A256KW with custom configuration', new PBES2HS512A256KW(128, 8192));
 ;
 ```
 
