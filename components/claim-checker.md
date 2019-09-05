@@ -110,12 +110,11 @@ use Jose\Component\Checker\ClaimCheckerManagerFactory;
 use Jose\Component\Checker;
 
 $claimCheckerManagerFactory = new ClaimCheckerManagerFactory();
-$claimCheckerManagerFactory
-    ->add('iat', new Checker\IssuedAtChecker())
-    ->add('nbf', new Checker\NotBeforeChecker())
-    ->add('exp', new Checker\ExpirationTimeChecker())
-    ->add('aud1', new Checker\AudienceChecker('Audience for service #1'))
-    ->add('aud2', new Checker\AudienceChecker('Audience for service #2'));
+$claimCheckerManagerFactory->add('iat', new Checker\IssuedAtChecker());
+$claimCheckerManagerFactory->add('nbf', new Checker\NotBeforeChecker());
+$claimCheckerManagerFactory->add('exp', new Checker\ExpirationTimeChecker());
+$claimCheckerManagerFactory->add('aud1', new Checker\AudienceChecker('Audience for service #1'));
+$claimCheckerManagerFactory->add('aud2', new Checker\AudienceChecker('Audience for service #2'));
 
 $claimCheckerManager1 = $claimCheckerManagerFactory->create(['iat', 'exp', 'aud2']);
 $claimCheckerManager2 = $claimCheckerManagerFactory->create(['aud1', 'exp']);

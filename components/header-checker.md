@@ -65,11 +65,10 @@ use Jose\Component\Encryption\JWETokenSupport;
 use Jose\Component\Signature\JWSTokenSupport;
 
 $headerCheckerManagerFactory = new HeaderCheckerManagerFactory();
-$headerCheckerManagerFactory
-    ->add('signature_alg', new AlgorithmChecker(['HS256']))
-    ->add('key_encryption_alg', new AlgorithmChecker(['RSA1_5']))
-    ->addTokenTypeSupport(new JWSTokenSupport())
-    ->addTokenTypeSupport(new JWETokenSupport());
+$headerCheckerManagerFactory->add('signature_alg', new AlgorithmChecker(['HS256']));
+$headerCheckerManagerFactory->add('key_encryption_alg', new AlgorithmChecker(['RSA1_5']));
+$headerCheckerManagerFactory->addTokenTypeSupport(new JWSTokenSupport());
+$headerCheckerManagerFactory->addTokenTypeSupport(new JWETokenSupport());
 
 $headerCheckerManagerForSignatures = $headerCheckerManagerFactory->create(['signature_alg']);
 $headerCheckerManagerForEncryption = $headerCheckerManagerFactory->create(['key_encryption_alg']);
