@@ -42,7 +42,7 @@ $jwk = new JWK([
 ]);
 
 // The serializer manager. We only use the JWS Compact Serialization Mode.
-$serializerManager = JWSSerializerManager::create([
+$serializerManager = new JWSSerializerManager([
     new CompactSerializer(),
 ]);
 
