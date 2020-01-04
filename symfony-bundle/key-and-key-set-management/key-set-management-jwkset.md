@@ -87,15 +87,17 @@ jose:
                 url: 'https://www.googleapis.com/oauth2/v1/certs'
 ```
 
-## Shared Ket Sets
+## Shared Key Sets
 
 It can be interesting to share your key sets through an Url. This can easily achieved by adding a dedicated controller. This controller is automatically created by the bundle.
 
-You must add the following configuration to your routing file.
+You can enable these routes by adding the following configuration to your routing file.
 
 ```yaml
+# config/routes.yaml
 jwkset_endpoints:
-    resource: "@JoseFrameworkBundle/Resources/config/routing/jwkset_controller.yml"
+    resource: .
+    type: jwkset
 ```
 
 Then you can share your key set.
@@ -110,10 +112,9 @@ jose:
         shared_keyset:
             id: 'jose.key_set.public_keyset' # The key set service to share
             path: '/certs' # Path of the key set. Final path is hostname/route_prefix/path: https://www.foo.com/keys/certs
-            max_age: 1000 # Set the HTTP cache max age of this key set
 ```
 
-Now went you go to the URL `http://128.0.0.1:8000/certs`, you will get your key set.
+Now when you go to the URL `http://128.0.0.1:8000/certs`, you will get your key set.
 
 ## Custom Tags
 
