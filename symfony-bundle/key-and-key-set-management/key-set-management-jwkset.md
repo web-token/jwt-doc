@@ -96,8 +96,7 @@ You can enable these routes by adding the following configuration to your routin
 ```yaml
 # config/routes.yaml
 jwkset_endpoints:
-    resource: .
-    type: jwkset
+    resource: "@JoseFrameworkBundle/Resources/config/routing/jwkset_controller.php"
 ```
 
 Then you can share your key set.
