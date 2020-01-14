@@ -32,7 +32,7 @@ With the Symfony bundle, the configuration option `jose.json_converter` is remov
 
 In v1.x, when you install the `web-token/jwt-signature` or `web-token/jwt-encryption`, the algorithms are automatically install.
 
-In v2.0, you must explicitly install the algorithms you need. Please refer to the [signature algorithms page](../components/signed-tokens-jws/signature-algorithms.md) or [encryption algorithms page](../components/encrypted-tokens-jwe/encryption-algorithms.md) to know what package you need to install.
+In v2.0, you must explicitly install the algorithms you need. Please refer to the [signature algorithms page](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption algorithms page](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) to know what package you need to install.
 
 ## Upgrade the libraries
 
