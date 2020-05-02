@@ -33,7 +33,7 @@ In any case, you MUST use a true random number generator.
 
 ### Additional Information
 
-It is highly recommended to set the following parameters to yours key:
+It is highly recommended to set the following parameters to your key:
 
 * `kid`: A unique key ID,
 * `use`: indicates the usage of the key. Either `sig` \(signature/verification\) or `enc` \(encryption/decryption\). 
@@ -41,7 +41,7 @@ It is highly recommended to set the following parameters to yours key:
 
 ### Key Rotation
 
-A key is fine but may be cracked e.g. by bruteforce. Changing you keys after several days or weeks is encouraged.
+A key is fine but may be cracked e.g. by bruteforce. Changing your keys after several days or weeks is encouraged.
 
 ## Token Creation
 
@@ -71,7 +71,7 @@ The JWT specification introduces several claims to limit the period of validity 
 * `iat`: issuance time,
 * `nbf`: validity point in time.
 
-These claims are not mandatory, but it is recommended to define a period of time for the token validity. When used, the expiration time should be in adaquation with the context of your application. A security token with 2 weeks lifetime is something you should avoid.
+These claims are not mandatory, but it is recommended to define a period of time for the token validity. When used, the expiration time should be appropriate to its context in your application. A security token with 2 weeks lifetime is something you should avoid.
 
 #### Issuer And Audience
 
@@ -95,7 +95,7 @@ When you receive a token, the following steps should be followed in this order. 
 
 ### Unserialize The Token
 
-You should only use the serialization mode\(s\) you need. If you intent to use yur tokens in a web context, then use only the Compact Serialization. If an error occurred during this process, you should consider the token as invalid.
+You should only use the serialization mode\(s\) you need. If you intend to use your tokens in a web context, then use only the Compact Serialization. If an error occurred during this process, you should consider the token as invalid.
 
 ### Check The Header
 
