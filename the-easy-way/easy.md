@@ -97,7 +97,7 @@ $jwt->header->jti(); // '0123456789'
 
 ### JWE Creation And Decryption
 
-The JWE creation and loading is very similar to the JWS process as they use common methds. In the following example, we will create an encrypted token \(JWE\) with a set of standard and custom claims and headers.
+The JWE creation and loading is very similar to the JWS process as they use common methods. In the following example, we will create an encrypted token \(JWE\) with a set of standard and custom claims and headers.
 
 ```php
 use Jose\Component\Core\JWK;
