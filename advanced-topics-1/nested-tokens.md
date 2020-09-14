@@ -24,7 +24,7 @@ $jws = $nestedTokenLoader->load($token, $encryptionKeySet, $signatureKeySet, $si
 
 ## Nested Token Building
 
-To instantiate the `NestedTokenBuilderder`, you will need the following components:
+To instantiate the `NestedTokenBuilder`, you will need the following components:
 
 * a `JWSBuilder`,
 * a `JWEBuilder`, 
