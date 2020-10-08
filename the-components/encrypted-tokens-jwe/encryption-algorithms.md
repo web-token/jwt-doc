@@ -25,7 +25,7 @@ Key Encryption
 * Package `web-token/jwt-encryption-algorithm-pbes2`
   * `PBES2-HS256+A128KW` \(class `PBES2HS256A128KW`\)
   * `PBES2-HS384+A192KW` \(class `PBES2HS384A192KW`\)
-  * `PBES2-HS512+A259KW` \(class `PBES2HS512A256KW`\)
+  * `PBES2-HS512+A256KW` \(class `PBES2HS512A256KW`\)
 * Package `web-token/jwt-encryption-algorithm-rsa`
   * `RSA1_5` \(class `RSA15`\) **READ THE NOTE BELOW**
   * `RSA-OAEP` \(class `RSAOAEP`\)
