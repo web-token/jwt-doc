@@ -2,7 +2,7 @@
 
 This framework needs at least:
 
-* ![PHP 7.1+](https://img.shields.io/badge/PHP-7.1%2B-ff69b4.svg),
+* ![PHP 7.2+](https://img.shields.io/badge/PHP-7.2%2B-ff69b4.svg),
 * GMP extension.
 * MBString extension.
 
