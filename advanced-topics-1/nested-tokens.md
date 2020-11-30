@@ -9,7 +9,7 @@ The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create
 To instantiate the `NestedTokenLoader`, you need a `JWSLoader` and a `JWELoader`.
 
 ```php
-use Jose\Component\Encryption\NestedTokenLoader;
+use Jose\Component\NestedToken\NestedTokenLoader;
 
 $nestedTokenLoader = new NestedTokenLoader($jweLoader, $jwsLoader);
 ```
@@ -32,7 +32,7 @@ To instantiate the `NestedTokenBuilder`, you will need the following components:
 * a `JWSSerializerManager`
 
 ```php
-use Jose\Component\Encryption\NestedTokenBuilder;
+use Jose\Component\NestedToken\NestedTokenBuilder;
 
 $nestedTokenBuilder = new NestedTokenBuilder($jweLoader, $jweSerializerManager, $jwsLoader, $jwsSerializerManager);
 ```
