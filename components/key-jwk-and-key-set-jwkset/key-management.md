@@ -2,7 +2,7 @@
 
 You can create a JWK object using two static methods:
 
-* `JWK::create(array $values)`: creates a JWK using direct values.
+* `new JWK(array $values)`: creates a JWK using direct values.
 * `JWK::createFromJson(string $json)`: creates a JWK using a JSON object.
 
 Hereafter all methods available for a JWK object. The variable `$jwk` is a valid JWK object.
