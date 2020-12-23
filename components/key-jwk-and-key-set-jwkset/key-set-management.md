@@ -2,7 +2,7 @@
 
 You can create a JWKSet object using three static methods:
 
-* `JWKSet::createFromKeys(array $keys)`: creates a JWKSet using a list of JWK objects.
+* `new JWKSet(array $keys)`: creates a JWKSet using a list of JWK objects.
 * `JWKSet::createFromJson(string $json)`: creates a JWKSet using a JSON object.
 * `JWKSet::createFromKeyData(array $values)`: creates a JWKSet using a decoded JSON object.
 
