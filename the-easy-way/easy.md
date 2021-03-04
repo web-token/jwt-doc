@@ -3,7 +3,7 @@
 In version 2.1, an "Easy" component will be released. With this component you will be able to produce and consume tokens an easy way.
 
 * Step 1: install the package `web-token/jwt-easy`
-* Step 2: install the [signature](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) algorithms you want to use
+* Step 2: install the [signature](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) algorithms you want to use.  e.g., `web-token/jwt-signature-algorithm-rsa`.  if you do not, you may encounter an error like "The algorithm "ES256" is not supported."
 * Step 3: create your scripts.
 
 ### JWS Creation And Verification
