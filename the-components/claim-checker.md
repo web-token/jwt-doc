@@ -62,7 +62,7 @@ use Jose\Component\Checker\InvalidClaimException;
 /**
  * Class FooChecker.
  */
-final class FooChecker implements ClaimCheckerInterface
+final class FooChecker implements ClaimChecker
 {
     /**
      * {@inheritdoc}
