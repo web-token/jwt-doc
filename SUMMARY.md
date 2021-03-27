@@ -80,6 +80,6 @@
 
 ## Migration <a id="migration-1"></a>
 
-* [Migration](migration/README.md)
-  * [From v1.x to v2.0](migration/from-v1.x-to-v2.0.md)
+* [Migration](migration-1/migration/README.md)
+  * [From v1.x to v2.0](migration-1/migration/from-v1.x-to-v2.0.md)
 

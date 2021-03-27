@@ -49,5 +49,3 @@ foreach($jwkset as $kid => $jwk) {
 json_encode($jwkset);
 ```
 
-
-

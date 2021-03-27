@@ -6,7 +6,7 @@ In version 2.1, an "Easy" component will be released. With this component you wi
 * Step 2: install the [signature](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) algorithms you want to use.  e.g., `web-token/jwt-signature-algorithm-rsa`.  if you do not, you may encounter an error like "The algorithm "ES256" is not supported."
 * Step 3: create your scripts.
 
-### JWS Creation And Verification
+## JWS Creation And Verification
 
 In the following example, we will create a signed token \(JWS\) with a set of standard and custom claims and headers.
 
@@ -77,8 +77,6 @@ $jwt = Load::jws($token) // We want to load and verify the token in the variable
 
 If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object. This object has 2 properties: `header` and `claim` containing the loaded values.
 
-
-
 ```php
 $jwt->claims->all(); // All claims (array)
 $jwt->claims->iat(); // = $jwt->claims->get('iat');
@@ -95,7 +93,7 @@ $jwt->header->alg(); // 'RS512'
 $jwt->header->jti(); // '0123456789'
 ```
 
-### JWE Creation And Decryption
+## JWE Creation And Decryption
 
 The JWE creation and loading is very similar to the JWS process as they use common methods. In the following example, we will create an encrypted token \(JWE\) with a set of standard and custom claims and headers.
 
@@ -108,7 +106,7 @@ $time = time(); // The current time
 $jwk = new JWK([
     'kty' => 'RSA',
     'kid' => 'bilbo.baggins@hobbiton.example',
-    'use' => 'sig',
+    'use' => 'enc',
     'n' => 'n4EPtAOCc9AlkeQHPzHStgAbgs7bTZLwUBZdR8_KuKPEHLd4rHVTeT-O-XV2jRojdNhxJWTDvNd7nqQ0VEiZQHz_AJmSCpMaJMRBSFKrKb2wqVwGU_NsYOYL-QtiWN2lbzcEe6XC0dApr5ydQLrHqkHHig3RBordaZ6Aj-oBHqFEHYpPe7Tpe-OfVfHd1E6cS6M1FZcD1NNLYD5lFHpPI9bTwJlsde3uhGqC0ZCuEHg8lhzwOHrtIQbS0FVbb9k3-tVTU4fg_3L_vniUFAKwuCLqKnS2BYwdq_mzSnbLY7h_qixoR7jig3__kRhuaxwUkRz5iaiQkqgc5gHdrNP5zw',
     'e' => 'AQAB',
 ]);
