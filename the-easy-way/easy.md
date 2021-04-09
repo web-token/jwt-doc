@@ -75,7 +75,7 @@ $jwt = Load::jws($token) // We want to load and verify the token in the variable
 ;
 ```
 
-If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object. This object has 2 properties: `header` and `claim` containing the loaded values.
+If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object. This object has 2 properties: `header` and `claims` containing the loaded values.
 
 ```php
 $jwt->claims->all(); // All claims (array)
