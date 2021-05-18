@@ -45,6 +45,25 @@ $jws = Build::jws() // We build a JWS
     ->sign($jwk) // Compute the token with the given JWK
 ;
 
+//You can directly set the payload and the header at once
+
+$jws = Build::jws() // We build a JWS
+    ->payload([
+        'exp' => $time + 3600, // The "exp" claim
+        'iat' => $time, // The "iat" claim
+        'nbf' => $time, // The "nbf" claim
+        'jti' => '0123456789', // The "jti" claim
+        'iss' => 'issuer', // The "iss" claim
+        'aud' => ['audience1', 'audience2'], // Add an audience ("aud" claim)
+        'sub' => 'subject', // The "sub" claim
+        'https://example.com/isRoot' => true,
+    ])
+    ->header('prefs', ['field1', 'field7'])
+    ->header('jti', '0123456789'),
+    ->header('alg', 'RS512')
+    ->sign($jwk)
+;
+
 echo $jws; // The variable $jws now contains your token
 ```
 
