@@ -83,7 +83,7 @@ $jwk = new JWK([
 $jwt = Load::jws($token) // We want to load and verify the token in the variable $token
     ->algs(['RS256', 'RS512']) // The algorithms allowed to be used
     ->exp() // We check the "exp" claim
-    ->iat(1000) // We check the "iat" claim. Leeway is 1000ms (1s)
+    ->iat(10) // We check the "iat" claim. Leeway is 10s
     ->nbf() // We check the "nbf" claim
     ->aud('audience1') // Allowed audience
     ->iss('issuer') // Allowed issuer
