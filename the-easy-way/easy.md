@@ -59,7 +59,7 @@ $jws = Build::jws() // We build a JWS
         'https://example.com/isRoot' => true,
     ])
     ->header('prefs', ['field1', 'field7'])
-    ->header('jti', '0123456789'),
+    ->header('jti', '0123456789')
     ->header('alg', 'RS512')
     ->sign($jwk)
 ;
