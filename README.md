@@ -64,7 +64,7 @@ JWKSet is fully supported.
 | :--- | :--- | :--- |
 | HS256, HS384 and HS512 | YES |  |
 | ES256, ES384 and ES512 | YES |  |
-| RS256, RS384 and RS512 | YES |  |
+| RS256, RS384 and RS512 | YES | **All RSA-PKCS1 v1.5 encryption algorithms should be avoided, as per [RFC 8725, Section 3.2](https://datatracker.ietf.org/doc/html/rfc8725#section-3.2)** |
 | PS256, PS384 and PS512 | YES |  |
 | none | YES | **Please note that this is not a secured algorithm. USE IT WITH CAUTION!** |
 | EdDSA with Ed25519 curve | YES | [With PHP 7.1, third party extension highly recommended](https://github.com/jedisct1/libsodium-php) |
