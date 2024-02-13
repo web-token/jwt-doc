@@ -57,7 +57,7 @@ JWKSet is fully supported.
 | <p>RS256</p><p>RS384</p><p>RS512</p> | YES       |                                                                                  |
 | <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark> |
 | none                                 | YES       | **Please note that this is not a secured algorithm. USE IT WITH CAUTION!**       |
-| EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">SODIUM extension is highly required</mark>           |
+| EdDSA with Ed25519 curve             | YES       |                                                                                  |
 | EdDSA with Ed448 curve               | NO        | No extension or built-in implementation available                                |
 
 {% hint style="info" %}
@@ -70,13 +70,13 @@ Other signature algorithms like `RS1`, `HS1` or `HS256/64` are also available. T
 | ----------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | dir                                                                           | YES       |                                                                                                                                                                  |
 | <p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256</p>                               | YES       | <p><mark style="color:orange;">GMP or BCMath extension is highly recommended</mark><br><br><mark style="color:red;"><strong>Read note below!</strong></mark></p> |
-| <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
-| <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
-| <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| <p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p>   | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| <p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p>                              | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| ECDH-ES with X25519 curve                                                     | YES       | <mark style="color:orange;">SODIUM extension is highly required</mark>                                                                                           |
-| ECDH-ES with X448 curve                                                       | NO        | No extension or built-in implementation available                                                                                                                |
+| <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       |                                                                                                                                                                  |
+| <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       |                                                                                                                                                                  |
+| <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       |                                                                                                                                                                  |
+| <p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p>   | YES       |                                                                                                                                                                  |
+| <p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p>                              | YES       |                                                                                                                                                                  |
+| ECDH-ES with X25519 curve                                                     | YES       |                                                                                                                                                                  |
+| ECDH-ES with X448 curve                                                       | NO        |                                                                                                                                                                  |
 
 {% hint style="info" %}
 Other encryption algorithms like `RSA-OEAP-384` or `ChaCha20-Poly1305` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems

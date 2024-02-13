@@ -1,6 +1,12 @@
 # Key (JWK) and Key Set (JWKSet)
 
-To perform cryptographic operations (signature/verification and encryption/decryption), you will need cryptographic keys.
+To perform cryptographic operations (signature/verification and encryption/decryption), you will also need keys.
+
+The `JWK` object is part of the `web-token/jwt-core` component:
+
+```bash
+composer require web-token/jwt-core
+```
 
 ## JWK
 

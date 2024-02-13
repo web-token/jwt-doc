@@ -2,6 +2,12 @@
 
 JSON Web Tokens can be used to transport any kind of data. They are mainly used to transport claims. When you receive a tokens that contains claims, it is important to check the values of these claims.
 
+The Claim Checker Manager is responsible of this task. To use it, install the corresponding component:
+
+```bash
+composer require web-token/jwt-checker
+```
+
 ## Claim Checker Manager
 
 In the following example, we will create a manager able to check the `aud` (Audience), `iat` (Issued At), `nbf` (Not Before) and `exp` (Expiration) claims.

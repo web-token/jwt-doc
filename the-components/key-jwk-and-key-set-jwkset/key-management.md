@@ -34,7 +34,13 @@ json_encode($jwk);
 
 ## Generate A New Key
 
-This framework is able to create private and public keys on the fly using the `JWKFactory`. 4 types of keys are supported:
+This framework is able to create private and public keys on the fly using the `JWKFactory`. It is available in the `web-token/jwt-key-mgmt` component.
+
+```bash
+composer require web-token/jwt-key-mgmt
+```
+
+4 types of keys are supported:
 
 * Symmetric Key:
   * `oct`: octet string

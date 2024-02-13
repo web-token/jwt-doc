@@ -5,8 +5,6 @@
 ## Introduction
 
 * [Provided Features](introduction/provided-features.md)
-* [Security Recommendations](introduction/security-recommendations.md)
-* [The Framework](introduction/the-framework.md)
 * [Pre-requisite](introduction/pre-requisite.md)
 * [Continous Integration](introduction/continous-integration.md)
 * [Contributing](introduction/contributing.md)
@@ -56,6 +54,7 @@
 
 ## Advanced Topics
 
+* [Security Recommendations](advanced-topics/security-recommendations.md)
 * [Nested Tokens](advanced-topics/nested-tokens.md)
 * [Serialization](advanced-topics/serialization.md)
 * [Custom Algorithm](advanced-topics/custom-algorithm.md)
@@ -78,4 +77,3 @@
 
 * [From v1.x to v2.0](migration/from-v1.x-to-v2.0.md)
 * [From v2.x to v3.0](migration/from-v1.x-to-v2.0-1.md)
-* [From v3.x to v4.0](migration/from-v1.x-to-v2.0-2.md)

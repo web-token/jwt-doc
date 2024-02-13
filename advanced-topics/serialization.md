@@ -10,6 +10,12 @@ The _Compact_ mode is most know and commonly used as it is compact and URL safe 
 
 ## JWS Serialization
 
+To use the JWS serializers, you have to install the `jwt-signature` component.
+
+```bash
+composer require web-token/jwt-signature
+```
+
 ### JWS Compact
 
 This serialization mode is probably the one you know the most. It it a string composed of three parts encoded in Base64 Url Safe and separated by a dot (`.`).
@@ -108,6 +114,8 @@ $jws = $manager->unserialize($token);
 ```
 
 ## JWE Serialization
+
+To use the JWE serializers, you have to install the `jwt-encryption` component.
 
 ### JWE Compact
 
