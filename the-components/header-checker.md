@@ -10,12 +10,6 @@ This is a strong recommendation are there are known vulnerabilities on tokens th
 Please note that some algorithms may use additional header parameters. Please read carefully the details on the [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithms page.
 {% endhint %}
 
-To use the header checker, install the corresponding component:
-
-```bash
-composer require web-token/jwt-checker
-```
-
 The header parameters are checked by a Header Checker Manager. This manager can contain several header checkers.
 
 {% hint style="success" %}
@@ -28,7 +22,7 @@ Even if the cypher process will check the `alg`/`enc` header parameters, it is i
 
 ## Header Checker Manager
 
-To create a header checker manager, you will need to add header checkers and at least one token type. You will find token type classes for the JWS and JWE tokens in the `web-token/jwt-signature` and `web-token/jwt-encryption` components respectively.
+To create a header checker manager, you will need to add header checkers and at least one token type.&#x20;
 
 In the following example, we want to check the `alg` header parameter for the signed tokens (JWS) received by our application.
 
@@ -72,7 +66,7 @@ $headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
 
 The library provides several header checker classes you can instantiate and use at will. They are all located in the namespace `Jose\Component\Checker`.
 
-<table><thead><tr><th width="296">Class</th><th width="314">Header</th><th>Time-based</th></tr></thead><tbody><tr><td>AlgorithmChecker</td><td><code>alg</code></td><td>No</td></tr><tr><td>AudienceChecker</td><td><code>aud</code></td><td>No</td></tr><tr><td>ExpirationTimeChecker</td><td><code>exp</code></td><td>Yes</td></tr><tr><td>IssuedAtChecker</td><td><code>iat</code></td><td>Yes</td></tr><tr><td>IssuerChecker</td><td><code>iss</code></td><td>No</td></tr><tr><td>NotBeforeChecker</td><td><code>nbf</code></td><td>Yes</td></tr><tr><td>UnencodedPayloadChecker</td><td><code>b64</code></td><td>No</td></tr><tr><td>CallableChecker</td><td>Generic object that can execute a callable for checking a particular parameter</td><td>No</td></tr><tr><td>IsEqualChecker</td><td>Generic object that can compare a particular parameter to a predefined value</td><td>No</td></tr></tbody></table>
+<table><thead><tr><th width="296">Class</th><th width="314">Header</th><th>Time-based</th></tr></thead><tbody><tr><td>AlgorithmChecker</td><td><code>alg</code></td><td>No</td></tr><tr><td>AudienceChecker</td><td><code>aud</code></td><td>No</td></tr><tr><td>ExpirationTimeChecker</td><td><code>exp</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>IssuedAtChecker</td><td><code>iat</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>IssuerChecker</td><td><code>iss</code></td><td>No</td></tr><tr><td>NotBeforeChecker</td><td><code>nbf</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>UnencodedPayloadChecker</td><td><code>b64</code></td><td>No</td></tr><tr><td>CallableChecker</td><td>Generic object that can execute a callable for checking a particular parameter</td><td>No</td></tr><tr><td>IsEqualChecker</td><td>Generic object that can compare a particular parameter to a predefined value</td><td>No</td></tr></tbody></table>
 
 {% hint style="info" %}
 For time-based parameter checker classes, a PSR-20 clock object can be used and will be mandatory for 4.0+. This service is required for obtaining the current time or manipulating it in test environments.

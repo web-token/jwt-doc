@@ -2,11 +2,7 @@
 
 ## Checker Manager Factory Services
 
-The Symfony Bundle provides Header and Claim Checker Manager Factory services. These services are available when the `web-token/jwt-checker` component is installed:
-
-```bash
-composer require web-token/jwt-checker
-```
+The Symfony Bundle provides Header and Claim Checker Manager Factory services.&#x20;
 
 ```php
 <?php

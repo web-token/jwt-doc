@@ -2,18 +2,13 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-| Algorithm                                   | Description                                        | Package                                   |
-| ------------------------------------------- | -------------------------------------------------- | ----------------------------------------- |
-| <p>HS256</p><p>HS384</p><p>HS512</p>        | HMAC with SHA-2 Functions                          | `web-token/jwt-signature-algorithm-hmac`  |
-| <p></p><p>ES256</p><p>ES384</p><p>ES512</p> | Elliptic Curve Digital Signature Algorithm (ECDSA) | `web-token/jwt-signature-algorithm-ecdsa` |
-| <p>RS256</p><p>RS384</p><p>RS512</p>        | RSASSA-PKCS1 v1\_5                                 | `web-token/jwt-signature-algorithm-rsa`   |
-| <p>PS256</p><p>PS384</p><p>PS512</p>        | RSASSA-PSS                                         | `web-token/jwt-signature-algorithm-rsa`   |
-| EdDSA (_only with the_ Ed25519 _curve_)     | Edwards-curve Digital Signature Algorithm (EdDSA)  | `web-token/jwt-signature-algorithm-eddsa` |
-| none                                        |                                                    | `web-token/jwt-signature-algorithm-none`  |
+<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td>Edwards-curve Digital Signature Algorithm (EdDSA)</td></tr><tr><td>none</td><td></td></tr></tbody></table>
 
-**The following signature algorithms are experimental and must not be used in production unless you know what you are doing. They are proposed for testing purpose only.**
+### Experimental Algorithms
 
-**They are provided throught the package** `web-token/jwt-signature-algorithm-experimental`.
+The following signature algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>
+
+They are provided throught the package `web-token/jwt-experimental`.
 
 | Algorithm | Description                                    |
 | --------- | ---------------------------------------------- |

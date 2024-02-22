@@ -4,34 +4,7 @@ This framework provides a Symfony bundle that will help you to use the component
 
 ## With Symfony Flex
 
-Since the version 3.0, Symfony Flex recipes are provided through a dedicated repository. It is mandatory to add this repository before installing the bundle.
-
-```shell
-tra.symfony.endpoint '["https://api.github.com/repos/Spomky-Labs/recipes/contents/index.json?ref=main", "flex://defaults"]'
-```
-
-{% code title="composer.json" %}
-```json
-{
-    ...
-    "extra": {
-        "symfony": {
-            "endpoint": [
-                "https://api.github.com/repos/Spomky-Labs/recipes/contents/index.json?ref=main",
-                "flex://defaults"
-            ]
-        }
-    }
-}
-```
-{% endcode %}
-
-Then, you can install the bundle or the complete framework:
-
-```shell
-composer require web-token/jwt-bundle #Will only install the bundle
-composer require web-token/jwt-framework # Will install the whole framework (not recommended)
-```
+The bundle is automatically detected when Flex is available.
 
 {% hint style="info" %}
 As the recipes are third party ones not officially supported by Symfony, you will be asked to execute the recipe or not. When applied, the recipes will prompt a message such as `Web Token Framework is ready.`

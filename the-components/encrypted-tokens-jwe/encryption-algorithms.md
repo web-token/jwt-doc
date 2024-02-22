@@ -9,7 +9,7 @@ This framework comes with several encryption algorithms. These algorithms are in
 
 ### Key Encryption
 
-<table><thead><tr><th width="291.94289669492997">Algorithm</th><th>Package</th><th>Additional header parameter</th></tr></thead><tbody><tr><td><p>A128KW</p><p>A192KW</p><p>A256KW</p></td><td><code>web-token/jwt-encryption-algorithm-aeskw</code></td><td>No</td></tr><tr><td><p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p></td><td><code>web-token/jwt-encryption-algorithm-aesgcmkw</code></td><td><code>iv</code>:  (initialization vector) this value is the base64url-encoded representation of the 96-bit IV value used for the key encryption operation.<br><code>tag</code>: (authentication tag) the value is the base64url-encoded representation of the 128-bit Authentication Tag value resulting from the key encryption operation.</td></tr><tr><td>dir</td><td><code>web-token/jwt-encryption-algorithm-dir</code></td><td>No</td></tr><tr><td><p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p></td><td><code>web-token/jwt-encryption-algorithm-ecdh-es</code></td><td><code>epk</code>: (ephemeral public key) value created by the originator.</td></tr><tr><td><p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p></td><td><code>web-token/jwt-encryption-algorithm-ecdh-es</code></td><td>No</td></tr><tr><td><p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p></td><td><code>web-token/jwt-encryption-algorithm-pbes2</code></td><td><code>p2s</code>: (PBES2 salt input) encodes a Salt Input value, which is used as part of the PBKDF2 salt value.<br><code>p2c</code>: (PBES2 count) contains the PBKDF2 iteration count, represented as a positive JSON integer.</td></tr><tr><td><p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256 </p></td><td><code>web-token/jwt-encryption-algorithm-rsa</code></td><td></td></tr></tbody></table>
+<table><thead><tr><th width="247.89966436130516">Algorithm</th><th>Additional header parameter</th></tr></thead><tbody><tr><td><p>A128KW</p><p>A192KW</p><p>A256KW</p></td><td>No</td></tr><tr><td><p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p></td><td><code>iv</code>:  (initialization vector) this value is the base64url-encoded representation of the 96-bit IV value used for the key encryption operation.<br><code>tag</code>: (authentication tag) the value is the base64url-encoded representation of the 128-bit Authentication Tag value resulting from the key encryption operation.</td></tr><tr><td>dir</td><td>No</td></tr><tr><td><p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p></td><td><code>epk</code>: (ephemeral public key) value created by the originator.</td></tr><tr><td><p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p></td><td>No</td></tr><tr><td><p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p></td><td><code>p2s</code>: (PBES2 salt input) encodes a Salt Input value, which is used as part of the PBKDF2 salt value.<br><code>p2c</code>: (PBES2 count) contains the PBKDF2 iteration count, represented as a positive JSON integer.</td></tr><tr><td><p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256 </p></td><td></td></tr></tbody></table>
 
 {% hint style="warning" %}
 Please note that the additional header parameters **MUST** be present and **MUST** be understood. Depending on the algorithm you use, you may be required to check headers BEFORE the decryption operation. Please create a [custom Header Checker](../header-checker.md) for theses parameters.
@@ -30,23 +30,15 @@ The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key typ
 
 ## Experimental Algorithms
 
-The following algorithms are experimental and must not be used in production unless you know what you are doing. They are proposed for testing purpose only.
-
-They are all part of the package `web-token/jwt-encryption-algorithm-experimental`
+The following algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>
 
 ### Key Encryption
 
-| Algorithm                                  | Description                                                                   |
-| ------------------------------------------ | ----------------------------------------------------------------------------- |
-| <p>A128CTR</p><p>A192CTR</p><p>A256CTR</p> | AES CTR based encryption                                                      |
-| Chacha20+Poly1305                          | _Please note that this algorithm requires OpenSSL 1.1_                        |
-| <p>RSA-OAEP-384</p><p>RSA-OAEP-512</p>     | Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions |
+<table><thead><tr><th width="225">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>A128CTR</p><p>A192CTR</p><p>A256CTR</p></td><td>AES CTR based encryption</td></tr><tr><td>Chacha20+Poly1305</td><td><em>Please note that this algorithm requires OpenSSL 1.1</em></td></tr><tr><td><p>RSA-OAEP-384</p><p>RSA-OAEP-512</p></td><td>Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions</td></tr></tbody></table>
 
 ### Content Encryption
 
-| Algorithm                                                                                                                                                                   | Description              |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| <p>A128CCM-16-128</p><p>A128CCM-16-64</p><p>A128CCM-64-128</p><p>A128CCM-64-64</p><p></p><p>A256CCM-16-128</p><p>A256CCM-16-64</p><p>A256CCM-64-128</p><p>A256CCM-64-64</p> | AES-CCM based algorithms |
+<table><thead><tr><th width="226">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>A128CCM-16-128</p><p>A128CCM-16-64</p><p>A128CCM-64-128</p><p>A128CCM-64-64</p><p></p><p>A256CCM-16-128</p><p>A256CCM-16-64</p><p>A256CCM-64-128</p><p>A256CCM-64-64</p></td><td>AES-CCM based algorithms</td></tr></tbody></table>
 
 ## How To Use
 

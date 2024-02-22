@@ -4,13 +4,7 @@ For each cryptographic operation, you will need at least one algorithm and one k
 
 The algorithm list depends on the cypher operation to be performed (signature or encryption).
 
-These algorithms are managed by an **Algorithm Manager**. In the following example, we will create an algorithm manager that will handle two algorithms: `PS256` and `ES512`.
-
-The algorithm management is part of the `web-token/jwt-core` component. **The signature algorithms are available in dedicated packages**. See [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithm pages for more information.
-
-```bash
-composer require web-token/jwt-core
-```
+These algorithms are managed by an **Algorithm Manager**. In the following example, we will create an algorithm manager that will handle two algorithms: `PS256` and `ES512`. See [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithm pages for more information.
 
 ```php
 <?php

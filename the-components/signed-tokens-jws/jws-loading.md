@@ -30,8 +30,6 @@ Now we can deserialize the input we receive and check the signature using our ke
 We do not check header parameters here, but it is very important to do it. This step is described in the [Header Checker section](../header-checker.md).
 {% endhint %}
 
-**Note: we do not check header parameters here, but it is very important to do it. This step is described in the Header Checker section.**
-
 ```php
 <?php
 
