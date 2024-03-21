@@ -3,12 +3,12 @@
 In version 2.1, an "Easy" component will be released. With this component you will be able to produce and consume tokens an easy way.
 
 * Step 1: install the package `web-token/jwt-easy`
-* Step 2: install the [signature](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) algorithms you want to use.  e.g., `web-token/jwt-signature-algorithm-rsa`.  if you do not, you may encounter an error like "The algorithm "ES256" is not supported."
+* Step 2: install the [signature](../the-components/signed-tokens-jws/signature-algorithms.md) or [encryption](../the-components/encrypted-tokens-jwe/encryption-algorithms.md) algorithms you want to use. e.g., `web-token/jwt-signature-algorithm-rsa`. if you do not, you may encounter an error like "The algorithm "ES256" is not supported."
 * Step 3: create your scripts.
 
 ## JWS Creation And Verification
 
-In the following example, we will create a signed token \(JWS\) with a set of standard and custom claims and headers.
+In the following example, we will create a signed token (JWS) with a set of standard and custom claims and headers.
 
 ```php
 use Jose\Component\Core\JWK;
@@ -59,7 +59,7 @@ $jws = Build::jws() // We build a JWS
         'https://example.com/isRoot' => true,
     ])
     ->header('prefs', ['field1', 'field7'])
-    ->header('jti', '0123456789')
+    ->header('jti', '0123456789'),
     ->header('alg', 'RS512')
     ->sign($jwk)
 ;
@@ -114,7 +114,7 @@ $jwt->header->jti(); // '0123456789'
 
 ## JWE Creation And Decryption
 
-The JWE creation and loading is very similar to the JWS process as they use common methods. In the following example, we will create an encrypted token \(JWE\) with a set of standard and custom claims and headers.
+The JWE creation and loading is very similar to the JWS process as they use common methods. In the following example, we will create an encrypted token (JWE) with a set of standard and custom claims and headers.
 
 ```php
 use Jose\Component\Core\JWK;
@@ -185,4 +185,3 @@ $jwt = Load::jwe($token) // We want to load and decrypt the token in the variabl
 ```
 
 If everything is ok, the variable `$jwt` contains a `Jose\Easy\JWT` object.
-
