@@ -17,15 +17,13 @@ With this factory, you will be able to create the JWEBuilder you need:
 $jweBuilder = $jweBuilderFactory->create(
     ['A256GCMKW'],
     ['A256CBC-HS256'],
-    ['DEF'] // Compression methods
+    //['DEF'] // Compression methods
 );
 ```
 
-Available compression methods are:
+~~Available compression methods are:~~
 
-* `DEF`: deflate (recommended)
-* `GZ`: gzip
-* `ZLIB`: zlib
+* ~~`DEF`: deflate (recommended)~~
 
 You can now use the JWEBuilder as explained in the JWE Creation section.
 
@@ -40,7 +38,7 @@ jose:
             builder1:
                 key_encryption_algorithms: ['A256GCMKW']
                 content_encryption_algorithms: ['A256CBC-HS256']
-                compression_methods: ['DEF']
+                #compression_methods: ['DEF']
                 is_public: true
 ```
 
@@ -62,7 +60,7 @@ jose:
             builder1:
                 key_encryption_algorithms: ['A256GCMKW']
                 content_encryption_algorithms: ['A256CBC-HS256']
-                compression_methods: ['DEF']
+                #compression_methods: ['DEF']
                 tags:
                     tag_name1: ~
                     tag_name2: {attribute1: 'foo'}

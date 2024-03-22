@@ -11,7 +11,7 @@ $jwe = $jweBuilder
     ->withSharedProtectedHeader([
         'enc' => 'A256CBC-HS512',
         'alg' => 'RSA-OAEP-256',
-        'zip' => 'DEF',
+        //'zip' => 'DEF',
     ])
     ->addRecipient($recipient_key)
     ->withAAD('A,B,C,D')

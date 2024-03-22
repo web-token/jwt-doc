@@ -34,7 +34,7 @@ jose:
             decrypter1:
                 key_encryption_algorithms: ['A256GCMKW']
                 content_encryption_algorithms: ['A256CBC-HS256']
-                compression_methods: ['DEF']
+                #compression_methods: ['DEF']
                 is_public: true
 ```
 
@@ -56,7 +56,7 @@ jose:
             decrypter1:
                 key_encryption_algorithms: ['A256GCMKW']
                 content_encryption_algorithms: ['A256CBC-HS256']
-                compression_methods: ['DEF']
+                #compression_methods: ['DEF']
                 tags:
                     tag_name1: ~
                     tag_name2: {attribute1: 'foo'}
@@ -82,7 +82,7 @@ jose:
             jwe_loader1:
                 key_encryption_algorithms: ['A256GCMKW']
                 content_encryption_algorithms: ['A256CBC-HS256']
-                compression_methods: ['DEF']
+                #compression_methods: ['DEF']
                 header_checkers: ['alg', 'enc']
                 is_public: true
 ```

@@ -4,7 +4,7 @@ The computation of a JWE is done by the `JWEBuilder` object. This object require
 
 * an algorithm manager with key encryption algorithms
 * an algorithm manager with content encryption algorithms
-* a compression method manager. No compression method is needed if you do not intent to compress the payload.
+* ~~a compression method manager. No compression method is needed if you do not intent to compress the payload.~~
 
 ```php
 <?php
@@ -12,8 +12,8 @@ The computation of a JWE is done by the `JWEBuilder` object. This object require
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
-use Jose\Component\Encryption\Compression\CompressionMethodManager;
-use Jose\Component\Encryption\Compression\Deflate;
+//use Jose\Component\Encryption\Compression\CompressionMethodManager;
+//use Jose\Component\Encryption\Compression\Deflate;
 use Jose\Component\Encryption\JWEBuilder;
 
 // The key encryption algorithm manager with the A256KW algorithm.
@@ -27,17 +27,21 @@ $contentEncryptionAlgorithmManager = new AlgorithmManager([
 ]);
 
 // The compression method manager with the DEF (Deflate) method.
-$compressionMethodManager = new CompressionMethodManager([
-    new Deflate(),
-]);
+//$compressionMethodManager = new CompressionMethodManager([
+//    new Deflate(),
+//]);
 
 // We instantiate our JWE Builder.
 $jweBuilder = new JWEBuilder(
     $keyEncryptionAlgorithmManager,
     $contentEncryptionAlgorithmManager,
-    $compressionMethodManager
+    //$compressionMethodManager
 );
 ```
+
+{% hint style="danger" %}
+Compression is not recommended. Please avoid its use. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
+{% endhint %}
 
 Now let's create our first JWE object.
 
@@ -65,7 +69,7 @@ $jwe = $jweBuilder
     ->withSharedProtectedHeader([
         'alg' => 'A256KW',        // Key Encryption Algorithm
         'enc' => 'A256CBC-HS512', // Content Encryption Algorithm
-        'zip' => 'DEF'            // We enable the compression (irrelevant as the payload is small, just for the example).
+        //'zip' => 'DEF'            // Not recommended.
     ])
     ->addRecipient($jwk)    // We add a recipient (a shared key or public key).
     ->build();              // We build it

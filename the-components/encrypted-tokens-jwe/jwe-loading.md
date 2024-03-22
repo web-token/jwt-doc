@@ -4,18 +4,17 @@ Encrypted tokens are loaded by a serializer or the serializer manager and decryp
 
 * an algorithm manager with key encryption algorithms
 * an algorithm manager with content encryption algorithms
-* a compression method manager. No compression method is needed if you do not intent to compress the payload.
+* ~~a compression method manager. No compression method is needed if you do not intent to compress the payload.~~
 
 In the following example, we will use the same assumptions as the ones used during the [JWE Creation process](jwe-creation.md).
 
-```php
-<?php
+<pre class="language-php"><code class="lang-php">&#x3C;?php
 
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
-use Jose\Component\Encryption\Compression\CompressionMethodManager;
-use Jose\Component\Encryption\Compression\Deflate;
+//use Jose\Component\Encryption\Compression\CompressionMethodManager;
+//use Jose\Component\Encryption\Compression\Deflate;
 use Jose\Component\Encryption\JWEDecrypter;
 
 // The key encryption algorithm manager with the A256KW algorithm.
@@ -29,17 +28,21 @@ $contentEncryptionAlgorithmManager = new AlgorithmManager([
 ]);
 
 // The compression method manager with the DEF (Deflate) method.
-$compressionMethodManager = new CompressionMethodManager([
-    new Deflate(),
-]);
+<strong>//$compressionMethodManager = new CompressionMethodManager([
+</strong>//    new Deflate(),
+//]);
 
 // We instantiate our JWE Decrypter.
 $jweDecrypter = new JWEDecrypter(
     $keyEncryptionAlgorithmManager,
     $contentEncryptionAlgorithmManager,
-    $compressionMethodManager
+    //$compressionMethodManager
 );
-```
+</code></pre>
+
+{% hint style="danger" %}
+Compression is not recommended. Please avoid its use. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
+{% endhint %}
 
 Now we can try to deserialize and decrypt the input we receive. We will continue with the result we got during the JWE creation section.
 
@@ -128,7 +131,7 @@ $jweLoader = $jweLoaderFactory->create(
     ['jwe_compact'], // List of serializer aliases
     ['A128KW'],      // List of key encryption algorithm aliases
     ['A128KW'],      // List of content encryption algorithm aliases
-    ['DEF'],         // List of compression method aliases
+    //['DEF'],         // List of compression method aliases
     ['alg', 'enc']   // Optional list of header checker aliases
 );
 ```

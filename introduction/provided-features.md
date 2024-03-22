@@ -17,16 +17,14 @@ The [detached payload](../advanced-topics/signed-tokens-and/detached-payload.md)
 | Flattened JSON       | YES | YES |
 | General JSON         | YES | YES |
 
-
-
 ## Supported Compression Methods
 
 | Compression mode | Supported |
 | ---------------- | --------- |
 | Deflate (`DEF`)  | YES       |
 
-{% hint style="info" %}
-The library is able to support any other compression methods just by declaring new classes.
+{% hint style="danger" %}
+Compression is not recommended. Please avoid its use. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
 {% endhint %}
 
 ## Supported Key Types (JWK)
