@@ -3,7 +3,7 @@
 When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
 
 {% hint style="warning" %}
-This is a strong recommendation are there are known vulnerabilities on tokens that are processed without header verification.
+This is a strong recommendation, there are known vulnerabilities on tokens that are processed without header verification.
 {% endhint %}
 
 {% hint style="info" %}
