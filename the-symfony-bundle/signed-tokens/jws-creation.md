@@ -6,7 +6,7 @@ A `JWSBuilderFactory` is available as a service in your application container:
 
 ```php
 <?php
-use Jose\Component\Signature\JWSBuilderFactory;
+use Jose\Bundle\JoseFramework\Services\JWSBuilderFactory;
 
 $jwsBuilderFactory = $container->get(JWSBuilderFactory::class);
 ```
