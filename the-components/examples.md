@@ -71,8 +71,8 @@ use Symfony\Component\Clock\NativeClock;
 
 require_once 'vendor/autoload.php';
 
-$privateKey = '{"use":"sig","alg":"ES256","kid":"my-key-id","kty":"EC","crv":"P-256","d":"j5RP0Z4w9JvTacrP6fGYB50U97EvGE8kAMQ-YdNva7c","x":"JQJ8BPvO1oRaTBL2BPZG3y7AhOkZ3d-IZH6GdW-eNdo","y":"nSbyi6pS1ve6eNuusDkqifCUz6Msnkm8ivJHgaQgZfI"}';
-$jwk = JWK::createFromJson($privateKey);
+$publicKey = '{"use":"sig","alg":"ES256","kid":"my-key-id","kty":"EC","crv":"P-256","x":"JQJ8BPvO1oRaTBL2BPZG3y7AhOkZ3d-IZH6GdW-eNdo","y":"nSbyi6pS1ve6eNuusDkqifCUz6Msnkm8ivJHgaQgZfI"}';
+$publicJWK = JWK::createFromJson($publicKey);
 
 $input = 'eyJhbGciOiJFUzI1NiIsImtpZCI6Im15LWtleS1pZCJ9.eyJpc3MiOiJodHRwczpcL1wvZXhhbXBsZS5jb20iLCJzdWIiOiIxMjM0NTY3ODkwIiwiYXVkIjoiaHR0cHM6XC9cL2FwaS5leGFtcGxlLmNvbSIsImV4cCI6MTc1MzU1Njk4NCwibmJmIjoxNzUzNTUzMzg0LCJpYXQiOjE3NTM1NTMzODQsImp0aSI6IjM3MjEzMjRjNGMxM2E5OTY4ZTI0YmY0MDZlNmU0MGYwIn0.EpXrD7j5hjUXLVrewNG3eQkmX5dQ1TiopP7cKflFmG0pS3lKDNnxTqUW9Gbz0YDjWoyTzldZoDW4w-KgmdYJqg';
 
@@ -95,7 +95,7 @@ $loader = new JWSLoader(
 );
 
 $verifiedSignature = null;
-$jws = $loader->loadAndVerifyWithKey($input, $jwk, $verifiedSignature);
+$jws = $loader->loadAndVerifyWithKey($input, $publicJWK, $verifiedSignature);
 
 $payload = json_decode($jws->getPayload(), true);
 
