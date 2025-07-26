@@ -27,6 +27,7 @@
   * [Encryption Algorithms](the-components/encrypted-tokens-jwe/encryption-algorithms.md)
   * [JWE Creation](the-components/encrypted-tokens-jwe/jwe-creation.md)
   * [JWE Loading](the-components/encrypted-tokens-jwe/jwe-loading.md)
+* [Examples](the-components/examples.md)
 
 ## The Symfony Bundle
 
