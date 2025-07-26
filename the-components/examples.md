@@ -187,8 +187,6 @@ use Symfony\Component\Clock\NativeClock;
 
 require_once 'vendor/autoload.php';
 
-$publicKey = '{"use":"enc","alg":"ECDH-ES","kid":"my-key-id","kty":"EC","crv":"P-256","x":"JQJ8BPvO1oRaTBL2BPZG3y7AhOkZ3d-IZH6GdW-eNdo","y":"nSbyi6pS1ve6eNuusDkqifCUz6Msnkm8ivJHgaQgZfI"}';
-$publicJWK = JWK::createFromJson($publicKey);
 $privateKey = '{"use":"enc","alg":"ECDH-ES","kid":"my-key-id","kty":"EC","crv":"P-256","d":"j5RP0Z4w9JvTacrP6fGYB50U97EvGE8kAMQ-YdNva7c","x":"JQJ8BPvO1oRaTBL2BPZG3y7AhOkZ3d-IZH6GdW-eNdo","y":"nSbyi6pS1ve6eNuusDkqifCUz6Msnkm8ivJHgaQgZfI"}';
 $privateJWK = JWK::createFromJson($privateKey);
 
