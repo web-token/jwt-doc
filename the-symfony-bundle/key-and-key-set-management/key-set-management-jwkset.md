@@ -53,7 +53,7 @@ jose:
 
 #### From A JKU (JWK Url)
 
-The following example will allow you tu load a key set from a distant URI. The key set must be a JWKSet object.
+The following example will allow you to load a key set from a distant URI. The key set must be a JWKSet object.
 
 ```yaml
 jose:
@@ -65,7 +65,7 @@ jose:
 
 #### From A X5U (X509 Certificates Url)
 
-The following example will allow you tu load a key set from a distant URI. The key set must be a list of X509 certificates.
+The following example will allow you to load a key set from a distant URI. The key set must be a list of X509 certificates.
 
 ```yaml
 jose:

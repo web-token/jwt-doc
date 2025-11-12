@@ -67,7 +67,7 @@ $jwe = $serializerManager->unserialize($token);
 $success = $jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
 ```
 
-OK so if not exception is thrown, then your token is loaded and the payload correctly decrypted.
+OK so if no exception is thrown, then your token is loaded and the payload correctly decrypted.
 
 ## JWELoader Object
 

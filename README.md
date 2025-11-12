@@ -15,6 +15,6 @@ It also provides:
 * a Symfony bundle
 * a standalone console application
 
-## Licence
+## License
 
-This project is release under [MIT licence](https://github.com/web-token/jwt-framework/tree/846e8752fef1f7276488f52f80e69fcef54f8acc/LICENSE.md).
+This project is released under [MIT license](https://github.com/web-token/jwt-framework/tree/846e8752fef1f7276488f52f80e69fcef54f8acc/LICENSE.md).

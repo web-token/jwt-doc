@@ -41,5 +41,5 @@ It is now time to upgrade the libraries. In your composer.json, change all `web-
 You can also update all other dependencies if needed. You can list upgradable libraries by calling `composer outdated`. This step is not mandatory, but highly recommended.
 
 {% hint style="success" %}
-[Rector](https://github.com/rectorphp/rector) is a very nice tool from code upgrade. We highly recommend it.
+[Rector](https://github.com/rectorphp/rector) is a very nice tool for code upgrade. We highly recommend it.
 {% endhint %}

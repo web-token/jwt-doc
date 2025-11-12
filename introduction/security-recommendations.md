@@ -27,7 +27,7 @@ Some algorithms are not recommended as there are known security issues:
 
 ### Key Size
 
-A small key size is as secured as a password like `123456789`. You should use at least 256 bits symmetric keys and at lease 2048 bits RSA keys.
+A small key size is as secured as a password like `123456789`. You should use at least 256 bits symmetric keys and at least 2048 bits RSA keys.
 
 In any case, you MUST use a true random number generator.
 
@@ -111,11 +111,11 @@ When used, unprotected header parameters should be handled with care.
 
 ### Signature Verification / Payload Decryption
 
-Let the component do its job. The most important step for developers is to ensure that the right key/ket set is used.
+Let the component do its job. The most important step for developers is to ensure that the right key/key set is used.
 
 ### Check The Claims
 
-This step is only required if the payload contains claims. When present, you should always check the `exp`, `iat`, `nbf`, `iss` and `aud` claims. Application specific claims should also always checked.
+This step is only required if the payload contains claims. When present, you should always check the `exp`, `iat`, `nbf`, `iss` and `aud` claims. Application specific claims should also always be checked.
 
 The whole token should be rejected in case of failure. Unknown claims should be ignored.
 

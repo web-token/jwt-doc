@@ -38,7 +38,7 @@ With the previous configuration, the bundle will create public Header and Claim 
 
 ## Custom Header Or Claim Checker
 
-Some claim or header checkers are provided by this framework, but it is important to create custom checkers that fit on your application requirements.
+Some claim or header checkers are provided by this framework, but it is important to create custom checkers that fit your application requirements.
 
 In the following example, we will assume that the class exist and implement either `Jose\Component\Checker\HeaderChecker` or `Jose\Component\Checker\ClaimChecker`.
 

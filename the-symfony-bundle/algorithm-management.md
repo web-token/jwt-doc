@@ -30,7 +30,7 @@ Your algorithm will be available through the algorithm manager factory service a
 
 ## PBES2-\* Algorithms
 
-When installed, the `PBES2-*` algorithms available throught the algorithm manager factory. They have the default configuration i.e. salt size = 62 bits and count = 4096. If these values does not fit on your needs, you can create a new algorithm service with your own values:
+When installed, the `PBES2-*` algorithms are available through the algorithm manager factory. They have the default configuration i.e. salt size = 62 bits and count = 4096. If these values does not fit your needs, you can create a new algorithm service with your own values:
 
 ```yaml
 services:

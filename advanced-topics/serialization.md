@@ -6,7 +6,7 @@ The [RFC7515](https://tools.ietf.org/html/rfc7515) (JWS) and [RFC7516](https://t
 * JSON Flattened
 * JSON General
 
-The _Compact_ mode is most know and commonly used as it is compact and URL safe i.e. it is designed for web context. JSON Flattened and General are not URL safe, but provides features that may fit on your application context.
+The _Compact_ mode is most known and commonly used as it is compact and URL safe i.e. it is designed for web context. JSON Flattened and General are not URL safe, but provides features that may fit your application context.
 
 ## JWS Serialization
 

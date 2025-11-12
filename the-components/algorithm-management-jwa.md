@@ -2,7 +2,7 @@
 
 For each cryptographic operation, you will need at least one algorithm and one key.
 
-The algorithm list depends on the cypher operation to be performed (signature or encryption).
+The algorithm list depends on the cryptographic operation to be performed (signature or encryption).
 
 These algorithms are managed by an **Algorithm Manager**. In the following example, we will create an algorithm manager that will handle two algorithms: `PS256` and `ES512`. See [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithm pages for more information.
 
@@ -25,7 +25,7 @@ It is not possible to set the same algorithm twice in the same algorithm manager
 
 ## Algorithm Manager Factory
 
-Your application may need several algorithm managers for several use cases. For example you application may use JWT for:
+Your application may need several algorithm managers for several use cases. For example your application may use JWT for:
 
 * signed events,
 * authentication tokens.

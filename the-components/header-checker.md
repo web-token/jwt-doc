@@ -3,7 +3,7 @@
 When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
 
 {% hint style="warning" %}
-This is a strong recommendation are there are known vulnerabilities on tokens that are processed without header verification.
+This is a strong recommendation as there are known vulnerabilities on tokens that are processed without header verification.
 {% endhint %}
 
 {% hint style="info" %}
@@ -17,7 +17,7 @@ The header parameter `crit` (critical) is always checked.
 {% endhint %}
 
 {% hint style="info" %}
-Even if the cypher process will check the `alg`/`enc` header parameters, it is interesting to check them before to reject tokens earlier.&#x20;
+Even if the cryptographic process will check the `alg`/`enc` header parameters, it is interesting to check them before rejecting tokens earlier.&#x20;
 {% endhint %}
 
 ## Header Checker Manager

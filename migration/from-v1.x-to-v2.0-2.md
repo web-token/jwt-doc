@@ -17,7 +17,7 @@ Next, you have to verify you don’t use any deprecated class, interface, method
 The following packages are deprecated. Please install `web-token/jwt-library` or `web-token/jwt-experimental` instead.
 
 {% hint style="info" %}
-In addtion to the new library or experimental packages, you may need to require third party dependencies such as `ext-sodium`, `ext-openssl` or .
+In addition to the new library or experimental packages, you may need to require third party dependencies such as `ext-sodium`, `ext-openssl` or similar extensions.
 {% endhint %}
 
 * `web-token/jwt-util-ecc`
@@ -45,7 +45,7 @@ For version 3.2.0+ and the Symfony Bundle, an internal implementation service na
 
 #### Simplified Algorithm Manager
 
-Classes `Jose\Component\Encryption\JWEBuilder` and `Jose\Component\Encryption\JWEDecrypter` no longer need the Key Encryption and Content Encryption Algorithm Managers. You pass only one Algorithm Manager to the contructor.
+Classes `Jose\Component\Encryption\JWEBuilder` and `Jose\Component\Encryption\JWEDecrypter` no longer need the Key Encryption and Content Encryption Algorithm Managers. You pass only one Algorithm Manager to the constructor.
 
 #### Version Bumped
 
