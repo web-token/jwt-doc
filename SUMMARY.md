@@ -59,15 +59,15 @@
 * [Nested Tokens](advanced-topics/nested-tokens.md)
 * [Serialization](advanced-topics/serialization.md)
 * [Custom Algorithm](advanced-topics/custom-algorithm.md)
-* [Signed Tokens](advanced-topics/signed-tokens-and/README.md)
-  * [Unprotected Header](advanced-topics/signed-tokens-and/unprotected-header.md)
-  * [Multiple Signatures](advanced-topics/signed-tokens-and/multiple-signatures.md)
-  * [Detached Payload](advanced-topics/signed-tokens-and/detached-payload.md)
-  * [Unencoded Payload](advanced-topics/signed-tokens-and/unencoded-payload.md)
-* [Encrypted Tokens](advanced-topics/encrypted-tokens-and/README.md)
-  * [Unprotected Headers](advanced-topics/encrypted-tokens-and/unprotected-headers.md)
-  * [Multiple Recipients](advanced-topics/encrypted-tokens-and/multiple-recipients.md)
-  * [Additional Authentication Data (AAD)](advanced-topics/encrypted-tokens-and/additional-authentication-data-aad.md)
+* [Signed Tokens](advanced-topics/signed-tokens/README.md)
+  * [Unprotected Header](advanced-topics/signed-tokens/unprotected-header.md)
+  * [Multiple Signatures](advanced-topics/signed-tokens/multiple-signatures.md)
+  * [Detached Payload](advanced-topics/signed-tokens/detached-payload.md)
+  * [Unencoded Payload](advanced-topics/signed-tokens/unencoded-payload.md)
+* [Encrypted Tokens](advanced-topics/encrypted-tokens/README.md)
+  * [Unprotected Headers](advanced-topics/encrypted-tokens/unprotected-headers.md)
+  * [Multiple Recipients](advanced-topics/encrypted-tokens/multiple-recipients.md)
+  * [Additional Authentication Data (AAD)](advanced-topics/encrypted-tokens/additional-authentication-data-aad.md)
 
 ## Benchmark
 
@@ -77,5 +77,5 @@
 ## Migration
 
 * [From v1.x to v2.0](migration/from-v1.x-to-v2.0.md)
-* [From v2.x to v3.0](migration/from-v1.x-to-v2.0-1.md)
-* [From v3.x to v4.0](migration/from-v1.x-to-v2.0-2.md)
+* [From v2.x to v3.0](migration/from-v2.x-to-v3.0.md)
+* [From v3.x to v4.0](migration/from-v3.x-to-v4.0.md)

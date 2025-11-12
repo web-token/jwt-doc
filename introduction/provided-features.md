@@ -7,7 +7,7 @@ JWS or JWE objects support every input that can be encoded into JSON:
 * `string`, `array`, `integer`, `float`...
 * Objects that implement the `\JsonSerializable` interface such as `JWK` or `JWKSet`
 
-The [detached payload](../advanced-topics/signed-tokens-and/detached-payload.md) is supported.
+The [detached payload](../advanced-topics/signed-tokens/detached-payload.md) is supported.
 
 ## Supported Serialization Modes
 

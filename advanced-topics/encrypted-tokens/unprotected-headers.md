@@ -1,6 +1,6 @@
 # Unprotected Headers
 
-As well as the [signed tokens](../signed-tokens-and/unprotected-header.md), the encrypted tokens also have unprotected header. But with one difference: there are two unprotected headers:
+As well as the [signed tokens](../signed-tokens/unprotected-header.md), the encrypted tokens also have unprotected header. But with one difference: there are two unprotected headers:
 
 * Shared unprotected header applicable to all recipients.
 * Per-recipient unprotected header.
