@@ -1,21 +1,107 @@
-# Console
+# Console Commands
 
-The project comes with console commands.\
-They are available:
+The JWT Framework provides a comprehensive set of command-line tools for managing keys, key sets, and tokens. These tools are invaluable for development, testing, and production operations.
 
-* [as a standalone command](standalone.md)
-* [through the dedicated Symfony console command](symfony-console.md)
-* [as a PHAR (PHP Archive)](phar-application.md)
+## Installation Options
 
-## Available Commands
+The console commands are available in three different ways to suit your needs:
 
-In the following example, we will call commands using `./jose.phar`. If you need more information about a command, call the command with the option `--help`.
+### 1. Standalone Application
+Perfect for quick operations without a full project setup.
+- **[Learn more](standalone.md)**
 
-You can save the output in a file e.g. when you want to store a key or keyset in your local filesystem.
+### 2. Symfony Console Integration
+Integrated into your Symfony application's console.
+- **[Learn more](symfony-console.md)**
+
+### 3. PHAR (PHP Archive)
+A self-contained executable file that works anywhere PHP is installed.
+- **[Learn more](phar-application.md)**
+- Download the latest PHAR from the [releases page](https://github.com/web-token/jwt-framework/releases)
+
+## Quick Start
+
+{% hint style="info" %}
+In the following examples, we use `./jose.phar` as the command prefix. Replace it with:
+- `php bin/console jose:` if using Symfony Console
+- `vendor/bin/jose` if using the standalone application
+{% endhint %}
+
+### Getting Help
+
+All commands support the `--help` option for detailed usage information:
 
 ```bash
-./jose.phar key:convert:pkcs1 '{"kty":"EC","crv":"P-256","d":"kiNCxSbRjlAbHrEbrwVKS8vIXUh6URChrmw","x":"-wdLWDWCZP6oFYl8aGVfU0MsFlckjaSVrO7hEsc8lgk","y":"rt8XDTalLMCRB5Tu9WQc2d0TOVwXXHkVDbI7cIig6r4"}' > key.pem
+./jose.phar key:generate --help
 ```
+
+### Saving Output to Files
+
+You can easily save command output to files for later use:
+
+```bash
+# Generate and save a new key
+./jose.phar key:generate:oct 256 > secret-key.json
+
+# Convert a key and save it
+./jose.phar key:convert:pkcs1 '{"kty":"EC",...}' > key.pem
+```
+
+## Command Categories
+
+The console commands are organized into logical categories:
+
+### 🔑 Key Management
+Create, convert, analyze, and optimize cryptographic keys:
+- Generate new keys (RSA, EC, OKP, oct)
+- Convert between formats (JWK, PEM, DER)
+- Extract public keys from private keys
+- Analyze key security
+- Optimize RSA keys for performance
+- Calculate key thumbprints
+
+### 📦 Key Set Management
+Manage collections of keys:
+- Merge multiple key sets
+- Convert all keys in a set
+- Analyze all keys in a set
+- Extract specific keys from sets
+
+### 🔄 Key Loading
+Load keys from various sources:
+- Load from files (JWK, PEM, DER)
+- Load from URLs (JKU, X5U)
+- Load from X.509 certificates
+- Load from PKCS#12 bundles
+
+## Usage Examples
+
+### Generate a New Symmetric Key
+
+```bash
+# Generate a 256-bit symmetric key
+./jose.phar key:generate:oct 256
+```
+
+Output:
+```json
+{"kty":"oct","k":"Base64UrlEncodedKey..."}
+```
+
+### Generate an RSA Key Pair
+
+```bash
+# Generate a 2048-bit RSA key with usage information
+./jose.phar key:generate:rsa 2048 --use sig --alg RS256
+```
+
+### Convert a Private Key to Public Key
+
+```bash
+./jose.phar key:convert:public '{"kty":"EC","crv":"P-256","d":"...",...}'
+```
+
+## Command Reference
 
 ### Key Management Commands
 

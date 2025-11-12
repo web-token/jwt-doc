@@ -1,6 +1,21 @@
-# From v1.x to v2.0
+# Migration Guide: From v1.x to v2.0
 
-Contrary to upgrade a minor version (where the middle number changes) where no difficulty should be encountered, upgrade a major version (where the first number changes) is subject to significant modifications.
+This guide will help you upgrade your application from JWT Framework v1.x to v2.0. While minor version upgrades are generally straightforward, major version upgrades involve breaking changes that require careful attention.
+
+{% hint style="info" %}
+**Estimated Migration Time:** 1-3 hours for a typical application
+**Difficulty Level:** Moderate
+{% endhint %}
+
+## Overview of Changes
+
+Version 2.0 introduces several important changes:
+- Removal of static factory methods in favor of constructors
+- Deprecation of compression methods (security recommendation)
+- Removal of unnecessary converter classes
+- Improved API consistency across components
+
+## Migration Steps
 
 ## Update the libraries
 
