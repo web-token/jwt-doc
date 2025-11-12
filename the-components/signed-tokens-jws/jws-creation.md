@@ -42,8 +42,18 @@ $payload = json_encode([
 $jws = $jwsBuilder
     ->create()                               // We want to create a new JWS
     ->withPayload($payload)                  // We set the payload
-    ->addSignature($jwk, ['alg' => 'HS256']) // We add a signature with a simple protected header
+    ->addSignature($jwk, ['alg' => 'HS256']) // We add a signature with a protected header
     ->build();                               // We build it
+```
+
+{% hint style="info" %}
+The `addSignature()` method accepts a third optional parameter for unprotected headers:
+```php
+->addSignature($jwk, ['alg' => 'HS256'], ['kid' => 'key-2023'])
+```
+where the second parameter is the protected header and the third is the unprotected header.
+{% endhint %}
+
 ```
 
 Great! If everything is fine you will get a JWS object with one signature. We want to send it to the audience. Before that, it must be serialized.

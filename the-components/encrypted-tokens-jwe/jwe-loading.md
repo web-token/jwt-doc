@@ -1,10 +1,6 @@
 # JWE Loading
 
-Encrypted tokens are loaded by a serializer or the serializer manager and decrypted by the `JWEDecrypter` object. This JWEDecrypter object requires several services for the process:
-
-* an algorithm manager with key encryption algorithms
-* an algorithm manager with content encryption algorithms
-* ~~a compression method manager. No compression method is needed if you do not intent to compress the payload.~~
+Encrypted tokens are loaded by a serializer or the serializer manager and decrypted by the `JWEDecrypter` object. This JWEDecrypter object requires an algorithm manager with both key encryption and content encryption algorithms.
 
 In the following example, we will use the same assumptions as the ones used during the [JWE Creation process](jwe-creation.md).
 
@@ -16,21 +12,14 @@ use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\JWEDecrypter;
 
-// The key encryption algorithm manager with the A256KW algorithm.
-$keyEncryptionAlgorithmManager = new AlgorithmManager([
-    new A256KW(),
-]);
-
-// The content encryption algorithm manager with the A256CBC-HS256 algorithm.
-$contentEncryptionAlgorithmManager = new AlgorithmManager([
-    new A256CBCHS512(),
+// The algorithm manager with both key encryption and content encryption algorithms.
+$algorithmManager = new AlgorithmManager([
+    new A256KW(),        // Key Encryption Algorithm
+    new A256CBCHS512(),  // Content Encryption Algorithm
 ]);
 
 // We instantiate our JWE Decrypter.
-$jweDecrypter = new JWEDecrypter(
-    $keyEncryptionAlgorithmManager,
-    $contentEncryptionAlgorithmManager,
-);
+$jweDecrypter = new JWEDecrypter($algorithmManager);
 ```
 
 Now we can try to deserialize and decrypt the input we receive. We will continue with the result we got during the JWE creation section.
@@ -47,7 +36,7 @@ use Jose\Component\Encryption\Serializer\JWESerializerManager;
 use Jose\Component\Encryption\Serializer\CompactSerializer;
 
 // Our key.
-$jwk = JWK::create([
+$jwk = new JWK([
     'kty' => 'oct',
     'k' => 'dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g',
 ]);
@@ -115,9 +104,8 @@ $jweLoaderFactory = new JWELoaderFactory(
 );
 
 $jweLoader = $jweLoaderFactory->create(
-    ['jwe_compact'], // List of serializer aliases
-    ['A128KW'],      // List of key encryption algorithm aliases
-    ['A128KW'],      // List of content encryption algorithm aliases
-    ['alg', 'enc']   // Optional list of header checker aliases
+    ['jwe_compact'],           // List of serializer aliases
+    ['A256KW', 'A256CBCHS512'], // List of encryption algorithm aliases (both key and content)
+    ['alg', 'enc']             // Optional list of header checker aliases
 );
 ```

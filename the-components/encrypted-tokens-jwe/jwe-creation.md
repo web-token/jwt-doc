@@ -1,9 +1,6 @@
 # JWE Creation
 
-The computation of a JWE is done by the `JWEBuilder` object. This object requires the following services:
-
-* an algorithm manager with key encryption algorithms
-* an algorithm manager with content encryption algorithms
+The computation of a JWE is done by the `JWEBuilder` object. This object requires an algorithm manager with both key encryption and content encryption algorithms.
 
 ```php
 <?php
@@ -13,21 +10,14 @@ use Jose\Component\Encryption\Algorithm\KeyEncryption\A256KW;
 use Jose\Component\Encryption\Algorithm\ContentEncryption\A256CBCHS512;
 use Jose\Component\Encryption\JWEBuilder;
 
-// The key encryption algorithm manager with the A256KW algorithm.
-$keyEncryptionAlgorithmManager = new AlgorithmManager([
-    new A256KW(),
-]);
-
-// The content encryption algorithm manager with the A256CBC-HS256 algorithm.
-$contentEncryptionAlgorithmManager = new AlgorithmManager([
-    new A256CBCHS512(),
+// The algorithm manager with both key encryption and content encryption algorithms.
+$algorithmManager = new AlgorithmManager([
+    new A256KW(),        // Key Encryption Algorithm
+    new A256CBCHS512(),  // Content Encryption Algorithm
 ]);
 
 // We instantiate our JWE Builder.
-$jweBuilder = new JWEBuilder(
-    $keyEncryptionAlgorithmManager,
-    $contentEncryptionAlgorithmManager,
-);
+$jweBuilder = new JWEBuilder($algorithmManager);
 ```
 
 {% hint style="danger" %}
