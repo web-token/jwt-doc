@@ -26,7 +26,10 @@
   * [Encryption Algorithms](the-components/encrypted-tokens-jwe/encryption-algorithms.md)
   * [JWE Creation](the-components/encrypted-tokens-jwe/jwe-creation.md)
   * [JWE Loading](the-components/encrypted-tokens-jwe/jwe-loading.md)
-* [Examples](the-components/examples.md)
+* [Examples](the-components/examples/README.md)
+  * [Signed Tokens (JWS)](the-components/examples/signed-tokens.md)
+  * [Encrypted Tokens (JWE)](the-components/examples/encrypted-tokens.md)
+  * [Claim and Header Validation](the-components/examples/validation.md)
 
 ## The Symfony Bundle
 
