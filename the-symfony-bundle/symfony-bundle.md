@@ -33,6 +33,10 @@ The bundle offers several advantages for Symfony developers:
 
 ## Installation
 
+{% hint style="info" %}
+The bundle supports Symfony 7.0 and Symfony 8.0.
+{% endhint %}
+
 ### With Symfony Flex (Recommended)
 
 The bundle is automatically detected and installed when using Symfony Flex:

@@ -1,6 +1,6 @@
 # Header Checker
 
-When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
+When you receive a JWT (JWS or JWE), it is important to check **ALL** header parameters **BEFORE** any other action. In case something goes wrong, the token should be rejected.
 
 {% hint style="warning" %}
 This is a strong recommendation as there are known vulnerabilities on tokens that are processed without header verification.
@@ -17,7 +17,7 @@ The header parameter `crit` (critical) is always checked.
 {% endhint %}
 
 {% hint style="info" %}
-Even if the cryptographic process will check the `alg`/`enc` header parameters, it is interesting to check them before rejecting tokens earlier.&#x20;
+Even if the cryptographic process will check the `alg`/`enc` header parameters, it is useful to check them beforehand to reject invalid tokens earlier.&#x20;
 {% endhint %}
 
 ## Header Checker Manager
@@ -54,9 +54,9 @@ You can then call the `check` method.
 $headerCheckerManager->check($jwt, 0);
 ```
 
-In some cases, it could be interesting to reject tokens that do not contain some mandatory header parameters. A list of mandatory parameters can be set as third argument. If one of those parameters is missing an exception is thrown, even if that header parameter have not been checked.
+In some cases, it could be interesting to reject tokens that do not contain some mandatory header parameters. A list of mandatory parameters can be set as third argument. If one of those parameters is missing, an exception is thrown even if that header parameter has not been checked.
 
-In the following example, an exception will be thrown if the `alg`, `enc` or `crit` parameters is missing.
+In the following example, an exception will be thrown if the `alg`, `enc` or `crit` parameter is missing.
 
 ```php
 $headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
@@ -74,7 +74,7 @@ For time-based parameter checker classes, a PSR-20 clock object is mandatory.
 
 ## Header Checker Manager Factory
 
-The Header Checker Manager Factory will help you to create as many Header Checker Manager as you want to fit on your application requirements.
+The Header Checker Manager Factory will help you create as many Header Checker Managers as you need to fit your application requirements.
 
 ```php
 <?php
@@ -98,7 +98,7 @@ $headerCheckerManagerForEncryption = $headerCheckerManagerFactory->create(['key_
 
 With the previous examples, we will only check the `alg` (algorithm) header parameter. But your application may use other header parameters e.g. `cty`, `typ`...
 
-If you need, you can create you own header checker. It must implement the interface `Jose\Component\Checker\HeaderChecker`. In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.
+If you need, you can create your own header checker. It must implement the interface `Jose\Component\Checker\HeaderChecker`. In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.
 
 {% code title="Acme\Checker\CustomChecker.php" %}
 ```php

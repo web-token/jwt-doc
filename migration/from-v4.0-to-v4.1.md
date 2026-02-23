@@ -1,164 +1,70 @@
-# Migration Guide: From v4.0 to v4.1
+# From v4.0 to v4.1
 
-This guide will help you upgrade your application from JWT Framework v4.0 to v4.1. This is a minor version upgrade with new features and improvements, plus some deprecations to be aware of.
+This is a minor version upgrade. Most applications should upgrade without any code changes.
 
-{% hint style="success" %}
-**Estimated Migration Time:** 15-30 minutes
-**Difficulty Level:** Easy
-**Breaking Changes:** None
-{% endhint %}
+## New Features
 
-## Overview of Changes
+### Symfony 8.0 Support
 
-Version 4.1 introduces:
-- **Symfony 8.0 support** - Full compatibility with Symfony 8.0
-- **Performance improvements** - Better Base64UrlSafe performance with ext-sodium
-- **Deprecations** - Cache methods marked for removal in v5.0
-- **Dependencies** - Support for brick/math 0.14
+The Symfony Bundle now supports both Symfony 7.0 and Symfony 8.0. All Symfony component constraints have been updated accordingly.
 
-## What's New
+### Sodium-based Base64URL Encoding
 
-### 1. Symfony 8.0 Support
+When the `ext-sodium` PHP extension is available, the framework now uses native Sodium functions for Base64URL encoding and decoding. This provides significant performance improvements without requiring any code changes on your side.
 
-Full support for Symfony 8.0 while maintaining backward compatibility with Symfony 7.0.
+### PHP 8.5 Compatibility
 
-**No action required** - Your code works with both Symfony 7.x and 8.x.
+Several internal fixes have been applied to ensure forward compatibility with PHP 8.5:
 
-### 2. Performance Improvements
+* EC key generation now includes the `private_key_bits` parameter required by PHP 8.5+
+* `substr()` calls no longer pass `null` as the third parameter
+* `chr()` calls are now constrained to the 0-255 range
 
-When `ext-sodium` is installed, Base64UrlSafe encoding/decoding is significantly faster.
+### Sensitive Parameter Attributes
 
-**Recommendation:** Install the sodium extension:
-```bash
-# Debian/Ubuntu
-apt-get install php-sodium
+Methods handling potentially sensitive data in `Base64UrlSafe` now use the PHP 8.2+ `#[SensitiveParameter]` attribute. This prevents sensitive values from being leaked in stack traces or debug output.
 
-# macOS
-brew install php-sodium
+### brick/math 0.14 Support
 
-# Verify
-php -m | grep sodium
-```
-
-### 3. EC Key Generation Improvements
-
-New `private_key_bits` option:
-```php
-$key = JWKFactory::createECKey('P-256', [
-    'use' => 'sig',
-    'private_key_bits' => 256
-]);
-```
+The framework now supports `brick/math` version 0.14, in addition to 0.12 and 0.13.
 
 ## Deprecations
 
-### UrlKeySetFactory Cache Method
+### `UrlKeySetFactory::enabledCache()`
 
-The `enableCache()` method is **deprecated** and will be removed in v5.0.
+The `enabledCache()` method on `UrlKeySetFactory` is deprecated since 4.1 and will be removed in 5.0.
 
-**Old (deprecated):**
-```php
-$factory = new UrlKeySetFactory();
-$factory->enableCache($cache, $ttl); // ⚠️ DEPRECATED
-```
+**Migration path:** use HTTP Client-level caching instead. When configuring your Symfony HTTP Client, use a caching layer (e.g. Symfony's `CachingHttpClient` or an HTTP cache middleware) rather than relying on the `UrlKeySetFactory` to cache responses.
 
-**New (recommended):**
-
-Use HTTP client caching instead:
+**Before (deprecated):**
 
 ```php
-use Symfony\Component\HttpClient\HttpClient;
-
-// Use HTTP client with cache
-$client = HttpClient::create(['max_duration' => 30]);
-$factory = new UrlKeySetFactory($client);
-$keySet = $factory->loadFromUrl('https://example.com/.well-known/jwks.json');
+$factory->enabledCache($cacheItemPool, 3600);
+$jwkset = $factory->loadFromUrl($url);
 ```
 
-**For Symfony:**
+**After:**
+
+```php
+// Configure caching at the HTTP client level
+// In Symfony, use framework.http_client with caching enabled
+$jwkset = $factory->loadFromUrl($url);
+```
+
+In the Symfony Bundle configuration for distant key sets (JKU/X5U), it is recommended to configure HTTP client caching:
+
 ```yaml
-# config/packages/framework.yaml
-framework:
-    http_client:
-        scoped_clients:
-            jwks.client:
-                http_cache:
-                    enabled: true
+jose:
+    jku_factory:
+        enabled: true
+        client: 'http_client' # Use a cached HTTP client
 ```
 
-## Migration Steps
+## Console Commands
 
-### Step 1: Update Dependencies
+Console commands have been refactored for Symfony Console 7.0+ compatibility:
 
-```bash
-composer require web-token/jwt-framework:^4.1
-```
+* Help text is now defined via `setHelp()` in the `configure()` method instead of the `help` parameter in the `#[AsCommand]` attribute
+* Default `null` values have been removed from optional command options
 
-### Step 2: Clear Caches
-
-```bash
-# Symfony
-php bin/console cache:clear
-
-# Composer
-composer clear-cache
-```
-
-### Step 3: Check for Deprecations
-
-Enable deprecation logging and run tests:
-```bash
-vendor/bin/phpunit
-```
-
-### Step 4: Update Cache Usage (Optional)
-
-If using `UrlKeySetFactory::enableCache()`, migrate to HTTP client caching.
-
-### Step 5: Test
-
-Test thoroughly:
-- Token creation/verification
-- Token encryption/decryption
-- Remote key loading
-- Custom algorithms
-
-## New Features You Can Use
-
-### Symfony 8.0
-
-```bash
-composer require symfony/framework-bundle:^8.0
-composer require web-token/jwt-framework:^4.1
-```
-
-## Troubleshooting
-
-### Deprecation Warning
-
-If you see "Method enableCache is deprecated", migrate to HTTP client caching.
-
-### Performance Issues
-
-Ensure ext-sodium is installed for optimal performance.
-
-## Rollback
-
-```bash
-composer require web-token/jwt-framework:^4.0
-php bin/console cache:clear
-```
-
-## Summary
-
-**✅ Must do:**
-- Update to 4.1.x
-- Clear caches
-
-**⚠️ Should do:**
-- Install ext-sodium
-- Migrate from `enableCache()`
-
-**🎁 Can do:**
-- Use Symfony 8.0
-- Enjoy performance improvements
+These changes are internal and do not affect how you use the commands.

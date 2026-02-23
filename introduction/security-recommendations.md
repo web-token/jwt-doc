@@ -12,7 +12,7 @@ If all parties are able to protect their keys (e.g. private applications), symme
 
 ### Available Algorithms
 
-This framework provides dozen of signature and encryption algorithms, but you do not need all of them. Most applications only support 1 or 2 algorithms.
+This framework provides dozens of signature and encryption algorithms, but you do not need all of them. Most applications only support 1 or 2 algorithms.
 
 You should only use necessary algorithms. For example, HS384 algorithm may be avoided if you already have HS256 and HS512.
 
@@ -27,7 +27,7 @@ Some algorithms are not recommended as there are known security issues:
 
 ### Key Size
 
-A small key size is as secured as a password like `123456789`. You should use at least 256 bits symmetric keys and at least 2048 bits RSA keys.
+A small key size is as secure as a password like `123456789`. You should use at least 256 bits symmetric keys and at least 2048 bits RSA keys.
 
 In any case, you MUST use a true random number generator.
 
@@ -103,7 +103,7 @@ You should only use the serialization mode(s) you need. If you intend to use you
 
 ### Check The Header
 
-It is strongly recommended that all header parameters are checked before the cryptographic operations (signature verification or content decryption)
+It is strongly recommended that all header parameters are checked before the cryptographic operations (signature verification or content decryption).
 
 Please note that unknown header parameters must be ignored. If your token is verified, those parameters should not be used.
 
@@ -115,12 +115,12 @@ Let the component do its job. The most important step for developers is to ensur
 
 ### Check The Claims
 
-This step is only required if the payload contains claims. When present, you should always check the `exp`, `iat`, `nbf`, `iss` and `aud` claims. Application specific claims should also always be checked.
+This step is only required if the payload contains claims. When present, you should always check the `exp`, `iat`, `nbf`, `iss` and `aud` claims. Application-specific claims should also always be checked.
 
 The whole token should be rejected in case of failure. Unknown claims should be ignored.
 
 ## Stay Tuned
 
-You should subscribe to security forums of similar websites and have a continuous technological watch. The tokens may be compromised because of malicious attacks on the algorithms, keys or other components related to the JWT (directly or indirectly).
+You should subscribe to security forums and maintain a continuous technological watch. The tokens may be compromised because of malicious attacks on the algorithms, keys or other components related to the JWT (directly or indirectly).
 
 The [Security group on Stack Exchange](https://security.stackexchange.com/) is a good start.

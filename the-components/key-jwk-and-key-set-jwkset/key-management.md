@@ -1,11 +1,11 @@
 # Key (JWK)
 
-You can create a JWK object using two static methods:
+You can create a JWK object using two methods:
 
 * `new JWK(array $values)`: creates a JWK using direct values.
-* `JWK::createFromJson(string $json)`: creates a JWK using a JSON object.
+* `JWK::createFromJson(string $json)`: creates a JWK from a JSON string.
 
-Hereafter all methods available for a JWK object. The variable `$jwk` is a valid JWK object.
+Below are all methods available for a JWK object. The variable `$jwk` is a valid JWK object.
 
 {% hint style="warning" %}
 Please note a JWK object is an immutable object. If you change a value using a setter, it will return a new object.
@@ -224,5 +224,5 @@ $key = JWKFactory::createFromCertificateFile(
 ```
 
 {% hint style="info" %}
-Please note that X.509 certificates only contains public keys.
+Please note that X.509 certificates only contain public keys.
 {% endhint %}
