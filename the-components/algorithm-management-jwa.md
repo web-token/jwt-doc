@@ -30,7 +30,7 @@ Your application may need several algorithm managers for several use cases. For 
 * signed events,
 * authentication tokens.
 
-To avoid mixing algorithms in one algorithm manager or instantiate several times the same algorithms, this framework provides an **Algorithm Manager Factory**.
+To avoid mixing algorithms in one algorithm manager or instantiating the same algorithms several times, this framework provides an **Algorithm Manager Factory**.
 
 This factory will create algorithm managers on demand. It allows the same algorithm to be instantiated multiple times but with different configuration options.
 
@@ -58,15 +58,15 @@ The first argument of the method `add` is the alias for the algorithm. **It must
 As you can see in the example, we added the algorithm `PBES2-HS512+A256KW` twice:
 
 * with the default configuration,
-* &#x20;with custom arguments.
+* with custom arguments.
 
 Now our algorithm manager factory is ready. We can create several algorithm managers by passing a list of aliases to the method `create`:
 
 ```php
 <?php
 
-$signatureAlgorithmManager = $algorithmManagerFactory ->create(['PS256']);
-$encryptionAlgorithmManager = $algorithmManagerFactory ->create(['A128CBC-HS256', 'PBES2-HS512+A256KW']);
-$encryptionAlgorithmManagerForParanoid = $algorithmManagerFactory ->create(['A128CBC-HS256', 'PBES2-HS512+A256KW with custom configuration']);
+$signatureAlgorithmManager = $algorithmManagerFactory->create(['PS256']);
+$encryptionAlgorithmManager = $algorithmManagerFactory->create(['A128CBC-HS256', 'PBES2-HS512+A256KW']);
+$encryptionAlgorithmManagerForParanoid = $algorithmManagerFactory->create(['A128CBC-HS256', 'PBES2-HS512+A256KW with custom configuration']);
 ```
 

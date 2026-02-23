@@ -1,4 +1,4 @@
-# Table of contents
+# Table of Contents
 
 * [Introduction](README.md)
 
@@ -7,7 +7,7 @@
 * [Provided Features](introduction/provided-features.md)
 * [Security Recommendations](introduction/security-recommendations.md)
 * [The Framework](introduction/the-framework.md)
-* [Pre-requisite](introduction/pre-requisite.md)
+* [Prerequisites](introduction/pre-requisite.md)
 * [Contributing](introduction/contributing.md)
 
 ## The Components
@@ -37,17 +37,17 @@
   * [Key Set Management (JWKSet)](the-symfony-bundle/key-and-key-set-management/key-set-management-jwkset.md)
 * [Header and Claim Checker Management](the-symfony-bundle/header-and-claim-checker-management.md)
 * [Signed Tokens](the-symfony-bundle/signed-tokens/README.md)
-  * [JWS serializers](the-symfony-bundle/signed-tokens/jws-serializers.md)
-  * [JWS creation](the-symfony-bundle/signed-tokens/jws-creation.md)
-  * [JWS verification](the-symfony-bundle/signed-tokens/jws-verification.md)
+  * [JWS Serializers](the-symfony-bundle/signed-tokens/jws-serializers.md)
+  * [JWS Creation](the-symfony-bundle/signed-tokens/jws-creation.md)
+  * [JWS Verification](the-symfony-bundle/signed-tokens/jws-verification.md)
 * [Encrypted Tokens](the-symfony-bundle/encrypted-tokens/README.md)
-  * [JWE serializers](the-symfony-bundle/encrypted-tokens/jwe-serializers.md)
-  * [JWE creation](the-symfony-bundle/encrypted-tokens/jwe-creation.md)
-  * [JWE decryption](the-symfony-bundle/encrypted-tokens/jwe-decryption.md)
+  * [JWE Serializers](the-symfony-bundle/encrypted-tokens/jwe-serializers.md)
+  * [JWE Creation](the-symfony-bundle/encrypted-tokens/jwe-creation.md)
+  * [JWE Decryption](the-symfony-bundle/encrypted-tokens/jwe-decryption.md)
 * [Configuration Helper](the-symfony-bundle/configuration-helper.md)
 * [Events](the-symfony-bundle/events.md)
 
-## Console Command
+## Console Commands
 
 * [Console](console-command/console.md)
 * [Standalone Application](console-command/standalone.md)
@@ -69,13 +69,14 @@
   * [Multiple Recipients](advanced-topics/encrypted-tokens/multiple-recipients.md)
   * [Additional Authentication Data (AAD)](advanced-topics/encrypted-tokens/additional-authentication-data-aad.md)
 
-## Benchmark
+## Benchmarks
 
 * [How To](benchmark/benchmarks.md)
-* [Result table](benchmark/result-table.md)
+* [Result Table](benchmark/result-table.md)
 
 ## Migration
 
 * [From v1.x to v2.0](migration/from-v1.x-to-v2.0.md)
 * [From v2.x to v3.0](migration/from-v2.x-to-v3.0.md)
 * [From v3.x to v4.0](migration/from-v3.x-to-v4.0.md)
+* [From v4.0 to v4.1](migration/from-v4.0-to-v4.1.md)

@@ -8,13 +8,15 @@ This framework comes with several signature algorithms. These algorithms are in 
 
 The following signature algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>
 
-They are provided throught the package `web-token/jwt-experimental`.
+They are provided through the package `web-token/jwt-experimental`.
 
-| Algorithm | Description                                    |
-| --------- | ---------------------------------------------- |
-| RS1       | RSASSA-PKCS1 v1\_5 with SHA-1 hashing function |
-| HS1       | HMAC with SHA-1 hashing function               |
-| ES256K    | Elliptic curve secp256k1 support               |
+| Algorithm | Description                                                                    |
+| --------- | ------------------------------------------------------------------------------ |
+| RS1       | RSASSA-PKCS1 v1\_5 with SHA-1 hashing function                                |
+| HS1       | HMAC with SHA-1 hashing function                                               |
+| HS256/64  | HMAC with SHA-256 truncated to 64 bits                                         |
+| ES256K    | Elliptic curve secp256k1 support                                               |
+| Blake2b   | Blake2b MAC algorithm. <mark style="color:orange;">Sodium extension required</mark> |
 
 ## How To Use
 

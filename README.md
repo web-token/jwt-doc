@@ -11,9 +11,9 @@ JWT Framework is a complete implementation of the JOSE (JSON Object Signing and 
 This framework provides full implementation of the following RFCs:
 
 * **JWS** - [JSON Web Signature (RFC 7515)](https://tools.ietf.org/html/rfc7515) - Sign your tokens to ensure integrity and authenticity
-* **JWE** - [JSON Web Encryption (RFC 7516)](http://tools.ietf.org/html/rfc7516) - Encrypt your tokens to ensure confidentiality
-* **JWK** - [JSON Web Key (RFC 7517)](http://tools.ietf.org/html/rfc7517) - Manage cryptographic keys in a standardized format
-* **JWA** - [JSON Web Algorithms (RFC 7518)](http://tools.ietf.org/html/rfc7518) - Use industry-standard cryptographic algorithms
+* **JWE** - [JSON Web Encryption (RFC 7516)](https://tools.ietf.org/html/rfc7516) - Encrypt your tokens to ensure confidentiality
+* **JWK** - [JSON Web Key (RFC 7517)](https://tools.ietf.org/html/rfc7517) - Manage cryptographic keys in a standardized format
+* **JWA** - [JSON Web Algorithms (RFC 7518)](https://tools.ietf.org/html/rfc7518) - Use industry-standard cryptographic algorithms
 * **JWT** - [JSON Web Token (RFC 7519)](https://tools.ietf.org/html/rfc7519) - Create and validate token claims
 * **JSON Web Key Thumbprint** - [RFC 7638](https://tools.ietf.org/html/rfc7638) - Generate unique key identifiers
 * **Unencoded Payload Option** - [RFC 7797](https://tools.ietf.org/html/rfc7797) - Support for unencoded payloads in JWS
@@ -114,4 +114,4 @@ Contributions are welcome! Please read the [contributing guidelines](introductio
 
 ## License
 
-This project is released under the [MIT license](https://github.com/web-token/jwt-framework/tree/846e8752fef1f7276488f52f80e69fcef54f8acc/LICENSE.md).
+This project is released under the [MIT license](https://github.com/web-token/jwt-framework/blob/4.1.x/LICENSE).

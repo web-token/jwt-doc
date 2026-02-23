@@ -1,6 +1,6 @@
 # Provided Features
 
-## Supported Input Types:
+## Supported Input Types
 
 JWS or JWE objects support every input that can be encoded into JSON:
 
@@ -20,7 +20,7 @@ The [detached payload](../advanced-topics/signed-tokens/detached-payload.md) is 
 ## Supported Compression Methods
 
 {% hint style="danger" %}
-Compression is not recommended. For 4.0.0, the support of compression is no longer available. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
+Compression is not recommended. Since version 4.0, compression support has been removed. See [RFC 8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
 {% endhint %}
 
 ## Supported Key Types (JWK)
@@ -35,7 +35,7 @@ Compression is not recommended. For 4.0.0, the support of compression is no long
 JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)).
 
 {% hint style="info" %}
-A `none` key type for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
+A `none` key type is available for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
 {% endhint %}
 
 ## Key Sets (JWKSet)
@@ -55,7 +55,7 @@ JWKSet is fully supported.
 | none                                 | YES       | <mark style="color:red;">**Please note that this is not a secured algorithm. USE IT WITH CAUTION!**</mark> |
 
 {% hint style="info" %}
-Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purpose only or for compatibility with old systems.
+Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
 {% endhint %}
 
 ## Supported Key Encryption Algorithms
@@ -73,7 +73,7 @@ Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, and `Blake2b
 | ECDH-ES with X448 curve                                                       | NO        | No extension or built-in implementation available                                                                                                                |
 
 {% hint style="info" %}
-Other key encryption algorithms like `RSA-OAEP-384`, `RSA-OAEP-512`, and `chacha20-poly1305` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purpose only or for compatibility with old systems.
+Other key encryption algorithms like `RSA-OAEP-384`, `RSA-OAEP-512`, and `chacha20-poly1305` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
 {% endhint %}
 
 {% hint style="danger" %}
@@ -84,9 +84,9 @@ The algorithms `RSA1_5` and `RSA-OAEP` are now deprecated. Please use with cauti
 
 | Content Encryption Algorithm                                 | Supported |
 | ------------------------------------------------------------ | --------- |
-| <p>A128CBC+HS256</p><p>A192CBC+HS384</p><p>A256CBC+HS512</p> | YES       |
+| <p>A128CBC-HS256</p><p>A192CBC-HS384</p><p>A256CBC-HS512</p> | YES       |
 | <p>A128GCM</p><p>A192GCM</p><p>A256GCM</p>                   | YES       |
 
 {% hint style="info" %}
-Other content encryption algorithms like `A128CTR`, `A192CTR`, `A256CTR`, and various AES-CCM algorithms (e.g., `A128CCM-16-128`, `A256CCM-64-64`) are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purpose only or for compatibility with old systems.
+Other content encryption algorithms like `A128CTR`, `A192CTR`, `A256CTR`, and various AES-CCM algorithms (e.g., `A128CCM-16-128`, `A256CCM-64-64`) are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
 {% endhint %}

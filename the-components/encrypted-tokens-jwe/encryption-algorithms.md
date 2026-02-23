@@ -21,10 +21,10 @@ Please note that the additional header parameters **MUST** be present and **MUST
 
 ### Content Encryption
 
-| Algorithm                                                    | Package                                     |
-| ------------------------------------------------------------ | ------------------------------------------- |
-| <p>A128GCM</p><p>A192GCM</p><p>A256GCM</p>                   | `web-token/jwt-encryption-algorithm-aesgcm` |
-| <p>A128CBC-HS256</p><p>A192CBC-HS384</p><p>A256CBC-HS512</p> | `web-token/jwt-encryption-algorithm-aescbc` |
+| Algorithm                                                    | Namespace                                                             |
+| ------------------------------------------------------------ | --------------------------------------------------------------------- |
+| <p>A128GCM</p><p>A192GCM</p><p>A256GCM</p>                   | `Jose\Component\Encryption\Algorithm\ContentEncryption` |
+| <p>A128CBC-HS256</p><p>A192CBC-HS384</p><p>A256CBC-HS512</p> | `Jose\Component\Encryption\Algorithm\ContentEncryption` |
 
 {% hint style="danger" %}
 The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack).

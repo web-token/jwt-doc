@@ -58,7 +58,7 @@ $jws = $serializerManager->unserialize($token);
 // The arguments are:
 // - The JWS object,
 // - The key,
-// - The index of the signature to check. See 
+// - The index of the signature to check.
 $isVerified = $jwsVerifier->verifyWithKey($jws, $jwk, 0);
 ```
 
@@ -89,8 +89,6 @@ $jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature, $payload);
 In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
 
 ## JWSLoaderFactory Object
-
-> This feature was introduced in version 1.1.
 
 The `JWSLoaderFactory` object is able to create `JWSLoader` objects on demand. It requires the following factories:
 

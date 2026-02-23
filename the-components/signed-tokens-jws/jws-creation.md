@@ -30,7 +30,7 @@ $jwsBuilder = new JWSBuilder($algorithmManager);
 Now let's create our first JWS object.
 
 ```php
-// The payload we want to sign. The payload MUST be a string hence we use our JSON Converter.
+// The payload we want to sign. The payload MUST be a string.
 $payload = json_encode([
     'iat' => time(),
     'nbf' => time(),
@@ -53,8 +53,6 @@ The `addSignature()` method accepts a third optional parameter for unprotected h
 ```
 where the second parameter is the protected header and the third is the unprotected header.
 {% endhint %}
-
-```
 
 Great! If everything is fine you will get a JWS object with one signature. We want to send it to the audience. Before that, it must be serialized.
 

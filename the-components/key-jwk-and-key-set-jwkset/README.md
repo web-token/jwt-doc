@@ -13,5 +13,5 @@ This framework is able to create private and public keys easily. It can also gen
 The keys can be grouped in key sets. A `JWKSet` object represents a key set. It can contain as many keys as you need.
 
 {% hint style="warning" %}
-We strongly recommend you to avoid mixing public, private or shared keys in the same key set.
+We strongly recommend that you avoid mixing public, private, and shared keys in the same key set.
 {% endhint %}

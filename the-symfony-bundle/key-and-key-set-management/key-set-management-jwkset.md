@@ -48,8 +48,12 @@ jose:
 
 **Important recommendations:**
 
-* It is **highly recommended** to use a cache plugin for your HTTP client and thus avoid unnecessary calls to the key set endpoint.
+* It is **highly recommended** to use a caching layer for your HTTP client and thus avoid unnecessary calls to the key set endpoint (e.g. Symfony's `CachingHttpClient`).
 * The **connection must be secured** and certificate verification should not be disabled.
+
+{% hint style="warning" %}
+The `UrlKeySetFactory::enabledCache()` method is deprecated since v4.1 and will be removed in v5.0. Please configure caching at the HTTP client level instead.
+{% endhint %}
 
 #### From A JKU (JWK Url)
 
