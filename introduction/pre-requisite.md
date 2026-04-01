@@ -12,7 +12,7 @@ This framework needs at least:
   * curl (for loading keys from remote URLs)
 
 {% hint style="info" %}
-The `json` and `mbstring` extensions are built-in with PHP 8.2+ and no longer need to be installed separately.
+The `json` extension is built-in with PHP 8.2+ and no longer needs to be installed separately.
 {% endhint %}
 
 {% hint style="info" %}
