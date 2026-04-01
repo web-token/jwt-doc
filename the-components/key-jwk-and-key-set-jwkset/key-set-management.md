@@ -20,7 +20,7 @@ $jwkset->all();
 // Check if the key set has the key with the key ID 'KEY ID'.
 $jwkset->has('KEY ID');
 
-// Retreive the key with the key ID 'KEY ID'.
+// Retrieve the key with the key ID 'KEY ID'.
 $jwkset->get('KEY ID');
 
 // Counts the keys in the key set.
