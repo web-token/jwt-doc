@@ -1,0 +1,103 @@
+name: Auto-switch default branch on new branch
+
+# Se déclenche lorsqu'une branche est créée
+on:
+    create:
+
+jobs:
+    update-default-branch:
+        # On ne traite que les créations de branches (pas les tags)
+        if: github.event.ref_type == 'branch'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write   # nécessaire pour modifier le repo via l'API
+
+        steps:
+            - name: Extraire la version depuis le nom de la branche
+              id: vars
+              run: |
+                  ref="${GITHUB_REF#refs/heads/}"    # ex: 1.2, v1.2, 1.2.x, v1.2.x
+                  echo "Branch ref: $ref"
+
+                  # On enlève un éventuel préfixe 'v' (v1.2 -> 1.2, v1.2.x -> 1.2.x)
+                  version="${ref#v}"
+
+                  # On enlève un éventuel suffixe '.x' (1.2.x -> 1.2)
+                  version="${version%.x}"
+
+                  echo "Version nettoyée: $version"
+
+                  # Vérifier que c'est bien au format major.minor
+                  if [[ ! "$version" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+                    echo "Le nom de branche '$ref' n'est pas un format de version reconnu, on ignore."
+                    echo "valid=false" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
+
+                  major="${BASH_REMATCH[1]}"
+                  minor="${BASH_REMATCH[2]}"
+
+                  echo "Major: $major"
+                  echo "Minor: $minor"
+
+                  echo "valid=true" >> "$GITHUB_OUTPUT"
+                  echo "major=$major" >> "$GITHUB_OUTPUT"
+                  echo "minor=$minor" >> "$GITHUB_OUTPUT"
+                  echo "new_branch=$ref" >> "$GITHUB_OUTPUT"
+
+            - name: Récupérer la branche par défaut actuelle
+              if: steps.vars.outputs.valid == 'true'
+              id: repo
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  default_branch=$(gh repo view "${GITHUB_REPOSITORY}" --json defaultBranchRef --jq .defaultBranchRef.name)
+                  echo "Branche par défaut actuelle: $default_branch"
+                  echo "default_branch=$default_branch" >> "$GITHUB_OUTPUT"
+
+            - name: Décider s'il faut basculer
+              if: steps.vars.outputs.valid == 'true'
+              id: decide
+              run: |
+                  new_branch="${{ steps.vars.outputs.new_branch }}"
+                  current="${{ steps.repo.outputs.default_branch }}"
+                  major="${{ steps.vars.outputs.major }}"
+                  minor="${{ steps.vars.outputs.minor }}"
+
+                  echo "Branche par défaut actuelle: $current"
+                  echo "Nouvelle branche: $new_branch"
+                  echo "Version de la nouvelle branche: $major.$minor"
+
+                  # Nettoyer le nom de la branche par défaut actuelle pour en extraire la version
+                  current_clean="${current#v}"
+                  current_clean="${current_clean%.x}"
+
+                  if [[ "$current_clean" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+                    current_major="${BASH_REMATCH[1]}"
+                    current_minor="${BASH_REMATCH[2]}"
+                    echo "Version actuelle parsée: $current_major.$current_minor"
+                  else
+                    echo "La branche par défaut actuelle '$current' n'a pas un format de version reconnu, on ignore."
+                    echo "switch_needed=false" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
+
+                  # Comparaison (major, minor)
+                  if [ "$major" -gt "$current_major" ] || { [ "$major" -eq "$current_major" ] && [ "$minor" -gt "$current_minor" ]; }; then
+                    echo "La nouvelle version $major.$minor est supérieure à $current_major.$current_minor → on bascule."
+                    echo "switch_needed=true" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "La nouvelle version $major.$minor n'est pas supérieure à $current_major.$current_minor → pas de changement."
+                    echo "switch_needed=false" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Mettre à jour la branche par défaut
+              if: steps.vars.outputs.valid == 'true' && steps.decide.outputs.switch_needed == 'true'
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  new_branch="${{ steps.vars.outputs.new_branch }}"
+                  echo "Basculement de la branche par défaut vers: $new_branch"
+
+                  gh api -X PATCH "repos/${GITHUB_REPOSITORY}" \
+                    -f default_branch="$new_branch"
