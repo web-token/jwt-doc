@@ -55,7 +55,7 @@ jose:
     jku_factory:
         enabled: true
         client: 'httplug.client.acme' # The Httplug client
-        request_factory: 'httplug.message_factory' # In general, you will use the same message factory as the one used by Httplug
+        request_factory: 'httplug.psr17_request_factory' # In general, you will use the same request factory as the one used by HTTPlug
 ```
 
 **Important recommendations:**
