@@ -42,7 +42,7 @@ The bundle supports Symfony 7.0 and Symfony 8.0.
 The bundle is automatically detected and installed when using Symfony Flex:
 
 ```bash
-composer require web-token/jwt-framework
+composer require web-token/jwt-bundle
 ```
 
 {% hint style="info" %}
