@@ -45,8 +45,14 @@ This framework provides full implementation of the following RFCs:
 
 ## Installation
 
+Install the package that matches your project:
+
 ```bash
-composer require web-token/jwt-framework
+# Any PHP project — the core library
+composer require web-token/jwt-library
+
+# Symfony application — the bundle (pulls the library in)
+composer require web-token/jwt-bundle
 ```
 
 For Symfony projects, the bundle is automatically registered.

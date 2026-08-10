@@ -93,10 +93,13 @@ Choose the right package for your needs:
 
 | Package | Use When |
 |---------|----------|
-| `web-token/jwt-framework` | **All-in-one** - You want everything (library + bundle + experimental) |
 | `web-token/jwt-library` | **Standalone** - You need the core library without Symfony integration |
 | `web-token/jwt-bundle` | **Symfony** - You're building a Symfony application (includes the library) |
 | `web-token/jwt-experimental` | **Advanced** - You need experimental algorithms or features |
+
+{% hint style="info" %}
+You may come across `web-token/jwt-framework` in older instructions. It is the root package of the monorepo and `replace`s the three packages above, so requiring it installs everything at once — including the experimental algorithms. Prefer `web-token/jwt-library` or `web-token/jwt-bundle` so your dependencies only contain what you actually use.
+{% endhint %}
 
 ## Installation
 
@@ -107,7 +110,7 @@ composer require web-token/jwt-library
 
 ### For Symfony projects:
 ```bash
-composer require web-token/jwt-framework
+composer require web-token/jwt-bundle
 ```
 
 The Symfony bundle will be automatically registered.
