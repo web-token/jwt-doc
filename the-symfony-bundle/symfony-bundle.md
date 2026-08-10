@@ -112,17 +112,17 @@ The bundle provides comprehensive support for all JWT Framework components. Expl
 ### Core Features
 
 * **[Algorithm Management](algorithm-management.md)** - Configure signature and encryption algorithms
-* **[Key and Key Set Management](key-and-key-set-management/)** - Manage cryptographic keys via configuration
+* **[Key and Key Set Management](key-and-key-set-management/README.md)** - Manage cryptographic keys via configuration
 * **[Header and Claim Checkers](header-and-claim-checker-management.md)** - Validate token headers and claims
 
 ### Token Operations
 
-* **[Signed Tokens (JWS)](signed-tokens/)** - Create and verify signed tokens
+* **[Signed Tokens (JWS)](signed-tokens/README.md)** - Create and verify signed tokens
   * [JWS Serializers](signed-tokens/jws-serializers.md)
   * [JWS Creation](signed-tokens/jws-creation.md)
   * [JWS Verification](signed-tokens/jws-verification.md)
 
-* **[Encrypted Tokens (JWE)](encrypted-tokens/)** - Create and decrypt encrypted tokens
+* **[Encrypted Tokens (JWE)](encrypted-tokens/README.md)** - Create and decrypt encrypted tokens
   * [JWE Serializers](encrypted-tokens/jwe-serializers.md)
   * [JWE Creation](encrypted-tokens/jwe-creation.md)
   * [JWE Decryption](encrypted-tokens/jwe-decryption.md)
@@ -162,6 +162,6 @@ php bin/console config:dump-reference jose
 ## Next Steps
 
 - **New to the bundle?** Start with [Algorithm Management](algorithm-management.md)
-- **Need to sign tokens?** Check [Signed Tokens](signed-tokens/)
-- **Need to encrypt tokens?** Check [Encrypted Tokens](encrypted-tokens/)
+- **Need to sign tokens?** Check [Signed Tokens](signed-tokens/README.md)
+- **Need to encrypt tokens?** Check [Encrypted Tokens](encrypted-tokens/README.md)
 - **Advanced configuration?** See [Configuration Helper](configuration-helper.md)

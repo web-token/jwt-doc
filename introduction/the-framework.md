@@ -121,5 +121,5 @@ composer require web-token/jwt-experimental
 
 - **New to JWT?** Start with [Provided Features](provided-features.md) to see what's available
 - **Security conscious?** Read [Security Recommendations](security-recommendations.md) carefully
-- **Ready to code?** Jump to [The Components](../the-components/) for detailed usage guides
-- **Using Symfony?** Check out [The Symfony Bundle](../the-symfony-bundle/) section
+- **Ready to code?** Jump to [The Components](../the-components/algorithm-management-jwa.md) for detailed usage guides
+- **Using Symfony?** Check out [The Symfony Bundle](../the-symfony-bundle/symfony-bundle.md) section

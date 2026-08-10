@@ -88,12 +88,12 @@ $token = $serializer->serialize($jws, 0);
 
 This documentation is organized to help you get started quickly and dive deep when needed:
 
-* **[Introduction](introduction/)** - Overview, features, prerequisites, and security recommendations
-* **[The Components](the-components/)** - Core library documentation for standalone usage
-* **[The Symfony Bundle](the-symfony-bundle/)** - Integration guide for Symfony applications
-* **[Console Commands](console-command/)** - CLI tools for key and token management
-* **[Advanced Topics](advanced-topics/)** - Nested tokens, custom algorithms, and advanced features
-* **[Migration Guides](migration/)** - Upgrade guides for major versions
+* **[Introduction](introduction/the-framework.md)** - Overview, features, prerequisites, and security recommendations
+* **[The Components](the-components/algorithm-management-jwa.md)** - Core library documentation for standalone usage
+* **[The Symfony Bundle](the-symfony-bundle/symfony-bundle.md)** - Integration guide for Symfony applications
+* **[Console Commands](console-command/console.md)** - CLI tools for key and token management
+* **[Advanced Topics](advanced-topics/nested-tokens.md)** - Nested tokens, custom algorithms, and advanced features
+* **[Migration Guides](migration/from-v4.0-to-v4.1.md)** - Upgrade guides for major versions
 
 ## Requirements
 
