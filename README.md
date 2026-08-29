@@ -99,7 +99,7 @@ This documentation is organized to help you get started quickly and dive deep wh
 * **[The Symfony Bundle](the-symfony-bundle/symfony-bundle.md)** - Integration guide for Symfony applications
 * **[Console Commands](console-command/console.md)** - CLI tools for key and token management
 * **[Advanced Topics](advanced-topics/nested-tokens.md)** - Nested tokens, custom algorithms, and advanced features
-* **[Migration Guides](migration/from-v4.1-to-v4.2.md)** - Upgrade guides for major versions
+* **[Migration Guides](migration/from-v4.2-to-v4.3.md)** - Upgrade guides for major versions
 
 ## Requirements
 
@@ -120,4 +120,4 @@ Contributions are welcome! Please read the [contributing guidelines](introductio
 
 ## License
 
-This project is released under the [MIT license](https://github.com/web-token/jwt-framework/blob/4.2.x/LICENSE).
+This project is released under the [MIT license](https://github.com/web-token/jwt-framework/blob/4.3.x/LICENSE).
