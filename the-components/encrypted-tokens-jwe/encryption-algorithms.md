@@ -32,6 +32,15 @@ The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https
 The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
 {% endhint %}
 
+### Curves Supported By The Key Agreement Algorithms
+
+The `ECDH-ES*` and `ECDH-SS*` algorithms accept:
+
+* `EC` keys using the `P-256`, `P-384`, `P-521`, `secp256k1`, `BP-256`, `BP-384` or `BP-512` curve,
+* `OKP` keys using the `X25519` curve (<mark style="color:orange;">SODIUM extension is required</mark>).
+
+The `BP-*` curves are the Brainpool curves. They are part of the core library and do not require the experimental package. Please read the [warning about their interoperability](../key-jwk-and-key-set-jwkset/key-management.md#elliptic-curve-key-pair) before using them.
+
 ## Experimental Algorithms
 
 The following algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>

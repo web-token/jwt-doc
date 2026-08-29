@@ -83,3 +83,4 @@
 * [From v2.x to v3.0](migration/from-v2.x-to-v3.0.md)
 * [From v3.x to v4.0](migration/from-v3.x-to-v4.0.md)
 * [From v4.0 to v4.1](migration/from-v4.0-to-v4.1.md)
+* [From v4.1 to v4.2](migration/from-v4.1-to-v4.2.md)

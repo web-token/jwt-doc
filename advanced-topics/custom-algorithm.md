@@ -101,3 +101,26 @@ final class ChaCha20Poly1305IETF implements KeyEncryption //The algorithm acts a
     }
 }
 ```
+
+## The Expected CEK Size
+
+Since 4.2, the `JWEDecrypter` passes the size of the key expected by the content encryption algorithm as an **additional argument** of `KeyEncryption::decryptKey()` and `KeyWrapping::unwrapKey()`. The value is the one returned by `ContentEncryptionAlgorithm::getCEKSize()`, in bits.
+
+Algorithms that need it may implement a constant-time behaviour on failure instead of leaking it through an exception. This is what `RSA1_5` does for its implicit rejection.
+
+The argument is not declared in the interfaces yet, so that existing implementations keep working: those that do not expect it simply ignore it, the others read it with `func_num_args()`/`func_get_arg(3)`.
+
+```php
+public function decryptKey(JWK $key, string $encrypted_cek, array $header): string
+{
+    // The expected CEK size, in bits, or null when the caller does not provide it.
+    $encryptionKeyLength = func_num_args() > 3 ? func_get_arg(3) : null;
+
+    // ...
+}
+```
+
+{% hint style="warning" %}
+The argument will be added to the interfaces and become **required** in 5.0. If you maintain a custom key encryption or key wrapping algorithm, start reading it now.
+{% endhint %}
+

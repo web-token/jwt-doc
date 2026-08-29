@@ -20,3 +20,8 @@ $jws = $jwsBuilder
 ```
 
 _As a reminder, both_ `b64` _and_ `crit` _parameters MUST be in the protected header._
+
+{% hint style="warning" %}
+`b64` set to `false` removes the Base64Url encoding altogether, so it contradicts [`JWSBuilder::withEncodedPayload()`](../../the-components/signed-tokens-jws/jws-creation.md#already-encoded-payloads), which takes a payload that is already encoded. The combination is rejected whichever order the two are set in.
+{% endhint %}
+

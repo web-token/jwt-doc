@@ -55,6 +55,39 @@ $jwe = $jweBuilder
     ->build();              // We build it
 ```
 
+## Static Key Agreement (ECDH-SS)
+
+The `ECDH-SS*` algorithms derive the agreement key from two **static** keys: no ephemeral key pair is generated, so no `epk` header parameter is added to the token and the recipient has to know the public key of the sender.
+
+Give the private key of the sender to the builder with `withSenderKey()`:
+
+```php
+$jwe = $jweBuilder
+    ->create()
+    ->withPayload($payload)
+    ->withSharedProtectedHeader([
+        'alg' => 'ECDH-SS',
+        'enc' => 'A128CBC-HS256',
+    ])
+    ->withSenderKey($senderPrivateKey)              // Your own private key
+    ->addRecipient($recipientPublicKey)             // The key of the recipient
+    ->build();
+```
+
+The sender key does not add a recipient, so it may be set before or after `addRecipient()`. It is checked by `build()`, once the recipients and the content encryption algorithm are known. A direct static key agreement without a sender key fails with `The sender key shall be set`.
+
+{% hint style="info" %}
+The decryption side needs both keys too, with the roles swapped. See [JWE Loading](jwe-loading.md#static-key-agreement).
+{% endhint %}
+
+## Header Parameters
+
+[RFC 7516 section 7.2.1](https://datatracker.ietf.org/doc/html/rfc7516#section-7.2.1) requires the header parameter names of the shared protected header, the shared unprotected header and the per-recipient headers to be **disjoint**. The builder rejects a token that would repeat a parameter across two of those locations.
+
+The parameters computed by the key encryption algorithm itself — `epk`, `iv`, `tag`, `p2s`, `p2c`… — are filtered out of the per-recipient header when you already set them in a shared header, so setting e.g. `p2c` in the shared protected header of a multi-recipient `PBES2` token is safe.
+
+## Serialization
+
 Great! If everything is fine you will get a JWE object with one recipient. We want to send it to the audience. Before that, it must be serialized.
 
 We will use the compact serialization mode. This is the most common mode as it is URL safe and very compact. Perfect for a use in a web context!

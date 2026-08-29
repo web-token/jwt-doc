@@ -54,7 +54,7 @@ The console commands are organized into logical categories:
 ### 🔑 Key Management
 Create, convert, analyze, and optimize cryptographic keys:
 - Generate new keys (RSA, EC, OKP, oct)
-- Convert between formats (JWK, PEM, DER)
+- Convert between formats (JWK, PEM, DER, PKCS#1, PKCS#8)
 - Extract public keys from private keys
 - Analyze key security
 - Optimize RSA keys for performance
@@ -141,6 +141,35 @@ AwEHoUQDQgAE+wdLWDWCZP6oFYl8aGVfU0MsFlckjaSVrO7hEsc8lgmu3xcNNqUs
 wJEHlO71ZBzZ3RM5XBdceRUNsjtwiKDqvg==
 -----END EC PRIVATE KEY-----
 ```
+
+#### PKCS#8 Key Converter
+
+This command will convert a `RSA`, `EC` or `OKP` key into a PKCS#8 key. It is the counterpart of `key:convert:pkcs1`, for the projects that share keys with libraries only able to import PKCS#8 private keys, such as the npm `jose` package.
+
+```bash
+./jose.phar key:convert:pkcs8 '{"kty":"EC","crv":"P-256","d":"kiNCxSbRjlAbHrEbrwVKS8vIXUh6URChrmw","x":"-wdLWDWCZP6oFYl8aGVfU0MsFlckjaSVrO7hEsc8lgk","y":"rt8XDTalLMCRB5Tu9WQc2d0TOVwXXHkVDbI7cIig6r4"}'
+
+-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkiNCxSbRjlAbHrEb
+rw3gaumtWsVKS8vIXUh6URChrmyhRANCAAT7B0tYNYJk/qgViXxoZV9TQywWVySN
+pJWs7uESxzyWCa7fFw02pSzAkQeU7vVkHNndEzlcF1x5FQ2yO3CIoOq+
+-----END PRIVATE KEY-----
+```
+
+As PKCS#8 only covers private keys, public keys are converted into a `SubjectPublicKeyInfo` structure:
+
+```bash
+./jose.phar key:convert:pkcs8 '{"kty":"EC","crv":"P-256","x":"-wdLWDWCZP6oFYl8aGVfU0MsFlckjaSVrO7hEsc8lgk","y":"rt8XDTalLMCRB5Tu9WQc2d0TOVwXXHkVDbI7cIig6r4"}'
+
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE+wdLWDWCZP6oFYl8aGVfU0MsFlck
+jaSVrO7hEsc8lgmu3xcNNqUswJEHlO71ZBzZ3RM5XBdceRUNsjtwiKDqvg==
+-----END PUBLIC KEY-----
+```
+
+{% hint style="info" %}
+Unlike `key:convert:pkcs1`, this command also handles `OKP` keys (`Ed25519`, `X25519`). It supports every curve of the framework, the [Brainpool](../the-components/key-jwk-and-key-set-jwkset/key-management.md#elliptic-curve-key-pair) ones included.
+{% endhint %}
 
 #### Key Generators
 

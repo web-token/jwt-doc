@@ -16,7 +16,16 @@ They are provided through the package `web-token/jwt-experimental`.
 | HS1       | HMAC with SHA-1 hashing function                                               |
 | HS256/64  | HMAC with SHA-256 truncated to 64 bits                                         |
 | ES256K    | Elliptic curve secp256k1 support                                               |
+| BP256R1   | ECDSA using the brainpoolP256r1 curve (`BP-256`) and SHA-256                   |
+| BP384R1   | ECDSA using the brainpoolP384r1 curve (`BP-384`) and SHA-384                   |
+| BP512R1   | ECDSA using the brainpoolP512r1 curve (`BP-512`) and SHA-512                   |
 | Blake2b   | Blake2b MAC algorithm. <mark style="color:orange;">Sodium extension required</mark> |
+
+{% hint style="warning" %}
+The Brainpool algorithms and their curves are **not registered with IANA**. The identifiers `BP256R1`/`BP384R1`/`BP512R1` and `BP-256`/`BP-384`/`BP-512` follow the convention already adopted by the other implementations, so tokens using them are only interoperable with the implementations sharing that convention.
+
+The curves themselves are part of the core library: [creating a Brainpool key](../key-jwk-and-key-set-jwkset/key-management.md#elliptic-curve-key-pair) or using one with `ECDH-ES`/`ECDH-SS` does not require the experimental package.
+{% endhint %}
 
 ## How To Use
 

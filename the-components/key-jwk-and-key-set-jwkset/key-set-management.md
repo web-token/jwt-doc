@@ -48,3 +48,32 @@ foreach($jwkset as $kid => $jwk) {
 // The JWKSet object can be serialized into JSON
 json_encode($jwkset);
 ```
+
+## Duplicate Key IDs
+
+[RFC 7517 section 4.5](https://datatracker.ietf.org/doc/html/rfc7517#section-4.5) explicitly allows a key set to hold several keys sharing the same `kid`, typically an RSA key and an EC key that the application considers as equivalent alternatives.
+
+Such keys are all kept:
+
+```php
+<?php
+
+use Jose\Component\Core\JWKSet;
+
+// Both keys carry "kid" => "key-1"
+$jwkset = new JWKSet([$rsaKey, $ecKey]);
+
+count($jwkset);        // 2
+$jwkset->get('key-1'); // The first key registered with that ID
+```
+
+* `get()` and `has()` look the key ID up and return the first key carrying it.
+* `without('key-1')` removes **every** key carrying that ID.
+
+{% hint style="info" %}
+When several keys share a `kid`, prefer `selectKey()` over `get()`: it also takes the key usage and the algorithm into account, which is precisely what tells those keys apart.
+{% endhint %}
+
+{% hint style="warning" %}
+Before 4.2, the keys were indexed by `kid` and the last key registered with a given ID silently replaced the previous one. See the [migration guide](../../migration/from-v4.1-to-v4.2.md#duplicate-key-ids-in-a-key-set).
+{% endhint %}

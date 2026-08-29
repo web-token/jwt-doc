@@ -54,6 +54,30 @@ The `addSignature()` method accepts a third optional parameter for unprotected h
 where the second parameter is the protected header and the third is the unprotected header.
 {% endhint %}
 
+## Already Encoded Payloads
+
+Sometimes the payload you hold is already Base64Url encoded. GNAP request signing is such a case: the payload is the Base64Url encoded SHA-256 hash of the request body.
+
+Passing that string to `withPayload()` would encode it a second time and silently produce a token nobody expects. Use `withEncodedPayload()` instead: it takes the payload in the form you already have it.
+
+```php
+$jws = $jwsBuilder
+    ->create()
+    ->withEncodedPayload($base64UrlEncodedHash) // Not encoded again
+    ->addSignature($jwk, ['alg' => 'HS256'])
+    ->build();
+```
+
+The value is validated as strictly as the `CompactSerializer` validates a token it loads: padding, characters outside the Base64Url alphabet, impossible lengths and non-canonical trailing bits are rejected with an `InvalidArgumentException`. The builder can therefore never emit a token the library itself would refuse to read back.
+
+Like `withPayload()`, the method accepts a second argument to mark the payload as [detached](../../advanced-topics/signed-tokens/detached-payload.md).
+
+{% hint style="warning" %}
+An encoded payload contradicts the [unencoded payload option](../../advanced-topics/signed-tokens/unencoded-payload.md) (`b64` set to `false`), which removes the encoding altogether. The combination is rejected whichever order the two are set in.
+{% endhint %}
+
+## Serialization
+
 Great! If everything is fine you will get a JWS object with one signature. We want to send it to the audience. Before that, it must be serialized.
 
 We will use the compact serialization mode. This is the most common mode as it is URL safe and very compact. Perfect for a use in a web context!

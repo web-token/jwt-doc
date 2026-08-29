@@ -49,6 +49,8 @@ A key is fine but may be cracked e.g. by bruteforce. Changing your keys after se
 
 Broadly speaking, you should set your header parameter in the protected header. The use of the unprotected header should be limited to specific use cases.
 
+With encrypted tokens, a header parameter must appear in **exactly one** of the three header locations — shared protected, shared unprotected and per-recipient — as required by [RFC 7516 section 7.2.1](https://datatracker.ietf.org/doc/html/rfc7516#section-7.2.1). The framework enforces it in both directions since 4.2, when the token is written and when it is read. Always put `alg` and `enc` in the shared protected header: it is the only one covered by the AAD, and they are not read from the shared unprotected header.
+
 When using encrypted tokens, the claims `iss` and `aud` should be duplicated into the header. This will avoid unwanted decryption when tokens are sent to a wrong audience.
 
 ### Payload And Claims
@@ -107,7 +109,7 @@ It is strongly recommended that all header parameters are checked before the cry
 
 Please note that unknown header parameters must be ignored. If your token is verified, those parameters should not be used.
 
-When used, unprotected header parameters should be handled with care.
+When used, unprotected header parameters should be handled with care. They are not covered by the signature or the AAD: never let them drive a cryptographic decision, and never trust a value you only found there.
 
 ### Signature Verification / Payload Decryption
 

@@ -113,3 +113,43 @@ $jwsLoader = $jwsLoaderFactory->create(
     ['alg']          // Optional list of header checker aliases
 );
 ```
+
+## Understanding Failures
+
+When a token cannot be loaded or verified, the loaders and the serializer manager chain the last error met along the way as the previous exception. The message of the outer exception stays generic on purpose — it is the one you may safely show — while the cause tells you what actually happened:
+
+```php
+<?php
+
+use Throwable;
+
+try {
+    $jws = $jwsLoader->loadAndVerifyWithKeySet($token, $jwkset, $signature);
+} catch (Throwable $throwable) {
+    $this->logger->debug($throwable->getMessage(), [
+        'cause' => $throwable->getPrevious()?->getMessage(),
+    ]);
+
+    throw $throwable;
+}
+```
+
+`JWSVerifier` returns a boolean and cannot throw without changing that contract, so its per-key failures are reported through a callable it accepts as an additional argument. It is called once per key that failed:
+
+```php
+$isVerified = $jwsVerifier->verifyWithKeySet(
+    $jws,
+    $jwkset,
+    0,
+    null,        // Detached payload
+    $jwk,        // Set with the key that succeeded
+    static function (Throwable $throwable): void {
+        // Called for each key that could not verify the signature.
+    }
+);
+```
+
+{% hint style="info" %}
+That callable is not declared in the signature of `verifyWithKeySet()` yet — it is read with `func_num_args()`/`func_get_arg(5)` so that classes extending the verifier keep working. It will become part of the signature in 5.0.
+{% endhint %}
+

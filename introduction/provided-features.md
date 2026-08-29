@@ -38,6 +38,21 @@ JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/h
 A `none` key type is available for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
 {% endhint %}
 
+## Supported Elliptic Curves
+
+| Key Type | Curve                              | Supported | Comment                                                                                          |
+| -------- | ---------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
+| EC       | <p>P-256</p><p>P-384</p><p>P-521</p> | YES       | ECDSA signatures (`ES256`/`ES384`/`ES512`) and `ECDH-ES*`/`ECDH-SS*` key agreement               |
+| EC       | secp256k1                          | YES       | `ES256K`, in the `Jose\Experimental` namespace                                                    |
+| EC       | <p>BP-256</p><p>BP-384</p><p>BP-512</p> | YES  | Brainpool curves. `BP256R1`/`BP384R1`/`BP512R1` signatures are in the `Jose\Experimental` namespace |
+| OKP      | Ed25519                            | YES       | `EdDSA` signatures. <mark style="color:orange;">SODIUM extension is required</mark>              |
+| OKP      | X25519                             | YES       | `ECDH-ES*` key agreement. <mark style="color:orange;">SODIUM extension is required</mark>        |
+| OKP      | <p>Ed448</p><p>X448</p>            | NO        | No extension or built-in implementation available                                                |
+
+{% hint style="warning" %}
+The Brainpool curves are not registered with IANA, and neither are their signature algorithms. The identifiers follow the convention adopted by the other implementations, so keys and tokens using them are only interoperable with the implementations sharing that convention.
+{% endhint %}
+
 ## Key Sets (JWKSet)
 
 JWKSet is fully supported.
@@ -55,7 +70,7 @@ JWKSet is fully supported.
 | none                                 | YES       | <mark style="color:red;">**Please note that this is not a secured algorithm. USE IT WITH CAUTION!**</mark> |
 
 {% hint style="info" %}
-Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
+Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, `BP256R1`, `BP384R1`, `BP512R1` and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
 {% endhint %}
 
 ## Supported Key Encryption Algorithms
@@ -64,8 +79,8 @@ Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, and `Blake2b
 | ----------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | dir                                                                           | YES       |                                                                                                                                                                  |
 | <p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256</p>                               | YES       | <p><mark style="color:orange;">GMP or BCMath extension is highly recommended</mark><br><br><mark style="color:red;"><strong>Read note below!</strong></mark></p> |
-| <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
-| <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
+| <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms. See the [supported curves](#supported-elliptic-curves)                                               |
+| <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms. See the [supported curves](#supported-elliptic-curves)                                               |
 | <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
 | <p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p>   | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
 | <p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p>                              | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |

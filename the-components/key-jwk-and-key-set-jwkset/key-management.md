@@ -119,6 +119,13 @@ The supported curves are:
 * `P-256`
 * `P-384`
 * `P-521` (note that this is **521** and not 512)
+* `BP-256`, `BP-384` and `BP-512` (the `brainpoolP256r1`, `brainpoolP384r1` and `brainpoolP512r1` curves)
+
+The Brainpool curves can be used for ECDSA signatures — through the `BP256R1`, `BP384R1` and `BP512R1` [experimental algorithms](../signed-tokens-jws/signature-algorithms.md#experimental-algorithms) — for `ECDH-ES`/`ECDH-SS` key agreement, and for the PEM/JWK conversions in both directions.
+
+{% hint style="warning" %}
+The Brainpool curves are **not registered with IANA**. The identifiers `BP-256`, `BP-384` and `BP-512` follow the convention already adopted by the other implementations, so keys and tokens using them are only interoperable with the implementations sharing that convention.
+{% endhint %}
 
 #### Octet Key Pair
 

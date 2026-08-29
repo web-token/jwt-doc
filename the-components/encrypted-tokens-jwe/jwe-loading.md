@@ -107,3 +107,73 @@ $jweLoader = $jweLoaderFactory->create(
     ['alg', 'enc']             // Optional list of header checker aliases
 );
 ```
+
+## Header Validation
+
+[RFC 7516 section 7.2.1](https://datatracker.ietf.org/doc/html/rfc7516#section-7.2.1) requires the header parameter names of the three locations — shared protected header, shared unprotected header and per-recipient header — to be **disjoint**. The `JWEDecrypter` enforces it and rejects a token that repeats a parameter across two locations.
+
+Two consequences are worth knowing:
+
+* the protected header always wins. An unprotected parameter can never override an integrity protected one, `alg` and `enc` included;
+* `alg` and `enc` are never read from the **shared unprotected** header. That header is not covered by the AAD and, unlike the per-recipient header, nothing requires those parameters to be located there. Put them in the shared protected header.
+
+{% hint style="warning" %}
+This is enforced since 4.2. Tokens built like the [RFC 7520](https://datatracker.ietf.org/doc/html/rfc7520) sections 5.11 and 5.12 vectors are still parsed, but are no longer decrypted. See the [migration guide](../../migration/from-v4.1-to-v4.2.md#stricter-header-validation-on-decryption).
+{% endhint %}
+
+This validation is not a substitute for the [Header Checker](../header-checker.md): it only checks where the parameters are, not what they contain.
+
+## Static Key Agreement
+
+The `ECDH-SS*` algorithms derive the agreement key from two **static** keys, so no `epk` header parameter is present in the token and the decrypter must be given both keys.
+
+Beware that the roles are swapped compared to the [creation side](jwe-creation.md#static-key-agreement-ecdh-ss): the key used to decrypt is the **public key of the sender**, and the additional key is the **private key of the recipient**.
+
+```php
+$success = $jweDecrypter->decryptUsingKey(
+    $jwe,
+    $senderPublicKey,     // The key of the sender
+    0,
+    $recipientPrivateKey  // Your own private key
+);
+```
+
+## Understanding Failures
+
+When a token cannot be loaded or decrypted, the loaders and the serializer manager chain the last error met along the way as the previous exception:
+
+```php
+<?php
+
+use Throwable;
+
+try {
+    $jwe = $jweLoader->loadAndDecryptWithKeySet($token, $jwkset, $recipient);
+} catch (Throwable $throwable) {
+    $this->logger->debug($throwable->getMessage(), [
+        'cause' => $throwable->getPrevious()?->getMessage(),
+    ]);
+
+    throw $throwable;
+}
+```
+
+`JWEDecrypter` returns a boolean and cannot throw without changing that contract, so its per-key failures are reported through a callable it accepts as an additional argument. It is called once per key that failed:
+
+```php
+$success = $jweDecrypter->decryptUsingKeySet(
+    $jwe,
+    $jwkset,
+    0,
+    $jwk,        // Set with the key that succeeded
+    $senderKey,  // Static key agreement only, see "Static Key Agreement" below
+    static function (Throwable $throwable): void {
+        // Called for each key that could not decrypt the token.
+    }
+);
+```
+
+{% hint style="info" %}
+That callable is not declared in the signature of `decryptUsingKeySet()` yet — it is read with `func_num_args()`/`func_get_arg(5)` so that classes extending the decrypter keep working. It will become part of the signature in 5.0.
+{% endhint %}
+
