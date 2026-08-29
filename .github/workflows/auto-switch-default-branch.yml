@@ -10,11 +10,28 @@ jobs:
         if: github.event.ref_type == 'branch'
         runs-on: ubuntu-latest
         permissions:
-            contents: write   # nécessaire pour modifier le repo via l'API
+            contents: read
+
+        # Changer la branche par défaut relève de la permission "administration",
+        # que le GITHUB_TOKEN d'Actions ne peut pas obtenir. Il faut un jeton personnel
+        # (PAT) avec le scope "repo", stocké dans le secret DEFAULT_BRANCH_TOKEN.
+        env:
+            GH_TOKEN: ${{ secrets.DEFAULT_BRANCH_TOKEN }}
 
         steps:
+            - name: Vérifier que le jeton est disponible
+              id: token
+              run: |
+                  if [ -z "${GH_TOKEN}" ]; then
+                    echo "Le secret DEFAULT_BRANCH_TOKEN n'est pas défini, on ignore."
+                    echo "available=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "available=true" >> "$GITHUB_OUTPUT"
+                  fi
+
             - name: Extraire la version depuis le nom de la branche
               id: vars
+              if: steps.token.outputs.available == 'true'
               run: |
                   ref="${GITHUB_REF#refs/heads/}"    # ex: 1.2, v1.2, 1.2.x, v1.2.x
                   echo "Branch ref: $ref"
@@ -48,8 +65,6 @@ jobs:
             - name: Récupérer la branche par défaut actuelle
               if: steps.vars.outputs.valid == 'true'
               id: repo
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   default_branch=$(gh repo view "${GITHUB_REPOSITORY}" --json defaultBranchRef --jq .defaultBranchRef.name)
                   echo "Branche par défaut actuelle: $default_branch"
@@ -93,8 +108,6 @@ jobs:
 
             - name: Mettre à jour la branche par défaut
               if: steps.vars.outputs.valid == 'true' && steps.decide.outputs.switch_needed == 'true'
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   new_branch="${{ steps.vars.outputs.new_branch }}"
                   echo "Basculement de la branche par défaut vers: $new_branch"
