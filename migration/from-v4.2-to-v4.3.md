@@ -84,7 +84,7 @@ if ($result->isDecrypted()) {
 ```
 
 {% hint style="info" %}
-The algorithm interfaces cannot change without breaking every third-party implementation, so 4.3 only documents the signature they will have in 5.0 and ships the objects they will return: `EncryptedContent` and `WrappedKey`.
+The algorithm interfaces and `TokenTypeSupport` cannot change without breaking every third-party implementation, so 4.3 only documents the signature they will have in 5.0 and ships the objects they will return. See [Announced For 5.0](#announced-for-50).
 {% endhint %}
 
 ### The Builders Are Really Immutable
@@ -204,6 +204,26 @@ Two failures gained a precise type: both loaders report a token that cannot be l
 
 Calling either method from outside the library now raises a deprecation notice; they are removed in 5.0, where the objects are built by their constructor. A custom JWS serializer is a supported extension point and keeps working.
 
+### Sealed Value Objects
+
+`JWK`, `JWKSet`, `JWS`, `JWE` and `Signature` were documented as becoming `final readonly` in 5.0, but only in prose: unlike the services, they carried no `@final` annotation and raised nothing when they were extended. They now do both.
+
+The notice is not the one the services raise. A value object has no interface to decorate in place of the inheritance: it carries no behaviour to change, and the state a subclass adds to it cannot survive the constructor becoming the only way to populate it.
+
+**What to do:** build the object with its constructor, and keep the state your subclass adds in the object of yours that uses it.
+
+```php
+// Instead of extending JWK to carry your own metadata:
+final readonly class ManagedKey
+{
+    public function __construct(
+        public JWK $key,
+        public DateTimeImmutable $rotatedAt,
+    ) {
+    }
+}
+```
+
 ### JKUFactory And X5UFactory Stand On Their Own
 
 `UrlKeySetFactory` is announced for removal in 5.0, yet `JKUFactory` and `X5UFactory` — the documented way to load a `jku` or a `x5u` key set, and not deprecated themselves — extended it.
@@ -211,6 +231,68 @@ Calling either method from outside the library now raises a deprecation notice; 
 The fetching code moved to an internal trait the two factories use, so **they no longer inherit anything from the deprecated class** and neither of them emits a deprecation. `UrlKeySetFactory` now says what is deprecated — itself, as a public extension point — and extending it raises a notice.
 
 `enabledCache()`, deprecated by annotation since 4.1, raises the notice now and states its replacement: an HTTP client that caches the responses, which honours the cache directives of the endpoint where the fixed lifetime of a cache pool ignores them.
+
+## Announced For 5.0
+
+Some interfaces of the library are implemented by third-party code, so they cannot change without breaking it. 4.3 is the last release able to give notice, so it documents the signature they will have in 5.0 and **ships the objects they will return**, ready to be used.
+
+None of these interfaces changes in 4.3: nothing to do today, unless you maintain an implementation.
+
+### Encryption Algorithms
+
+The key management algorithms write the header parameters they need to add to the token — `epk`, `iv`, `tag`, `p2s`… — into an array of the caller. In 5.0 they return a `WrappedKey` carrying both the key and those parameters:
+
+| Method | 5.0 signature |
+| ------ | ------------- |
+| `KeyEncryption::encryptKey()` | `encryptKey(JWK $key, string $cek, array $completeHeader): WrappedKey` |
+| `KeyWrapping::wrapKey()` | `wrapKey(JWK $key, string $cek, array $completeHeader): WrappedKey` |
+| `KeyAgreement::getAgreementKey()` | `getAgreementKey(int $encryptionKeyLength, string $algorithm, JWK $recipientKey, ?JWK $senderKey, array $completeHeader): WrappedKey` |
+| `KeyAgreementWithKeyWrapping::wrapAgreementKey()` | `wrapAgreementKey(JWK $recipientKey, ?JWK $senderKey, string $cek, int $encryptionKeyLength, array $completeHeader): WrappedKey` |
+
+```php
+use Jose\Component\Encryption\Algorithm\KeyEncryption\WrappedKey;
+
+$wrapped = new WrappedKey($encryptedCek, ['iv' => $iv, 'tag' => $tag]);
+
+$wrapped->getKey();
+$wrapped->getAdditionalHeader();
+```
+
+The content encryption algorithms do the same with their authentication tag. `ContentEncryptionAlgorithm::encryptContent()` returns an `EncryptedContent` in 5.0 and loses its `?string &$tag` parameter:
+
+```php
+use Jose\Component\Encryption\Algorithm\EncryptedContent;
+
+$encrypted = new EncryptedContent($ciphertext, $tag);
+
+$encrypted->getCiphertext();
+$encrypted->getTag();       // null when the algorithm computes none
+```
+
+`decryptKey()` and `unwrapKey()` gain their fourth argument, [the expected CEK size](../advanced-topics/custom-algorithm.md#the-expected-cek-size) introduced in 4.2, as a declared and required parameter in the same release.
+
+### Token Type Supports
+
+`TokenTypeSupport::retrieveTokenHeaders()` is the last public interface of the library built entirely on output parameters: it writes the two headers into variables of the caller and returns `void`. In 5.0 it returns a `TokenHeaders`:
+
+```php
+// 4.3
+public function retrieveTokenHeaders(JWT $jwt, int $index, array &$protectedHeader, array &$unprotectedHeader): void;
+
+// 5.0
+public function retrieveTokenHeaders(JWT $jwt, int $index): TokenHeaders;
+```
+
+```php
+use Jose\Component\Checker\TokenHeaders;
+
+$headers = new TokenHeaders($protectedHeader, $unprotectedHeader);
+
+$headers->getProtectedHeader();
+$headers->getUnprotectedHeader();
+```
+
+A support given a token it does not handle returns an object carrying two empty headers, which is what it does today by leaving the two output parameters untouched.
 
 ## Behaviour Changes
 
@@ -297,6 +379,7 @@ Everything below still works in 4.3 and is removed in 5.0.
 | ---------- | ----------- |
 | `JWS::addSignature()` called from outside the library | `JWSBuilder` |
 | `JWE::withPayload()` called from outside the library | `JWEDecrypter` |
+| Extending `JWK`, `JWKSet`, `JWS`, `JWE` or `Signature` | Build the object with its constructor and keep your own state beside it |
 | `new Signature($sig, $decodedProtectedHeader, null, ...)` | Pass the encoded protected header — the decoded one is silently discarded without it, and this throws in 5.0 |
 
 ### Algorithms

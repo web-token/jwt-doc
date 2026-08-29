@@ -85,6 +85,6 @@ Two methods carried an `@internal` annotation that did not match what they are:
 * `sortKeys()` was public only because the comparison was passed to `usort()` as a callable. It is a closure now, nothing in the library calls the method any more, and calling it is deprecated since 4.3.
 * `getIterator()` carried the same annotation although it is the `IteratorAggregate` contract, which wrongly told users not to iterate over a key set. Iterating is supported, as the example above shows.
 
-{% hint style="info" %}
-`JWK` and `JWKSet` become `final readonly` in 5.0. If you extend either of them, move to composition now.
+{% hint style="warning" %}
+`JWKSet` becomes `final readonly` in 5.0, and extending it raises a deprecation notice since 4.3. Like the [key](key-management.md#typed-accessors), it is a value object with no interface to decorate: move to composition now — build the key set with its constructor and keep your own state in the object that uses it.
 {% endhint %}

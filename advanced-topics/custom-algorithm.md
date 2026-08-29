@@ -124,3 +124,59 @@ public function decryptKey(JWK $key, string $encrypted_cek, array $header): stri
 The argument will be added to the interfaces and become **required** in 5.0. If you maintain a custom key encryption or key wrapping algorithm, start reading it now.
 {% endhint %}
 
+## Preparing For 5.0
+
+The algorithm interfaces are implemented by third-party code, so they cannot change without breaking it. 4.3 documents the signature they will have in 5.0 and **ships the objects they will return**, so an implementation can be prepared today.
+
+Nothing changes in 4.3: the interfaces are untouched and your algorithm keeps working.
+
+### `WrappedKey`
+
+The key management algorithms write the header parameters they need to add to the token — `epk`, `iv`, `tag`, `p2s`… — into an array of the caller. In 5.0 they return a `WrappedKey` carrying both the key and those parameters, and lose their `array &$additionalHeader` parameter:
+
+| Method | 5.0 signature |
+| ------ | ------------- |
+| `KeyEncryption::encryptKey()` | `encryptKey(JWK $key, string $cek, array $completeHeader): WrappedKey` |
+| `KeyWrapping::wrapKey()` | `wrapKey(JWK $key, string $cek, array $completeHeader): WrappedKey` |
+| `KeyAgreement::getAgreementKey()` | `getAgreementKey(int $encryptionKeyLength, string $algorithm, JWK $recipientKey, ?JWK $senderKey, array $completeHeader): WrappedKey` |
+| `KeyAgreementWithKeyWrapping::wrapAgreementKey()` | `wrapAgreementKey(JWK $recipientKey, ?JWK $senderKey, string $cek, int $encryptionKeyLength, array $completeHeader): WrappedKey` |
+
+Taking the example above, the `encryptKey()` of 5.0 becomes:
+
+```php
+<?php
+
+use Jose\Component\Encryption\Algorithm\KeyEncryption\WrappedKey;
+
+public function encryptKey(JWK $key, string $cek, array $completeHeader): WrappedKey
+{
+    $this->checkKey($key);
+    $kek = Base64Url::decode($key->get('k'));
+    $nonce = random_bytes(CRYPTO_AEAD_CHACHA20POLY1305_IETF_NPUBBYTES);
+
+    return new WrappedKey(
+        sodium_crypto_aead_chacha20poly1305_ietf_encrypt($cek, '', $nonce, $kek),
+        ['nonce' => Base64Url::encode($nonce)] // What used to be written into $additionalHeader
+    );
+}
+```
+
+### `EncryptedContent`
+
+The content encryption algorithms do the same with their authentication tag. `ContentEncryptionAlgorithm::encryptContent()` returns an `EncryptedContent` in 5.0 and loses its `?string &$tag` parameter:
+
+```php
+<?php
+
+use Jose\Component\Encryption\Algorithm\EncryptedContent;
+
+$encrypted = new EncryptedContent($ciphertext, $tag);
+
+$encrypted->getCiphertext();
+$encrypted->getTag();        // null when the algorithm computes none
+```
+
+### The Fourth Argument Of The Decryption Methods
+
+`decryptKey()` and `unwrapKey()` gain [the expected CEK size](#the-expected-cek-size) as a declared, required argument in the same release.
+

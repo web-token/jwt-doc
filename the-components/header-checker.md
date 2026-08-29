@@ -136,3 +136,37 @@ final class CustomChecker implements HeaderChecker
 }
 ```
 {% endcode %}
+
+## Custom Token Type Support
+
+A header checker manager reads the headers of a token through a **token type support**: `JWSTokenSupport` knows how to read a JWS, `JWETokenSupport` a JWE. If your application carries tokens in another shape, implement `Jose\Component\Checker\TokenTypeSupport` and register it with `addTokenTypeSupport()`, as the factory example above does.
+
+```php
+public function supports(JWT $jwt): bool;
+
+public function retrieveTokenHeaders(
+    JWT $jwt,
+    int $index,                 // The signature or recipient index
+    array &$protectedHeader,
+    array &$unprotectedHeader
+): void;
+```
+
+The `$index` matters with the JSON General serialization mode, which allows several signatures or recipients. For a JWE, the unprotected header is the shared unprotected header merged with the header of the selected recipient.
+
+{% hint style="warning" %}
+`retrieveTokenHeaders()` is the last public interface of the library built on output parameters. In 5.0 it returns a `Jose\Component\Checker\TokenHeaders` object and the two `array &$header` parameters are removed:
+
+```php
+public function retrieveTokenHeaders(JWT $jwt, int $index): TokenHeaders;
+```
+
+Nothing changes in 4.3 — the interface is untouched — but the object already ships, so an implementation can be prepared today:
+
+```php
+return new TokenHeaders($protectedHeader, $unprotectedHeader);
+```
+
+A support given a token it does not handle returns an object carrying two empty headers, which is what it does today by leaving the two output parameters untouched.
+{% endhint %}
+

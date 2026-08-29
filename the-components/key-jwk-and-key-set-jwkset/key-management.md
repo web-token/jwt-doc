@@ -54,7 +54,22 @@ $jwk->find('kid');      // mixed|null
 ```
 
 {% hint style="info" %}
-These accessors are available since 4.3. `JWK` and `JWKSet` become `final readonly` in 5.0.
+These accessors are available since 4.3.
+{% endhint %}
+
+{% hint style="warning" %}
+`JWK` becomes `final readonly` in 5.0, and extending it raises a deprecation notice since 4.3. A key is a value object: it carries no behaviour to change, and the state a subclass adds to it cannot survive the constructor becoming the only way to populate it. Build the key with its constructor and keep your own state in the object that uses it:
+
+```php
+final readonly class ManagedKey
+{
+    public function __construct(
+        public JWK $key,
+        public DateTimeImmutable $rotatedAt,
+    ) {
+    }
+}
+```
 {% endhint %}
 
 ## Generate A New Key
