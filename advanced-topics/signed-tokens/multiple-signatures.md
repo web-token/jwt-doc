@@ -6,7 +6,6 @@ With the example below, we will create three signatures using three different al
 
 ```php
 $jws = $jwsBuilder
-    ->create()
     ->withPayload('...')
     ->addSignature($signature_key1, ['alg' => 'HS256'])
     ->addSignature($signature_key2, ['alg' => 'RS384'])

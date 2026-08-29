@@ -57,20 +57,32 @@ $jws = $serializerManager->unserialize($token);
 // We verify the signature. This method does NOT check the header.
 // The arguments are:
 // - The JWS object,
-// - The key,
+// - The key or the key set,
 // - The index of the signature to check.
-$isVerified = $jwsVerifier->verifyWithKey($jws, $jwk, 0);
+$result = $jwsVerifier->verify($jws, $jwk, 0);
 ```
 
-The method `verifyWithKey` returns a boolean. If true, then your token signature is valid. You can then check the claims (if any) using the claim checker manager.
+`verify()` returns a `VerificationResult`:
+
+```php
+$result->isVerified();        // bool — true when the signature is valid
+$result->getSignatureIndex(); // int — the index of the signature that was checked
+$result->getKey();            // ?JWK — the key that verified it, null on failure
+```
+
+If the signature is valid, you can then check the claims (if any) using the claim checker manager.
+
+The second argument accepts a `JWK` as well as a `JWKSet`; when a key set is given, every key is tried until one verifies the signature, and `getKey()` tells you which one did.
+
+{% hint style="info" %}
+`verifyWithKey()` still exists and is not deprecated: it takes a single key and returns a boolean, with no output parameter. `verifyWithKeySet()`, which wrote the successful key into a variable of the caller, is deprecated since 4.3 in favour of `verify()`.
+{% endhint %}
 
 ## JWSLoader Object
 
 To avoid duplication of code lines, you can create a `JWSLoader` object. This object contains a serializer, a verifier and an optional header checker (highly recommended).
 
-In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$jwk`. The variable `$payload` corresponds to the detached payload (`null` by default).
-
-If the verification succeeded, the variable `$signature` will be set with the signature index and should be in case of multiple signatures. The method returns the JWS object.
+In the following example, the `JWSLoader` object will try to unserialize the token `$token`, check the header parameters and verify the signature with the key `$jwk`. The third argument corresponds to the detached payload (`null` by default).
 
 ```php
 <?php
@@ -83,10 +95,18 @@ $jwsLoader = new JWSLoader(
     $headerCheckerManager
 );
 
-$jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature, $payload);
+$result = $jwsLoader->loadAndVerify($token, $jwk, $payload);
+
+$jws       = $result->getJws();
+$signature = $result->getSignatureIndex(); // Useful with multiple signatures
+$key       = $result->getKey();            // The key that verified the signature
 ```
 
-In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
+`loadAndVerify()` accepts a `JWK` as well as a `JWKSet`, and throws when the token cannot be loaded or verified.
+
+{% hint style="warning" %}
+`loadAndVerifyWithKey()` and `loadAndVerifyWithKeySet()` wrote the signature index into a variable of the caller. They are deprecated since 4.3 and removed in 5.0: use `loadAndVerify()`, which carries that index in its result. See the [migration guide](../../migration/from-v4.2-to-v4.3.md#result-objects-instead-of-output-parameters).
+{% endhint %}
 
 ## JWSLoaderFactory Object
 
@@ -121,11 +141,11 @@ When a token cannot be loaded or verified, the loaders and the serializer manage
 ```php
 <?php
 
-use Throwable;
+use Jose\Component\Core\Exception\JoseException;
 
 try {
-    $jws = $jwsLoader->loadAndVerifyWithKeySet($token, $jwkset, $signature);
-} catch (Throwable $throwable) {
+    $result = $jwsLoader->loadAndVerify($token, $jwkset);
+} catch (JoseException $throwable) {
     $this->logger->debug($throwable->getMessage(), [
         'cause' => $throwable->getPrevious()?->getMessage(),
     ]);
@@ -134,22 +154,19 @@ try {
 }
 ```
 
-`JWSVerifier` returns a boolean and cannot throw without changing that contract, so its per-key failures are reported through a callable it accepts as an additional argument. It is called once per key that failed:
+Every exception thrown by the framework implements `JoseException`, so a single catch block handles any failure. Each of them extends the SPL exception that was thrown at that place before 4.3, hence catch blocks written for previous versions keep matching.
+
+`JWSVerifier` reports a failure through its result rather than an exception, so the per-key failures it meets while trying a key set are reported through an optional callable. It is called once per key that failed:
 
 ```php
-$isVerified = $jwsVerifier->verifyWithKeySet(
+$result = $jwsVerifier->verify(
     $jws,
     $jwkset,
     0,
-    null,        // Detached payload
-    $jwk,        // Set with the key that succeeded
+    null, // Detached payload
     static function (Throwable $throwable): void {
         // Called for each key that could not verify the signature.
     }
 );
 ```
-
-{% hint style="info" %}
-That callable is not declared in the signature of `verifyWithKeySet()` yet — it is read with `func_num_args()`/`func_get_arg(5)` so that classes extending the verifier keep working. It will become part of the signature in 5.0.
-{% endhint %}
 

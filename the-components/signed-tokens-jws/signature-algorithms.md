@@ -4,6 +4,30 @@ This framework comes with several signature algorithms. These algorithms are in 
 
 <table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td>Edwards-curve Digital Signature Algorithm (EdDSA)</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
 
+### The `none` Algorithm
+
+Since 4.3, `none` lives in its own package, so that enabling it is an explicit and auditable decision:
+
+```bash
+composer require web-token/jwt-unsecured
+```
+
+```php
+<?php
+
+use Jose\Unsecured\Signature\None;
+```
+
+It is deliberately **not** part of `web-token/jwt-experimental`: `none` is perfectly standard, and an application asking for `Blake2b` should not get it in the bargain.
+
+{% hint style="warning" %}
+`Jose\Component\Signature\Algorithm\None` still works — it is an empty subclass of the new class — but it is deprecated since 4.3 and removed in 5.0. In the Symfony Bundle, the configuration alias is unchanged: `none` still names the algorithm.
+{% endhint %}
+
+{% hint style="danger" %}
+`none` disables signature verification altogether. Read [Security Recommendations](../../introduction/security-recommendations.md#avoid-weak-algorithms) before enabling it.
+{% endhint %}
+
 ### Experimental Algorithms
 
 The following signature algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>

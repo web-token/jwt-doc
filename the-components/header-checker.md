@@ -62,6 +62,10 @@ In the following example, an exception will be thrown if the `alg`, `enc` or `cr
 $headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
 ```
 
+{% hint style="info" %}
+Since 4.3, the manager implements `HeaderCheckerManagerInterface`. Type-hint the interface rather than the concrete class: it is what the loaders expect, and it lets you decorate the manager. Extending `HeaderCheckerManager` is deprecated.
+{% endhint %}
+
 ## Provided Header Checker Objects
 
 The library provides several header checker classes you can instantiate and use at will. They are all located in the namespace `Jose\Component\Checker`.
@@ -86,7 +90,7 @@ use Jose\Component\Signature\JWSTokenSupport;
 
 $headerCheckerManagerFactory = new HeaderCheckerManagerFactory();
 $headerCheckerManagerFactory->add('signature_alg', new AlgorithmChecker(['HS256']));
-$headerCheckerManagerFactory->add('key_encryption_alg', new AlgorithmChecker(['RSA1_5']));
+$headerCheckerManagerFactory->add('key_encryption_alg', new AlgorithmChecker(['RSA-OAEP-256']));
 $headerCheckerManagerFactory->addTokenTypeSupport(new JWSTokenSupport());
 $headerCheckerManagerFactory->addTokenTypeSupport(new JWETokenSupport());
 

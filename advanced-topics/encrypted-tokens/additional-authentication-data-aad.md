@@ -6,7 +6,6 @@ Its value can be any string you want that is needed by your application. With th
 
 ```php
 $jwe = $jweBuilder
-    ->create()
     ->withPayload('...')
     ->withSharedProtectedHeader([
         'enc' => 'A256CBC-HS512',

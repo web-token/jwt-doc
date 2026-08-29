@@ -77,3 +77,14 @@ When several keys share a `kid`, prefer `selectKey()` over `get()`: it also take
 {% hint style="warning" %}
 Before 4.2, the keys were indexed by `kid` and the last key registered with a given ID silently replaced the previous one. See the [migration guide](../../migration/from-v4.1-to-v4.2.md#duplicate-key-ids-in-a-key-set).
 {% endhint %}
+
+## Sealed Helpers
+
+Two methods carried an `@internal` annotation that did not match what they are:
+
+* `sortKeys()` was public only because the comparison was passed to `usort()` as a callable. It is a closure now, nothing in the library calls the method any more, and calling it is deprecated since 4.3.
+* `getIterator()` carried the same annotation although it is the `IteratorAggregate` contract, which wrongly told users not to iterate over a key set. Iterating is supported, as the example above shows.
+
+{% hint style="info" %}
+`JWK` and `JWKSet` become `final readonly` in 5.0. If you extend either of them, move to composition now.
+{% endhint %}

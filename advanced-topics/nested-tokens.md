@@ -14,13 +14,18 @@ use Jose\Component\NestedToken\NestedTokenLoader;
 $nestedTokenLoader = new NestedTokenLoader($jweLoader, $jwsLoader);
 ```
 
-Its use is very straightforward, you just have to call the method `load` using the token, the encryption and signature key sets.
-
-The last argument (`$signature` in the following example) will represents the signature index of the verified signature. This is only useful when multiple signature support is used.
+Its use is very straightforward, you just have to call the method `loadAndVerify` using the token, the encryption and signature key sets.
 
 ```php
-$jws = $nestedTokenLoader->load($token, $encryptionKeySet, $signatureKeySet, $signature);
+$result = $nestedTokenLoader->loadAndVerify($token, $encryptionKeySet, $signatureKeySet);
+
+$jws       = $result->getJws();
+$signature = $result->getSignatureIndex(); // Useful when multiple signatures are used
 ```
+
+{% hint style="warning" %}
+`load()` wrote the signature index into a variable of the caller. Passing that `$signature` argument is deprecated since 4.3 and the argument is removed in 5.0: use `loadAndVerify()`, which carries the index in its result. Calling `load($token, $encryptionKeySet, $signatureKeySet)` without it stays valid.
+{% endhint %}
 
 ## Nested Token Building
 

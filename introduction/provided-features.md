@@ -67,7 +67,7 @@ JWKSet is fully supported.
 | <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark>                           |
 | EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">SODIUM extension is required</mark>                                            |
 | EdDSA with Ed448 curve               | NO        | No extension or built-in implementation available                                                          |
-| none                                 | YES       | <mark style="color:red;">**Please note that this is not a secured algorithm. USE IT WITH CAUTION!**</mark> |
+| none                                 | YES       | <mark style="color:red;">**Not a secured algorithm. USE IT WITH CAUTION!**</mark> Shipped by `web-token/jwt-unsecured` |
 
 {% hint style="info" %}
 Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, `BP256R1`, `BP384R1`, `BP512R1` and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
@@ -78,7 +78,8 @@ Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, `BP256R1`, `
 | Key Encryption Algorithm                                                      | Supported |                                                                                                                                                                  |
 | ----------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | dir                                                                           | YES       |                                                                                                                                                                  |
-| <p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256</p>                               | YES       | <p><mark style="color:orange;">GMP or BCMath extension is highly recommended</mark><br><br><mark style="color:red;"><strong>Read note below!</strong></mark></p> |
+| <p>RSA-OAEP</p><p>RSA-OAEP-256</p>                                            | YES       | <p><mark style="color:orange;">GMP or BCMath extension is highly recommended</mark><br><br><mark style="color:red;"><strong>Read note below!</strong></mark></p> |
+| RSA1_5                                                                        | YES       | <mark style="color:red;"><strong>Read note below!</strong></mark> Shipped by `web-token/jwt-rsa15`                                                              |
 | <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms. See the [supported curves](#supported-elliptic-curves)                                               |
 | <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms. See the [supported curves](#supported-elliptic-curves)                                               |
 | <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
@@ -93,6 +94,8 @@ Other key encryption algorithms like `RSA-OAEP-384`, `RSA-OAEP-512`, and `chacha
 
 {% hint style="danger" %}
 The algorithms `RSA1_5` and `RSA-OAEP` are now deprecated. Please use with caution.
+
+Since 4.3, `RSA1_5` is shipped by the dedicated `web-token/jwt-rsa15` package and `none` by `web-token/jwt-unsecured`, so enabling either of them is an explicit decision recorded in your dependencies.
 {% endhint %}
 
 ## Supported Content Encryption Algorithms

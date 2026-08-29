@@ -23,6 +23,27 @@ $algorithmManager = new AlgorithmManager([
 It is not possible to set the same algorithm twice in the same algorithm manager.
 {% endhint %}
 
+## Deriving A Manager
+
+An algorithm manager expresses a policy — *these algorithms and no others* — so it is immutable: a consumer must not be able to widen the policy of a manager it was given, which is usually a shared service.
+
+`with()` returns a new manager carrying the additional algorithms and leaves the current one untouched:
+
+```php
+<?php
+
+use Jose\Component\Signature\Algorithm\ES256;
+
+$extended = $algorithmManager->with(new ES256());
+
+$algorithmManager->has('ES256'); // false — the original is unchanged
+$extended->has('ES256');         // true
+```
+
+{% hint style="warning" %}
+`AlgorithmManager::add()` mutated the manager in place. It is deprecated since 4.3 and removed in 5.0: use `with()` instead. Note that this concerns the *manager*; the `add()` method of the algorithm manager **factory** below is a different one and is not deprecated.
+{% endhint %}
+
 ## Algorithm Manager Factory
 
 Your application may need several algorithm managers for several use cases. For example your application may use JWT for:

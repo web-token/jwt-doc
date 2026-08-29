@@ -43,6 +43,10 @@ In the following example, an exception will be thrown if the `iss`, `sub` or `au
 $claimCheckerManager->check($claims, ['iss', 'sub', 'aud']);
 ```
 
+{% hint style="info" %}
+Since 4.3, the manager implements `ClaimCheckerManagerInterface`. Type-hint the interface rather than the concrete class, and decorate it instead of extending it — extending `ClaimCheckerManager` is deprecated.
+{% endhint %}
+
 ## Custom Claim Checker
 
 Your application may use other claims that you will have to check, therefore custom claim checkers have to be created.

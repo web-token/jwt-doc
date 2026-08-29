@@ -31,6 +31,12 @@ All events can be found in the class `Jose\Bundle\JoseFramework\Event\Events`.
   * Events::CLAIM\_CHECK\_SUCCESS
   * Events::CLAIM\_CHECK\_FAILURE
 
+{% hint style="info" %}
+Since 4.3, the services that dispatch these events are **decorators** wrapping the plain services, where they used to be subclasses. They keep their class names, their service ids and their behaviour: no configuration change is needed and the events you listen to are unchanged.
+
+One thing did change for the better: the event dispatching verifier and decrypter used to drop the callable the loaders pass to observe the keys discarded along the way, so the reason of a failure was lost as soon as the bundle services were used. They forward it now.
+{% endhint %}
+
 ## Example:
 
 {% code title="App\EventSubscriber\JwsSubscriber.php" %}

@@ -143,7 +143,8 @@ require_once 'vendor/autoload.php';
 
 // --- 1. Create and sign the token ---
 
-$privateKey = JWKFactory::createECKey('P-256', ['alg' => 'ES256', 'use' => 'sig']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->ec('P-256', ['alg' => 'ES256', 'use' => 'sig']);
 
 $algorithmManager = new AlgorithmManager([new ES256()]);
 
@@ -157,7 +158,6 @@ $payload = json_encode([
 ]);
 
 $jws = (new JWSBuilder($algorithmManager))
-    ->create()
     ->withPayload($payload)
     ->addSignature($privateKey, ['alg' => 'ES256'])
     ->build();
@@ -177,8 +177,7 @@ $jwsLoader = new JWSLoader(
     )
 );
 
-$signature = null;
-$jws = $jwsLoader->loadAndVerifyWithKey($token, $publicKey, $signature);
+$jws = $jwsLoader->loadAndVerify($token, $publicKey)->getJws();
 
 // --- 3. Validate the claims ---
 

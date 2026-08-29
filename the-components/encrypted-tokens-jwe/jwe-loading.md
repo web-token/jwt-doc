@@ -53,18 +53,31 @@ $token = 'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9R
 $jwe = $serializerManager->unserialize($token);
 
 // We decrypt the token. This method does NOT check the header.
-$success = $jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
+$result = $jweDecrypter->decrypt($jwe, $jwk, 0);
 ```
 
-OK so if no exception is thrown, then your token is loaded and the payload correctly decrypted.
+`decrypt()` returns a `DecryptionResult`:
+
+```php
+$result->isDecrypted();       // bool
+$result->getJwe();            // JWE — the decrypted token, carrying the payload
+$result->getRecipientIndex(); // int
+$result->getKey();            // ?JWK — the key that decrypted it, null on failure
+
+$payload = $result->getJwe()->getPayload();
+```
+
+The second argument accepts a `JWK` as well as a `JWKSet`. JWE objects are immutable, so **the JWE you pass is left untouched**: read the decrypted one from the result.
+
+{% hint style="warning" %}
+`decryptUsingKey()` and `decryptUsingKeySet()` wrote the payload into the JWE passed by reference. They are deprecated since 4.3 and removed in 5.0: use `decrypt()`. See the [migration guide](../../migration/from-v4.2-to-v4.3.md#result-objects-instead-of-output-parameters).
+{% endhint %}
 
 ## JWELoader Object
 
 To avoid duplication of code lines, you can create a `JWELoader` object. This object contains a serializer, a decrypter and an optional header checker (highly recommended).
 
 In the following example, the `JWELoader` object will try to unserialize the token `$token`, check the header parameters and decrypt with the key `$key`.
-
-If the decryption succeeded, the variable `$recipient` will be set with the recipient index and should be in case of multiple recipients. The method returns the JWE object.
 
 ```php
 <?php
@@ -77,10 +90,18 @@ $jweLoader = new JWELoader(
     $headerCheckerManager
 );
 
-$jwe = $jweLoader->loadAndDecryptWithKey($token, $key, $recipient);
+$result = $jweLoader->loadAndDecrypt($token, $key);
+
+$jwe       = $result->getJwe();
+$recipient = $result->getRecipientIndex(); // Useful with multiple recipients
+$payload   = $jwe->getPayload();
 ```
 
-In case you use a key set, you can use the method `loadAndDecryptWithKeySet`.
+`loadAndDecrypt()` accepts a `JWK` as well as a `JWKSet`, and throws when the token cannot be loaded or decrypted.
+
+{% hint style="warning" %}
+`loadAndDecryptWithKey()` and `loadAndDecryptWithKeySet()` wrote the recipient index into a variable of the caller. They are deprecated since 4.3 and removed in 5.0: use `loadAndDecrypt()`.
+{% endhint %}
 
 ## JWELoaderFactory Object
 
@@ -130,7 +151,7 @@ The `ECDH-SS*` algorithms derive the agreement key from two **static** keys, so 
 Beware that the roles are swapped compared to the [creation side](jwe-creation.md#static-key-agreement-ecdh-ss): the key used to decrypt is the **public key of the sender**, and the additional key is the **private key of the recipient**.
 
 ```php
-$success = $jweDecrypter->decryptUsingKey(
+$result = $jweDecrypter->decrypt(
     $jwe,
     $senderPublicKey,     // The key of the sender
     0,
@@ -145,11 +166,11 @@ When a token cannot be loaded or decrypted, the loaders and the serializer manag
 ```php
 <?php
 
-use Throwable;
+use Jose\Component\Core\Exception\JoseException;
 
 try {
-    $jwe = $jweLoader->loadAndDecryptWithKeySet($token, $jwkset, $recipient);
-} catch (Throwable $throwable) {
+    $result = $jweLoader->loadAndDecrypt($token, $jwkset);
+} catch (JoseException $throwable) {
     $this->logger->debug($throwable->getMessage(), [
         'cause' => $throwable->getPrevious()?->getMessage(),
     ]);
@@ -158,22 +179,19 @@ try {
 }
 ```
 
-`JWEDecrypter` returns a boolean and cannot throw without changing that contract, so its per-key failures are reported through a callable it accepts as an additional argument. It is called once per key that failed:
+Every exception thrown by the framework implements `JoseException`, so a single catch block handles any failure. Each of them extends the SPL exception that was thrown at that place before 4.3, hence catch blocks written for previous versions keep matching.
+
+`JWEDecrypter` reports a failure through its result rather than an exception, so the per-key failures it meets while trying a key set are reported through an optional callable. It is called once per key that failed:
 
 ```php
-$success = $jweDecrypter->decryptUsingKeySet(
+$result = $jweDecrypter->decrypt(
     $jwe,
     $jwkset,
     0,
-    $jwk,        // Set with the key that succeeded
-    $senderKey,  // Static key agreement only, see "Static Key Agreement" below
+    $senderKey, // Static key agreement only, see "Static Key Agreement" above
     static function (Throwable $throwable): void {
         // Called for each key that could not decrypt the token.
     }
 );
 ```
-
-{% hint style="info" %}
-That callable is not declared in the signature of `decryptUsingKeySet()` yet — it is read with `func_num_args()`/`func_get_arg(5)` so that classes extending the decrypter keep working. It will become part of the signature in 5.0.
-{% endhint %}
 

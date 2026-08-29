@@ -9,7 +9,6 @@ With the example below, we will create an encrypted token for two recipient and 
 
 ```php
 $jwe = $jweBuilder
-    ->create()
     ->withPayload('...')
     ->withSharedProtectedHeader(['enc' => 'A256GCM', 'alg' => 'A256KW'])
     ->withSharedHeader(['author' => 'John Doe'])

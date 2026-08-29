@@ -23,6 +23,8 @@ Some algorithms are not recommended as there are known security issues:
 * `none`: this algorithm is not a real algorithm. It should only be used when other security means exist. An encrypted connection is certainly not enough!
 * `RSA1_5`: there are known attacks using this algorithm. If you can avoid its use, then do it.
 
+Since 4.3, neither of them is shipped by the main library: they live in the dedicated `web-token/jwt-unsecured` and `web-token/jwt-rsa15` packages. Enabling one is therefore a decision recorded in your `composer.json`, which an audit can see. If one of these packages is installed in your project, make sure you know why.
+
 ## Keys And Key Sets
 
 ### Key Size

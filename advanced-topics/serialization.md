@@ -94,7 +94,7 @@ require_once 'vendor/autoload.php';
 
 use Jose\Component\Signature\Serializer;
 
-$manager = Serializer\JWSSerializerManager::create([
+$manager = new Serializer\JWSSerializerManager([
     new Serializer\CompactSerializer(),
     new Serializer\JSONFlattenedSerializer(),
     new Serializer\JSONGeneralSerializer(),
@@ -103,8 +103,11 @@ $manager = Serializer\JWSSerializerManager::create([
 // Serializes the second signature (index = 1) of the variable $jws (JWS object) into JSON Flattened serialization mode.
 $token = $manager->serialize('jws_json_flattened', $jws, 1);
 
-// Retrieve the JWS object from a token
-$jws = $manager->unserialize($token);
+// Retrieve the JWS object from a token, along with the name of the serializer that read it
+$result = $manager->unserializeToken($token);
+
+$jws  = $result->getJws();
+$name = $result->getSerializerName(); // e.g. "jws_json_flattened"
 ```
 
 ## JWE Serialization
@@ -185,7 +188,7 @@ require_once 'vendor/autoload.php';
 
 use Jose\Component\Encryption\Serializer;
 
-$manager = Serializer\JWESerializerManager::create([
+$manager = new Serializer\JWESerializerManager([
     new Serializer\CompactSerializer(),
     new Serializer\JSONFlattenedSerializer(),
     new Serializer\JSONGeneralSerializer(),
@@ -194,6 +197,24 @@ $manager = Serializer\JWESerializerManager::create([
 // Serializes the second recipient (index = 1) of the variable $jwe (JWE object) into JSON Flattened serialization mode.
 $token = $manager->serialize('jwe_json_flattened', $jwe, 1);
 
-// Retrieve the JWE object from a token
-$jwe = $manager->unserialize($token);
+// Retrieve the JWE object from a token, along with the name of the serializer that read it
+$result = $manager->unserializeToken($token);
+
+$jwe  = $result->getJwe();
+$name = $result->getSerializerName(); // e.g. "jwe_json_flattened"
 ```
+
+## Reading A Token Without Knowing Its Mode
+
+`unserializeToken()` tries every serializer it holds and returns an `UnserializationResult` carrying both the token object and the name of the serializer that could read it. When none of them can, the exception thrown by the last one is chained as the previous exception, so the actual reason of the failure remains available.
+
+{% hint style="warning" %}
+`unserialize()` used to write that name into a variable of the caller:
+
+```php
+$jws = $manager->unserialize($token, $name); // Deprecated since 4.3
+```
+
+Passing the `$name` argument is deprecated since 4.3 and the argument is removed in 5.0. Calling `unserialize($token)` without it stays valid.
+{% endhint %}
+

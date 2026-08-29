@@ -4,7 +4,7 @@ The JWT Framework is a comprehensive and modular PHP library for working with JS
 
 ## Architecture
 
-The framework follows a clean, modular architecture that allows you to use only what you need. The codebase is organized into three main packages:
+The framework follows a clean, modular architecture that allows you to use only what you need. The codebase is organized into a core library, a Symfony bundle and a few optional packages:
 
 ### Core Library (`web-token/jwt-library`)
 
@@ -35,6 +35,8 @@ The core library contains all the essential components for working with JWTs:
 - Token inspection and validation tools
 - Key conversion utilities
 
+Every service — builders, verifiers, decrypters, loaders and checker managers — is described by an interface (`JWSBuilderInterface`, `JWELoaderInterface`, `HeaderCheckerManagerInterface`…). Type-hint the interface rather than the concrete class: it is what the library itself expects internally, so a decorator can be injected anywhere a service is used.
+
 ### Symfony Bundle (`web-token/jwt-bundle`)
 
 The Symfony bundle provides seamless integration with Symfony applications:
@@ -45,6 +47,15 @@ The Symfony bundle provides seamless integration with Symfony applications:
 - **Debug Tools** - Symfony profiler integration and data collectors
 - **Events** - Token lifecycle events for logging and monitoring
 - **Controller Helpers** - Utilities for common token operations
+
+### Dangerous Algorithms (`web-token/jwt-unsecured`, `web-token/jwt-rsa15`)
+
+Two standard but dangerous algorithms are shipped separately since 4.3, so that enabling them is an explicit and auditable decision rather than a one-line change:
+
+* **`web-token/jwt-unsecured`** — the `none` signature algorithm (`Jose\Unsecured\Signature\None`), which disables signature verification altogether.
+* **`web-token/jwt-rsa15`** — the `RSA1_5` key encryption algorithm (`Jose\Rsa15\KeyEncryption\RSA15`), whose padding is vulnerable to the Bleichenbacher adaptive chosen-ciphertext attack.
+
+They are deliberately not part of `web-token/jwt-experimental`: both are perfectly standard, and an application asking for `Blake2b` should not get `none` in the bargain.
 
 ### Experimental Features (`web-token/jwt-experimental`)
 
@@ -80,6 +91,8 @@ The framework is built on several key principles:
 - Comprehensive error messages
 - Extensive documentation with examples
 - Type-safe code with full PHP type hints
+- One exception hierarchy: everything the library throws implements `Jose\Component\Core\Exception\JoseException`, and the cause of a failure is chained as the previous exception
+- Readonly result objects instead of by-reference output parameters
 
 ### 4. **Performance**
 - Lazy loading of algorithms and services
@@ -96,9 +109,11 @@ Choose the right package for your needs:
 | `web-token/jwt-library` | **Standalone** - You need the core library without Symfony integration |
 | `web-token/jwt-bundle` | **Symfony** - You're building a Symfony application (includes the library) |
 | `web-token/jwt-experimental` | **Advanced** - You need experimental algorithms or features |
+| `web-token/jwt-unsecured` | **Only if you need `none`** - Read [Security Recommendations](security-recommendations.md#avoid-weak-algorithms) first |
+| `web-token/jwt-rsa15` | **Only if you need `RSA1_5`** - Read [Security Recommendations](security-recommendations.md#avoid-weak-algorithms) first |
 
 {% hint style="info" %}
-You may come across `web-token/jwt-framework` in older instructions. It is the root package of the monorepo and `replace`s the three packages above, so requiring it installs everything at once — including the experimental algorithms. Prefer `web-token/jwt-library` or `web-token/jwt-bundle` so your dependencies only contain what you actually use.
+You may come across `web-token/jwt-framework` in older instructions. It is the root package of the monorepo and `replace`s the packages above, so requiring it installs everything at once — including the experimental and the dangerous algorithms. Prefer `web-token/jwt-library` or `web-token/jwt-bundle` so your dependencies only contain what you actually use.
 {% endhint %}
 
 ## Installation
@@ -119,6 +134,14 @@ The Symfony bundle will be automatically registered.
 ```bash
 composer require web-token/jwt-experimental
 ```
+
+### Adding the `none` or `RSA1_5` algorithm:
+```bash
+composer require web-token/jwt-unsecured  # the "none" algorithm
+composer require web-token/jwt-rsa15      # the "RSA1_5" algorithm
+```
+
+Install these only if you really need those algorithms.
 
 ## Next Steps
 

@@ -33,7 +33,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()
     ->withPayload($payload)
     ->addSignature($jwk, ['alg' => 'HS256'])
     ->build();
@@ -84,7 +83,8 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 require_once 'vendor/autoload.php';
 
 // Generate an RSA key pair (2048-bit minimum recommended)
-$privateKey = JWKFactory::createRSAKey(2048, ['alg' => 'RS256', 'use' => 'sig']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->rsa(2048, ['alg' => 'RS256', 'use' => 'sig']);
 
 $algorithmManager = new AlgorithmManager([new RS256()]);
 $jwsBuilder = new JWSBuilder($algorithmManager);
@@ -98,7 +98,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()
     ->withPayload($payload)
     ->addSignature($privateKey, ['alg' => 'RS256'])
     ->build();
@@ -147,7 +146,8 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 require_once 'vendor/autoload.php';
 
 // Generate an EC key on the P-256 curve
-$privateKey = JWKFactory::createECKey('P-256', ['alg' => 'ES256', 'use' => 'sig']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->ec('P-256', ['alg' => 'ES256', 'use' => 'sig']);
 
 $algorithmManager = new AlgorithmManager([new ES256()]);
 $jwsBuilder = new JWSBuilder($algorithmManager);
@@ -161,7 +161,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()
     ->withPayload($payload)
     ->addSignature($privateKey, ['alg' => 'ES256'])
     ->build();
@@ -209,7 +208,8 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 require_once 'vendor/autoload.php';
 
 // Generate an Ed25519 key pair (requires ext-sodium)
-$privateKey = JWKFactory::createOKPKey('Ed25519', ['alg' => 'EdDSA', 'use' => 'sig']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->okp('Ed25519', ['alg' => 'EdDSA', 'use' => 'sig']);
 
 $algorithmManager = new AlgorithmManager([new EdDSA()]);
 $jwsBuilder = new JWSBuilder($algorithmManager);
@@ -222,7 +222,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()
     ->withPayload($payload)
     ->addSignature($privateKey, ['alg' => 'EdDSA'])
     ->build();
@@ -271,8 +270,7 @@ $jwsLoader = new JWSLoader(
     )
 );
 
-$signature = null;
-$jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature);
+$jws = $jwsLoader->loadAndVerify($token, $jwk)->getJws();
 
 $payload = json_decode($jws->getPayload(), true);
 ```

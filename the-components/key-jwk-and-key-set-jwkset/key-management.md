@@ -32,9 +32,34 @@ $public_key = $jwk->toPublic();
 json_encode($jwk);
 ```
 
+## Typed Accessors
+
+`get()` returns an undeclared `mixed` and throws when the parameter is absent, so reading a parameter meant writing the same three steps every time: `has()`, `get()`, then a type assertion. The typed accessors do it for you:
+
+```php
+<?php
+// The key type. Always present.
+$jwk->kty();            // string
+
+// The algorithm and the usage this key is restricted to.
+// Both return null when the key carries no such restriction.
+$jwk->alg();            // ?string
+$jwk->use();            // ?string
+
+// Read any parameter and assert it is a string.
+$jwk->getString('kid'); // string, throws if absent or not a string
+
+// Read any parameter without throwing when it is absent.
+$jwk->find('kid');      // mixed|null
+```
+
+{% hint style="info" %}
+These accessors are available since 4.3. `JWK` and `JWKSet` become `final readonly` in 5.0.
+{% endhint %}
+
 ## Generate A New Key
 
-This framework is able to create private and public keys on the fly using the `JWKFactory`. 4 types of keys are supported:
+This framework is able to create private and public keys on the fly using the key factory. 4 types of keys are supported:
 
 * Symmetric Key:
   * `oct`: octet string
@@ -47,6 +72,25 @@ This framework is able to create private and public keys on the fly using the `J
 The `none` algorithm needs a key of type `none`. This is a specific key type that must only be used with this algorithm.
 {% endhint %}
 
+The factory is a service implementing `JWKFactoryInterface`. Inject it where you need to build keys — the Symfony Bundle autowires it, and a decorator can be put in its place to audit, cache or delegate the generation to a hardware backed implementation:
+
+```php
+<?php
+
+use Jose\Component\KeyManagement\JWKFactory;
+use Jose\Component\KeyManagement\JWKFactoryInterface;
+
+// Outside a container:
+$jwkFactory = new JWKFactory();
+
+// In a Symfony application, type-hint the interface and let it be autowired:
+public function __construct(private JWKFactoryInterface $jwkFactory) {}
+```
+
+{% hint style="warning" %}
+Until 4.2, the factory was a set of static methods: `JWKFactory::createRSAKey()`, `JWKFactory::createFromKeyFile()`… They still work, but are deprecated since 4.3 and removed in 5.0. The instance methods drop the `create` prefix — see the [migration guide](../../migration/from-v4.2-to-v4.3.md#the-key-factory-is-an-injectable-service) for the full correspondence table.
+{% endhint %}
+
 ### Octet String
 
 The following example will show you how to create an `oct` key.
@@ -56,9 +100,7 @@ Additional parameters will be set to limit the scope of this key (e.g. signature
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createOctKey(
+$key = $jwkFactory->oct(
     1024, // Size in bits of the key. Should be at least of the same size as the hashing algorithm.
     [
         'alg' => 'HS256', // This key must only be used with the HS256 algorithm
@@ -72,9 +114,7 @@ If you already have a shared secret, you can use it to create an `oct` key:
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$jwk = JWKFactory::createFromSecret(
+$jwk = $jwkFactory->fromSecret(
     'My Secret Key',       // The shared secret
     [                      // Optional additional members
         'alg' => 'HS256',
@@ -92,9 +132,7 @@ The key size must be of 384 bits at least, but nowadays the recommended size is 
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$private_key = JWKFactory::createRSAKey(
+$private_key = $jwkFactory->rsa(
     4096, // Size in bits of the key. We recommend at least 2048 bits.
     [
         'alg' => 'RSA-OAEP-256', // This key must only be used with the RSA-OAEP-256 algorithm
@@ -109,9 +147,7 @@ The following example will show you how to create a `EC` key.
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createECKey('P-256');
+$key = $jwkFactory->ec('P-256');
 ```
 
 The supported curves are:
@@ -134,9 +170,7 @@ The following example will show you how to create a `OKP` key.
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createOKPKey('X25519');
+$key = $jwkFactory->okp('X25519');
 ```
 
 The supported curves are:
@@ -151,9 +185,7 @@ The `none` key type is a special type used only for the `none` algorithm.
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createNoneKey();
+$key = $jwkFactory->none();
 ```
 
 ## Create Key From External Sources
@@ -165,9 +197,7 @@ In case you already have key values, you can create a key by passing those value
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createFromValues([
+$key = $jwkFactory->fromValues([
     'kid' => '71ee230371d19630bc17fb90ccf20ae632ad8cf8',
     'kty' => 'RSA',
     'alg' => 'RS256',
@@ -184,9 +214,7 @@ You can convert a PKCS#1 or PKCS#8 key file into a JWK. The following method sup
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createFromKeyFile(
+$key = $jwkFactory->fromKeyFile(
     '/path/to/my/key/file.pem', // The filename
     'Secret',                   // Secret if the key is encrypted, otherwise null
     [
@@ -202,9 +230,7 @@ You can convert a PKCS#12 Certificate into a JWK. Encrypted certificates are als
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createFromPKCS12CertificateFile(
+$key = $jwkFactory->fromPKCS12CertificateFile(
     '/path/to/my/key/file.p12', // The filename
     'Secret',                   // Secret if the key is encrypted
     [
@@ -220,9 +246,7 @@ You can convert a X.509 Certificate into a JWK.
 ```php
 <?php
 
-use Jose\Component\KeyManagement\JWKFactory;
-
-$key = JWKFactory::createFromCertificateFile(
+$key = $jwkFactory->fromCertificateFile(
     '/path/to/my/key/file.crt', // The filename
     [
         'use' => 'sig',         // Additional parameters

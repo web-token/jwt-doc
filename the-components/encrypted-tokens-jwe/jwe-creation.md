@@ -45,7 +45,6 @@ $payload = json_encode([
 ]);
 
 $jwe = $jweBuilder
-    ->create()              // We want to create a new JWE
     ->withPayload($payload) // We set the payload
     ->withSharedProtectedHeader([
         'alg' => 'A256KW',        // Key Encryption Algorithm
@@ -63,7 +62,6 @@ Give the private key of the sender to the builder with `withSenderKey()`:
 
 ```php
 $jwe = $jweBuilder
-    ->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader([
         'alg' => 'ECDH-SS',
@@ -78,6 +76,16 @@ The sender key does not add a recipient, so it may be set before or after `addRe
 
 {% hint style="info" %}
 The decryption side needs both keys too, with the roles swapped. See [JWE Loading](jwe-loading.md#static-key-agreement).
+{% endhint %}
+
+## The Builder Is Immutable
+
+Every `with*()` and `addRecipient()` call returns a **new** builder and leaves the receiver untouched, so a configured builder can be kept and derived from.
+
+`build()` performs every check that spans several calls: the key and content encryption algorithms are read from the complete header of each recipient, and the disjoint header requirement is verified for the three headers. **The order of the calls therefore does not matter** — a recipient may be added before the shared headers carrying its `alg` and `enc`.
+
+{% hint style="warning" %}
+Until 4.2 the builder accumulated its state on the receiver, which is why `create()` existed: not as a named constructor, but as a reset. Since 4.3 there is no state to reset and `create()` is deprecated — remove the call. It is removed in 5.0.
 {% endhint %}
 
 ## Header Parameters

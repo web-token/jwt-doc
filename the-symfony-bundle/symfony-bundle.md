@@ -151,6 +151,79 @@ class MyService
 }
 ```
 
+### Auto-wiring By Interface
+
+Every service you declare in the configuration is aliased both with its concrete class and with its **interface**. Naming the argument after the service picks the right one:
+
+```yaml
+jose:
+    jws:
+        builders:
+            builder1:
+                signature_algorithms: ['ES256']
+        verifiers:
+            verifier1:
+                signature_algorithms: ['ES256']
+```
+
+```php
+use Jose\Component\Signature\JWSBuilderInterface;
+use Jose\Component\Signature\JWSVerifierInterface;
+
+class MyService
+{
+    public function __construct(
+        JWSBuilderInterface $builder1JwsBuilder,   // jose.jws_builder.builder1
+        JWSVerifierInterface $verifier1JwsVerifier, // jose.jws_verifier.verifier1
+    ) {
+    }
+}
+```
+
+The argument name is the service name followed by the kind of service: `builder1` + `JwsBuilder`. The same convention applies to `JwsLoader`, `JweBuilder`, `JweDecrypter`, `JweLoader`, `NestedTokenBuilder` and `NestedTokenLoader`.
+
+{% hint style="info" %}
+Interfaces were introduced in 4.3. Prefer them over the concrete classes: they are what the library type-hints internally, so a decorator can be injected in place of any service. Type-hinting the concrete class keeps working.
+{% endhint %}
+
+The key factory is aliased the same way:
+
+```php
+use Jose\Component\KeyManagement\JWKFactoryInterface;
+
+public function __construct(private JWKFactoryInterface $jwkFactory) {}
+```
+
+### Decorating A Service
+
+Because every service is described by an interface, decorating one is standard Symfony:
+
+```php
+#[AsDecorator('jose.jws_loader.jws_loader1')]
+final readonly class LoggingJwsLoader implements JWSLoaderInterface
+{
+    public function __construct(
+        #[AutowireDecorated] private JWSLoaderInterface $inner,
+        private LoggerInterface $logger,
+    ) {
+    }
+
+    public function loadAndVerify(string $token, JWK|JWKSet $keys, ?string $payload = null): LoadingResult
+    {
+        $result = $this->inner->loadAndVerify($token, $keys, $payload);
+        $this->logger->info('Token verified', ['kid' => $result->getKey()->find('kid')]);
+
+        return $result;
+    }
+
+    // ... the remaining methods of the interface delegate to $this->inner
+}
+```
+
+{% hint style="warning" %}
+Extending the concrete classes — `JWSLoader`, `JWEDecrypter`… — is deprecated since 4.3 and raises a notice. Implement the interface and decorate instead. The bundle itself did the same: its event dispatching services are decorators now, and the inheritance based ones are deprecated. They keep their class names, their service ids and their behaviour, so **no configuration change is needed**.
+{% endhint %}
+
 ## Configuration Reference
 
 For a complete configuration reference, run:

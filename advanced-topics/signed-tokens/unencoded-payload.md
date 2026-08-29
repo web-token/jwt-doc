@@ -13,7 +13,6 @@ Example:
 
 ```php
 $jws = $jwsBuilder
-    ->create()
     ->withPayload('Hello World!')
     ->addSignature($jwk, ['alg' => 'HS256', 'b64' => false, 'crit' => ['b64']])
     ->build();

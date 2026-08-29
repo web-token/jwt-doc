@@ -17,7 +17,8 @@ use Jose\Component\KeyManagement\JWKFactory;
 require_once 'vendor/autoload.php';
 
 // Generate an RSA key pair (2048-bit minimum)
-$privateKey = JWKFactory::createRSAKey(2048, ['alg' => 'RSA-OAEP-256', 'use' => 'enc']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->rsa(2048, ['alg' => 'RSA-OAEP-256', 'use' => 'enc']);
 $publicKey = $privateKey->toPublic();
 
 $algorithmManager = new AlgorithmManager([
@@ -35,7 +36,6 @@ $payload = json_encode([
 ]);
 
 $jwe = $jweBuilder
-    ->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader([
         'alg' => 'RSA-OAEP-256',
@@ -68,7 +68,7 @@ $jweDecrypter = new JWEDecrypter($algorithmManager);
 
 $jwe = (new CompactSerializer())->unserialize($token);
 
-$jweDecrypter->decryptUsingKey($jwe, $privateKey, 0);
+$jwe = $jweDecrypter->decrypt($jwe, $privateKey, 0)->getJwe();
 
 $payload = json_decode($jwe->getPayload(), true);
 // ['iss' => 'https://auth.example.com', 'sub' => 'user-42', ...]
@@ -93,7 +93,8 @@ use Jose\Component\KeyManagement\JWKFactory;
 require_once 'vendor/autoload.php';
 
 // Generate an EC key pair on the P-256 curve
-$privateKey = JWKFactory::createECKey('P-256', ['alg' => 'ECDH-ES', 'use' => 'enc']);
+$jwkFactory = new JWKFactory();
+$privateKey = $jwkFactory->ec('P-256', ['alg' => 'ECDH-ES', 'use' => 'enc']);
 $publicKey = $privateKey->toPublic();
 
 $algorithmManager = new AlgorithmManager([new ECDHES(), new A128GCM()]);
@@ -107,7 +108,6 @@ $payload = json_encode([
 ]);
 
 $jwe = $jweBuilder
-    ->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader(['alg' => 'ECDH-ES', 'enc' => 'A128GCM'])
     ->addRecipient($publicKey)
@@ -134,7 +134,7 @@ $jweDecrypter = new JWEDecrypter($algorithmManager);
 
 $jwe = (new CompactSerializer())->unserialize($token);
 
-$jweDecrypter->decryptUsingKey($jwe, $privateKey, 0);
+$jwe = $jweDecrypter->decrypt($jwe, $privateKey, 0)->getJwe();
 
 $payload = json_decode($jwe->getPayload(), true);
 ```
@@ -166,7 +166,8 @@ require_once 'vendor/autoload.php';
 
 // Create a key from a password
 $password = 'my-super-secret-password';
-$jwk = JWKFactory::createFromSecret($password, ['alg' => 'PBES2-HS512+A256KW', 'use' => 'enc']);
+$jwkFactory = new JWKFactory();
+$jwk = $jwkFactory->fromSecret($password, ['alg' => 'PBES2-HS512+A256KW', 'use' => 'enc']);
 
 $algorithmManager = new AlgorithmManager([
     new PBES2HS512A256KW(),
@@ -181,7 +182,6 @@ $payload = json_encode([
 ]);
 
 $jwe = $jweBuilder
-    ->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader([
         'alg' => 'PBES2-HS512+A256KW',
@@ -207,7 +207,8 @@ use Jose\Component\KeyManagement\JWKFactory;
 
 require_once 'vendor/autoload.php';
 
-$jwk = JWKFactory::createFromSecret('my-super-secret-password', [
+$jwkFactory = new JWKFactory();
+$jwk = $jwkFactory->fromSecret('my-super-secret-password', [
     'alg' => 'PBES2-HS512+A256KW',
     'use' => 'enc',
 ]);
@@ -220,7 +221,7 @@ $jweDecrypter = new JWEDecrypter($algorithmManager);
 
 $jwe = (new CompactSerializer())->unserialize($token);
 
-$jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
+$jwe = $jweDecrypter->decrypt($jwe, $jwk, 0)->getJwe();
 
 $payload = json_decode($jwe->getPayload(), true);
 ```
@@ -251,7 +252,8 @@ use Jose\Component\KeyManagement\JWKFactory;
 require_once 'vendor/autoload.php';
 
 // Generate a 256-bit symmetric key
-$jwk = JWKFactory::createOctKey(256, ['alg' => 'A256KW', 'use' => 'enc']);
+$jwkFactory = new JWKFactory();
+$jwk = $jwkFactory->oct(256, ['alg' => 'A256KW', 'use' => 'enc']);
 
 $algorithmManager = new AlgorithmManager([new A256KW(), new A256GCM()]);
 $jweBuilder = new JWEBuilder($algorithmManager);
@@ -263,7 +265,6 @@ $payload = json_encode([
 ]);
 
 $jwe = $jweBuilder
-    ->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader(['alg' => 'A256KW', 'enc' => 'A256GCM'])
     ->addRecipient($jwk)
@@ -274,7 +275,7 @@ $token = (new CompactSerializer())->serialize($jwe, 0);
 // Decryption uses the same key
 $jweDecrypter = new \Jose\Component\Encryption\JWEDecrypter($algorithmManager);
 $jwe = (new CompactSerializer())->unserialize($token);
-$jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
+$jwe = $jweDecrypter->decrypt($jwe, $jwk, 0)->getJwe();
 $payload = json_decode($jwe->getPayload(), true);
 ```
 
@@ -317,8 +318,7 @@ $jweLoader = new JWELoader(
     )
 );
 
-$recipient = null;
-$jwe = $jweLoader->loadAndDecryptWithKey($token, $privateKey, $recipient);
+$jwe = $jweLoader->loadAndDecrypt($token, $privateKey)->getJwe();
 
 $payload = json_decode($jwe->getPayload(), true);
 ```

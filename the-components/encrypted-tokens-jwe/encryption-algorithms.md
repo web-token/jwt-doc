@@ -32,6 +32,24 @@ The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https
 The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
 {% endhint %}
 
+### The `RSA1_5` Algorithm
+
+Since 4.3, `RSA1_5` lives in its own package, so that enabling an algorithm whose padding is vulnerable to the Bleichenbacher adaptive chosen-ciphertext attack is an explicit and auditable decision:
+
+```bash
+composer require web-token/jwt-rsa15
+```
+
+```php
+<?php
+
+use Jose\Rsa15\KeyEncryption\RSA15;
+```
+
+{% hint style="warning" %}
+`Jose\Component\Encryption\Algorithm\KeyEncryption\RSA15` still works — it is an empty subclass of the new class — but it is deprecated since 4.3 and removed in 5.0. In the Symfony Bundle, the configuration alias is unchanged: `RSA1_5` still names the algorithm.
+{% endhint %}
+
 ### Curves Supported By The Key Agreement Algorithms
 
 The `ECDH-ES*` and `ECDH-SS*` algorithms accept:

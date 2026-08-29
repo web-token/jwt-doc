@@ -80,7 +80,6 @@ $jwk = new JWK([
 
 // Build and sign your token
 $jws = $jwsBuilder
-    ->create()
     ->withPayload(json_encode(['user_id' => 123]))
     ->addSignature($jwk, ['alg' => 'HS256'])
     ->build();

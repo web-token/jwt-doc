@@ -40,7 +40,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()                               // We want to create a new JWS
     ->withPayload($payload, true)            // /!\ Here is the change! We set the payload and we indicate it is detached
     ->addSignature($jwk, ['alg' => 'HS256']) // We add a signature with a simple protected header
     ->build();

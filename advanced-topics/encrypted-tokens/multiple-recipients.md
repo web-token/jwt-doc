@@ -11,10 +11,9 @@ With the example below, we will create an encrypted token for three different re
 
 ```php
 $jweBuilder
-    ->create()
     ->withPayload('...')
     ->withSharedProtectedHeader(['enc' => 'A128GCM'])
-    ->addRecipient($recipient_key_1, ['alg' => 'RSA1_5'])
+    ->addRecipient($recipient_key_1, ['alg' => 'A256KW'])
     ->addRecipient($recipient_key_2, ['alg' => 'RSA-OAEP-256'])
     ->build();
 ```

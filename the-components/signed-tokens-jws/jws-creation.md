@@ -40,7 +40,6 @@ $payload = json_encode([
 ]);
 
 $jws = $jwsBuilder
-    ->create()                               // We want to create a new JWS
     ->withPayload($payload)                  // We set the payload
     ->addSignature($jwk, ['alg' => 'HS256']) // We add a signature with a protected header
     ->build();                               // We build it
@@ -62,7 +61,6 @@ Passing that string to `withPayload()` would encode it a second time and silentl
 
 ```php
 $jws = $jwsBuilder
-    ->create()
     ->withEncodedPayload($base64UrlEncodedHash) // Not encoded again
     ->addSignature($jwk, ['alg' => 'HS256'])
     ->build();
@@ -74,6 +72,23 @@ Like `withPayload()`, the method accepts a second argument to mark the payload a
 
 {% hint style="warning" %}
 An encoded payload contradicts the [unencoded payload option](../../advanced-topics/signed-tokens/unencoded-payload.md) (`b64` set to `false`), which removes the encoding altogether. The combination is rejected whichever order the two are set in.
+{% endhint %}
+
+## The Builder Is Immutable
+
+Every `with*()` and `addSignature()` call returns a **new** builder and leaves the receiver untouched, so a configured builder can be kept and derived from as many times as needed:
+
+```php
+$base = $jwsBuilder->withPayload($payload);
+
+$first  = $base->addSignature($key1, ['alg' => 'HS256'])->build();
+$second = $base->addSignature($key2, ['alg' => 'RS256'])->build(); // $base is unchanged
+```
+
+The checks that span several calls — the `b64` consistency in particular — are performed by `build()`, so **the order of the calls does not matter**.
+
+{% hint style="warning" %}
+Until 4.2 the builder accumulated its state on the receiver, which is why `create()` existed: not as a named constructor, but as a reset. Since 4.3 there is no state to reset and `create()` is deprecated — remove the call. It is removed in 5.0.
 {% endhint %}
 
 ## Serialization

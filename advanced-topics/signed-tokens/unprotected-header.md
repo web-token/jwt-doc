@@ -8,7 +8,6 @@ With the example below, we will create a signed token with some unprotected head
 
 ```php
 $jws = $jwsBuilder
-    ->create()
     ->withPayload('...')
     ->addSignature($jwk, ['alg' => 'HS256'], ['description' => 'Small description here', 'author' => 'John Doe'])
     ->build();
