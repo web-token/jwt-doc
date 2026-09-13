@@ -32,6 +32,37 @@ $public_key = $jwk->toPublic();
 json_encode($jwk);
 ```
 
+## Thumbprint URI
+
+[RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html) wraps the RFC 7638 thumbprint into a URI, `urn:ietf:params:oauth:jwk-thumbprint:<hash-alg>:<thumbprint>`, that identifies a key by its public material. It is the key-based `sub` of an OAuth DPoP proof or of a SIOP v2 `id_token`, the `kid` of OpenID for Verifiable Credentials, OpenID Federation… wherever a key has to be named without a key ID assigned by anyone.
+
+```php
+<?php
+use Jose\Component\Core\JwkThumbprintUri;
+
+// The URI. The hash function is designated by its IANA name; "sha-256" by default.
+$jwk->thumbprintUri();          // urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs
+$jwk->thumbprintUri('sha-512'); // urn:ietf:params:oauth:jwk-thumbprint:sha-512:...
+
+// A URI received from a peer (e.g. the "sub" of a DPoP proof) can be parsed and matched against a key.
+$uri = JwkThumbprintUri::parse($sub);
+$uri->hashAlgorithm(); // "sha-256"
+$uri->thumbprint();    // "NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+$uri->matches($jwk);   // true when $jwk is the key the URI identifies
+
+// Or built from a key.
+$uri = JwkThumbprintUri::fromKey($jwk, 'sha-256');
+(string) $uri;         // The URI
+```
+
+The `<hash-alg>` component is a name from the IANA [Named Information Hash Algorithm](https://www.iana.org/assignments/named-information/named-information.xhtml) registry, not the name PHP gives to the function: `sha-256` and not `sha256`. The supported names are `sha-256`, `sha-384`, `sha-512`, `sha3-224`, `sha3-256`, `sha3-384` and `sha3-512`; any other name (`md5`, the truncated `sha-256-128`, a PHP name) is refused with an `UnsupportedAlgorithmException`.
+
+On the verifier side, a key set [can be searched by thumbprint URI](key-set-management.md#lookup-by-thumbprint-uri).
+
+{% hint style="info" %}
+Available since 4.3.
+{% endhint %}
+
 ## Typed Accessors
 
 `get()` returns an undeclared `mixed` and throws when the parameter is absent, so reading a parameter meant writing the same three steps every time: `has()`, `get()`, then a type assertion. The typed accessors do it for you:

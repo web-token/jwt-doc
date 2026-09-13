@@ -49,6 +49,21 @@ foreach($jwkset as $kid => $jwk) {
 json_encode($jwkset);
 ```
 
+## Lookup By Thumbprint URI
+
+A key set can be searched with a [JWK Thumbprint URI](key-management.md#thumbprint-uri) (RFC 9278). The thumbprint of every key is recomputed with the hash function named by the URI, so the lookup does not depend on the `kid` of the keys. Given the `sub` of a DPoP proof or of a SIOP `id_token`, it finds the key the token is bound to; `null` is returned when no key matches.
+
+```php
+<?php
+$key = $jwkset->selectKeyByThumbprintUri('urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs');
+```
+
+A malformed URI or an unsupported hash function throws; a key whose thumbprint cannot be computed is skipped, as `selectKey()` does with malformed keys.
+
+{% hint style="info" %}
+Available since 4.3.
+{% endhint %}
+
 ## Duplicate Key IDs
 
 [RFC 7517 section 4.5](https://datatracker.ietf.org/doc/html/rfc7517#section-4.5) explicitly allows a key set to hold several keys sharing the same `kid`, typically an RSA key and an EC key that the application considers as equivalent alternatives.

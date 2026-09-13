@@ -224,6 +224,24 @@ final readonly class ManagedKey
 }
 ```
 
+### JWK Thumbprint URI
+
+[RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html) names a key by its RFC 7638 thumbprint: `urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs`. It is the key-based `sub` or `kid` of OAuth DPoP, SIOP v2, OpenID for Verifiable Credentials and OpenID Federation, and every implementer had to build it by hand.
+
+```php
+<?php
+
+use Jose\Component\Core\JwkThumbprintUri;
+
+$jwk->thumbprintUri();                        // The URI, "sha-256" by default
+$jwk->thumbprintUri('sha-512');               // The hash function is given by its IANA name
+
+JwkThumbprintUri::parse($sub)->matches($jwk); // Verifier side: does this key match the URI?
+$jwkset->selectKeyByThumbprintUri($sub);      // Or find the key in a key set; null if none matches
+```
+
+The console command `key:thumbprint` gains a `--uri` option. See the [Key](../the-components/key-jwk-and-key-set-jwkset/key-management.md#thumbprint-uri) page.
+
 ### Explicit Typing With The `typ` Header
 
 [RFC 8725 section 3.11](https://www.rfc-editor.org/rfc/rfc8725.html#section-3.11) recommends that a verifier accepts only the token profile it expects — `at+jwt`, `dpop+jwt`, `secevent+jwt`, `logout+jwt`… — so that a token issued for one purpose cannot be replayed for another one. The library had checkers for `alg`, `exp`, `iss` or `aud`, but none for `typ`.
