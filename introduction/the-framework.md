@@ -61,7 +61,7 @@ They are deliberately not part of `web-token/jwt-experimental`: both are perfect
 
 The experimental package contains cutting-edge features and algorithms:
 
-- **Experimental Algorithms** - Newer cryptographic algorithms (Blake2b, ES256K, etc.)
+- **Experimental Algorithms** - Non-standard cryptographic algorithms (Blake2b, Brainpool curves, etc.)
 - **Performance Optimizations** - Advanced implementations for specific use cases
 - **Compatibility Algorithms** - Support for legacy systems (RS1, HS1, HS256/64)
 - **Specialized Encryption** - AES-CCM variants and ChaCha20-Poly1305

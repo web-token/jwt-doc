@@ -15,7 +15,7 @@ The `brainpoolP256r1`, `brainpoolP384r1` and `brainpoolP512r1` curves are now su
 * the PEM/JWK conversions, in both directions.
 
 {% hint style="warning" %}
-Neither the curves nor the signature algorithms are registered with IANA. The identifiers follow the convention already adopted by the other implementations (gematik, jwcrypto), which is why the signature algorithms live in the `Jose\Experimental\Signature` namespace, next to `ES256K`.
+Neither the curves nor the signature algorithms are registered with IANA. The identifiers follow the convention already adopted by the other implementations (gematik, jwcrypto), which is why the signature algorithms live in the `Jose\Experimental\Signature` namespace (where `ES256K` lived too until 4.3).
 {% endhint %}
 
 ```php

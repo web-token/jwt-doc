@@ -2,7 +2,23 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td><p>Ed25519</p><p>Ed448</p></td><td>Edwards-curve Digital Signature Algorithm (EdDSA), fully-specified per RFC 9864. Since 4.3; <code>Ed448</code> needs PHP 8.4</td></tr><tr><td><p>ML-DSA-44</p><p>ML-DSA-65</p><p>ML-DSA-87</p></td><td>Module-Lattice-Based Digital Signature Algorithm (ML-DSA, FIPS 204), post-quantum, per RFC 9964. Since 4.3; needs PHP 8.4 and OpenSSL 3.5</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td><mark style="color:orange;">Deprecated by RFC 9864</mark>, use <code>Ed25519</code>. See below</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
+<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td>ES256K</td><td>ECDSA over the secp256k1 curve with SHA-256 (RFC 8812). Since 4.3, see below</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td><p>Ed25519</p><p>Ed448</p></td><td>Edwards-curve Digital Signature Algorithm (EdDSA), fully-specified per RFC 9864. Since 4.3; <code>Ed448</code> needs PHP 8.4</td></tr><tr><td><p>ML-DSA-44</p><p>ML-DSA-65</p><p>ML-DSA-87</p></td><td>Module-Lattice-Based Digital Signature Algorithm (ML-DSA, FIPS 204), post-quantum, per RFC 9964. Since 4.3; needs PHP 8.4 and OpenSSL 3.5</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td><mark style="color:orange;">Deprecated by RFC 9864</mark>, use <code>Ed25519</code>. See below</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
+
+### The `ES256K` Algorithm
+
+`ES256K` — ECDSA over the secp256k1 curve with SHA-256, [RFC 8812](https://www.rfc-editor.org/rfc/rfc8812.html) — is a standard algorithm that lived in the experimental package for historical reasons. Since 4.3 it is `Jose\Component\Signature\Algorithm\ES256K`, next to `ES256`, and the Symfony Bundle registers it under the `ES256K` alias like any other algorithm. Keys are `EC` keys with `crv: secp256k1`; an `ES256KKeyAnalyzer` checks them.
+
+```php
+<?php
+
+use Jose\Component\Signature\Algorithm\ES256K;
+```
+
+{% hint style="warning" %}
+`Jose\Experimental\Signature\ES256K` still works — it is a deprecated subclass of the new class, and the bundle keeps its service for the applications that inject it — but it is removed in 5.0. Change the `use` statement.
+
+Known limitation, unchanged: a secp256k1 key exported to PEM cannot be loaded back through the key loader on some OpenSSL builds. Keep such keys as JWK.
+{% endhint %}
 
 ### The `Ed25519` And `Ed448` Algorithms
 
@@ -95,7 +111,6 @@ They are provided through the package `web-token/jwt-experimental`.
 | RS1       | RSASSA-PKCS1 v1\_5 with SHA-1 hashing function                                |
 | HS1       | HMAC with SHA-1 hashing function                                               |
 | HS256/64  | HMAC with SHA-256 truncated to 64 bits                                         |
-| ES256K    | Elliptic curve secp256k1 support                                               |
 | BP256R1   | ECDSA using the brainpoolP256r1 curve (`BP-256`) and SHA-256                   |
 | BP384R1   | ECDSA using the brainpoolP384r1 curve (`BP-384`) and SHA-384                   |
 | BP512R1   | ECDSA using the brainpoolP512r1 curve (`BP-512`) and SHA-512                   |

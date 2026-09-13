@@ -224,6 +224,17 @@ final readonly class ManagedKey
 }
 ```
 
+### `ES256K` Leaves The Experimental Package
+
+`ES256K` (ECDSA over secp256k1, [RFC 8812](https://www.rfc-editor.org/rfc/rfc8812.html)) has been a standard algorithm since 2020 but was shipped in the experimental package. It is now `Jose\Component\Signature\Algorithm\ES256K`, registered by the bundle under the same `ES256K` alias, with an `ES256KKeyAnalyzer` for its keys.
+
+```diff
+-use Jose\Experimental\Signature\ES256K;
++use Jose\Component\Signature\Algorithm\ES256K;
+```
+
+The experimental class is kept until 5.0 as a deprecated subclass of the new one — instantiating it raises a deprecation — and the bundle keeps its service, deprecated too, for the applications that inject it. Nothing changes for the tokens.
+
 ### ML-DSA, The First Post-Quantum Signature
 
 [RFC 9964](https://www.rfc-editor.org/rfc/rfc9964.html) registers ML-DSA (FIPS 204) for JOSE: the `ML-DSA-44`, `ML-DSA-65` and `ML-DSA-87` algorithms and the `AKP` key type. The library ships all three, over keys whose `priv` is the 32-byte seed of FIPS 204 — the only private key representation the RFC allows — and whose `alg` is required.
@@ -480,6 +491,7 @@ Everything below still works in 4.3 and is removed in 5.0.
 | `Jose\Component\Encryption\Algorithm\KeyEncryption\RSA15` | `Jose\Rsa15\KeyEncryption\RSA15` (`web-token/jwt-rsa15`) |
 | The hardcoded `RSA1_5` CEK size table | Read the [expected CEK size](../advanced-topics/custom-algorithm.md#the-expected-cek-size) argument |
 | `Jose\Component\Signature\Algorithm\EdDSA` (deprecated by RFC 9864; its removal is a 5.0 candidate) | `Ed25519` — same key, `alg: Ed25519` |
+| `Jose\Experimental\Signature\ES256K` | `Jose\Component\Signature\Algorithm\ES256K` |
 
 ### Symfony Bundle
 
