@@ -31,6 +31,7 @@ Compression is not recommended. Since version 4.0, compression support has been 
 | RSA      | YES       | RSA based asymmetric keys             |
 | EC       | YES       | Elliptic Curves based asymmetric keys |
 | OKP      | YES       | Octet Key Pair based asymmetric keys  |
+| AKP      | YES       | Algorithm Key Pair (RFC 9964): the ML-DSA keys. `alg` is required, `pub` is the public key, `priv` the 32-byte seed. Since 4.3 |
 
 JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)) and JWK Thumbprint URI ([RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html)).
 
@@ -67,6 +68,7 @@ JWKSet is fully supported.
 | <p>RS256</p><p>RS384</p><p>RS512</p> | YES       |                                                                                                            |
 | <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark>                           |
 | Ed25519                              | YES       | <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark>. Fully-specified algorithm of RFC 9864, since 4.3 |
+| <p>ML-DSA-44</p><p>ML-DSA-65</p><p>ML-DSA-87</p> | YES | Post-quantum (FIPS 204, RFC 9964). <mark style="color:orange;">PHP 8.4+ and an OpenSSL 3.5+ runtime are required</mark>, see `MLDSA44::isSupported()`. Since 4.3 |
 | Ed448                                | YES       | <mark style="color:orange;">PHP 8.4+ is required</mark> (OpenSSL). Fully-specified algorithm of RFC 9864, since 4.3 |
 | EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">Deprecated by RFC 9864</mark>: use `Ed25519`. <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
 | EdDSA with Ed448 curve               | NO        | Use `Ed448`                                                                                                |

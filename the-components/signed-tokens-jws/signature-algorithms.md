@@ -2,7 +2,7 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td><p>Ed25519</p><p>Ed448</p></td><td>Edwards-curve Digital Signature Algorithm (EdDSA), fully-specified per RFC 9864. Since 4.3; <code>Ed448</code> needs PHP 8.4</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td><mark style="color:orange;">Deprecated by RFC 9864</mark>, use <code>Ed25519</code>. See below</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
+<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td><p>Ed25519</p><p>Ed448</p></td><td>Edwards-curve Digital Signature Algorithm (EdDSA), fully-specified per RFC 9864. Since 4.3; <code>Ed448</code> needs PHP 8.4</td></tr><tr><td><p>ML-DSA-44</p><p>ML-DSA-65</p><p>ML-DSA-87</p></td><td>Module-Lattice-Based Digital Signature Algorithm (ML-DSA, FIPS 204), post-quantum, per RFC 9964. Since 4.3; needs PHP 8.4 and OpenSSL 3.5</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td><mark style="color:orange;">Deprecated by RFC 9864</mark>, use <code>Ed25519</code>. See below</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
 
 ### The `Ed25519` And `Ed448` Algorithms
 
@@ -31,6 +31,33 @@ Each algorithm accepts its own curve only: `Ed25519` refuses a key on `Ed448` an
 3. once no `EdDSA` token is in circulation any more, drop `EdDSA` from the verifiers.
 
 A key carrying `alg: EdDSA` is refused by the `Ed25519` algorithm, and a key carrying `alg: Ed25519` by `EdDSA`: update the `alg` of the keys with the issuer, or leave it out during the migration. The key analyzer reports keys still declaring `alg: EdDSA`.
+{% endhint %}
+
+### The `ML-DSA-44`, `ML-DSA-65` And `ML-DSA-87` Algorithms
+
+[RFC 9964](https://www.rfc-editor.org/rfc/rfc9964.html) registers ML-DSA ([FIPS 204](https://csrc.nist.gov/pubs/fips/204/final), the module-lattice signature scheme) for JOSE: the first post-quantum signature of the registries. The three parameter sets are the pure ML-DSA of FIPS 204 with an empty context — no HashML-DSA, which section 7.2 of the RFC excludes.
+
+The keys are of the `AKP` type (section 3), with `pub` the encoded public key and `priv` the **32-byte seed** — the only private key representation the RFC allows (section 4), from which the whole key is derived. `alg` is **required** on every AKP key: the type says nothing about the algorithm.
+
+```php
+<?php
+
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\KeyManagement\JWKFactory;
+use Jose\Component\Signature\Algorithm\MLDSA44;
+use Jose\Component\Signature\Algorithm\MLDSA65;
+use Jose\Component\Signature\Algorithm\MLDSA87;
+
+$algorithmManager = new AlgorithmManager([new MLDSA44(), new MLDSA65(), new MLDSA87()]);
+
+$key = (new JWKFactory())->mldsa('ML-DSA-65', ['use' => 'sig']);
+// {"kty":"AKP","alg":"ML-DSA-65","pub":"...","priv":"...32-byte seed...","use":"sig"}
+```
+
+Before OpenSSL sees a key, the algorithm checks it as section 7.3 requires: `alg` present and equal to the algorithm, `pub` of the size of the parameter set (1312, 1952 or 2592 bytes), `priv` of exactly 32 bytes, and — when the key carries both — that `pub` is the key the seed expands to. Signatures are 2420, 3309 or 4627 bytes; a signature of another length is `false` before any computation.
+
+{% hint style="warning" %}
+**Platform requirement.** The computation is OpenSSL's, and needs **PHP 8.4** (the first version able to sign without a digest through OpenSSL) and an **OpenSSL 3.5** runtime. The OpenSSL check is a runtime probe — `OPENSSL_VERSION_TEXT` reports the headers PHP was built against, not the library it loaded — so `MLDSA44::isSupported()` tells whether the platform can run the algorithms; the constructors throw a `MissingDependencyException` naming the missing piece, and the Symfony Bundle registers the algorithms only when they can run.
 {% endhint %}
 
 ### The `none` Algorithm

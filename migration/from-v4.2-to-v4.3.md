@@ -224,6 +224,26 @@ final readonly class ManagedKey
 }
 ```
 
+### ML-DSA, The First Post-Quantum Signature
+
+[RFC 9964](https://www.rfc-editor.org/rfc/rfc9964.html) registers ML-DSA (FIPS 204) for JOSE: the `ML-DSA-44`, `ML-DSA-65` and `ML-DSA-87` algorithms and the `AKP` key type. The library ships all three, over keys whose `priv` is the 32-byte seed of FIPS 204 — the only private key representation the RFC allows — and whose `alg` is required.
+
+```php
+<?php
+
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\KeyManagement\JWKFactory;
+use Jose\Component\Signature\Algorithm\MLDSA65;
+
+$key = (new JWKFactory())->mldsa('ML-DSA-65');          // A fresh key
+$key = (new JWKFactory())->mldsa('ML-DSA-65', ['priv' => $seed]); // Rebuilt from its stored seed
+$algorithmManager = new AlgorithmManager([new MLDSA65()]);
+```
+
+`JWK::thumbprint()` computes the RFC 9964 section 6 thumbprint of an AKP key (over `alg`, `kty` and `pub`), `toPublic()` strips `priv`, the key loader reads the RFC 9881 PEM forms and the certificates holding such a key, a `MLDSAKeyAnalyzer` checks the key structure, and `key:generate:mldsa` / `keyset:generate:mldsa` generate keys.
+
+The computation is OpenSSL's and needs **PHP 8.4 and an OpenSSL 3.5 runtime**, checked at runtime: `MLDSA44::isSupported()` tells, the constructors throw a `MissingDependencyException` naming the missing piece, and the Symfony Bundle registers the algorithms only when they can run. See the [signature algorithms](../the-components/signed-tokens-jws/signature-algorithms.md#the-ml-dsa-44-ml-dsa-65-and-ml-dsa-87-algorithms) page.
+
 ### `Ed25519`, `Ed448` And `X448`
 
 [RFC 9864](https://www.rfc-editor.org/rfc/rfc9864.html) registers the fully-specified `Ed25519` and `Ed448` signature algorithms and deprecates the polymorphic `EdDSA`: the name of the algorithm alone must say which curve is in use. The library ships both, and `EdDSA` is deprecated. The keys are unchanged — an `OKP` key with `crv: Ed25519` or `crv: Ed448` — only the `alg` value differs.

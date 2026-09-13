@@ -10,6 +10,7 @@ This framework needs at least:
   * gmp or bcmath (for better performance with RSA/PSS algorithms)
   * sodium (for Ed25519 and X25519 on PHP 8.2 and 8.3 — PHP 8.4 can use OpenSSL instead — and faster Base64URL encoding)
   * curl (for loading keys from remote URLs)
+* The ML-DSA algorithms (RFC 9964) need PHP 8.4 and an OpenSSL 3.5 runtime; `MLDSA44::isSupported()` tells whether the platform has them.
 
 {% hint style="info" %}
 The `json` extension is built-in with PHP 8.2+ and no longer needs to be installed separately.

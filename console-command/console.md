@@ -218,6 +218,18 @@ This command will generate a octet key pair key (OKP). Supported curves are `X25
 {"kty":"OKP","crv":"X25519","x":"TgTD7RS0KF3eU8HdTM6ACxu365uco3x2Cee9SBXiu2I","d":"BypCXV7KUai-zrwrdoAmgnHX6Kosw0sVpDVPwrXoNKY"}
 ```
 
+**ML-DSA Key**
+
+This command will generate an ML-DSA key (`AKP` key type, RFC 9964). Supported parameter sets are `ML-DSA-44`, `ML-DSA-65` and `ML-DSA-87`. It needs PHP 8.4 and an OpenSSL 3.5 runtime.
+
+```bash
+./jose.phar key:generate:mldsa ML-DSA-44
+
+{"kty":"AKP","alg":"ML-DSA-44","pub":"...","priv":"..."}
+```
+
+The `keyset:generate:mldsa <quantity> <algorithm>` command generates a key set of such keys.
+
 **None Key**
 
 This command will generate a none key. This key type is only used by the `none` algorithm. Key parameters `alg` and `use` are automatically set.
