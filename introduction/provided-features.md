@@ -32,7 +32,7 @@ Compression is not recommended. Since version 4.0, compression support has been 
 | EC       | YES       | Elliptic Curves based asymmetric keys |
 | OKP      | YES       | Octet Key Pair based asymmetric keys  |
 
-JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)).
+JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)) and JWK Thumbprint URI ([RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html)).
 
 {% hint style="info" %}
 A `none` key type is available for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
