@@ -44,7 +44,7 @@ A `none` key type is available for the `none` algorithm. It is used to explicitl
 | Key Type | Curve                              | Supported | Comment                                                                                          |
 | -------- | ---------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | EC       | <p>P-256</p><p>P-384</p><p>P-521</p> | YES       | ECDSA signatures (`ES256`/`ES384`/`ES512`) and `ECDH-ES*`/`ECDH-SS*` key agreement               |
-| EC       | secp256k1                          | YES       | `ES256K`, in the `Jose\Experimental` namespace                                                    |
+| EC       | secp256k1                          | YES       | `ES256K` signatures (RFC 8812) and `ECDH-ES*`/`ECDH-SS*` key agreement                             |
 | EC       | <p>BP-256</p><p>BP-384</p><p>BP-512</p> | YES  | Brainpool curves. `BP256R1`/`BP384R1`/`BP512R1` signatures are in the `Jose\Experimental` namespace |
 | OKP      | Ed25519                            | YES       | `Ed25519` signatures (and the deprecated `EdDSA`). <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
 | OKP      | X25519                             | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement. <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
@@ -65,6 +65,7 @@ JWKSet is fully supported.
 | ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------- |
 | <p>HS256</p><p>HS384</p><p>HS512</p> | YES       |                                                                                                            |
 | <p>ES256</p><p>ES384</p><p>ES512</p> | YES       |                                                                                                            |
+| ES256K                               | YES       | ECDSA over secp256k1 (RFC 8812). In the library since 4.3, in `Jose\Experimental` before                   |
 | <p>RS256</p><p>RS384</p><p>RS512</p> | YES       |                                                                                                            |
 | <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark>                           |
 | Ed25519                              | YES       | <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark>. Fully-specified algorithm of RFC 9864, since 4.3 |
@@ -75,7 +76,7 @@ JWKSet is fully supported.
 | none                                 | YES       | <mark style="color:red;">**Not a secured algorithm. USE IT WITH CAUTION!**</mark> Shipped by `web-token/jwt-unsecured` |
 
 {% hint style="info" %}
-Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, `BP256R1`, `BP384R1`, `BP512R1` and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
+Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `BP256R1`, `BP384R1`, `BP512R1` and `Blake2b` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.
 {% endhint %}
 
 ## Supported Key Encryption Algorithms
