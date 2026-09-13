@@ -36,6 +36,23 @@ jose:
 
 With the previous configuration, the bundle will create public Header and Claim Checker Managers named `jose.header_checker.checker1` and `jose.claim_checker.checker1` with selected checkers.
 
+### Explicit Typing
+
+Since 4.3, a header checker manager can declare the media types accepted for the `typ` header parameter (see [Explicit Typing](../the-components/header-checker.md#explicit-typing-with-the-typ-header)). The bundle registers a `TypeChecker` service with the alias `typ.<name>` and adds it to the manager.
+
+```yaml
+jose:
+    checkers:
+        headers:
+            access_token:
+                headers: ['alg']
+                typ: ['at+jwt'] # A single string is accepted too
+```
+
+The alias `typ.access_token` can be reused in any other manager or loader, e.g. in the `header_checkers` option of a JWS loader.
+
+Remember that the checker only rejects a wrong `typ`: to reject tokens without any, list `typ` in the mandatory header parameters when calling `check()`.
+
 ## Custom Header Or Claim Checker
 
 Some claim or header checkers are provided by this framework, but it is important to create custom checkers that fit your application requirements.
