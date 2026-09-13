@@ -224,6 +224,29 @@ final readonly class ManagedKey
 }
 ```
 
+### `Ed25519`, `Ed448` And `X448`
+
+[RFC 9864](https://www.rfc-editor.org/rfc/rfc9864.html) registers the fully-specified `Ed25519` and `Ed448` signature algorithms and deprecates the polymorphic `EdDSA`: the name of the algorithm alone must say which curve is in use. The library ships both, and `EdDSA` is deprecated. The keys are unchanged — an `OKP` key with `crv: Ed25519` or `crv: Ed448` — only the `alg` value differs.
+
+```php
+<?php
+
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Signature\Algorithm\Ed25519;
+use Jose\Component\Signature\Algorithm\Ed448;
+
+$algorithmManager = new AlgorithmManager([new Ed25519(), new Ed448()]);
+```
+
+The same release closes the RFC 8037 gap on the `448` curves: `Ed448` keys sign and verify, `X448` keys work with every `ECDH-ES*` and `ECDH-SS*` algorithm, `JWKFactory::okp()` and `key:generate:okp` generate both, and a new `OKPKeyAnalyzer` checks the structure of the `OKP` keys.
+
+Two platform notes:
+
+* `Ed448` and `X448` run on OpenSSL and need **PHP 8.4 or later**: before that version PHP cannot ask OpenSSL for the digest-less signature or the raw key material of these curves. `Ed448::isSupported()` tells whether the platform can run the algorithm, its constructor throws a `MissingDependencyException` when it cannot, and the Symfony Bundle registers it only when it can run.
+* `Ed25519` and `X25519` still use the `sodium` extension when it is loaded. On PHP 8.4 they now fall back to OpenSSL when it is not, so `sodium` is no longer required there.
+
+**Migrating from `EdDSA`** — the algorithm keeps working, the tokens already in circulation still verify, and signing with it raises a deprecation notice. Register `Ed25519` next to `EdDSA` on the verifiers, switch the issuer to `alg: Ed25519` with the same key, then drop `EdDSA` once no old token is left. A key carrying `alg: EdDSA` is refused by the `Ed25519` algorithm (and the reverse), so update the `alg` of the keys with the issuer, or leave it out during the migration. See the [signature algorithms](../the-components/signed-tokens-jws/signature-algorithms.md#the-ed25519-and-ed448-algorithms) page.
+
 ### JWK Thumbprint URI
 
 [RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html) names a key by its RFC 7638 thumbprint: `urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs`. It is the key-based `sub` or `kid` of OAuth DPoP, SIOP v2, OpenID for Verifiable Credentials and OpenID Federation, and every implementer had to build it by hand.
@@ -436,6 +459,7 @@ Everything below still works in 4.3 and is removed in 5.0.
 | `Jose\Component\Signature\Algorithm\None` | `Jose\Unsecured\Signature\None` (`web-token/jwt-unsecured`) |
 | `Jose\Component\Encryption\Algorithm\KeyEncryption\RSA15` | `Jose\Rsa15\KeyEncryption\RSA15` (`web-token/jwt-rsa15`) |
 | The hardcoded `RSA1_5` CEK size table | Read the [expected CEK size](../advanced-topics/custom-algorithm.md#the-expected-cek-size) argument |
+| `Jose\Component\Signature\Algorithm\EdDSA` (deprecated by RFC 9864; its removal is a 5.0 candidate) | `Ed25519` — same key, `alg: Ed25519` |
 
 ### Symfony Bundle
 

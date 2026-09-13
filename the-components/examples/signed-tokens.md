@@ -192,26 +192,26 @@ $isValid = $jwsVerifier->verifyWithKey($jws, $publicKey, 0);
 
 ---
 
-## Sign a Token with EdDSA (Ed25519)
+## Sign a Token with Ed25519
 
-EdDSA with Ed25519 provides high performance and strong security. Requires the `sodium` extension.
+Ed25519 provides high performance and strong security. Since 4.3, the fully-specified `Ed25519` algorithm of RFC 9864 replaces the deprecated `EdDSA`; the key is the same, only the `alg` value differs. Requires the `sodium` extension, or PHP 8.4 (OpenSSL).
 
 ```php
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\KeyManagement\JWKFactory;
-use Jose\Component\Signature\Algorithm\EdDSA;
+use Jose\Component\Signature\Algorithm\Ed25519;
 use Jose\Component\Signature\JWSBuilder;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 
 require_once 'vendor/autoload.php';
 
-// Generate an Ed25519 key pair (requires ext-sodium)
+// Generate an Ed25519 key pair
 $jwkFactory = new JWKFactory();
-$privateKey = $jwkFactory->okp('Ed25519', ['alg' => 'EdDSA', 'use' => 'sig']);
+$privateKey = $jwkFactory->okp('Ed25519', ['alg' => 'Ed25519', 'use' => 'sig']);
 
-$algorithmManager = new AlgorithmManager([new EdDSA()]);
+$algorithmManager = new AlgorithmManager([new Ed25519()]);
 $jwsBuilder = new JWSBuilder($algorithmManager);
 
 $payload = json_encode([
@@ -223,7 +223,7 @@ $payload = json_encode([
 
 $jws = $jwsBuilder
     ->withPayload($payload)
-    ->addSignature($privateKey, ['alg' => 'EdDSA'])
+    ->addSignature($privateKey, ['alg' => 'Ed25519'])
     ->build();
 
 $token = (new CompactSerializer())->serialize($jws);

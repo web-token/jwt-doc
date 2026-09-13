@@ -106,7 +106,7 @@ This documentation is organized to help you get started quickly and dive deep wh
 * PHP 8.2 or higher
 * OpenSSL extension
 * Recommended: GMP or BCMath for better performance
-* Recommended: Sodium extension for EdDSA and ECDH-ES algorithms
+* Recommended: Sodium extension for the Ed25519 and X25519 curves (PHP 8.4 can use OpenSSL instead; the Ed448 and X448 curves need PHP 8.4)
 
 ## Get Help
 

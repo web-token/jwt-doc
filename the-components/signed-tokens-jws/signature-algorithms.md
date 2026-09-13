@@ -2,7 +2,36 @@
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
-<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td>Edwards-curve Digital Signature Algorithm (EdDSA)</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
+<table><thead><tr><th width="207">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>HS256</p><p>HS384</p><p>HS512</p></td><td>HMAC with SHA-2 Functions</td></tr><tr><td><p></p><p>ES256</p><p>ES384</p><p>ES512</p></td><td>Elliptic Curve Digital Signature Algorithm (ECDSA)</td></tr><tr><td><p>RS256</p><p>RS384</p><p>RS512</p></td><td>RSASSA-PKCS1 v1_5</td></tr><tr><td><p>PS256</p><p>PS384</p><p>PS512</p></td><td>RSASSA-PSS</td></tr><tr><td><p>Ed25519</p><p>Ed448</p></td><td>Edwards-curve Digital Signature Algorithm (EdDSA), fully-specified per RFC 9864. Since 4.3; <code>Ed448</code> needs PHP 8.4</td></tr><tr><td>EdDSA (<em>only with the</em> Ed25519 <em>curve</em>)</td><td><mark style="color:orange;">Deprecated by RFC 9864</mark>, use <code>Ed25519</code>. See below</td></tr><tr><td>none</td><td><mark style="color:red;">Not a secure algorithm. Please use with caution</mark></td></tr></tbody></table>
+
+### The `Ed25519` And `Ed448` Algorithms
+
+[RFC 9864](https://www.rfc-editor.org/rfc/rfc9864.html) registers the fully-specified `Ed25519` and `Ed448` algorithms and deprecates the polymorphic `EdDSA`: the name of the algorithm alone must say which curve is in use. The keys are unchanged — an `OKP` key with `crv: Ed25519` or `crv: Ed448` — only the `alg` value differs.
+
+```php
+<?php
+
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Signature\Algorithm\Ed25519;
+use Jose\Component\Signature\Algorithm\Ed448;
+
+$algorithmManager = new AlgorithmManager([new Ed25519(), new Ed448()]);
+```
+
+Each algorithm accepts its own curve only: `Ed25519` refuses a key on `Ed448` and `Ed448` a key on `Ed25519`, with an `InvalidKeyException`.
+
+* `Ed25519` runs on the `sodium` extension when it is loaded, as `EdDSA` always did, and on OpenSSL otherwise (PHP 8.4 or later).
+* `Ed448` runs on OpenSSL only, and needs PHP 8.4 or later — before that version PHP cannot ask OpenSSL for the digest-less signature the Edwards curves require. `Ed448::isSupported()` tells whether the platform can run it; the constructor throws a `MissingDependencyException` when it cannot, and the Symfony Bundle registers the algorithm only when it can run.
+
+{% hint style="warning" %}
+**`EdDSA` is deprecated since 4.3.** It keeps working — the tokens already in circulation still verify — and signing with it raises a deprecation notice. Migrate the issuer first, then the verifiers:
+
+1. register `Ed25519` next to `EdDSA` on the verifiers, so that both `alg` values are accepted;
+2. switch the issuer to `Ed25519`: same key, `alg: Ed25519` in the header;
+3. once no `EdDSA` token is in circulation any more, drop `EdDSA` from the verifiers.
+
+A key carrying `alg: EdDSA` is refused by the `Ed25519` algorithm, and a key carrying `alg: Ed25519` by `EdDSA`: update the `alg` of the keys with the issuer, or leave it out during the migration. The key analyzer reports keys still declaring `alg: EdDSA`.
+{% endhint %}
 
 ### The `none` Algorithm
 
