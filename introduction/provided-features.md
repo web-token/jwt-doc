@@ -45,9 +45,10 @@ A `none` key type is available for the `none` algorithm. It is used to explicitl
 | EC       | <p>P-256</p><p>P-384</p><p>P-521</p> | YES       | ECDSA signatures (`ES256`/`ES384`/`ES512`) and `ECDH-ES*`/`ECDH-SS*` key agreement               |
 | EC       | secp256k1                          | YES       | `ES256K`, in the `Jose\Experimental` namespace                                                    |
 | EC       | <p>BP-256</p><p>BP-384</p><p>BP-512</p> | YES  | Brainpool curves. `BP256R1`/`BP384R1`/`BP512R1` signatures are in the `Jose\Experimental` namespace |
-| OKP      | Ed25519                            | YES       | `EdDSA` signatures. <mark style="color:orange;">SODIUM extension is required</mark>              |
-| OKP      | X25519                             | YES       | `ECDH-ES*` key agreement. <mark style="color:orange;">SODIUM extension is required</mark>        |
-| OKP      | <p>Ed448</p><p>X448</p>            | NO        | No extension or built-in implementation available                                                |
+| OKP      | Ed25519                            | YES       | `Ed25519` signatures (and the deprecated `EdDSA`). <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
+| OKP      | X25519                             | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement. <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
+| OKP      | Ed448                              | YES       | `Ed448` signatures. <mark style="color:orange;">PHP 8.4+ is required</mark> (OpenSSL) |
+| OKP      | X448                               | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement. <mark style="color:orange;">PHP 8.4+ is required</mark> (OpenSSL) |
 
 {% hint style="warning" %}
 The Brainpool curves are not registered with IANA, and neither are their signature algorithms. The identifiers follow the convention adopted by the other implementations, so keys and tokens using them are only interoperable with the implementations sharing that convention.
@@ -65,8 +66,10 @@ JWKSet is fully supported.
 | <p>ES256</p><p>ES384</p><p>ES512</p> | YES       |                                                                                                            |
 | <p>RS256</p><p>RS384</p><p>RS512</p> | YES       |                                                                                                            |
 | <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark>                           |
-| EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">SODIUM extension is required</mark>                                            |
-| EdDSA with Ed448 curve               | NO        | No extension or built-in implementation available                                                          |
+| Ed25519                              | YES       | <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark>. Fully-specified algorithm of RFC 9864, since 4.3 |
+| Ed448                                | YES       | <mark style="color:orange;">PHP 8.4+ is required</mark> (OpenSSL). Fully-specified algorithm of RFC 9864, since 4.3 |
+| EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">Deprecated by RFC 9864</mark>: use `Ed25519`. <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark> |
+| EdDSA with Ed448 curve               | NO        | Use `Ed448`                                                                                                |
 | none                                 | YES       | <mark style="color:red;">**Not a secured algorithm. USE IT WITH CAUTION!**</mark> Shipped by `web-token/jwt-unsecured` |
 
 {% hint style="info" %}
@@ -85,8 +88,8 @@ Other signature algorithms like `RS1`, `HS1`, `HS256/64`, `ES256K`, `BP256R1`, `
 | <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
 | <p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p>   | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
 | <p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p>                              | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| ECDH-ES with X25519 curve                                                     | YES       | <mark style="color:orange;">SODIUM extension is required</mark>                                                                                                  |
-| ECDH-ES with X448 curve                                                       | NO        | No extension or built-in implementation available                                                                                                                |
+| ECDH-ES with X25519 curve                                                     | YES       | <mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark>                                                                                                  |
+| ECDH-ES with X448 curve                                                       | YES       | <mark style="color:orange;">PHP 8.4+ is required</mark> (OpenSSL). Since 4.3                                                                                     |
 
 {% hint style="info" %}
 Other key encryption algorithms like `RSA-OAEP-384`, `RSA-OAEP-512`, and `chacha20-poly1305` are also available in the `Jose\Experimental` namespace. These algorithms should be used for testing purposes only or for compatibility with old systems.

@@ -55,7 +55,7 @@ use Jose\Rsa15\KeyEncryption\RSA15;
 The `ECDH-ES*` and `ECDH-SS*` algorithms accept:
 
 * `EC` keys using the `P-256`, `P-384`, `P-521`, `secp256k1`, `BP-256`, `BP-384` or `BP-512` curve,
-* `OKP` keys using the `X25519` curve (<mark style="color:orange;">SODIUM extension is required</mark>).
+* `OKP` keys using the `X25519` curve (<mark style="color:orange;">SODIUM extension, or OpenSSL on PHP 8.4+</mark>) or the `X448` curve (<mark style="color:orange;">PHP 8.4+ is required</mark>, OpenSSL; since 4.3).
 
 The `BP-*` curves are the Brainpool curves. They are part of the core library and do not require the experimental package. Please read the [warning about their interoperability](../key-jwk-and-key-set-jwkset/key-management.md#elliptic-curve-key-pair) before using them.
 

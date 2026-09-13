@@ -8,7 +8,7 @@ This framework needs at least:
 
 * Extensions (recommended):
   * gmp or bcmath (for better performance with RSA/PSS algorithms)
-  * sodium (for EdDSA with Ed25519, ECDH-ES with X25519, and faster Base64URL encoding)
+  * sodium (for Ed25519 and X25519 on PHP 8.2 and 8.3 — PHP 8.4 can use OpenSSL instead — and faster Base64URL encoding)
   * curl (for loading keys from remote URLs)
 
 {% hint style="info" %}

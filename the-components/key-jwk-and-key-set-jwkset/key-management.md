@@ -221,8 +221,10 @@ $key = $jwkFactory->okp('X25519');
 
 The supported curves are:
 
-* `Ed25519` for signature/verification only
-* `X25519` for encryption/decryption only
+* `Ed25519` and `Ed448` for signature/verification only (`Ed25519` and `Ed448` algorithms; `EdDSA` for `Ed25519`),
+* `X25519` and `X448` for encryption/decryption only (`ECDH-ES*` and `ECDH-SS*` algorithms).
+
+`Ed25519` and `X25519` keys are generated with the `sodium` extension when it is loaded and with OpenSSL otherwise; `Ed448` and `X448` with OpenSSL only. The OpenSSL paths need PHP 8.4 or later: on PHP 8.2 and 8.3, `sodium` is required and the `448` curves are not available.
 
 ### None Key
 

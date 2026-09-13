@@ -210,7 +210,7 @@ This command will generate a octet key (oct). Recommended size is 128 bits or mo
 
 **Octet Key Pair Key**
 
-This command will generate a octet key pair key (OKP). Supported curves are `X25519` (for encryption only) and `Ed25519` (signature only).
+This command will generate a octet key pair key (OKP). Supported curves are `X25519` and `X448` (for encryption only) and `Ed25519` and `Ed448` (signature only). The `448` curves need PHP 8.4 or later.
 
 ```bash
 ./jose.phar key:generate:okp 256
