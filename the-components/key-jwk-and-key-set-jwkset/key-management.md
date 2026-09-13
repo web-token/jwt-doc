@@ -23,9 +23,11 @@ $jwk->get('kty');
 $jwk->all();
 
 // Calculate the thumbprint of the key. Acceptable hash algorithms are those returned by the PHP function "hash_algos".
+// The members hashed are those of RFC 7638 for "oct", "RSA", "EC" and "OKP" keys,
+// and "alg", "kty" and "pub" for "AKP" keys (RFC 9964 section 6).
 $jwk->thumbprint('sha256');
 
-// If the key is a private key (RSA, EC, OKP), it can be converted into public:
+// If the key is a private key (RSA, EC, OKP, AKP), it can be converted into public:
 $public_key = $jwk->toPublic();
 
 // The JWK object can be serialized into JSON
@@ -105,7 +107,7 @@ final readonly class ManagedKey
 
 ## Generate A New Key
 
-This framework is able to create private and public keys on the fly using the key factory. 4 types of keys are supported:
+This framework is able to create private and public keys on the fly using the key factory. 5 types of keys are supported:
 
 * Symmetric Key:
   * `oct`: octet string
@@ -113,6 +115,7 @@ This framework is able to create private and public keys on the fly using the ke
   * `RSA`: RSA key pair
   * `EC` : Elliptic Curve key pair
   * `OKP`: Octet key pair
+  * `AKP`: Algorithm key pair (ML-DSA)
 
 {% hint style="info" %}
 The `none` algorithm needs a key of type `none`. This is a specific key type that must only be used with this algorithm.
@@ -225,6 +228,24 @@ The supported curves are:
 * `X25519` and `X448` for encryption/decryption only (`ECDH-ES*` and `ECDH-SS*` algorithms).
 
 `Ed25519` and `X25519` keys are generated with the `sodium` extension when it is loaded and with OpenSSL otherwise; `Ed448` and `X448` with OpenSSL only. The OpenSSL paths need PHP 8.4 or later: on PHP 8.2 and 8.3, `sodium` is required and the `448` curves are not available.
+
+#### Algorithm Key Pair (ML-DSA)
+
+The `AKP` key type of [RFC 9964](https://www.rfc-editor.org/rfc/rfc9964.html) holds the post-quantum ML-DSA keys. `alg` names the parameter set and is required; `pub` is the encoded public key; `priv` is the 32-byte seed of FIPS 204, the only private key representation the RFC allows.
+
+```php
+<?php
+
+// A fresh key: a random seed, and the public key it expands to.
+$key = $jwkFactory->mldsa('ML-DSA-44');
+
+// A key rebuilt from a stored seed: "pub" is derived from it.
+$key = $jwkFactory->mldsa('ML-DSA-44', ['priv' => $storedSeed, 'kid' => 'pq-1']);
+```
+
+The seed is all that has to be stored. See the [ML-DSA algorithms](../signed-tokens-jws/signature-algorithms.md#the-ml-dsa-44-ml-dsa-65-and-ml-dsa-87-algorithms) for the platform requirement (PHP 8.4 and an OpenSSL 3.5 runtime).
+
+The key loader reads the PEM forms of [RFC 9881](https://www.rfc-editor.org/rfc/rfc9881.html): a `SubjectPublicKeyInfo`, loaded on every platform, and a `PrivateKeyInfo` holding the seed (the `seed` or `both` choice of the `ML-DSA-PrivateKey`; the `expandedKey` alone is refused, as RFC 9964 does), which needs the platform requirement to derive `pub`. A certificate holding an ML-DSA key is loaded on every platform too. A certificate *signed* with ML-DSA is not: `spomky-labs/pki-framework` does not know the ML-DSA signature algorithm identifiers yet.
 
 ### None Key
 
