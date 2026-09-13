@@ -224,6 +224,35 @@ final readonly class ManagedKey
 }
 ```
 
+### Explicit Typing With The `typ` Header
+
+[RFC 8725 section 3.11](https://www.rfc-editor.org/rfc/rfc8725.html#section-3.11) recommends that a verifier accepts only the token profile it expects — `at+jwt`, `dpop+jwt`, `secevent+jwt`, `logout+jwt`… — so that a token issued for one purpose cannot be replayed for another one. The library had checkers for `alg`, `exp`, `iss` or `aud`, but none for `typ`.
+
+The new `Jose\Component\Checker\TypeChecker` closes the gap. It only reads the protected header and compares the media types as RFC 7515 defines them: case-insensitively, with an optional `application/` prefix.
+
+```php
+<?php
+
+use Jose\Component\Checker\TypeChecker;
+
+$headerCheckerManagerFactory->add('typ', new TypeChecker(['at+jwt']));
+$headerCheckerManager = $headerCheckerManagerFactory->create(['alg', 'typ']);
+$headerCheckerManager->check($jws, 0, ['alg', 'typ']); // "typ" is mandatory
+```
+
+In the Symfony Bundle, a header checker manager declares the accepted types directly:
+
+```yaml
+jose:
+    checkers:
+        headers:
+            access_token:
+                headers: ['alg']
+                typ: ['at+jwt']
+```
+
+The `ConfigurationHelper::addHeaderChecker()` helper accepts the same list as an additional argument after the tags. See the [Header Checker](../the-components/header-checker.md#explicit-typing-with-the-typ-header) page.
+
 ### JKUFactory And X5UFactory Stand On Their Own
 
 `UrlKeySetFactory` is announced for removal in 5.0, yet `JKUFactory` and `X5UFactory` — the documented way to load a `jku` or a `x5u` key set, and not deprecated themselves — extended it.
