@@ -1,0 +1,111 @@
+name: Pages
+
+# One version of the site per branch, published by mike into gh-pages: 4.0 is served at /4.0/, and the
+# alias "latest" follows the highest version, which is what the root of the site redirects to. A branch is
+# named 4.0, or 4.0.x like the maintenance branches of a library; 4.x is the next minor. Pages is
+# configured to deploy from the gh-pages branch, root folder.
+on:
+    push:
+        branches:
+            - '[0-9]*.[0-9]*'
+            - '[0-9]*.x'
+        paths-ignore:
+            - '.github/workflows/check.yml'
+    workflow_dispatch:
+
+# MkDocs 2.0 is announced as backward incompatible with every plugin and theme, so the toolchain is pinned
+# to the 1.x line in requirements.txt and the two notices about it are silenced: they are news about the
+# ecosystem, not findings about this site.
+env:
+    NO_MKDOCS_2_WARNING: 'true'
+    DISABLE_MKDOCS_2_WARNING: 'true'
+
+permissions:
+    contents: write
+
+# Two branches pushed at once must not write gh-pages at the same time, and a queued run is never
+# cancelled: it carries a version the other does not.
+concurrency:
+    group: gh-pages
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        name: Deploy ${{ github.ref_name }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-python@v6
+              with:
+                  python-version: '3.13'
+                  cache: pip
+                  cache-dependency-path: requirements.txt
+
+            - name: Install the toolchain
+              run: pip install -r requirements.txt
+
+            - name: Identify the committer
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            # The version a branch publishes: 4.0.x publishes 4.0, any other name publishes itself.
+            - name: The version of this branch
+              id: version
+              run: |
+                  version="${GITHUB_REF_NAME}"
+                  if [[ "$version" =~ ^[0-9]+\.[0-9]+\.x$ ]]; then
+                    version="${version%.x}"
+                  fi
+                  echo "The branch '${GITHUB_REF_NAME}' publishes the version '$version'."
+                  echo "name=$version" >> "$GITHUB_OUTPUT"
+
+            # The highest version branch of the repository, by version order, in which a "1.x" branch comes
+            # after "1.2" and "1.2.x": it is where the next minor is written. sort -V alone puts "1.x" first,
+            # so each name is sorted by a key where "x" is a large number. Only that branch carries "latest".
+            - name: Is this the newest version?
+              id: newest
+              run: |
+                  git fetch --quiet origin '+refs/heads/*:refs/remotes/origin/*'
+                  newest=$(git for-each-ref --format='%(refname:lstrip=3)' 'refs/remotes/origin/*' \
+                    | grep -E '^[0-9]+\.([0-9]+(\.x)?|x)$' \
+                    | awk '{ key = $0; if (key ~ /^[0-9]+\.x$/) sub(/x$/, "999999", key); else sub(/\.x$/, "", key); print key " " $0 }' \
+                    | sort -V -k1,1 \
+                    | tail -n 1 \
+                    | cut -d' ' -f2)
+                  echo "The newest version branch is '$newest', this one is '${GITHUB_REF_NAME}'."
+                  if [ "$newest" = "${GITHUB_REF_NAME}" ]; then
+                    echo "latest=true" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "latest=false" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Publish this version
+              if: steps.newest.outputs.latest == 'false'
+              run: mike deploy --push --update-aliases "${{ steps.version.outputs.name }}"
+
+            - name: Publish this version as the latest one
+              if: steps.newest.outputs.latest == 'true'
+              run: |
+                  mike deploy --push --update-aliases "${{ steps.version.outputs.name }}" latest
+                  mike set-default --push latest
+
+            # The root of gh-pages is not a version: mike leaves it alone, and it holds what GitHub Pages reads
+            # there. site-root/ in this branch is copied over it: CNAME, the domain of the site, and 404.html,
+            # which sends the addresses of the former GitBook site to the latest version.
+            - name: Publish the root of the site
+              run: |
+                  git fetch --quiet origin gh-pages
+                  git worktree add "${RUNNER_TEMP}/gh-pages" origin/gh-pages
+                  cp -R site-root/. "${RUNNER_TEMP}/gh-pages/"
+                  cd "${RUNNER_TEMP}/gh-pages"
+                  git add --all
+                  if git diff --cached --quiet; then
+                    echo "The root of the site is up to date."
+                  else
+                    git commit --quiet -m "Publish the root of the site from ${GITHUB_REF_NAME}"
+                    git push origin HEAD:gh-pages
+                  fi
