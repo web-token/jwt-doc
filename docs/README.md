@@ -1,4 +1,4 @@
-# Introduction
+# JWT Framework
 
 Welcome to the **JWT Framework** documentation. This is a modern, secure, and comprehensive PHP library for working with JSON Web Tokens (JWT), designed for both standalone applications and Symfony projects.
 
