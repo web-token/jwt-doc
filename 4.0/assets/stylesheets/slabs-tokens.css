@@ -1,0 +1,86 @@
+/*
+ * Slabs design tokens, brand guidelines v2.0 (October 2026).
+ * Source: Charte Graphique.pdf; page numbers in comments.
+ * Use these values as they are: no new color, no tint of orange, no other radius.
+ */
+:root {
+  /* Brand colors (p. 17) */
+  --slabs-anthracite: #333334;      /* logo, text, dark grounds */
+  --slabs-beton: #B3AEA6;           /* secondary grounds, rules, text on dark */
+  --slabs-calcaire: #F5F1E8;        /* light grounds, logo on dark */
+  --slabs-orange: #ED6A20;          /* the cursor, the slab, the main action; never text on light, never a text background */
+
+  /* Complementary colors (p. 19): small surfaces, always with a word, text on light grounds only */
+  --slabs-acier: #4A5D6E;           /* information, notes, neutral data series */
+  --slabs-patine: #3E7268;          /* success, validation, second data series */
+  --slabs-brique: #A6452C;          /* errors, alerts, negative values; never a button */
+
+  /* Utility colors (p. 20): screen only, never brand colors */
+  --slabs-schiste: #5E5B56;         /* secondary text, link underline, field borders */
+  --slabs-calcaire-clair: #FBF9F4;  /* cards, panels, menus, state notes */
+  --slabs-calcaire-ombre: #ECE7DD;  /* notes, tags, inline code, disabled controls */
+  --slabs-platre: #DCD5C6;          /* rules on light grounds; types and properties in code */
+  --slabs-sable: #E8C9A8;           /* strings and numbers in code on Anthracite only */
+
+  /* Chart series, in order (p. 21): orange for the series the chart is about, Brique for negative values only */
+  --slabs-series-1: var(--slabs-orange);
+  --slabs-series-2: var(--slabs-anthracite);
+  --slabs-series-3: var(--slabs-acier);
+  --slabs-series-4: var(--slabs-patine);
+  --slabs-series-5: var(--slabs-schiste);
+  --slabs-series-negative: var(--slabs-brique);
+
+  /* Code on Anthracite (p. 34) */
+  --slabs-code-bg: var(--slabs-anthracite);
+  --slabs-code-text: var(--slabs-calcaire);       /* text, variables; keywords in SemiBold */
+  --slabs-code-type: var(--slabs-platre);         /* types, properties */
+  --slabs-code-string: var(--slabs-sable);        /* strings, numbers */
+  --slabs-code-comment: var(--slabs-beton);       /* comments, italic */
+
+  /* Typefaces (p. 22) */
+  --slabs-font-sans: "Space Grotesk", Arial, sans-serif;
+  --slabs-font-mono: "IBM Plex Mono", Consolas, monospace;   /* 400 and 600 only on the web */
+
+  /* Web type scale (p. 34): desktop, then mobile */
+  --slabs-h1: 42px;  --slabs-h1-mobile: 32px;  --slabs-h1-lh: 1.1;   /* Bold 700 */
+  --slabs-h2: 32px;  --slabs-h2-mobile: 26px;  --slabs-h2-lh: 1.2;   /* Bold 700 */
+  --slabs-h3: 26px;  --slabs-h3-mobile: 22px;  --slabs-h3-lh: 1.3;   /* SemiBold 600 */
+  --slabs-h4: 22px;  --slabs-h4-mobile: 18px;  --slabs-h4-lh: 1.4;   /* SemiBold 600 */
+  --slabs-h5: 15px;  --slabs-h5-mobile: 14px;  --slabs-h5-tracking: 0.08em;  /* Plex Mono 600, capitals */
+  --slabs-h6: 13px;  --slabs-h6-tracking: 0.12em;                           /* Plex Mono 600, capitals */
+  --slabs-body-reading: 18px;  --slabs-body-reading-mobile: 16px;
+  --slabs-body: 16px;
+  --slabs-code-size: 14px;
+  --slabs-caption: 12px;
+  --slabs-label-tracking: 0.12em;   /* Plex Mono 600 capitals */
+  --slabs-nav: 15px;                /* Space Grotesk 500 */
+
+  /* Line heights (p. 34) */
+  --slabs-lh-ui: 1.5;
+  --slabs-lh-reading: 1.6;
+  --slabs-lh-code: 1.55;
+
+  /* Layout (p. 31) */
+  --slabs-content-max: 1200px;      /* measured in the frame: the window minus the side band */
+  --slabs-reading-max: 864px;       /* about 80 characters, at least 72 % of the content area */
+  --slabs-side-band: 288px;
+  --slabs-gutter: 24px;
+  --slabs-gutter-mobile: 16px;
+  --slabs-space-base: 4px;          /* spacing in multiples of 4 px, from 4 to 96 px */
+  --slabs-space-max: 96px;
+  --slabs-radius-card: 6px;
+  --slabs-radius-control: 4px;
+  --slabs-header-logo: 32px;        /* logotype height in the header */
+  /* Breakpoints, where the layout stops fitting: 640px and 1024px with a header, about 1100px with a side band */
+
+  /* Lines and focus (p. 33) */
+  --slabs-link-underline: 1px;      /* Schiste; 2px orange on hover and active */
+  --slabs-focus-width: 2px;         /* Anthracite on light grounds, orange on dark */
+  --slabs-focus-offset: 2px;
+  --slabs-field-border: 1px;        /* Schiste; 2px Brique in error */
+
+  /* Icons (Icones library) */
+  --slabs-icon-size: 24px;
+  --slabs-icon-stroke: 2px;
+  /* --slabs-icon-accent: #ED6A20;  set on an icon or a parent to turn the accent on */
+}
