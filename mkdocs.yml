@@ -77,8 +77,16 @@ plugins:
       enable_creation_date: false
       type: date
       fallback_to_build_date: true
+  # GitBook published the console commands under console-commands/ and the benchmarks under benchmarks/;
+  # the directories are console-command/ and benchmark/.
   - redirects:
-      redirect_maps: {}
+      redirect_maps:
+        console-commands/console.md: console-command/console.md
+        console-commands/standalone.md: console-command/standalone.md
+        console-commands/phar-application.md: console-command/phar-application.md
+        console-commands/symfony-console.md: console-command/symfony-console.md
+        benchmarks/benchmarks.md: benchmark/benchmarks.md
+        benchmarks/result-table.md: benchmark/result-table.md
 
 markdown_extensions:
   - abbr
