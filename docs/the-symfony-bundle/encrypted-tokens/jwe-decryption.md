@@ -19,9 +19,9 @@ $jweDecrypter = $jweDecrypterFactory->create(['HS256']);
 
 You can now use the JWEDecrypter as explained in the JWE Creation section.
 
-{% hint style="info" %}
-Reminder: it is important to check the token headers. See the checker section of this documentation.
-{% endhint %}
+!!! info
+
+    Reminder: it is important to check the token headers. See the checker section of this documentation.
 
 ## JWE Decrypter As Service
 

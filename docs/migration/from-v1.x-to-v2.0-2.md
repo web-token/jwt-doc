@@ -16,9 +16,9 @@ Next, you have to verify you don’t use any deprecated class, interface, method
 
 The following packages are deprecated. Please install `web-token/jwt-library` or `web-token/jwt-experimental` instead.
 
-{% hint style="info" %}
-In addtion to the new library or experimental packages, you may need to require third party dependencies such as `ext-sodium`, `ext-openssl` or .
-{% endhint %}
+!!! info
+
+    In addtion to the new library or experimental packages, you may need to require third party dependencies such as `ext-sodium`, `ext-openssl` or .
 
 * `web-token/jwt-util-ecc`
 * `web-token/jwt-key-mgmt`
@@ -63,6 +63,6 @@ It is now time to upgrade the libraries. In your composer.json, change all `web-
 
 You can also update all other dependencies if needed. You can list upgradable libraries by calling `composer outdated`. This step is not mandatory, but highly recommended.
 
-{% hint style="success" %}
-[Rector](https://github.com/rectorphp/rector) is a very nice tool from code upgrade. We highly recommend it.
-{% endhint %}
+!!! success
+
+    [Rector](https://github.com/rectorphp/rector) is a very nice tool from code upgrade. We highly recommend it.

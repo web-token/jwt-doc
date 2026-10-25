@@ -6,16 +6,15 @@ This framework provides a Symfony bundle that will help you to use the component
 
 The bundle is automatically detected when Flex is available.
 
-{% hint style="info" %}
-As the recipes are third party ones not officially supported by Symfony, you will be asked to execute the recipe or not. When applied, the recipes will prompt a message such as `Web Token Framework is ready.`
-{% endhint %}
+!!! info
+
+    As the recipes are third party ones not officially supported by Symfony, you will be asked to execute the recipe or not. When applied, the recipes will prompt a message such as `Web Token Framework is ready.`
 
 ## Without Symfony Flex
 
 If you don't use Symfony Flex, you must register the bundle manually.
 
-{% code title="config/bundles.php" %}
-```php
+```php title="config/bundles.php"
 <?php
 
 return [
@@ -24,7 +23,6 @@ return [
 ];
 
 ```
-{% endcode %}
 
 ## Bundle Features
 

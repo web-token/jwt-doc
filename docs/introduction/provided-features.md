@@ -19,9 +19,9 @@ The [detached payload](../advanced-topics/signed-tokens-and/detached-payload.md)
 
 ## Supported Compression Methods
 
-{% hint style="danger" %}
-Compression is not recommended. For 4.0.0, the support of compression is no longer available. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
-{% endhint %}
+!!! danger
+
+    Compression is not recommended. For 4.0.0, the support of compression is no longer available. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
 
 ## Supported Key Types (JWK)
 
@@ -34,9 +34,9 @@ Compression is not recommended. For 4.0.0, the support of compression is no long
 
 JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/html/rfc7638)).
 
-{% hint style="info" %}
-A `none` key type for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
-{% endhint %}
+!!! info
+
+    A `none` key type for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
 
 ## Key Sets (JWKSet)
 
@@ -46,47 +46,47 @@ JWKSet is fully supported.
 
 | Signature Algorithm                  | Supported | Comment                                                                                                    |
 | ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------- |
-| <p>HS256</p><p>HS384</p><p>HS512</p> | YES       |                                                                                                            |
-| <p>ES256</p><p>ES384</p><p>ES512</p> | YES       |                                                                                                            |
-| <p>RS256</p><p>RS384</p><p>RS512</p> | YES       |                                                                                                            |
-| <p>PS256</p><p>PS384</p><p>PS512</p> | YES       | <mark style="color:orange;">GMP or BCMath extension is highly recommended</mark>                           |
-| EdDSA with Ed25519 curve             | YES       | <mark style="color:orange;">SODIUM extension is required</mark>                                            |
+|HS256<br>HS384<br>HS512| YES       |                                                                                                            |
+|ES256<br>ES384<br>ES512| YES       |                                                                                                            |
+|RS256<br>RS384<br>RS512| YES       |                                                                                                            |
+|PS256<br>PS384<br>PS512| YES       | GMP or BCMath extension is highly recommended                           |
+| EdDSA with Ed25519 curve             | YES       | SODIUM extension is required                                            |
 | EdDSA with Ed448 curve               | NO        | No extension or built-in implementation available                                                          |
-| none                                 | YES       | <mark style="color:red;">**Please note that this is not a secured algorithm. USE IT WITH CAUTION!**</mark> |
+| none                                 | YES       | **Please note that this is not a secured algorithm. USE IT WITH CAUTION!** |
 
-{% hint style="info" %}
-Other signature algorithms like `RS1`, `HS1` or `HS256/64` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
-{% endhint %}
+!!! info
+
+    Other signature algorithms like `RS1`, `HS1` or `HS256/64` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
 
 ## Supported Key Encryption Algorithms
 
 | Key Encryption Algorithm                                                      | Supported |                                                                                                                                                                  |
 | ----------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | dir                                                                           | YES       |                                                                                                                                                                  |
-| <p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256</p>                               | YES       | <p><mark style="color:orange;">GMP or BCMath extension is highly recommended</mark><br><br><mark style="color:red;"><strong>Read note below!</strong></mark></p> |
-| <p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
-| <p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p> | YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
-| <p>A128KW</p><p>A192KW</p><p>A256KW</p>                                       | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| <p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p>   | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| <p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p>                              | YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
-| ECDH-ES with X25519 curve                                                     | YES       | <mark style="color:orange;">SODIUM extension is required</mark>                                                                                                  |
+|RSA1_5<br>RSA-OAEP<br>RSA-OAEP-256| YES       |GMP or BCMath extension is highly recommended<br><br><strong>Read note below!</strong>|
+|ECDH-ES<br>ECDH-ES+A128KW<br>ECDH-ES+A192KW<br>ECDH-ES+A256KW| YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
+|ECDH-SS<br>ECDH-SS+A128KW<br>ECDH-SS+A192KW<br>ECDH-SS+A256KW| YES       | `spomky-labs/aes-key-wrap` is required for \*KW algorithms                                                                                                       |
+|A128KW<br>A192KW<br>A256KW| YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
+|PBES2-HS256+A128KW<br>PBES2-HS384+A192KW<br>PBES2-HS512+A256KW| YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
+|A128GCMKW<br>A192GCMKW<br>A256GCMKW| YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
+| ECDH-ES with X25519 curve                                                     | YES       | SODIUM extension is required                                                                                                  |
 | ECDH-ES with X448 curve                                                       | NO        | No extension or built-in implementation available                                                                                                                |
 
-{% hint style="info" %}
-Other encryption algorithms like `RSA-OEAP-384` or `ChaCha20-Poly1305` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
-{% endhint %}
+!!! info
 
-{% hint style="danger" %}
-The algorithms `RSA1_5` and `RSA-OAEP` are now deprecated. Please use with caution.
-{% endhint %}
+    Other encryption algorithms like `RSA-OEAP-384` or `ChaCha20-Poly1305` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
+
+!!! danger
+
+    The algorithms `RSA1_5` and `RSA-OAEP` are now deprecated. Please use with caution.
 
 ## Supported Content Encryption Algorithms
 
 | Content Encryption Algorithm                                 | Supported |
 | ------------------------------------------------------------ | --------- |
-| <p>A128CBC+HS256</p><p>A192CBC+HS384</p><p>A256CBC+HS512</p> | YES       |
-| <p>A128GCM</p><p>A192GCM</p><p>A256GCM</p>                   | YES       |
+|A128CBC+HS256<br>A192CBC+HS384<br>A256CBC+HS512| YES       |
+|A128GCM<br>A192GCM<br>A256GCM| YES       |
 
-{% hint style="info" %}
-Other encryption algorithms like `A128CTR`, `A192CTR` and `A256CTR` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
-{% endhint %}
+!!! info
+
+    Other encryption algorithms like `A128CTR`, `A192CTR` and `A256CTR` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems

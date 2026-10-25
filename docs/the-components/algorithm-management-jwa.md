@@ -19,9 +19,9 @@ $algorithmManager = new AlgorithmManager([
 ]);
 ```
 
-{% hint style="warning" %}
-It is not possible to set the same algorithm twice in the same algorithm manager.
-{% endhint %}
+!!! warning
+
+    It is not possible to set the same algorithm twice in the same algorithm manager.
 
 ## Algorithm Manager Factory
 

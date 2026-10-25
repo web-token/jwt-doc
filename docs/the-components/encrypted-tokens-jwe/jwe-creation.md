@@ -30,9 +30,9 @@ $jweBuilder = new JWEBuilder(
 );
 ```
 
-{% hint style="danger" %}
-Compression is not recommended. Please avoid its use. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
-{% endhint %}
+!!! danger
+
+    Compression is not recommended. Please avoid its use. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
 
 Now let's create our first JWE object.
 

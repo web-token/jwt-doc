@@ -19,9 +19,9 @@ $jwsVerifier = $jwsVerifierFactory->create(['HS256']);
 
 You can now use the JWSVerifier as explained in the JWS Creation section.
 
-{% hint style="info" %}
-Reminder: it is important to check the token headers. See the checker section of this documentation.
-{% endhint %}
+!!! info
+
+    Reminder: it is important to check the token headers. See the checker section of this documentation.
 
 ## JWS Verifier As Service
 

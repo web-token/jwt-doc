@@ -26,9 +26,9 @@ $jwsVerifier = new JWSVerifier(
 
 Now we can deserialize the input we receive and check the signature using our key. We will continue with the data we got in the JWS creation section.
 
-{% hint style="danger" %}
-We do not check header parameters here, but it is very important to do it. This step is described in the [Header Checker section](../header-checker.md).
-{% endhint %}
+!!! danger
+
+    We do not check header parameters here, but it is very important to do it. This step is described in the [Header Checker section](../header-checker.md).
 
 ```php
 <?php

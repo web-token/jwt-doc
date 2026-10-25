@@ -8,9 +8,9 @@ You can create a JWKSet object using three static methods:
 
 Hereafter all methods available for a JWKSet object. The variable `$jwkset` is a valid JWKSet object.
 
-{% hint style="warning" %}
-Please note a JWKSet object is an immutable object. When you add keys, you get a new JWKSet object
-{% endhint %}
+!!! warning
+
+    Please note a JWKSet object is an immutable object. When you add keys, you get a new JWKSet object
 
 ```php
 <?php

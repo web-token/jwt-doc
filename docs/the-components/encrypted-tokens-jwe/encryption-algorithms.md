@@ -9,40 +9,54 @@ This framework comes with several encryption algorithms. These algorithms are in
 
 ### Key Encryption
 
-{% hint style="info" %}
-`spomky-labs/aes-key-wrap` is required for \*KW algorithms
-{% endhint %}
+!!! info
 
-<table><thead><tr><th width="247.89966436130516">Algorithm</th><th>Additional header parameter</th></tr></thead><tbody><tr><td><p>A128KW</p><p>A192KW</p><p>A256KW</p></td><td>No</td></tr><tr><td><p>A128GCMKW</p><p>A192GCMKW</p><p>A256GCMKW</p></td><td><code>iv</code>:  (initialization vector) this value is the base64url-encoded representation of the 96-bit IV value used for the key encryption operation.<br><code>tag</code>: (authentication tag) the value is the base64url-encoded representation of the 128-bit Authentication Tag value resulting from the key encryption operation.</td></tr><tr><td>dir</td><td>No</td></tr><tr><td><p>ECDH-ES</p><p>ECDH-ES+A128KW</p><p>ECDH-ES+A192KW</p><p>ECDH-ES+A256KW</p></td><td><code>epk</code>: (ephemeral public key) value created by the originator.</td></tr><tr><td><p>ECDH-SS</p><p>ECDH-SS+A128KW</p><p>ECDH-SS+A192KW</p><p>ECDH-SS+A256KW</p></td><td>No</td></tr><tr><td><p>PBES2-HS256+A128KW</p><p>PBES2-HS384+A192KW</p><p>PBES2-HS512+A256KW</p></td><td><code>p2s</code>: (PBES2 salt input) encodes a Salt Input value, which is used as part of the PBKDF2 salt value.<br><code>p2c</code>: (PBES2 count) contains the PBKDF2 iteration count, represented as a positive JSON integer.</td></tr><tr><td><p>RSA1_5</p><p>RSA-OAEP</p><p>RSA-OAEP-256 </p></td><td></td></tr></tbody></table>
+    `spomky-labs/aes-key-wrap` is required for \*KW algorithms
 
-{% hint style="warning" %}
-Please note that the additional header parameters **MUST** be present and **MUST** be understood. Depending on the algorithm you use, you may be required to check headers BEFORE the decryption operation. Please create a [custom Header Checker](../header-checker.md) for theses parameters.
-{% endhint %}
+| Algorithm | Additional header parameter |
+|---|---|
+| A128KW<br>A192KW<br>A256KW | No |
+| A128GCMKW<br>A192GCMKW<br>A256GCMKW | `iv`:  (initialization vector) this value is the base64url-encoded representation of the 96-bit IV value used for the key encryption operation.<br>`tag`: (authentication tag) the value is the base64url-encoded representation of the 128-bit Authentication Tag value resulting from the key encryption operation. |
+| dir | No |
+| ECDH-ES<br>ECDH-ES+A128KW<br>ECDH-ES+A192KW<br>ECDH-ES+A256KW | `epk`: (ephemeral public key) value created by the originator. |
+| ECDH-SS<br>ECDH-SS+A128KW<br>ECDH-SS+A192KW<br>ECDH-SS+A256KW | No |
+| PBES2-HS256+A128KW<br>PBES2-HS384+A192KW<br>PBES2-HS512+A256KW | `p2s`: (PBES2 salt input) encodes a Salt Input value, which is used as part of the PBKDF2 salt value.<br>`p2c`: (PBES2 count) contains the PBKDF2 iteration count, represented as a positive JSON integer. |
+| RSA1_5<br>RSA-OAEP<br>RSA-OAEP-256 |  |
+
+!!! warning
+
+    Please note that the additional header parameters **MUST** be present and **MUST** be understood. Depending on the algorithm you use, you may be required to check headers BEFORE the decryption operation. Please create a [custom Header Checker](../header-checker.md) for theses parameters.
 
 ### Content Encryption
 
 | Algorithm                                                    | Package                                     |
 | ------------------------------------------------------------ | ------------------------------------------- |
-| <p>A128GCM</p><p>A192GCM</p><p>A256GCM</p>                   | `web-token/jwt-encryption-algorithm-aesgcm` |
-| <p>A128CBC-HS256</p><p>A192CBC-HS384</p><p>A256CBC-HS512</p> | `web-token/jwt-encryption-algorithm-aescbc` |
+|A128GCM<br>A192GCM<br>A256GCM| `web-token/jwt-encryption-algorithm-aesgcm` |
+|A128CBC-HS256<br>A192CBC-HS384<br>A256CBC-HS512| `web-token/jwt-encryption-algorithm-aescbc` |
 
-{% hint style="danger" %}
-The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack).
+!!! danger
 
-The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
-{% endhint %}
+    The algorithm `RSA1_5` is deprecated due to known [security vulnerability](https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack).
+
+    The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
 
 ## Experimental Algorithms
 
-The following algorithms are experimental and must not be used in production unless you know what you are doing. <mark style="color:red;">They are proposed for testing purpose only.</mark>
+The following algorithms are experimental and must not be used in production unless you know what you are doing. **They are proposed for testing purpose only.**
 
 ### Key Encryption
 
-<table><thead><tr><th width="225">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>A128CTR</p><p>A192CTR</p><p>A256CTR</p></td><td>AES CTR based encryption</td></tr><tr><td>Chacha20+Poly1305</td><td><em>Please note that this algorithm requires OpenSSL 1.1</em></td></tr><tr><td><p>RSA-OAEP-384</p><p>RSA-OAEP-512</p></td><td>Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions</td></tr></tbody></table>
+| Algorithm | Description |
+|---|---|
+| A128CTR<br>A192CTR<br>A256CTR | AES CTR based encryption |
+| Chacha20+Poly1305 | *Please note that this algorithm requires OpenSSL 1.1* |
+| RSA-OAEP-384<br>RSA-OAEP-512 | Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions |
 
 ### Content Encryption
 
-<table><thead><tr><th width="226">Algorithm</th><th>Description</th></tr></thead><tbody><tr><td><p>A128CCM-16-128</p><p>A128CCM-16-64</p><p>A128CCM-64-128</p><p>A128CCM-64-64</p><p></p><p>A256CCM-16-128</p><p>A256CCM-16-64</p><p>A256CCM-64-128</p><p>A256CCM-64-64</p></td><td>AES-CCM based algorithms</td></tr></tbody></table>
+| Algorithm | Description |
+|---|---|
+| A128CCM-16-128<br>A128CCM-16-64<br>A128CCM-64-128<br>A128CCM-64-64<br>A256CCM-16-128<br>A256CCM-16-64<br>A256CCM-64-128<br>A256CCM-64-64 | AES-CCM based algorithms |
 
 ## How To Use
 

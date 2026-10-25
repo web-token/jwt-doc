@@ -2,8 +2,7 @@
 
 ## JWS Creation
 
-{% code lineNumbers="true" %}
-```php
+```php linenums="1"
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
@@ -32,7 +31,6 @@ $algorithmManager = new AlgorithmManager([new ES256()]);
 
 $jwsBuilder = new JWSBuilder($algorithmManager);
 
-
 $jws = $jwsBuilder->create()
     ->withPayload($payload)
     ->addSignature($jwk, ['alg' => 'ES256', 'kid' => 'my-key-id'])
@@ -43,12 +41,10 @@ $token = $serializer->serialize($jws);
 
 var_dump($token);
 ```
-{% endcode %}
 
 ## JWS Loading and Verification
 
-{% code lineNumbers="true" %}
-```php
+```php linenums="1"
 <?php
 
 use Jose\Component\Checker\AlgorithmChecker;
@@ -110,12 +106,10 @@ $claimCheckerManager = new ClaimCheckerManager([
 
 var_dump('Payload:', $payload);
 ```
-{% endcode %}
 
 ## JWE Creation
 
-{% code lineNumbers="true" %}
-```php
+```php linenums="1"
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
@@ -145,7 +139,6 @@ $algorithmManager = new AlgorithmManager([new ECDHES(), new A128GCM()]);
 
 $jweBuilder = new JWEBuilder($algorithmManager);
 
-
 $jwe = $jweBuilder->create()
     ->withPayload($payload)
     ->withSharedProtectedHeader(['alg' => 'ECDH-ES', 'enc' => 'A128GCM'])
@@ -157,12 +150,10 @@ $token = $serializer->serialize($jwe, 0);
 
 var_dump($token);
 ```
-{% endcode %}
 
 ## JWE Loading and Verification
 
-{% code lineNumbers="true" %}
-```php
+```php linenums="1"
 <?php
 
 use Jose\Component\Checker\AlgorithmChecker;
@@ -222,4 +213,3 @@ $claimCheckerManager = new ClaimCheckerManager([
 
 var_dump('Payload:', $payload);
 ```
-{% endcode %}

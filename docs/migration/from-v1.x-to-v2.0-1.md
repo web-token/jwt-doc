@@ -26,9 +26,9 @@ It is highly recommended to declare this server within your application `compose
 composer config --json extra.symfony.endpoint '["https://api.github.com/repos/web-token/recipes/contents/index.json?ref=main", "flex://defaults"]'
 ```
 
-{% hint style="info" %}
-You can adapt this command line depending on the other Flex servers you are using.
-{% endhint %}
+!!! info
+
+    You can adapt this command line depending on the other Flex servers you are using.
 
 ## Upgrade the dependencies and the libraries
 
@@ -40,6 +40,6 @@ It is now time to upgrade the libraries. In your composer.json, change all `web-
 
 You can also update all other dependencies if needed. You can list upgradable libraries by calling `composer outdated`. This step is not mandatory, but highly recommended.
 
-{% hint style="success" %}
-[Rector](https://github.com/rectorphp/rector) is a very nice tool from code upgrade. We highly recommend it.
-{% endhint %}
+!!! success
+
+    [Rector](https://github.com/rectorphp/rector) is a very nice tool from code upgrade. We highly recommend it.

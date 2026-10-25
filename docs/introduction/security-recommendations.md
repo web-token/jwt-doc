@@ -93,9 +93,9 @@ When you receive a token, the following steps should be followed in this order. 
    2. Verify the signature (JWS) or decrypt the token (JWE)
    3. Check the claims in the payload (if any)
 
-{% hint style="warning" %}
-Regarding header verification, it is important to verify **ALL** of them. There are known vulnerabilities on e.g. algorithm swapping (`alg` changed to `none`) or Denial Of Service (`p2c` set to a very high value for overloading the server).
-{% endhint %}
+!!! warning
+
+    Regarding header verification, it is important to verify **ALL** of them. There are known vulnerabilities on e.g. algorithm swapping (`alg` changed to `none`) or Denial Of Service (`p2c` set to a very high value for overloading the server).
 
 ### Unserialize The Token
 

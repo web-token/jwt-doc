@@ -7,9 +7,9 @@ You can create a JWK object using two static methods:
 
 Hereafter all methods available for a JWK object. The variable `$jwk` is a valid JWK object.
 
-{% hint style="warning" %}
-Please note a JWK object is an immutable object. If you change a value using a setter, it will return a new object.
-{% endhint %}
+!!! warning
+
+    Please note a JWK object is an immutable object. If you change a value using a setter, it will return a new object.
 
 ```php
 <?php
@@ -43,9 +43,9 @@ This framework is able to create private and public keys on the fly using the `J
   * `EC` : Elliptic Curve key pair
   * `OKP`: Octet key pair
 
-{% hint style="info" %}
-The `none` algorithm needs a key of type `none`. This is a specific key type that must only be used with this algorithm.
-{% endhint %}
+!!! info
+
+    The `none` algorithm needs a key of type `none`. This is a specific key type that must only be used with this algorithm.
 
 ### Octet String
 
@@ -223,6 +223,6 @@ $key = JWKFactory::createFromCertificateFile(
 );
 ```
 
-{% hint style="info" %}
-Please note that X.509 certificates only contains public keys.
-{% endhint %}
+!!! info
+
+    Please note that X.509 certificates only contains public keys.

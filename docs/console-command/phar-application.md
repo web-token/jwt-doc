@@ -12,6 +12,6 @@ To use it, just execute the following line:
 ./jose.phar
 ```
 
-{% hint style="info" %}
-You may need to set it as executable: `chmod +x jose.phar`
-{% endhint %}
+!!! info
+
+    You may need to set it as executable: `chmod +x jose.phar`

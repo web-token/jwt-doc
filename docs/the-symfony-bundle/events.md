@@ -33,8 +33,7 @@ All events can be found in the class `Jose\Bundle\JoseFramework\Event\Events`.
 
 ## Example:
 
-{% code title="App\EventSubscriber\JwsSubscriber.php" %}
-```php
+```php title="App\EventSubscriber\JwsSubscriber.php"
 <?php
 
 declare(strict_types=1);
@@ -80,4 +79,3 @@ class JwsSubscriber implements EventSubscriberInterface
     }
 }
 ```
-{% endcode %}

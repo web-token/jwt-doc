@@ -6,9 +6,9 @@ JSON Web Tokens can be used to transport any kind of data. They are mainly used 
 
 In the following example, we will create a manager able to check the `aud` (Audience), `iat` (Issued At), `nbf` (Not Before) and `exp` (Expiration) claims.
 
-{% hint style="info" %}
-Time-based checkers require a [PSR-20 clock](https://www.php-fig.org/psr/psr-20/).
-{% endhint %}
+!!! info
+
+    Time-based checkers require a [PSR-20 clock](https://www.php-fig.org/psr/psr-20/).
 
 ```php
 <?php

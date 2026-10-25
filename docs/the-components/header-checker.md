@@ -2,23 +2,23 @@
 
 When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
 
-{% hint style="warning" %}
-This is a strong recommendation are there are known vulnerabilities on tokens that are processed without header verification.
-{% endhint %}
+!!! warning
 
-{% hint style="info" %}
-Please note that some algorithms may use additional header parameters. Please read carefully the details on the [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithms page.
-{% endhint %}
+    This is a strong recommendation are there are known vulnerabilities on tokens that are processed without header verification.
+
+!!! info
+
+    Please note that some algorithms may use additional header parameters. Please read carefully the details on the [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithms page.
 
 The header parameters are checked by a Header Checker Manager. This manager can contain several header checkers.
 
-{% hint style="success" %}
-The header parameter `crit` (critical) is always checked.
-{% endhint %}
+!!! success
 
-{% hint style="info" %}
-Even if the cypher process will check the `alg`/`enc` header parameters, it is interesting to check them before to reject tokens earlier.&#x20;
-{% endhint %}
+    The header parameter `crit` (critical) is always checked.
+
+!!! info
+
+    Even if the cypher process will check the `alg`/`enc` header parameters, it is interesting to check them before to reject tokens earlier.&#x20;
 
 ## Header Checker Manager
 
@@ -66,11 +66,21 @@ $headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
 
 The library provides several header checker classes you can instantiate and use at will. They are all located in the namespace `Jose\Component\Checker`.
 
-{% hint style="info" %}
-For time-based parameter checker classes, a PSR-20 clock object is mandatory.
-{% endhint %}
+!!! info
 
-<table><thead><tr><th width="296">Class</th><th width="314">Header</th><th>Time-based</th></tr></thead><tbody><tr><td>AlgorithmChecker</td><td><code>alg</code></td><td>No</td></tr><tr><td>AudienceChecker</td><td><code>aud</code><br>This is a replicated claim as per the <a href="https://tools.ietf.org/html/rfc7519#section-5.3">RFC7516 section 5.3</a></td><td>No</td></tr><tr><td>ExpirationTimeChecker</td><td><code>exp</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>IssuedAtChecker</td><td><code>iat</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>IssuerChecker</td><td><code>iss</code></td><td>No</td></tr><tr><td>NotBeforeChecker</td><td><code>nbf</code></td><td><mark style="color:red;">Yes</mark></td></tr><tr><td>UnencodedPayloadChecker</td><td><code>b64</code><br>See <a href="../advanced-topics/signed-tokens-and/unencoded-payload.md">unencoded payload</a> for more information.</td><td>No</td></tr><tr><td>CallableChecker</td><td>Generic object that can execute a callable for checking a particular parameter</td><td>No</td></tr><tr><td>IsEqualChecker</td><td>Generic object that can compare a particular parameter to a predefined value</td><td>No</td></tr></tbody></table>
+    For time-based parameter checker classes, a PSR-20 clock object is mandatory.
+
+| Class | Header | Time-based |
+|---|---|---|
+| AlgorithmChecker | `alg` | No |
+| AudienceChecker | `aud`<br>This is a replicated claim as per the [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3) | No |
+| ExpirationTimeChecker | `exp` | **Yes** |
+| IssuedAtChecker | `iat` | **Yes** |
+| IssuerChecker | `iss` | No |
+| NotBeforeChecker | `nbf` | **Yes** |
+| UnencodedPayloadChecker | `b64`<br>See [unencoded payload](../advanced-topics/signed-tokens-and/unencoded-payload.md) for more information. | No |
+| CallableChecker | Generic object that can execute a callable for checking a particular parameter | No |
+| IsEqualChecker | Generic object that can compare a particular parameter to a predefined value | No |
 
 ## Header Checker Manager Factory
 
@@ -100,8 +110,7 @@ With the previous examples, we will only check the `alg` (algorithm) header para
 
 If you need, you can create you own header checker. It must implement the interface `Jose\Component\Checker\HeaderChecker`. In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.
 
-{% code title="Acme\Checker\CustomChecker.php" %}
-```php
+```php title="Acme\Checker\CustomChecker.php"
 <?php
 
 namespace Acme\Checker;
@@ -131,4 +140,3 @@ final class CustomChecker implements HeaderChecker
     }
 }
 ```
-{% endcode %}

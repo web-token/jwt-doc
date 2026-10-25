@@ -35,9 +35,9 @@ $jweDecrypter = new JWEDecrypter(
 
 Now we can try to deserialize and decrypt the input we receive. We will continue with the result we got during the JWE creation section.
 
-{% hint style="danger" %}
-We do not check header parameters here, but it is very important to do it. This step is described in the [Header Checker](../header-checker.md) section.
-{% endhint %}
+!!! danger
+
+    We do not check header parameters here, but it is very important to do it. This step is described in the [Header Checker](../header-checker.md) section.
 
 ```php
 <?php
