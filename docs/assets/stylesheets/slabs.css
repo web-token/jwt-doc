@@ -323,11 +323,11 @@ body {
 
 /* ---------------------------------------------------------------- Layout (p. 31) */
 
-/* The navigation takes the width of the side band, 288 px: the 168 px the guidelines leave beside the
-   reading column broke a title in two on most pages. The contents of the page keep those 168 px, and the
-   reading column its 864 px. */
+/* The navigation and the contents of the page take the width of the side band, 288 px each: the 168 px
+   the guidelines leave beside the reading column broke a title in two on most pages. The reading column
+   keeps its 864 px. */
 .md-grid {
-  max-width: calc(var(--slabs-side-band) + var(--slabs-reading-max) + 168px + 3 * var(--slabs-gutter));
+  max-width: calc(2 * var(--slabs-side-band) + var(--slabs-reading-max) + 2 * var(--slabs-gutter));
 }
 
 @media screen and (min-width: 76.25em) {
@@ -336,7 +336,7 @@ body {
   }
 
   .md-sidebar--secondary {
-    width: calc(168px + var(--slabs-gutter));
+    width: var(--slabs-side-band);
   }
 }
 
