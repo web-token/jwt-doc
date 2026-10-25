@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{#-
+  The favicons and the share image of the design kit (4-Web/icones, 4-Web/partage). The SVG favicon is
+  theme.favicon; the ICO and the Apple touch icon complete it.
+-#}
+{% block extrahead %}
+  <link rel="icon" href="{{ 'assets/brand/favicon.ico' | url }}" sizes="any">
+  <link rel="apple-touch-icon" href="{{ 'assets/brand/apple-touch-icon.png' | url }}">
+  <link rel="preload" href="{{ 'assets/fonts/SpaceGrotesk-Variable.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <meta name="theme-color" content="#333334">
+  {% set title = (page.title ~ " · " ~ config.site_name) if page and page.title and not page.is_homepage else config.site_name %}
+  {% set description = (page.meta.description if page and page.meta and page.meta.description else config.site_description) %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  {% if page and page.canonical_url %}<meta property="og:url" content="{{ page.canonical_url }}">{% endif %}
+  <meta property="og:image" content="{{ config.site_url }}assets/brand/og-slabs-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Slabs. Security you can build on.">
+  <meta name="twitter:card" content="summary_large_image">
+{% endblock %}
