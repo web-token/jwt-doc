@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Page not found · JWT Framework</title>
+  <script>
+    // GitHub Pages answers every missing path of the domain with this page. A path that does not start with
+    // a published version is an address of the former GitBook site, which had no version in its URLs: it
+    // is sent to the same page of the latest version, or to its home page when that page does not exist
+    // there any more. A path inside a version that does not exist stays here and says so.
+    //
+    // A GitBook variant served under its own prefix ("/v4.5/…") is listed in VARIANTS, with the version it
+    // became. A variant whose content never reached a branch goes to the latest version.
+    (function () {
+      var VARIANTS = { 'v4.3': '4.3', 'v4.1': '4.1', 'v4.0': '4.0', 'v3.3-1': 'latest', 'v3.0-1': 'latest', '3.2': 'latest', '2.x': 'latest', '1.x': 'latest' };
+      var path = location.pathname.replace(/\/+$/, '');
+      var first = path.split('/')[1] || '';
+
+      function go(target) {
+        location.replace(target + location.search + location.hash);
+      }
+
+      // The same page in a version, if that version has it; its home page otherwise. GitHub Pages answers a
+      // missing page with the status 404, a redirect left by the site with 200.
+      function goTo(version, rest) {
+        var home = '/' + version + '/';
+        var target = '/' + version + rest + '/';
+        if (!rest) {
+          return go(home);
+        }
+        fetch(target, { method: 'HEAD' })
+          .then(function (response) { go(response.ok ? target : home); })
+          .catch(function () { go(target); });
+      }
+
+      fetch('/versions.json')
+        .then(function (response) { return response.ok ? response.json() : []; })
+        .catch(function () { return []; })
+        .then(function (versions) {
+          var published = ['latest'];
+          versions.forEach(function (v) { published.push(v.version); published = published.concat(v.aliases || []); });
+
+          if (published.indexOf(first) !== -1) {
+            document.documentElement.className = 'missing';
+            return;
+          }
+          if (Object.prototype.hasOwnProperty.call(VARIANTS, first)) {
+            var rest = path.slice(first.length + 1);
+            return goTo(VARIANTS[first], rest);
+          }
+          goTo('latest', path);
+        });
+    })();
+  </script>
+  <link rel="icon" href="/latest/assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" href="/latest/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/latest/assets/stylesheets/slabs-tokens.css">
+  <style>
+    /* The not found page of the Slabs guidelines (p. 32): the page title, one sentence, a search field and
+       three useful links. Its tokens and typefaces are those of the latest version of the site. */
+    @font-face { font-family: "Space Grotesk"; font-weight: 300 700; font-display: swap;
+                 src: url("/latest/assets/fonts/SpaceGrotesk-Variable.woff2") format("woff2"); }
+    :root { color-scheme: light; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--slabs-calcaire);
+           color: var(--slabs-anthracite); font: 400 var(--slabs-body)/var(--slabs-lh-ui) var(--slabs-font-sans); }
+    main { box-sizing: border-box; max-width: 480px; padding: 0 var(--slabs-gutter-mobile); width: 100%; }
+    img { display: block; height: auto; margin-bottom: 48px; max-width: 100%; width: 211px; }
+    h1 { font-size: var(--slabs-h3); font-weight: 600; line-height: var(--slabs-h3-lh); margin: 0 0 12px; }
+    h1::after { background: var(--slabs-orange); content: ""; display: block; height: calc(var(--slabs-h3) / 4);
+                margin-top: 12px; width: calc(var(--slabs-h3) * 1.2); }
+    p { margin: 0 0 16px; }
+    form { margin: 0 0 16px; }
+    label { display: block; font-weight: 500; margin-bottom: 4px; }
+    input { background: #ffffff; border: var(--slabs-field-border) solid var(--slabs-schiste);
+            border-radius: var(--slabs-radius-control); box-sizing: border-box; color: var(--slabs-anthracite);
+            font: inherit; padding: 8px 12px; width: 100%; }
+    :focus-visible { outline: var(--slabs-focus-width) solid var(--slabs-anthracite); outline-offset: var(--slabs-focus-offset); }
+    ul { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; margin: 0; padding: 0; }
+    a { color: var(--slabs-anthracite); text-decoration: underline var(--slabs-link-underline) var(--slabs-schiste);
+        text-underline-offset: 0.2em; }
+    a:hover, a:active { text-decoration-color: var(--slabs-orange); text-decoration-thickness: 2px; }
+    .found { display: none; }
+    html.missing .found { display: block; }
+    html.missing .moving { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="moving">Looking for this page in the latest version…</p>
+    <div class="found">
+      <a href="/" aria-label="JWT Framework, home"><img src="/latest/assets/brand/marque-jwt-framework-couleur.svg" alt="" width="211" height="32"></a>
+      <h1>Page not found</h1>
+      <p>This page has moved or never existed. Search, or start from one of these:</p>
+      <form action="/latest/" method="get" role="search">
+        <label for="q">Search the documentation</label>
+        <input id="q" name="q" type="search" autocomplete="off">
+      </form>
+      <ul>
+        <li><a href="/latest/">Home</a></li>
+        <li><a href="/latest/introduction/pre-requisite/">Prerequisites</a></li>
+        <li><a href="https://github.com/web-token/jwt-framework">GitHub</a></li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
