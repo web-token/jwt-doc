@@ -8,8 +8,8 @@
   <script>
     // GitHub Pages answers every missing path of the domain with this page. A path that does not start with
     // a published version is an address of the former GitBook site, which had no version in its URLs: it
-    // is sent to the same page of the latest version. A path inside a version that does not exist stays
-    // here and says so.
+    // is sent to the same page of the latest version, or to its home page when that page does not exist
+    // there any more. A path inside a version that does not exist stays here and says so.
     //
     // A GitBook variant served under its own prefix ("/v4.5/…") is listed in VARIANTS, with the version it
     // became. A variant whose content never reached a branch goes to the latest version.
@@ -20,6 +20,19 @@
 
       function go(target) {
         location.replace(target + location.search + location.hash);
+      }
+
+      // The same page in a version, if that version has it; its home page otherwise. GitHub Pages answers a
+      // missing page with the status 404, a redirect left by the site with 200.
+      function goTo(version, rest) {
+        var home = '/' + version + '/';
+        var target = '/' + version + rest + '/';
+        if (!rest) {
+          return go(home);
+        }
+        fetch(target, { method: 'HEAD' })
+          .then(function (response) { go(response.ok ? target : home); })
+          .catch(function () { go(target); });
       }
 
       fetch('/versions.json')
@@ -35,9 +48,9 @@
           }
           if (Object.prototype.hasOwnProperty.call(VARIANTS, first)) {
             var rest = path.slice(first.length + 1);
-            return go('/' + VARIANTS[first] + rest + '/');
+            return goTo(VARIANTS[first], rest);
           }
-          go('/latest' + path + '/');
+          goTo('latest', path);
         });
     })();
   </script>
