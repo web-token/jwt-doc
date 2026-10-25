@@ -1,0 +1,1120 @@
+/*
+ * The Slabs brand guidelines v2.0, applied to Material for MkDocs.
+ *
+ * Every value comes from slabs-tokens.css, loaded before this file and copied from the design kit as it is.
+ * This file only says which token goes where. The pages of the guidelines it follows are cited by number:
+ * p. 30 for documentation, p. 31 for the frame, p. 33 for components, p. 34 for reading and code.
+ *
+ * Two schemes. The light one is the guidelines: Calcaire ground, Anthracite text. The dark one keeps the
+ * same rules on an Anthracite ground, as the guidelines do for every dark surface: Calcaire text, Béton
+ * for what is secondary, notes on Calcaire clair (p. 19), focus in orange (p. 33).
+ *
+ * Signal orange marks the cursor of the logo, the slab of a note, the cursor of a primary button and the
+ * hovered link. Never text, never a background, never a tint.
+ */
+
+/* ---------------------------------------------------------------- Typefaces (p. 22) */
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  src: url("../fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+}
+
+/* IBM Plex Mono is served in 400 and 600 only on the web; the italic is for comments in code. */
+@font-face {
+  font-display: swap;
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/IBMPlexMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "IBM Plex Mono";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/IBMPlexMono-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/IBMPlexMono-SemiBold.woff2") format("woff2");
+}
+
+/* ---------------------------------------------------------------- The two schemes */
+
+[data-md-color-scheme="default"] {
+  --doc-ground: var(--slabs-calcaire);
+  --doc-raised: var(--slabs-calcaire-clair);
+  --doc-tint: var(--slabs-calcaire-ombre);
+  --doc-text: var(--slabs-anthracite);
+  --doc-text-secondary: var(--slabs-schiste);
+  --doc-rule: var(--slabs-platre);
+  --doc-rule-strong: var(--slabs-anthracite);
+  --doc-link-underline: var(--slabs-schiste);
+  --doc-focus: var(--slabs-anthracite);
+  --doc-code-edge: var(--slabs-anthracite);
+  --doc-field: #ffffff;
+  --doc-field-border: var(--slabs-schiste);
+  --doc-note-ground: var(--slabs-calcaire-ombre);
+}
+
+[data-md-color-scheme="slate"] {
+  --doc-ground: var(--slabs-anthracite);
+  --doc-raised: var(--slabs-anthracite);
+  --doc-tint: var(--slabs-schiste);
+  --doc-text: var(--slabs-calcaire);
+  --doc-text-secondary: var(--slabs-beton);
+  --doc-rule: var(--slabs-schiste);
+  --doc-rule-strong: var(--slabs-calcaire);
+  --doc-link-underline: var(--slabs-beton);
+  --doc-focus: var(--slabs-orange);
+  /* A code block is Anthracite on an Anthracite ground: a Schiste line keeps its edge. */
+  --doc-code-edge: var(--slabs-schiste);
+  --doc-field: var(--slabs-anthracite);
+  --doc-field-border: var(--slabs-beton);
+  --doc-note-ground: var(--slabs-calcaire-clair);
+}
+
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  --md-text-font: "Space Grotesk";
+  --md-code-font: "IBM Plex Mono";
+
+  --md-default-fg-color: var(--doc-text);
+  --md-default-fg-color--light: var(--doc-text-secondary);
+  --md-default-fg-color--lighter: var(--doc-text-secondary);
+  --md-default-fg-color--lightest: var(--doc-rule);
+  --md-default-bg-color: var(--doc-ground);
+  --md-default-bg-color--light: var(--doc-ground);
+  --md-default-bg-color--lighter: var(--doc-ground);
+  --md-default-bg-color--lightest: var(--doc-ground);
+
+  --md-primary-fg-color: var(--doc-text);
+  --md-primary-fg-color--light: var(--doc-text);
+  --md-primary-fg-color--dark: var(--doc-text);
+  --md-primary-bg-color: var(--doc-ground);
+  --md-primary-bg-color--light: var(--doc-text-secondary);
+  --md-accent-fg-color: var(--doc-text);
+  --md-accent-fg-color--transparent: var(--doc-tint);
+  --md-accent-bg-color: var(--doc-ground);
+
+  --md-typeset-color: var(--doc-text);
+  --md-typeset-a-color: var(--doc-text);
+  --md-typeset-mark-color: var(--doc-tint);
+  --md-typeset-table-color: var(--doc-rule);
+
+  --md-code-fg-color: var(--slabs-code-text);
+  --md-code-bg-color: var(--slabs-code-bg);
+  --md-code-hl-color: var(--slabs-schiste);
+  --md-code-hl-number-color: var(--slabs-code-string);
+  --md-code-hl-string-color: var(--slabs-code-string);
+  --md-code-hl-special-color: var(--slabs-code-string);
+  --md-code-hl-constant-color: var(--slabs-code-type);
+  --md-code-hl-name-color: var(--slabs-code-text);
+  --md-code-hl-function-color: var(--slabs-code-text);
+  --md-code-hl-keyword-color: var(--slabs-code-text);
+  --md-code-hl-operator-color: var(--slabs-code-text);
+  --md-code-hl-punctuation-color: var(--slabs-code-text);
+  --md-code-hl-variable-color: var(--slabs-code-text);
+  --md-code-hl-generic-color: var(--slabs-code-text);
+  --md-code-hl-comment-color: var(--slabs-code-comment);
+  --md-code-hl-color--light: var(--slabs-schiste);
+
+  --md-footer-fg-color: var(--slabs-calcaire);
+  --md-footer-fg-color--light: var(--slabs-beton);
+  --md-footer-fg-color--lighter: var(--slabs-beton);
+  --md-footer-bg-color: var(--slabs-anthracite);
+  --md-footer-bg-color--dark: var(--slabs-anthracite);
+
+  --md-shadow-z1: none;
+  --md-shadow-z2: none;
+  --md-shadow-z3: none;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--doc-ground);
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus, always visible (p. 33). */
+:focus-visible,
+.md-typeset :focus-visible {
+  outline: var(--slabs-focus-width) solid var(--doc-focus);
+  outline-offset: var(--slabs-focus-offset);
+}
+
+/* ---------------------------------------------------------------- Header (p. 31) */
+
+.md-header,
+.md-header--shadow {
+  background-color: var(--doc-raised);
+  border-bottom: 1px solid var(--doc-rule);
+  box-shadow: none;
+  color: var(--doc-text);
+}
+
+/* The logo, 32 px high: the project mark, or the Slabs logotype for a project that has none yet. The
+   colour version on light grounds, the reversed one on dark. */
+.md-header__button.md-logo {
+  margin: 0 0 0 var(--slabs-gutter-mobile);
+  padding: 0;
+}
+
+.md-logo .sl-logo,
+.md-header__button.md-logo img {
+  display: block;
+  height: var(--slabs-header-logo);
+  width: auto;
+}
+
+/* In the drawer of a narrow screen, the mark takes the width of the drawer. */
+.md-nav__button.md-logo .sl-logo {
+  height: auto;
+  max-width: 100%;
+}
+
+[data-md-color-scheme="default"] .sl-logo--dark,
+[data-md-color-scheme="slate"] .sl-logo--light {
+  display: none !important;
+}
+
+/* The title of the page, after a rule, once the reader has scrolled past its heading. A project mark
+   already names the project: on a screen wide enough to show it, the name is not written a second time.
+   Beside the Slabs logotype, the name stays. */
+.md-header__title {
+  font-size: var(--slabs-nav);
+  font-weight: 600;
+  margin-left: var(--slabs-gutter);
+}
+
+.md-header__title .md-header__ellipsis {
+  border-left: 1px solid var(--doc-rule);
+  padding-left: var(--slabs-gutter);
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-header:has(.sl-logo--mark) .md-header__title:not(.md-header__title--active) .md-header__ellipsis {
+    border-left-color: transparent;
+  }
+
+  .md-header:has(.sl-logo--mark) .md-header__title .md-header__topic:first-child {
+    visibility: hidden;
+  }
+}
+
+.md-header__button,
+.md-header__topic,
+.md-header__option,
+.md-header__source {
+  color: var(--doc-text);
+}
+
+.md-header__source {
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+}
+
+.md-source__repository,
+.md-source__facts {
+  font-family: var(--md-code-font-family);
+}
+
+/* The search field is a field (p. 33): the ground of a field, a 1 px border, the radius of a control. */
+.md-search__form {
+  background-color: var(--doc-field);
+  border: var(--slabs-field-border) solid var(--doc-field-border);
+  border-radius: var(--slabs-radius-control);
+  box-shadow: none;
+}
+
+.md-search__form:hover {
+  background-color: var(--doc-field);
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form {
+  background-color: var(--doc-field);
+  border-radius: var(--slabs-radius-control) var(--slabs-radius-control) 0 0;
+}
+
+.md-search__input,
+.md-search__icon,
+.md-search__options .md-icon {
+  color: var(--doc-text);
+}
+
+.md-search__input {
+  font-size: var(--slabs-body);
+}
+
+.md-search__input::placeholder {
+  color: var(--doc-text-secondary);
+}
+
+.md-search__output {
+  border: var(--slabs-field-border) solid var(--doc-field-border);
+  border-radius: 0 0 var(--slabs-radius-control) var(--slabs-radius-control);
+  border-top: 0;
+}
+
+.md-search__scrollwrap,
+.md-search-result {
+  background-color: var(--doc-raised);
+}
+
+.md-search-result__meta {
+  background-color: var(--doc-tint);
+  color: var(--doc-text-secondary);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+}
+
+.md-search-result__link:is(:focus, :hover) {
+  background-color: var(--doc-tint);
+}
+
+.md-search-result mark {
+  color: var(--doc-text);
+  text-decoration: underline var(--slabs-orange) 2px;
+  text-underline-offset: 0.2em;
+}
+
+/* The version is a control: Plex Mono, a 1 px rule, the radius of a control. */
+.md-version {
+  font-family: var(--md-code-font-family);
+}
+
+.md-version__current {
+  border: 1px solid var(--doc-rule);
+  border-radius: var(--slabs-radius-control);
+  color: var(--doc-text-secondary);
+  font-size: var(--slabs-caption);
+  margin-left: var(--slabs-gutter-mobile);
+  padding: 0 calc(var(--slabs-space-base) * 2);
+}
+
+.md-version__current::after {
+  background-color: var(--doc-text-secondary);
+}
+
+.md-version__list {
+  background-color: var(--doc-raised);
+  border: 1px solid var(--doc-rule);
+  border-radius: var(--slabs-radius-card);
+  box-shadow: none;
+}
+
+.md-version__link {
+  font-size: var(--slabs-caption);
+}
+
+.md-version__link:is(:focus, :hover) {
+  background-color: var(--doc-tint);
+  color: var(--doc-text);
+}
+
+/* ---------------------------------------------------------------- Layout (p. 31) */
+
+/* The navigation and the contents of the page take the width of the side band, 288 px each: the 168 px
+   the guidelines leave beside the reading column broke a title in two on most pages. The reading column
+   keeps its 864 px. */
+.md-grid {
+  max-width: calc(2 * var(--slabs-side-band) + var(--slabs-reading-max) + 2 * var(--slabs-gutter));
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    width: var(--slabs-side-band);
+  }
+
+  .md-sidebar--secondary {
+    width: var(--slabs-side-band);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .md-content__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--slabs-reading-max);
+  }
+}
+
+.md-main {
+  background-color: var(--doc-ground);
+}
+
+/* ---------------------------------------------------------------- Navigation (p. 31) */
+
+.md-nav {
+  font-size: var(--slabs-nav);
+  line-height: var(--slabs-lh-ui);
+}
+
+.md-nav__link {
+  color: var(--doc-text);
+  font-weight: 500;
+  margin-top: calc(var(--slabs-space-base) * 2);
+}
+
+.md-nav__link:is(:focus, :hover),
+.md-nav__link[for]:is(:focus, :hover) {
+  color: var(--doc-text);
+}
+
+/* The current page: SemiBold and a 2 px underline in the colour of the text. */
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active:hover {
+  color: var(--doc-text);
+  font-weight: 600;
+}
+
+/* The underline is drawn on the text of the link only: drawn on the link as well, it doubles. */
+.md-nav--primary .md-nav__link {
+  text-decoration: none;
+}
+
+.md-nav--primary .md-nav__link--active > .md-ellipsis {
+  text-decoration: underline 2px var(--doc-rule-strong);
+  text-underline-offset: 0.35em;
+}
+
+/* Under the pointer, a link of the navigation behaves as a link of the text (p. 33): a 2 px orange
+   underline, on the current page as on the others. */
+.md-nav--primary a.md-nav__link:is(:hover, :focus-visible) > .md-ellipsis {
+  text-decoration: underline 2px var(--slabs-orange);
+  text-underline-offset: 0.35em;
+}
+
+/* A section title is a label: Plex Mono SemiBold capitals, 12 px, tracked, in the secondary colour. */
+.md-nav--primary .md-nav__item--section > .md-nav__link,
+.md-nav--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+  color: var(--doc-text-secondary);
+  cursor: default;
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  font-weight: 600;
+  letter-spacing: var(--slabs-label-tracking);
+  margin-top: calc(var(--slabs-space-base) * 6);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.md-nav--primary .md-nav__item--section > .md-nav__link .md-nav__icon {
+  display: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-nav--primary > .md-nav__title {
+    display: none;
+  }
+}
+
+/* The drawer of a narrow screen opens on the same band as the header. */
+.md-nav--primary > .md-nav__title,
+.md-nav--primary > .md-nav__title .md-nav__button {
+  background-color: var(--doc-raised);
+  color: var(--doc-text);
+}
+
+.md-nav--primary .md-nav__title {
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.md-sidebar {
+  background-color: var(--doc-ground);
+}
+
+@media screen and (max-width: 76.234375em) {
+  .md-nav--primary .md-nav__title,
+  .md-nav--primary .md-nav__item {
+    border-top: 0;
+  }
+
+  .md-nav--primary .md-nav__link {
+    margin-top: 0;
+    padding: calc(var(--slabs-space-base) * 2) var(--slabs-gutter-mobile);
+  }
+}
+
+/* The contents of the page, on the right: the same label, then the headings. */
+.md-nav--secondary .md-nav__title {
+  background: transparent;
+  box-shadow: none;
+  color: var(--doc-text-secondary);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  font-weight: 600;
+  letter-spacing: var(--slabs-label-tracking);
+  text-transform: uppercase;
+}
+
+.md-nav--secondary .md-nav__link {
+  color: var(--doc-text-secondary);
+  font-weight: 400;
+}
+
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__link:is(:hover, :focus-visible) {
+  color: var(--doc-text);
+}
+
+.md-nav--secondary a.md-nav__link:is(:hover, :focus-visible) {
+  text-decoration: underline 2px var(--slabs-orange);
+  text-underline-offset: 0.35em;
+}
+
+/* ---------------------------------------------------------------- Reading (p. 34) */
+
+/* The body of a page reads as an article: 18 px, 16 px on a phone, line height 1.6. Interface text, the
+   navigation, the fields and the buttons, keeps its own sizes. */
+.md-typeset {
+  color: var(--doc-text);
+  font-size: var(--slabs-body-reading);
+  line-height: var(--slabs-lh-reading);
+}
+
+@media screen and (max-width: 640px) {
+  .md-typeset {
+    font-size: var(--slabs-body-reading-mobile);
+  }
+}
+
+.md-typeset :is(h1, h2, h3, h4) {
+  color: var(--doc-text);
+  font-family: var(--md-text-font-family);
+  letter-spacing: 0;
+}
+
+.md-typeset h1 {
+  font-size: var(--slabs-h1);
+  font-weight: 700;
+  line-height: var(--slabs-h1-lh);
+  margin: 0 0 calc(var(--slabs-space-base) * 6);
+}
+
+.md-typeset h2 {
+  font-size: var(--slabs-h2);
+  font-weight: 700;
+  line-height: var(--slabs-h2-lh);
+  margin: calc(var(--slabs-space-base) * 12) 0 calc(var(--slabs-space-base) * 4);
+}
+
+.md-typeset h3 {
+  font-size: var(--slabs-h3);
+  font-weight: 600;
+  line-height: var(--slabs-h3-lh);
+  margin: calc(var(--slabs-space-base) * 10) 0 calc(var(--slabs-space-base) * 3);
+}
+
+.md-typeset h4 {
+  font-size: var(--slabs-h4);
+  font-weight: 600;
+  line-height: var(--slabs-h4-lh);
+  margin: calc(var(--slabs-space-base) * 8) 0 calc(var(--slabs-space-base) * 2);
+}
+
+/* H5 and H6 are labels: Plex Mono SemiBold capitals. */
+.md-typeset h5,
+.md-typeset h6 {
+  color: var(--doc-text);
+  font-family: var(--md-code-font-family);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.md-typeset h5 {
+  font-size: var(--slabs-h5);
+  letter-spacing: var(--slabs-h5-tracking);
+}
+
+.md-typeset h6 {
+  font-size: var(--slabs-h6);
+  letter-spacing: var(--slabs-h6-tracking);
+}
+
+@media screen and (max-width: 640px) {
+  .md-typeset h1 { font-size: var(--slabs-h1-mobile); }
+  .md-typeset h2 { font-size: var(--slabs-h2-mobile); }
+  .md-typeset h3 { font-size: var(--slabs-h3-mobile); }
+  .md-typeset h4 { font-size: var(--slabs-h4-mobile); }
+  .md-typeset h5 { font-size: var(--slabs-h5-mobile); }
+}
+
+.md-typeset .headerlink {
+  color: var(--doc-text-secondary);
+}
+
+.md-typeset p,
+.md-typeset li {
+  text-align: left;
+}
+
+.md-typeset hr {
+  border-bottom: 1px solid var(--doc-rule);
+}
+
+.md-typeset blockquote {
+  border-left: 0;
+  color: var(--doc-text-secondary);
+  padding-left: var(--slabs-gutter);
+}
+
+/* The date of the last change and the pencil that edits a page: secondary, in Plex Mono. */
+.md-source-file,
+.md-typeset .md-source-file__fact {
+  color: var(--doc-text-secondary);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+}
+
+.md-content__button {
+  color: var(--doc-text-secondary);
+}
+
+.md-content__button:hover {
+  color: var(--doc-text);
+}
+
+/* ---------------------------------------------------------------- Links (p. 33) */
+
+.md-typeset a {
+  color: var(--doc-text);
+  text-decoration: underline var(--slabs-link-underline) var(--doc-link-underline);
+  text-underline-offset: 0.2em;
+}
+
+.md-typeset a:is(:hover, :active) {
+  color: var(--doc-text);
+  text-decoration-color: var(--slabs-orange);
+  text-decoration-thickness: 2px;
+}
+
+.md-typeset a.headerlink,
+.md-typeset a.md-button,
+.md-typeset a.md-content__button {
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------- Code (p. 30, 34) */
+
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset pre {
+  font-feature-settings: "kern";
+}
+
+/* Inline code, on Calcaire ombré. */
+.md-typeset :not(pre) > code {
+  background-color: var(--doc-tint);
+  border-radius: var(--slabs-radius-control);
+  color: var(--doc-text);
+  font-size: var(--slabs-code-size);
+  padding: 0.1em 0.35em;
+  word-break: normal;
+}
+
+/* In a heading, inline code follows the size of the heading. */
+.md-typeset :is(h1, h2, h3, h4) code {
+  font-size: 0.85em;
+}
+
+/* A code block: Plex Mono 14 px on Anthracite, the radius of a card. */
+.md-typeset .highlight {
+  background-color: var(--slabs-code-bg);
+  border: 1px solid var(--doc-code-edge);
+  border-radius: var(--slabs-radius-card);
+  overflow: hidden;
+}
+
+/* A numbered block is a table inside the block: the block already draws the edge. */
+.md-typeset .highlight .highlighttable,
+.md-typeset .highlighttable {
+  background-color: var(--slabs-code-bg);
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+}
+
+.md-typeset .highlighttable :is(.linenos, .code) {
+  vertical-align: top;
+}
+
+.md-typeset pre {
+  margin: 0;
+}
+
+.md-typeset pre > code,
+.md-typeset .highlighttable code {
+  background-color: var(--slabs-code-bg);
+  color: var(--slabs-code-text);
+  font-size: var(--slabs-code-size);
+  line-height: var(--slabs-lh-code);
+  padding: calc(var(--slabs-space-base) * 4) calc(var(--slabs-space-base) * 5);
+}
+
+.md-typeset .highlight + .highlight,
+.md-typeset .highlight + p,
+.md-typeset p + .highlight {
+  margin-top: calc(var(--slabs-space-base) * 4);
+}
+
+.md-typeset .highlight {
+  margin: calc(var(--slabs-space-base) * 4) 0;
+}
+
+/* The filename of a block, a caption above the code. */
+.md-typeset .highlight span.filename {
+  background-color: var(--slabs-code-bg);
+  border-bottom: 1px solid var(--slabs-schiste);
+  color: var(--slabs-beton);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  font-weight: 400;
+  margin: 0;
+  padding: calc(var(--slabs-space-base) * 2) calc(var(--slabs-space-base) * 5);
+}
+
+.md-typeset .highlight span.filename::before {
+  display: none;
+}
+
+/* Line numbers, at the start of each line, in Béton behind a Schiste rule. */
+.md-typeset .highlight [data-linenos]::before {
+  background-color: var(--slabs-code-bg);
+  box-shadow: -1px 0 var(--slabs-schiste) inset;
+  color: var(--slabs-code-comment);
+  margin-right: calc(var(--slabs-space-base) * 4);
+  padding-right: calc(var(--slabs-space-base) * 3);
+}
+
+/* The line numbers are anchors: they are not links of the text. */
+.md-typeset .highlighttable .linenos a,
+.md-typeset .highlight .linenos a {
+  color: var(--slabs-code-comment);
+  text-decoration: none;
+}
+
+.md-typeset .highlight .hll {
+  background-color: var(--md-code-hl-color);
+}
+
+/* The copy button sits on the code, in Béton, with no box of its own. */
+.md-code__nav,
+:hover > .md-code__nav {
+  background-color: transparent;
+}
+
+.md-code__button,
+.md-clipboard {
+  background-color: transparent;
+  color: var(--slabs-beton);
+}
+
+:hover > * > .md-code__button {
+  color: var(--slabs-beton);
+}
+
+.md-code__button:is(.focus-visible, :hover),
+.md-clipboard:is(:focus, :hover) {
+  color: var(--slabs-calcaire);
+  outline-color: var(--slabs-orange);
+}
+
+/* The five token styles: text and variables Calcaire, keywords Calcaire SemiBold, types and properties
+   Plâtre, strings and numbers Sable, comments Béton italic. Operators and punctuation are text. */
+.md-typeset .highlight :is(.n, .nv, .vc, .vg, .vi, .vm, .nf, .fm, .nl, .ni, .ne, .o, .p, .w, .x, .err) {
+  color: var(--slabs-code-text);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.md-typeset .highlight :is(.k, .kc, .kd, .kn, .kp, .kr, .ow) {
+  color: var(--slabs-code-text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.md-typeset .highlight :is(.kt, .nc, .nn, .nx, .na, .nb, .bp, .nt, .nd, .no, .py) {
+  color: var(--slabs-code-type);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.md-typeset .highlight :is(.l, .ld, .s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .sr, .ss, .sx, .dl,
+  .m, .mb, .mf, .mh, .mi, .il, .mo) {
+  color: var(--slabs-code-string);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.md-typeset .highlight :is(.c, .c1, .ch, .cm, .cp, .cpf, .cs) {
+  color: var(--slabs-code-comment);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.md-typeset .highlight :is(.gd, .gi, .gh, .gu, .go, .gp) {
+  color: var(--slabs-code-text);
+}
+
+/* The orange cursor marks the prompt of a console session (p. 30). */
+.md-typeset .highlight .gp {
+  color: var(--slabs-orange);
+}
+
+/* Tabs, for alternatives the reader chooses between: labels in Plex Mono, the current one underlined. */
+.md-typeset .tabbed-labels > label {
+  color: var(--doc-text-secondary);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  font-weight: 600;
+  letter-spacing: var(--slabs-label-tracking);
+  text-transform: uppercase;
+}
+
+/* The theme turns each label into an anchor, to link to a tab: it is not a link of the text. */
+.md-typeset .tabbed-labels a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset .tabbed-labels > label:hover,
+.md-typeset .tabbed-set > input:checked + label {
+  color: var(--doc-text);
+}
+
+.md-typeset .tabbed-labels::before {
+  background-color: var(--doc-rule-strong);
+}
+
+/* ---------------------------------------------------------------- Notes (p. 30) */
+
+/* A tinted box with a slab on top, never a coloured side border. Every kind of note looks the same: the
+   word of its title says what it is, colour never does (p. 19). On a dark ground the box is Calcaire
+   clair and its text Anthracite, as a message on Anthracite always is (p. 19). */
+.md-typeset .admonition,
+.md-typeset details {
+  --md-typeset-a-color: var(--slabs-anthracite);
+
+  background-color: var(--doc-note-ground);
+  border: 0;
+  border-radius: var(--slabs-radius-card);
+  box-shadow: none;
+  color: var(--slabs-anthracite);
+  font-size: inherit;
+  margin: calc(var(--slabs-space-base) * 6) 0;
+  padding: calc(var(--slabs-space-base) * 5) calc(var(--slabs-space-base) * 5) calc(var(--slabs-space-base) * 4);
+  position: relative;
+}
+
+/* The slab: a quarter of the size of an H4 high, 1.2 times as wide, flat, square ends, on the top edge. */
+.md-typeset .admonition::before,
+.md-typeset details::before {
+  background-color: var(--slabs-orange);
+  content: "";
+  height: calc(var(--slabs-h4) / 4);
+  left: calc(var(--slabs-space-base) * 5);
+  position: absolute;
+  top: 0;
+  width: calc(var(--slabs-h4) * 1.2);
+}
+
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  background-color: transparent !important;
+  border: 0;
+  color: var(--slabs-anthracite);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-h6);
+  font-weight: 600;
+  letter-spacing: var(--slabs-h6-tracking);
+  margin: 0 0 calc(var(--slabs-space-base) * 2);
+  padding: 0;
+  text-transform: uppercase;
+}
+
+/* The icons of the theme are not the Slabs set: the word is enough. */
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before {
+  display: none;
+}
+
+.md-typeset details > summary {
+  cursor: pointer;
+  padding-right: calc(var(--slabs-space-base) * 6);
+}
+
+.md-typeset details > summary::after {
+  background-color: var(--slabs-anthracite);
+  top: 0;
+}
+
+.md-typeset .admonition > :last-child,
+.md-typeset details > :last-child {
+  margin-bottom: 0;
+}
+
+.md-typeset :is(.admonition, details) :is(a, a:hover) {
+  color: var(--slabs-anthracite);
+}
+
+.md-typeset :is(.admonition, details) a {
+  text-decoration-color: var(--slabs-schiste);
+}
+
+.md-typeset :is(.admonition, details) a:hover {
+  text-decoration-color: var(--slabs-orange);
+}
+
+.md-typeset :is(.admonition, details) :not(pre) > code {
+  background-color: var(--slabs-calcaire-ombre);
+  color: var(--slabs-anthracite);
+}
+
+[data-md-color-scheme="default"] .md-typeset :is(.admonition, details) :not(pre) > code {
+  background-color: var(--slabs-calcaire-clair);
+}
+
+/* ---------------------------------------------------------------- Tables (p. 33) */
+
+.md-typeset table:not([class]) {
+  background-color: transparent;
+  border: 0;
+  border-collapse: collapse;
+  border-radius: 0;
+  box-shadow: none;
+  display: table;
+  font-size: inherit;
+  width: 100%;
+}
+
+/* The header: Plex Mono capitals over a rule in the colour of the text. */
+.md-typeset table:not([class]) th {
+  background-color: transparent;
+  border-bottom: 1px solid var(--doc-rule-strong);
+  color: var(--doc-text);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  font-weight: 600;
+  letter-spacing: var(--slabs-label-tracking);
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+.md-typeset table:not([class]) :is(th, td) {
+  padding: calc(var(--slabs-space-base) * 3) calc(var(--slabs-space-base) * 4) calc(var(--slabs-space-base) * 3) 0;
+}
+
+.md-typeset table:not([class]) :is(th, td):last-child {
+  padding-right: 0;
+}
+
+/* Plâtre between the rows. */
+.md-typeset table:not([class]) td {
+  border-top: 0;
+  border-bottom: 1px solid var(--doc-rule);
+  vertical-align: top;
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.md-typeset__scrollwrap {
+  margin: calc(var(--slabs-space-base) * 6) 0;
+}
+
+.md-typeset__table {
+  padding: 0;
+}
+
+/* ---------------------------------------------------------------- Buttons (p. 33) */
+
+.md-typeset .md-button {
+  border: 1px solid var(--doc-text);
+  border-radius: var(--slabs-radius-control);
+  color: var(--doc-text);
+  font-size: var(--slabs-body);
+  font-weight: 500;
+  padding: calc(var(--slabs-space-base) * 2) calc(var(--slabs-space-base) * 4);
+  position: relative;
+}
+
+.md-typeset .md-button:is(:focus, :hover) {
+  background-color: transparent;
+  border-color: var(--doc-text);
+  color: var(--doc-text);
+}
+
+/* The primary button: Anthracite, Calcaire text, the orange cursor after the label. On hover the cursor
+   stretches under the label. */
+.md-typeset .md-button--primary,
+.md-typeset .md-button--primary:is(:focus, :hover) {
+  background-color: var(--slabs-anthracite);
+  border-color: var(--slabs-anthracite);
+  color: var(--slabs-calcaire);
+  padding-right: calc(var(--slabs-space-base) * 8);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary,
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary:is(:focus, :hover) {
+  background-color: var(--slabs-calcaire);
+  border-color: var(--slabs-calcaire);
+  color: var(--slabs-anthracite);
+}
+
+.md-typeset .md-button--primary::after {
+  background-color: var(--slabs-orange);
+  bottom: calc(var(--slabs-space-base) * 2 + 0.2em);
+  content: "";
+  height: 0.25em;
+  position: absolute;
+  right: calc(var(--slabs-space-base) * 4);
+  transition: left 150ms, right 150ms, bottom 150ms;
+  width: auto;
+  left: calc(100% - var(--slabs-space-base) * 4 - 0.6em);
+}
+
+.md-typeset .md-button--primary:hover::after {
+  bottom: calc(var(--slabs-space-base) * 1);
+  left: calc(var(--slabs-space-base) * 4);
+  right: calc(var(--slabs-space-base) * 8);
+}
+
+/* ---------------------------------------------------------------- Footer (p. 31) */
+
+/* Anthracite, whatever the scheme: the previous and next pages, then the reversed signature, the links in
+   Calcaire and the legal line in Béton. */
+.md-footer {
+  background-color: var(--slabs-anthracite);
+  color: var(--slabs-calcaire);
+}
+
+.md-footer__inner {
+  border-bottom: 1px solid var(--slabs-schiste);
+  max-width: calc(var(--slabs-content-max) + 2 * var(--slabs-gutter));
+  padding: calc(var(--slabs-space-base) * 4) var(--slabs-gutter);
+}
+
+.md-footer__link {
+  color: var(--slabs-calcaire);
+  opacity: 1;
+}
+
+.md-footer__link:is(:focus, :hover) {
+  opacity: 1;
+}
+
+.md-footer__link:hover .md-footer__title {
+  text-decoration: underline 2px var(--slabs-orange);
+  text-underline-offset: 0.2em;
+}
+
+.md-footer__link:focus-visible {
+  outline-color: var(--slabs-orange);
+}
+
+.md-footer__direction {
+  color: var(--slabs-beton);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  letter-spacing: var(--slabs-label-tracking);
+  text-transform: uppercase;
+}
+
+.md-footer__title {
+  font-size: var(--slabs-body);
+  font-weight: 600;
+}
+
+.md-footer-meta {
+  background-color: var(--slabs-anthracite);
+}
+
+.md-footer-meta__inner {
+  max-width: calc(var(--slabs-content-max) + 2 * var(--slabs-gutter));
+  padding: calc(var(--slabs-space-base) * 8) var(--slabs-gutter);
+}
+
+.sl-footer {
+  display: grid;
+  gap: calc(var(--slabs-space-base) * 6);
+  grid-template-columns: auto 1fr;
+  width: 100%;
+}
+
+/* The signature: the S at 40 px at least, which makes the file 60 px high. */
+.sl-footer__signature img {
+  display: block;
+  height: 60px;
+  width: auto;
+}
+
+.md-typeset ul.sl-footer__links > li {
+  list-style: none;
+  margin: 0;
+}
+
+.md-typeset ul.sl-footer__links:not([hidden]) {
+  align-self: start;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: calc(var(--slabs-space-base) * 2) calc(var(--slabs-space-base) * 6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sl-footer__links a,
+.md-footer-meta .sl-footer__links a {
+  color: var(--slabs-calcaire);
+  font-size: var(--slabs-nav);
+  text-decoration: underline var(--slabs-link-underline) var(--slabs-beton);
+  text-underline-offset: 0.2em;
+}
+
+.sl-footer__legal {
+  border-top: 1px solid var(--slabs-schiste);
+  color: var(--slabs-beton);
+  font-family: var(--md-code-font-family);
+  font-size: var(--slabs-caption);
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: calc(var(--slabs-space-base) * 4);
+}
+
+.sl-footer__legal a,
+.md-footer-meta .sl-footer__legal a {
+  color: var(--slabs-beton);
+  text-decoration: none;
+}
+
+.md-footer-meta :is(.sl-footer__links, .sl-footer__legal) a:is(:focus, :hover) {
+  color: var(--slabs-calcaire);
+  text-decoration: underline 2px var(--slabs-orange);
+  text-underline-offset: 0.2em;
+}
+
+.md-footer-meta a:focus-visible {
+  outline-color: var(--slabs-orange);
+}
+
+@media screen and (max-width: 640px) {
+  .sl-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .md-typeset ul.sl-footer__links:not([hidden]) {
+    justify-content: flex-start;
+  }
+}

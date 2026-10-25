@@ -1,0 +1,22 @@
+{#-
+  The footer of the Slabs guidelines: the reversed signature, the links in Calcaire, the legal line in Béton.
+  The signature is the drawing of the design kit, never retyped. Its links and the legal line are in
+  extra.slabs of mkdocs.yml.
+-#}
+{% set slabs = config.extra.slabs %}
+<div class="sl-footer">
+  <a class="sl-footer__signature" href="{{ slabs.website }}" aria-label="Slabs, Security you can build on.">
+    <img src="{{ 'assets/brand/slabs-logotype-signature-inverse.svg' | url }}" alt="" width="145" height="60">
+  </a>
+  <ul class="sl-footer__links">
+    {% for link in slabs.links %}
+      <li><a href="{{ link.link }}">{{ link.name }}</a></li>
+    {% endfor %}
+  </ul>
+  <p class="sl-footer__legal">
+    {{ slabs.legal }}
+    {% for link in slabs.legal_links %}
+      · <a href="{{ link.link }}">{{ link.name }}</a>
+    {% endfor %}
+  </p>
+</div>
