@@ -1,0 +1,142 @@
+# Header checker
+
+When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
+
+!!! warning
+
+    This is a strong recommendation are there are known vulnerabilities on tokens that are processed without header verification.
+
+!!! info
+
+    Please note that some algorithms may use additional header parameters. Please read carefully the details on the [signature](signed-tokens-jws/signature-algorithms.md) or [encryption](encrypted-tokens-jwe/encryption-algorithms.md) algorithms page.
+
+The header parameters are checked by a Header Checker Manager. This manager can contain several header checkers.
+
+!!! success
+
+    The header parameter `crit` (critical) is always checked.
+
+!!! info
+
+    Even if the cypher process will check the `alg`/`enc` header parameters, it is interesting to check them before to reject tokens earlier.&#x20;
+
+## Header checker manager
+
+To create a header checker manager, you will need to add header checkers and at least one token type.&#x20;
+
+In the following example, we want to check the `alg` header parameter for the signed tokens (JWS) received by our application.
+
+```php
+<?php
+
+use Jose\Component\Checker\HeaderCheckerManager;
+use Jose\Component\Checker\AlgorithmChecker;
+use Jose\Component\Signature\JWSTokenSupport;
+
+$headerCheckerManager = new HeaderCheckerManager(
+    [
+        new AlgorithmChecker(['HS256']),
+        // We want to verify that the header "alg" (algorithm)
+        // is present and contains "HS256"
+    ],
+    [
+        new JWSTokenSupport(), // Adds JWS token type support
+    ]
+);
+```
+
+You can then call the `check` method.
+
+* The first parameter is the JWT to check,
+* The second one is the index of the signature/recipient. It could be ignored if you are not using the Flattened or General JSON Serialization Modes.
+
+```php
+$headerCheckerManager->check($jwt, 0);
+```
+
+In some cases, it could be interesting to reject tokens that do not contain some mandatory header parameters. A list of mandatory parameters can be set as third argument. If one of those parameters is missing an exception is thrown, even if that header parameter have not been checked.
+
+In the following example, an exception will be thrown if the `alg`, `enc` or `crit` parameters is missing.
+
+```php
+$headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
+```
+
+## Provided header checker objects
+
+The library provides several header checker classes you can instantiate and use at will. They are all located in the namespace `Jose\Component\Checker`.
+
+!!! info
+
+    For time-based parameter checker classes, a PSR-20 clock object is mandatory.
+
+| Class | Header | Time-based |
+|---|---|---|
+| AlgorithmChecker | `alg` | No |
+| AudienceChecker | `aud`<br>This is a replicated claim as per the [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3) | No |
+| ExpirationTimeChecker | `exp` | **Yes** |
+| IssuedAtChecker | `iat` | **Yes** |
+| IssuerChecker | `iss` | No |
+| NotBeforeChecker | `nbf` | **Yes** |
+| UnencodedPayloadChecker | `b64`<br>See [unencoded payload](../advanced-topics/signed-tokens-and/unencoded-payload.md) for more information. | No |
+| CallableChecker | Generic object that can execute a callable for checking a particular parameter | No |
+| IsEqualChecker | Generic object that can compare a particular parameter to a predefined value | No |
+
+## Header checker manager factory
+
+The Header Checker Manager Factory will help you to create as many Header Checker Manager as you want to fit on your application requirements.
+
+```php
+<?php
+
+use Jose\Component\Checker\HeaderCheckerManagerFactory;
+use Jose\Component\Checker\AlgorithmChecker;
+use Jose\Component\Encryption\JWETokenSupport;
+use Jose\Component\Signature\JWSTokenSupport;
+
+$headerCheckerManagerFactory = new HeaderCheckerManagerFactory();
+$headerCheckerManagerFactory->add('signature_alg', new AlgorithmChecker(['HS256']));
+$headerCheckerManagerFactory->add('key_encryption_alg', new AlgorithmChecker(['RSA1_5']));
+$headerCheckerManagerFactory->addTokenTypeSupport(new JWSTokenSupport());
+$headerCheckerManagerFactory->addTokenTypeSupport(new JWETokenSupport());
+
+$headerCheckerManagerForSignatures = $headerCheckerManagerFactory->create(['signature_alg']);
+$headerCheckerManagerForEncryption = $headerCheckerManagerFactory->create(['key_encryption_alg']);
+```
+
+## Custom header checker
+
+With the previous examples, we will only check the `alg` (algorithm) header parameter. But your application may use other header parameters e.g. `cty`, `typ`...
+
+If you need, you can create you own header checker. It must implement the interface `Jose\Component\Checker\HeaderChecker`. In the following example, we will check that the protected header parameter `custom` is an array with value `foo` or `bar`.
+
+```php title="Acme\Checker\CustomChecker.php"
+<?php
+
+namespace Acme\Checker;
+
+use Jose\Component\Checker\HeaderChecker;
+use Jose\Component\Checker\InvalidHeaderException;
+
+final class CustomChecker implements HeaderChecker
+{
+    public function checkHeader($value)
+    {
+        if (!is_array($value) || !in_array($value, ['foo', 'bar'], true)) {
+            throw new InvalidHeaderException('Invalid header "custom".', 'custom', $value);
+        }
+    }
+
+    // This header parameter name.
+    public function supportedHeader(): string
+    {
+        return 'custom';
+    }
+
+    // This method indicates if this parameter must be in the protected header or not.
+    public function protectedHeaderOnly(): bool
+    {
+        return true;
+    }
+}
+```

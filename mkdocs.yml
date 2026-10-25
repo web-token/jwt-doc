@@ -1,0 +1,248 @@
+site_name: JWT Framework
+site_description: JSON Web Tokens for PHP and Symfony. Signature (JWS), encryption (JWE) and keys (JWK), after RFC 7515 to RFC 7519.
+site_url: https://web-token.spomky-labs.com/
+site_author: Spomky-Labs
+repo_url: https://github.com/web-token/jwt-framework
+repo_name: web-token/jwt-framework
+edit_uri: https://github.com/web-token/jwt-doc/edit/4.0/docs/
+
+docs_dir: docs
+site_dir: site
+
+# The GitBook table of contents. It stays while GitBook serves the domain, and the navigation below says the
+# same thing in the words of MkDocs.
+exclude_docs: |
+  SUMMARY.md
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  language: en
+  # Space Grotesk and IBM Plex Mono are served from assets/fonts, declared in slabs.css: the theme loads
+  # no font of its own.
+  font: false
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil-outline
+    annotation: material/plus-circle
+  favicon: assets/brand/favicon.svg
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Follow the system theme
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to the dark theme
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to the light theme
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - content.action.edit
+
+# The tokens of the Slabs design kit, as they are, then the rules that apply them.
+extra_css:
+  - assets/stylesheets/slabs-tokens.css
+  - assets/stylesheets/slabs.css
+
+plugins:
+  - search
+  # Every asset is served from this site. Should a page ever reference an external one, it is downloaded
+  # at build time: nothing a reader loads reaches a third party.
+  - privacy
+  - git-revision-date-localized:
+      enable_creation_date: false
+      type: date
+      fallback_to_build_date: true
+  - redirects:
+      redirect_maps: {}
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      title: On this page
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 3
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      # A PHP block of these pages starts without "<?php", which Pygments needs before it colours anything,
+      # and which GitBook never asked for.
+      extend_pygments_lang:
+        - name: php
+          lang: php
+          options:
+            startinline: true
+      line_spans: __span
+      # The number of a line is written at the start of the line itself, so it cannot drift from it.
+      linenums_style: pymdownx-inline
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tilde
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+  nav:
+    omitted_files: warn
+
+extra:
+  status:
+    draft: This page is a stub, the section it belongs to is not written yet
+    new: Added in this version
+  version:
+    provider: mike
+    alias: true
+    default: latest
+  # The footer of the Slabs guidelines (p. 31): links in Calcaire, then the legal line in Béton.
+  slabs:
+    website: https://spomky-labs.com/
+    links:
+      - name: All documentation
+        link: https://docs.spomky-labs.com/
+      - name: JWT Framework on GitHub
+        link: https://github.com/web-token/jwt-framework
+      - name: Packagist
+        link: https://packagist.org/packages/web-token/jwt-framework
+      - name: Security
+        link: https://github.com/web-token/jwt-framework/security/policy
+      - name: Sponsor
+        link: https://github.com/sponsors/Spomky
+    legal: SPOMKY-LABS · Florent Morselli EI
+    # The legal notice, the privacy policy and the contact page are shared by every documentation site,
+    # on the central one.
+    legal_links:
+      - name: Legal notice
+        link: https://docs.spomky-labs.com/legal-notice/
+      - name: Privacy
+        link: https://docs.spomky-labs.com/privacy/
+      - name: Contact
+        link: https://docs.spomky-labs.com/contact/
+
+# The title of each page is its first heading.
+nav:
+  - README.md
+  - "Introduction":
+      - introduction/provided-features.md
+      - introduction/security-recommendations.md
+      - introduction/the-framework.md
+      - introduction/pre-requisite.md
+      - introduction/contributing.md
+  - "The components":
+      - the-components/algorithm-management-jwa.md
+      - "Key (JWK) and key set (JWKSet)":
+          - the-components/key-jwk-and-key-set-jwkset/README.md
+          - the-components/key-jwk-and-key-set-jwkset/key-management.md
+          - the-components/key-jwk-and-key-set-jwkset/key-set-management.md
+      - the-components/header-checker.md
+      - the-components/claim-checker.md
+      - "Signed tokens (JWS)":
+          - the-components/signed-tokens-jws/README.md
+          - the-components/signed-tokens-jws/signature-algorithms.md
+          - the-components/signed-tokens-jws/jws-creation.md
+          - the-components/signed-tokens-jws/jws-loading.md
+      - "Encrypted tokens (JWE)":
+          - the-components/encrypted-tokens-jwe/README.md
+          - the-components/encrypted-tokens-jwe/encryption-algorithms.md
+          - the-components/encrypted-tokens-jwe/jwe-creation.md
+          - the-components/encrypted-tokens-jwe/jwe-loading.md
+      - the-components/examples.md
+  - "The Symfony bundle":
+      - the-symfony-bundle/symfony-bundle.md
+      - the-symfony-bundle/algorithm-management.md
+      - "Key and key set management":
+          - the-symfony-bundle/key-and-key-set-management/README.md
+          - the-symfony-bundle/key-and-key-set-management/key-management-jwk.md
+          - the-symfony-bundle/key-and-key-set-management/key-set-management-jwkset.md
+      - the-symfony-bundle/header-and-claim-checker-management.md
+      - "Signed tokens":
+          - the-symfony-bundle/signed-tokens/README.md
+          - the-symfony-bundle/signed-tokens/jws-serializers.md
+          - the-symfony-bundle/signed-tokens/jws-creation.md
+          - the-symfony-bundle/signed-tokens/jws-verification.md
+      - "Encrypted tokens":
+          - the-symfony-bundle/encrypted-tokens/README.md
+          - the-symfony-bundle/encrypted-tokens/jwe-serializers.md
+          - the-symfony-bundle/encrypted-tokens/jwe-creation.md
+          - the-symfony-bundle/encrypted-tokens/jwe-decryption.md
+      - the-symfony-bundle/configuration-helper.md
+      - the-symfony-bundle/events.md
+  - "Console command":
+      - console-command/console.md
+      - console-command/standalone.md
+      - console-command/phar-application.md
+      - console-command/symfony-console.md
+  - "Advanced topics":
+      - advanced-topics/nested-tokens.md
+      - advanced-topics/serialization.md
+      - advanced-topics/custom-algorithm.md
+      - "Signed tokens and":
+          - advanced-topics/signed-tokens-and/README.md
+          - advanced-topics/signed-tokens-and/unprotected-header.md
+          - advanced-topics/signed-tokens-and/multiple-signatures.md
+          - advanced-topics/signed-tokens-and/detached-payload.md
+          - advanced-topics/signed-tokens-and/unencoded-payload.md
+      - "Encrypted tokens and":
+          - advanced-topics/encrypted-tokens-and/README.md
+          - advanced-topics/encrypted-tokens-and/unprotected-headers.md
+          - advanced-topics/encrypted-tokens-and/multiple-recipients.md
+          - advanced-topics/encrypted-tokens-and/additional-authentication-data-aad.md
+  - "Benchmark":
+      - benchmark/benchmarks.md
+      - benchmark/result-table.md
+  - "Migration":
+      - migration/from-v1.x-to-v2.0.md
+      - migration/from-v1.x-to-v2.0-1.md
+      - migration/from-v1.x-to-v2.0-2.md

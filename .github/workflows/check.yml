@@ -1,0 +1,38 @@
+name: Check
+
+on:
+    pull_request:
+    workflow_dispatch:
+
+# MkDocs 2.0 is announced as backward incompatible with every plugin and theme, so the toolchain is pinned
+# to the 1.x line in requirements.txt and the two notices about it are silenced: they are news about the
+# ecosystem, not findings about this site.
+env:
+    NO_MKDOCS_2_WARNING: 'true'
+    DISABLE_MKDOCS_2_WARNING: 'true'
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        name: Strict build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-python@v6
+              with:
+                  python-version: '3.13'
+                  cache: pip
+                  cache-dependency-path: requirements.txt
+
+            - name: Install the toolchain
+              run: pip install -r requirements.txt
+
+            # --strict turns every warning into an error: a broken internal link, an anchor that does not
+            # exist, a page absent from the navigation or a page in the navigation that does not exist.
+            - name: Build
+              run: mkdocs build --strict
