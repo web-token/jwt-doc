@@ -9,10 +9,6 @@ edit_uri: https://github.com/web-token/jwt-doc/edit/4.1/docs/
 docs_dir: docs
 site_dir: site
 
-# The GitBook table of contents. It stays while GitBook serves the domain, and the navigation below says the
-# same thing in the words of MkDocs.
-exclude_docs: |
-  SUMMARY.md
 
 theme:
   name: material
