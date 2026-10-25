@@ -77,8 +77,8 @@ plugins:
       enable_creation_date: false
       type: date
       fallback_to_build_date: true
-  # GitBook published the console commands under console-commands/ and the benchmarks under benchmarks/,
-  # the directories are console-command/ and benchmark/. Those addresses lead to the latest version.
+  # GitBook published the console commands under console-commands/ and the benchmarks under benchmarks/;
+  # the directories are console-command/ and benchmark/.
   - redirects:
       redirect_maps:
         console-commands/console.md: console-command/console.md
