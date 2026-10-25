@@ -1,4 +1,4 @@
-# JWE Loading
+# JWE loading
 
 Encrypted tokens are loaded by a serializer or the serializer manager and decrypted by the `JWEDecrypter` object. This JWEDecrypter object requires several services for the process:
 
@@ -69,7 +69,7 @@ $success = $jweDecrypter->decryptUsingKey($jwe, $jwk, 0);
 
 OK so if not exception is thrown, then your token is loaded and the payload correctly decrypted.
 
-## JWELoader Object
+## JWELoader object
 
 To avoid duplication of code lines, you can create a `JWELoader` object. This object contains a serializer, a decrypter and an optional header checker (highly recommended).
 
@@ -93,7 +93,7 @@ $jwe = $jweLoader->loadAndDecryptWithKey($token, $key, $recipient);
 
 In case you use a key set, you can use the method `loadAndDecryptWithKeySet`.
 
-## JWELoaderFactory Object
+## JWELoaderFactory object
 
 > This feature was introduced in version 1.1.
 

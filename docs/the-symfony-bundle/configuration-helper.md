@@ -1,4 +1,4 @@
-# Configuration Helper
+# Configuration helper
 
 When you want to create keys/key sets, JWS loader/verifier... services, you have to create a dedicated `jose` section in your configuration. It may confuse your users to configure your bundle and the Jose Framework bundle. Sometimes, you may also want to be sure that the configuration is correctly defined. Lastly, the configuration size increases with numerous details, options or service IDs and it becomes difficult to read or modify.
 

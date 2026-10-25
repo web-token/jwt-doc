@@ -1,4 +1,4 @@
-# Multiple Signatures
+# Multiple signatures
 
 When you need to sign the same payload for several audiences, you may want to do it at once. The JWS Builder supports multiple signatures.
 

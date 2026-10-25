@@ -1,6 +1,6 @@
-# Key Management (JWK)
+# Key management (JWK)
 
-## Keys As Services
+## Keys as services
 
 When the component is installed, you will be able to define your keys in your application configuration and load your keys from several sources or formats. All these methods have the following option:
 
@@ -21,7 +21,7 @@ The key will be available as a container service with the ID `jose.key.key_name`
 
 As any other configuration values, you can use environment variables.
 
-### From A Shared Secret
+### From a shared secret
 
 This method will directly get a shared secret.
 
@@ -36,7 +36,7 @@ jose:
                     alg: 'RS512'
 ```
 
-### From A JWK Object
+### From a JWK object
 
 This method will directly load a JWK object.
 
@@ -48,7 +48,7 @@ jose:
                 value: '{"kty":"oct","k":"dzI6nbW4OcNF-AtfxGAmuyz7IpHRudBI0WgGjZWgaRJt6prBn3DARXgUR8NVwKhfL43QBIU2Un3AvCGCHRgY4TbEqhOi8-i98xxmCggNjde4oaW6wkJ2NgM3Ss9SOX9zS3lcVzdCMdum-RwVJ301kbin4UtGztuzJBeg5oVN00MGxjC2xWwyI0tgXVs-zJs5WlafCuGfX1HrVkIf5bvpE0MQCSjdJpSeVao6-RSTYDajZf7T88a2eVjeW31mMAg-jzAWfUrii61T_bYPJFOXW8kkRWoa1InLRdG6bKB9wQs9-VdXZP60Q4Yuj_WZ-lO7qV9AEFrUkkjpaDgZT86w2g"}'
 ```
 
-### From A X509 Certificate File
+### From a X509 certificate file
 
 This method will load a X509 Certificate file.
 
@@ -63,7 +63,7 @@ jose:
                     alg: 'RS256'
 ```
 
-### From A X509 Certificate
+### From a X509 certificate
 
 This method will load a key from a X509 Certificate.
 
@@ -78,7 +78,7 @@ jose:
                     alg: 'RS256'
 ```
 
-### From A PKCS#1/PKCS#8 Key File
+### From a PKCS#1/PKCS#8 key file
 
 This method will load a key from a PKCS#1 or PKCS#8 key file.
 
@@ -94,7 +94,7 @@ jose:
                     alg: 'RS256'
 ```
 
-### From A Key In A Key Set
+### From a key in a key set
 
 This method will retrieve a key from a JWKSet service.
 
@@ -107,7 +107,7 @@ jose:
                 index: 0 # Use key at index 0
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 

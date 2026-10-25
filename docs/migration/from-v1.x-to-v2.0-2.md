@@ -12,7 +12,7 @@ Next, you have to verify you don’t use any deprecated class, interface, method
 
 ### List of deprecations:
 
-#### Deprecated Packages
+#### Deprecated packages
 
 The following packages are deprecated. Please install `web-token/jwt-library` or `web-token/jwt-experimental` instead.
 
@@ -33,7 +33,7 @@ The following packages are deprecated. Please install `web-token/jwt-library` or
 * `web-token/jwt-encryption-algorithm-*`
 * `web-token/jwt-nested-token`
 
-#### PSR-20 Clock
+#### PSR-20 clock
 
 In previous versions, the classes that requires time used the PHP time function directly. It is now required to use a PSR-20 Clock implementation and pass it to the classes.
 
@@ -43,11 +43,11 @@ In previous versions, the classes that requires time used the PHP time function 
 
 For version 3.2.0+ and the Symfony Bundle, an internal implementation service named `jose.internal_clock` existed and is removed.
 
-#### Simplified Algorithm Manager
+#### Simplified algorithm manager
 
 Classes `Jose\Component\Encryption\JWEBuilder` and `Jose\Component\Encryption\JWEDecrypter` no longer need the Key Encryption and Content Encryption Algorithm Managers. You pass only one Algorithm Manager to the contructor.
 
-#### Version Bumped
+#### Version bumped
 
 All previous major release of the following packages are not supported anymore. Please make sure your platform can use them.
 

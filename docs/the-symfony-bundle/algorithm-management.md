@@ -1,6 +1,6 @@
-# Algorithm Management
+# Algorithm management
 
-## Algorithm Manager Factory Service
+## Algorithm manager factory service
 
 The Symfony Bundle provides an Algorithm Manager Factory service. The available algorithms depends on the components installed on your application.
 
@@ -13,7 +13,7 @@ $algorithmManagerFactory = $container->get(AlgorithmManagerFactory::class);
 $algorithmManager = $algorithmManagerFactory->create(['RS256', 'HS512']);
 ```
 
-## Custom Algorithm
+## Custom algorithm
 
 This factory handles all algorithms services tagged with `jose.algorithm`.
 
@@ -28,7 +28,7 @@ services:
 
 Your algorithm will be available through the algorithm manager factory service and the alias `FOO`.
 
-## PBES2-\* Algorithms
+## PBES2-\* algorithms
 
 When installed, the `PBES2-*` algorithms available throught the algorithm manager factory. They have the default configuration i.e. salt size = 62 bits and count = 4096. If these values does not fit on your needs, you can create a new algorithm service with your own values:
 

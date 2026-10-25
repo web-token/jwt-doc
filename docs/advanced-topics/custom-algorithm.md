@@ -1,4 +1,4 @@
-# Custom Algorithm
+# Custom algorithm
 
 This framework provides dozens of signature or encryption algorithms. If your application uses a custom algorithm or if another algorithm has been recently approved in the JWT context, it may be interesting to use it with this framework.
 

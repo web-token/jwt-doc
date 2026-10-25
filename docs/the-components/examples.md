@@ -1,6 +1,6 @@
 # Examples
 
-## JWS Creation
+## JWS creation
 
 ```php linenums="1"
 <?php
@@ -42,7 +42,7 @@ $token = $serializer->serialize($jws);
 var_dump($token);
 ```
 
-## JWS Loading and Verification
+## JWS loading and verification
 
 ```php linenums="1"
 <?php
@@ -107,7 +107,7 @@ $claimCheckerManager = new ClaimCheckerManager([
 var_dump('Payload:', $payload);
 ```
 
-## JWE Creation
+## JWE creation
 
 ```php linenums="1"
 <?php
@@ -151,7 +151,7 @@ $token = $serializer->serialize($jwe, 0);
 var_dump($token);
 ```
 
-## JWE Loading and Verification
+## JWE loading and verification
 
 ```php linenums="1"
 <?php

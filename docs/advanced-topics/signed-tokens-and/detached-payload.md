@@ -1,8 +1,8 @@
-# Detached Payload
+# Detached payload
 
 As per the [RFC7519](https://tools.ietf.org/html/rfc7515#appendix-F),the payload of a JWS may be detached. This framework supports this feature.
 
-## JWS Creation
+## JWS creation
 
 There is not much difference between the creation of a JWS with or without detached payload. The following example comes from the [JWS Creation page](../../the-components/signed-tokens-jws/jws-creation.md). There is only one argument that will change during the call of `withPayload`.
 
@@ -48,7 +48,7 @@ $jws = $jwsBuilder
 
 And voilà! When you will serialize this token, the payload will not be present.
 
-## JWS Loading
+## JWS loading
 
 The loading of a signed token with a detached payload is as easy as when the payload is attached. The only difference is that you have to pass the payload to the JWS Verifier when you want to check the signature.
 

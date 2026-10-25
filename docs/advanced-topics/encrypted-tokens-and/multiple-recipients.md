@@ -1,4 +1,4 @@
-# Multiple Recipients
+# Multiple recipients
 
 When you need to encrypt the same payload for several audiences, you may want to do it at once. The JWE Builder supports multiple recipients.
 
@@ -21,11 +21,11 @@ $jweBuilder
 
 **Note: when an unprotected header is set, the Compact Serialization mode is not available.**
 
-## Key Management Modes
+## Key management modes
 
 Each Key Encryption Algorithm has its own Key Management Mode.
 
-### Key Encryption Algorithms And Associated Key Management Mode.
+### Key encryption algorithms and associated key management mode.
 
 | Algorithm  Key Management Mode | Key Encryption | Key Wrapping | Direct Key Agreement | Key Agreement with Key Wrapping | Direct Encryption |
 | ------------------------------ | -------------- | ------------ | -------------------- | ------------------------------- | ----------------- |
@@ -47,7 +47,7 @@ Each Key Encryption Algorithm has its own Key Management Mode.
 | A192GCMKW                      |                | X            |                      |                                 |                   |
 | A256GCMKW                      |                | X            |                      |                                 |                   |
 
-### Compatibility table between Key Management Modes:
+### Compatibility table between key management modes:
 
 | Key Management Mode             | Key Encryption | Key Wrapping | Direct Key Agreement | Key Agreement with Key Wrapping | Direct Encryption |
 | ------------------------------- | -------------- | ------------ | -------------------- | ------------------------------- | ----------------- |

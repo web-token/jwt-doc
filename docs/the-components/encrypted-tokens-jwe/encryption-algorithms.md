@@ -1,13 +1,13 @@
-# Encryption Algorithms
+# Encryption algorithms
 
 This framework comes with several encryption algorithms. These algorithms are in the following namespaces:
 
 * `Jose\Component\Encryption\Algorithm\KeyEncryption`: key encryption algorithms
 * `Jose\Component\Encryption\Algorithm\ContentEncryption`: content encryption algorithms
 
-## Main Algorithms
+## Main algorithms
 
-### Key Encryption
+### Key encryption
 
 !!! info
 
@@ -27,7 +27,7 @@ This framework comes with several encryption algorithms. These algorithms are in
 
     Please note that the additional header parameters **MUST** be present and **MUST** be understood. Depending on the algorithm you use, you may be required to check headers BEFORE the decryption operation. Please create a [custom Header Checker](../header-checker.md) for theses parameters.
 
-### Content Encryption
+### Content encryption
 
 | Algorithm                                                    | Package                                     |
 | ------------------------------------------------------------ | ------------------------------------------- |
@@ -40,11 +40,11 @@ This framework comes with several encryption algorithms. These algorithms are in
 
     The algorithms `ECDH-ES*` are not recommended unless used with the `OKP` key type.
 
-## Experimental Algorithms
+## Experimental algorithms
 
 The following algorithms are experimental and must not be used in production unless you know what you are doing. **They are proposed for testing purpose only.**
 
-### Key Encryption
+### Key encryption
 
 | Algorithm | Description |
 |---|---|
@@ -52,13 +52,13 @@ The following algorithms are experimental and must not be used in production unl
 | Chacha20+Poly1305 | *Please note that this algorithm requires OpenSSL 1.1* |
 | RSA-OAEP-384<br>RSA-OAEP-512 | Same algorithm as RSA-OAEP-256 but with SHA-384 and SHA-512 hashing functions |
 
-### Content Encryption
+### Content encryption
 
 | Algorithm | Description |
 |---|---|
 | A128CCM-16-128<br>A128CCM-16-64<br>A128CCM-64-128<br>A128CCM-64-64<br>A256CCM-16-128<br>A256CCM-16-64<br>A256CCM-64-128<br>A256CCM-64-64 | AES-CCM based algorithms |
 
-## How To Use
+## How to use
 
 These algorithms have to be used with the [Algorithm Manager](../algorithm-management-jwa.md).
 

@@ -1,6 +1,6 @@
 # JWS serializers
 
-## JWS Serializer Manager Factory Service
+## JWS serializer manager factory service
 
 A `JWSSerializerManagerFactory` is available as a service in your application container:
 
@@ -25,7 +25,7 @@ Available JWS serialization modes are:
 * `jws_json_general`
 * `jws_json_flattened`
 
-## JWS Serializer Manager As Service
+## JWS serializer manager as service
 
 There is also another way to create a JWSSerializerManager object: using the bundle configuration.
 
@@ -45,7 +45,7 @@ With the previous configuration, the bundle will create a public JWS Serializer 
 $jwsSerializerManager = $container->get('jose.jws_serializer.serializer1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 

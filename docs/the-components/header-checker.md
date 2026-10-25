@@ -1,4 +1,4 @@
-# Header Checker
+# Header checker
 
 When you receive a JWT (JWS or JWE), it is important to check **ALL** headers parameters **BEFORE** any other action. In case something went wrong, the token should be rejected.
 
@@ -20,7 +20,7 @@ The header parameters are checked by a Header Checker Manager. This manager can 
 
     Even if the cypher process will check the `alg`/`enc` header parameters, it is interesting to check them before to reject tokens earlier.&#x20;
 
-## Header Checker Manager
+## Header checker manager
 
 To create a header checker manager, you will need to add header checkers and at least one token type.&#x20;
 
@@ -62,7 +62,7 @@ In the following example, an exception will be thrown if the `alg`, `enc` or `cr
 $headerCheckerManager->check($jwt, 0, ['alg', 'enc', 'crit']);
 ```
 
-## Provided Header Checker Objects
+## Provided header checker objects
 
 The library provides several header checker classes you can instantiate and use at will. They are all located in the namespace `Jose\Component\Checker`.
 
@@ -82,7 +82,7 @@ The library provides several header checker classes you can instantiate and use 
 | CallableChecker | Generic object that can execute a callable for checking a particular parameter | No |
 | IsEqualChecker | Generic object that can compare a particular parameter to a predefined value | No |
 
-## Header Checker Manager Factory
+## Header checker manager factory
 
 The Header Checker Manager Factory will help you to create as many Header Checker Manager as you want to fit on your application requirements.
 
@@ -104,7 +104,7 @@ $headerCheckerManagerForSignatures = $headerCheckerManagerFactory->create(['sign
 $headerCheckerManagerForEncryption = $headerCheckerManagerFactory->create(['key_encryption_alg']);
 ```
 
-## Custom Header Checker
+## Custom header checker
 
 With the previous examples, we will only check the `alg` (algorithm) header parameter. But your application may use other header parameters e.g. `cty`, `typ`...
 

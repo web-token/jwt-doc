@@ -1,6 +1,6 @@
 # JWE serializers
 
-## JWE Serializer Manager Factory Service
+## JWE serializer manager factory service
 
 A `JWESerializerManagerFactory` is available as a service in your application container:
 
@@ -25,7 +25,7 @@ Available JWE serialization modes are:
 * `jwe_json_general`
 * `jwe_json_flattened`
 
-## JWE Serializer Manager As Service
+## JWE serializer manager as service
 
 There is also another way to create a JWESerializerManager object: using the bundle configuration.
 
@@ -45,7 +45,7 @@ With the previous configuration, the bundle will create a public JWE Serializer 
 $jweSerializerManager = $container->get('jose.jwe_serializer.serializer1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 

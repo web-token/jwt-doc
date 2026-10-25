@@ -1,8 +1,8 @@
-# JWS Loading
+# JWS loading
 
 Signed tokens are loaded by a serializer or the serializer manager and verified by the `JWSVerifier` object. This JWSVerifier object just requires an algorithm manager.
 
-## Serializer And Verifier
+## Serializer and verifier
 
 In the following example, we will try to load a signed token. We will only use the `HS256` algorithm.
 
@@ -64,7 +64,7 @@ $isVerified = $jwsVerifier->verifyWithKey($jws, $jwk, 0);
 
 The method `verifyWithKey` returns a boolean. If true, then your token signature is valid. You can then check the claims (if any) using the claim checker manager.
 
-## JWSLoader Object
+## JWSLoader object
 
 To avoid duplication of code lines, you can create a `JWSLoader` object. This object contains a serializer, a verifier and an optional header checker (highly recommended).
 
@@ -88,7 +88,7 @@ $jws = $jwsLoader->loadAndVerifyWithKey($token, $jwk, $signature, $payload);
 
 In case you use a key set, you can use the method `loadAndVerifyWithKeySet`.
 
-## JWSLoaderFactory Object
+## JWSLoaderFactory object
 
 > This feature was introduced in version 1.1.
 

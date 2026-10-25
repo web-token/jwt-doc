@@ -1,6 +1,6 @@
-# Header and Claim Checker Management
+# Header and claim checker management
 
-## Checker Manager Factory Services
+## Checker manager factory services
 
 The Symfony Bundle provides Header and Claim Checker Manager Factory services.&#x20;
 
@@ -17,7 +17,7 @@ $claimCheckerManagerFactory = $container->get(ClaimCheckerManagerFactory::class)
 $claimCheckerManager = $claimCheckerManagerFactory->create([...]);
 ```
 
-## Checker Manager Services
+## Checker manager services
 
 You can create Header and Claim Checker Managers using the bundle configuration.
 
@@ -36,7 +36,7 @@ jose:
 
 With the previous configuration, the bundle will create public Header and Claim Checker Managers named `jose.header_checker.checker1` and `jose.claim_checker.checker1` with selected checkers.
 
-## Custom Header Or Claim Checker
+## Custom header or claim checker
 
 Some claim or header checkers are provided by this framework, but it is important to create custom checkers that fit on your application requirements.
 
@@ -56,7 +56,7 @@ services
 
 These checkers will be loaded by the factories and you will be able to create a header or a claim checker manager using the aliases `foo` or `bar`.
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the header and claim checker managers.
 

@@ -1,4 +1,4 @@
-# Signed Tokens
+# Signed tokens
 
 Signature algorithms are automatically handled by the Algorithm Manager Factory.
 

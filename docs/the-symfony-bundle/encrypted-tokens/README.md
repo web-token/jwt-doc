@@ -1,4 +1,4 @@
-# Encrypted Tokens
+# Encrypted tokens
 
 Encryption algorithms are automatically handled by the Algorithm Manager Factory.
 

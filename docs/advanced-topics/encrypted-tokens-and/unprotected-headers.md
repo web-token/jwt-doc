@@ -1,4 +1,4 @@
-# Unprotected Headers
+# Unprotected headers
 
 As well as the [signed tokens](../signed-tokens-and/unprotected-header.md), the encrypted tokens also have unprotected header. But with one difference: there are two unprotected headers:
 

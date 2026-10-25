@@ -1,8 +1,8 @@
-# Claim Checker
+# Claim checker
 
 JSON Web Tokens can be used to transport any kind of data. They are mainly used to transport claims. When you receive a tokens that contains claims, it is important to check the values of these claims.
 
-## Claim Checker Manager
+## Claim checker manager
 
 In the following example, we will create a manager able to check the `aud` (Audience), `iat` (Issued At), `nbf` (Not Before) and `exp` (Expiration) claims.
 
@@ -43,7 +43,7 @@ In the following example, an exception will be thrown if the `iss`, `sub` or `au
 $claimCheckerManager->check($claims, ['iss', 'sub', 'aud']);
 ```
 
-## Custom Claim Checker
+## Custom claim checker
 
 Your application may use other claims that you will have to check therefore custom claim checkers have to be created.
 
@@ -89,7 +89,7 @@ final class FooChecker implements ClaimChecker
 
 All done! Now you can instantiate your class and add it to your Claim Checker Manager.
 
-## Replicating Claims as Header Parameters
+## Replicating claims as header parameters
 
 The [RFC7516 section 5.3](https://tools.ietf.org/html/rfc7519#section-5.3) allows to replicate some claims in the header. This behaviour is very useful with encrypted tokens as it helps to reject invalid tokens without decryption of the payload.
 
@@ -97,7 +97,7 @@ The Claim Checker Manager cannot check those replicated claims, you have to crea
 
 Have a look at the `IssuedAtChecker` or the `NotBeforeChecker` classes. These checkers can be used for claim and header checks.
 
-## Claim Checker Manager Factory
+## Claim checker manager factory
 
 Your application may use JSON Web Tokens in different contexts and thus the meaning of a claim may be different. You will need several Claim Checker Managers with dedicated claim checkers.
 

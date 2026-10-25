@@ -1,6 +1,6 @@
 # JWE decryption
 
-## JWE Decrypter Factory Service
+## JWE decrypter factory service
 
 A `JWEDecrypterFactory` is available as a service in your application container:
 
@@ -23,7 +23,7 @@ You can now use the JWEDecrypter as explained in the JWE Creation section.
 
     Reminder: it is important to check the token headers. See the checker section of this documentation.
 
-## JWE Decrypter As Service
+## JWE decrypter as service
 
 There is also another way to create a JWEDecrypter object: using the bundle configuration.
 
@@ -43,7 +43,7 @@ With the previous configuration, the bundle will create a public JWE Decrypter s
 $jweDecrypter = $container->get('jose.jwe_decrypter.decrypter1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 
@@ -58,7 +58,7 @@ jose:
                     tag_name2: {attribute1: 'foo'}
 ```
 
-## JWE Loader Service
+## JWE loader service
 
 The [`JWELoaderFactory`](../../the-components/encrypted-tokens-jwe/jwe-loading.md) is available as a public service. You can retrieve it using the container or inject it into your services. It will help you to create `JWELoader` objects on demand.
 

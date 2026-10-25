@@ -1,4 +1,4 @@
-# Encrypted Tokens (JWE)
+# Encrypted tokens (JWE)
 
 A very large number of key and content encryption algorithms is provided by the library. Please refer to [this encryption algorithm table](encryption-algorithms.md) to know what algorithms are available.
 

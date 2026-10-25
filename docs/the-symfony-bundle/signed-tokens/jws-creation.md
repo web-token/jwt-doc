@@ -1,6 +1,6 @@
 # JWS creation
 
-## JWS Builder Factory Service
+## JWS builder factory service
 
 A `JWSBuilderFactory` is available as a service in your application container:
 
@@ -19,7 +19,7 @@ $jwsBuilder = $jwsBuilderFactory->create(['HS256']);
 
 You can now use the JWSBuilder as explained in the JWS Creation section.
 
-## JWS Builder As Service
+## JWS builder as service
 
 There is also another way to create a JWSBuilder object: using the bundle configuration.
 
@@ -39,7 +39,7 @@ With the previous configuration, the bundle will create a public JWS Builder ser
 $jwsBuilder = $container->get('jose.jws_builder.builder1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 

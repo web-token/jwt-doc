@@ -1,4 +1,4 @@
-# Key Set (JWKSet)
+# Key set (JWKSet)
 
 You can create a JWKSet object using three static methods:
 

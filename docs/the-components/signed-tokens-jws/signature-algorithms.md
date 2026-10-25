@@ -1,4 +1,4 @@
-# Signature Algorithms
+# Signature algorithms
 
 This framework comes with several signature algorithms. These algorithms are in the following namespace: `Jose\Component\Signature\Algorithm`.
 
@@ -11,7 +11,7 @@ This framework comes with several signature algorithms. These algorithms are in 
 | EdDSA (*only with the* Ed25519 *curve*) | Edwards-curve Digital Signature Algorithm (EdDSA) |
 | none | **Not a secure algorithm. Please use with caution** |
 
-### Experimental Algorithms
+### Experimental algorithms
 
 The following signature algorithms are experimental and must not be used in production unless you know what you are doing. **They are proposed for testing purpose only.**
 
@@ -23,7 +23,7 @@ They are provided throught the package `web-token/jwt-experimental`.
 | HS1       | HMAC with SHA-1 hashing function               |
 | ES256K    | Elliptic curve secp256k1 support               |
 
-## How To Use
+## How to use
 
 These algorithms have to be used with the [Algorithm Manager](../algorithm-management-jwa.md). They do not need any arguments.
 

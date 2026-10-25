@@ -1,6 +1,6 @@
 # JWE creation
 
-## JWE Builder Factory Service
+## JWE builder factory service
 
 A `JWEBuilderFactory` is available as a service in your application container:
 
@@ -19,7 +19,7 @@ $jweBuilder = $jweBuilderFactory->create(['A256GCMKW', 'A256CBC-HS256']);
 
 You can now use the JWEBuilder as explained in the JWE Creation section.
 
-## JWE Builder As Service
+## JWE builder as service
 
 There is also another way to create a JWEBuilder object: using the bundle configuration.
 
@@ -39,7 +39,7 @@ With the previous configuration, the bundle will create a public JWE Builder ser
 $jweBuilder = $container->get('jose.jwe_builder.builder1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 

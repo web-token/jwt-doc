@@ -1,4 +1,4 @@
-# JWE Creation
+# JWE creation
 
 The computation of a JWE is done by the `JWEBuilder` object. This object requires the following services:
 

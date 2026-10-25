@@ -1,10 +1,10 @@
-# Nested Tokens
+# Nested tokens
 
 JWT can be signed or encrypted and both. A nested token is a signed token enclosed in an encrypted one. This order is very important: signed then encrypted.
 
 The `NestedTokenLoader` and `NestedTokenBuilder` classes will help you to create nested tokens with ease. Just instal the package `web-token/jwt-nested-token`. It contains all the classes and dependencies will be directly managed by composer. You can install it if needed.
 
-## Nested Token Loading
+## Nested token loading
 
 To instantiate the `NestedTokenLoader`, you need a `JWSLoader` and a `JWELoader`.
 
@@ -22,7 +22,7 @@ The last argument (`$signature` in the following example) will represents the si
 $jws = $nestedTokenLoader->load($token, $encryptionKeySet, $signatureKeySet, $signature);
 ```
 
-## Nested Token Building
+## Nested token building
 
 To instantiate the `NestedTokenBuilder`, you will need the following components:
 
@@ -66,7 +66,7 @@ As a reminder, if one of the following parameter is set, the compact serializati
 * recipient unprotected header,
 * Additional Authenticated Data.
 
-## Symfony Bundle
+## Symfony bundle
 
 ### Configuration
 
@@ -102,7 +102,7 @@ This configuration will create two public services:
 
 These services can be called from the container (unless private) or injected in your services.
 
-### Configuration Helper
+### Configuration helper
 
 As any other services, you can create a nested token loader or builder from another bundle extension. The following bundle extension class will create the same configuration and services as above.
 

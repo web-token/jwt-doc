@@ -1,4 +1,4 @@
-# JWS Creation
+# JWS creation
 
 Now that you have an algorithm manager and a key, it is time to create your first signed token.
 

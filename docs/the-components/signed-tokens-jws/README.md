@@ -1,4 +1,4 @@
-# Signed Tokens (JWS)
+# Signed tokens (JWS)
 
 A very large number of signature algorithms is provided by the library. Please refer to [this signature algorithm table](signature-algorithms.md) to know what algorithms are available.
 

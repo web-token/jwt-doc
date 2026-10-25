@@ -1,4 +1,4 @@
-# Key (JWK) and Key Set (JWKSet)
+# Key (JWK) and key set (JWKSet)
 
 To perform cryptographic operations (signature/verification and encryption/decryption), you will need cryptographic keys.
 

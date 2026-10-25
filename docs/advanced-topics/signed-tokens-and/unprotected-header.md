@@ -1,4 +1,4 @@
-# Unprotected Header
+# Unprotected header
 
 You may want to set data in a token header that are not important for your application (e.g. general information). The integrity protection of the data is therefore not needed at all.
 

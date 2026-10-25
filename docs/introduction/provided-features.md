@@ -1,6 +1,6 @@
-# Provided Features
+# Provided features
 
-## Supported Input Types:
+## Supported input types:
 
 JWS or JWE objects support every input that can be encoded into JSON:
 
@@ -9,7 +9,7 @@ JWS or JWE objects support every input that can be encoded into JSON:
 
 The [detached payload](../advanced-topics/signed-tokens-and/detached-payload.md) is supported.
 
-## Supported Serialization Modes
+## Supported serialization modes
 
 | Serialization syntax | JWS | JWE |
 | -------------------- | --- | --- |
@@ -17,13 +17,13 @@ The [detached payload](../advanced-topics/signed-tokens-and/detached-payload.md)
 | Flattened JSON       | YES | YES |
 | General JSON         | YES | YES |
 
-## Supported Compression Methods
+## Supported compression methods
 
 !!! danger
 
     Compression is not recommended. For 4.0.0, the support of compression is no longer available. See [RFC8725](https://datatracker.ietf.org/doc/html/rfc8725#section-3.6) for more information.
 
-## Supported Key Types (JWK)
+## Supported key types (JWK)
 
 | Key Type | Supported | Comment                               |
 | -------- | --------- | ------------------------------------- |
@@ -38,11 +38,11 @@ JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/h
 
     A `none` key type for the `none` algorithm. It is used to explicitly allow this unsecured algorithm.
 
-## Key Sets (JWKSet)
+## Key sets (JWKSet)
 
 JWKSet is fully supported.
 
-## Supported Signature Algorithms
+## Supported signature algorithms
 
 | Signature Algorithm                  | Supported | Comment                                                                                                    |
 | ------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------- |
@@ -58,7 +58,7 @@ JWKSet is fully supported.
 
     Other signature algorithms like `RS1`, `HS1` or `HS256/64` are also available. These algorithms should be used for testing purpose only or for compatibility with old systems
 
-## Supported Key Encryption Algorithms
+## Supported key encryption algorithms
 
 | Key Encryption Algorithm                                                      | Supported |                                                                                                                                                                  |
 | ----------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -80,7 +80,7 @@ JWKSet is fully supported.
 
     The algorithms `RSA1_5` and `RSA-OAEP` are now deprecated. Please use with caution.
 
-## Supported Content Encryption Algorithms
+## Supported content encryption algorithms
 
 | Content Encryption Algorithm                                 | Supported |
 | ------------------------------------------------------------ | --------- |

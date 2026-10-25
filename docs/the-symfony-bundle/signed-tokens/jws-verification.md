@@ -1,6 +1,6 @@
 # JWS verification
 
-## JWS Verifier Factory Service
+## JWS verifier factory service
 
 A `JWSVerifierFactory` is available as a service in your application container:
 
@@ -23,7 +23,7 @@ You can now use the JWSVerifier as explained in the JWS Creation section.
 
     Reminder: it is important to check the token headers. See the checker section of this documentation.
 
-## JWS Verifier As Service
+## JWS verifier as service
 
 There is also another way to create a JWSVerifier object: using the bundle configuration.
 
@@ -43,7 +43,7 @@ With the previous configuration, the bundle will create a public JWS Verifier se
 $jwsVerifier = $container->get('jose.jws_verifier.verifier1');
 ```
 
-## Custom Tags
+## Custom tags
 
 You can add custom tags and attributes to the services you create.
 
@@ -58,7 +58,7 @@ jose:
                     tag_name2: {attribute1: 'foo'}
 ```
 
-## JWS Loader Service
+## JWS loader service
 
 The [`JWSLoaderFactory`](../../the-components/signed-tokens-jws/jws-loading.md) is available as a public service. You can retrieve it using the container or inject it into your services. It will help you to create `JWSLoader` objects on demand.
 

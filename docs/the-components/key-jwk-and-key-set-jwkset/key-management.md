@@ -32,7 +32,7 @@ $public_key = $jwk->toPublic();
 json_encode($jwk);
 ```
 
-## Generate A New Key
+## Generate a new key
 
 This framework is able to create private and public keys on the fly using the `JWKFactory`. 4 types of keys are supported:
 
@@ -47,7 +47,7 @@ This framework is able to create private and public keys on the fly using the `J
 
     The `none` algorithm needs a key of type `none`. This is a specific key type that must only be used with this algorithm.
 
-### Octet String
+### Octet string
 
 The following example will show you how to create an `oct` key.
 
@@ -83,7 +83,7 @@ $jwk = JWKFactory::createFromSecret(
 );
 ```
 
-### RSA Key Pair
+### RSA key pair
 
 The following example will show you how to create a `RSA` key.
 
@@ -102,7 +102,7 @@ $private_key = JWKFactory::createRSAKey(
     ]);
 ```
 
-### Elliptic Curve Key Pair
+### Elliptic curve key pair
 
 The following example will show you how to create a `EC` key.
 
@@ -120,7 +120,7 @@ The supported curves are:
 * `P-384`
 * `P-521` (note that this is **521** and not 512)
 
-#### Octet Key Pair
+#### Octet key pair
 
 The following example will show you how to create a `OKP` key.
 
@@ -137,7 +137,7 @@ The supported curves are:
 * `Ed25519` for signature/verification only
 * `X25519` for encryption/decryption only
 
-### None Key
+### None key
 
 The `none` key type is a special type used only for the `none` algorithm.
 
@@ -149,9 +149,9 @@ use Jose\Component\KeyManagement\JWKFactory;
 $key = JWKFactory::createNoneKey();
 ```
 
-## Create Key From External Sources
+## Create key from external sources
 
-### From Values
+### From values
 
 In case you already have key values, you can create a key by passing those values as an argument:
 
@@ -170,7 +170,7 @@ $key = JWKFactory::createFromValues([
 ]);
 ```
 
-### From A Key File
+### From a key file
 
 You can convert a PKCS#1 or PKCS#8 key file into a JWK. The following method supports PEM and DER formats. Encrypted keys are also supported.
 
@@ -188,7 +188,7 @@ $key = JWKFactory::createFromKeyFile(
 );
 ```
 
-### From A PKCS#12 Certificate
+### From a PKCS#12 certificate
 
 You can convert a PKCS#12 Certificate into a JWK. Encrypted certificates are also supported.
 
@@ -206,7 +206,7 @@ $key = JWKFactory::createFromPKCS12CertificateFile(
 );
 ```
 
-### From A X.509 Certificate
+### From a X.509 certificate
 
 You can convert a X.509 Certificate into a JWK.
 

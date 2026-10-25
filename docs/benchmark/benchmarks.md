@@ -1,4 +1,4 @@
-# How To
+# How to
 
 You can easily check if an algorithm is fast enough on your platform. This project has tests for all operations with (almost) all algorithms.
 
@@ -12,7 +12,7 @@ To run those tests, you must install the library with all dev dependencies. When
 
 **The previous command will test ALL algorithms and may take more than 7 hours.**
 
-## Algorithm Selection
+## Algorithm selection
 
 We recommend you to run tests only for the algorithm(s) you want to use. Just run the following command:
 
@@ -83,7 +83,7 @@ Test the RSA1\_5 algorithm:
 ./vendor/bin/phpbench run --group RSA1_5 --store
 ```
 
-## Benchmark Details
+## Benchmark details
 
 The result of the following command will only give you partial result. For example:
 

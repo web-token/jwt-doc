@@ -1,4 +1,4 @@
-# The Framework
+# The framework
 
 The JWT Framework is the main package and contains all features and components described in this documentation. It is split in several sub-packages depending on your needs.
 

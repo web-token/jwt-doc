@@ -1,4 +1,4 @@
-# Symfony Bundle
+# Symfony bundle
 
 This framework provides a Symfony bundle that will help you to use the components within your Symfony application.
 
@@ -24,7 +24,7 @@ return [
 
 ```
 
-## Bundle Features
+## Bundle features
 
 The bundle capabilities will depend on the components installed in your application.
 

@@ -1,4 +1,4 @@
-# Algorithm Management (JWA)
+# Algorithm management (JWA)
 
 For each cryptographic operation, you will need at least one algorithm and one key.
 
@@ -23,7 +23,7 @@ $algorithmManager = new AlgorithmManager([
 
     It is not possible to set the same algorithm twice in the same algorithm manager.
 
-## Algorithm Manager Factory
+## Algorithm manager factory
 
 Your application may need several algorithm managers for several use cases. For example you application may use JWT for:
 

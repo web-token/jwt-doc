@@ -8,9 +8,9 @@ The [RFC7515](https://tools.ietf.org/html/rfc7515) (JWS) and [RFC7516](https://t
 
 The _Compact_ mode is most know and commonly used as it is compact and URL safe i.e. it is designed for web context. JSON Flattened and General are not URL safe, but provides features that may fit on your application context.
 
-## JWS Serialization
+## JWS serialization
 
-### JWS Compact
+### JWS compact
 
 This serialization mode is probably the one you know the most. It it a string composed of three parts encoded in Base64 Url Safe and separated by a dot (`.`).
 
@@ -27,7 +27,7 @@ There are some limitations when you use this serialization mode:
 * Unprotected header not supported.
 * Unencoded payload must contain characters within the following range of ASCII characters: 0x20-0x2d and 0x2f-0x7e
 
-### JWS JSON Flattened
+### JWS JSON flattened
 
 This serialization mode is useful when you need to use the unprotected header. It it a simple JSON object.
 
@@ -46,7 +46,7 @@ Example:
 }
 ```
 
-### JWS JSON General
+### JWS JSON general
 
 This serialization mode is similar to the JWS JSON Flattened, but may contain more than one signature. It it a JSON object.
 
@@ -83,7 +83,7 @@ Example:
 }
 ```
 
-### JWS Serializer Manager
+### JWS serializer manager
 
 The serializer manager can be helpful when your application deals more than one serialization mode.
 
@@ -107,9 +107,9 @@ $token = $manager->serialize('jws_json_flattened', $jws, 1);
 $jws = $manager->unserialize($token);
 ```
 
-## JWE Serialization
+## JWE serialization
 
-### JWE Compact
+### JWE compact
 
 This serialization mode is probably the one you know the most. It it a string composed of five parts encoded in Base64 Url Safe and separated by a dot (`.`).
 
@@ -126,7 +126,7 @@ There are some limitations when you use this serialization mode:
 * No Additional Authentication Data can be used.
 * No shared unprotected header or per-recipient header can be used.
 
-### JWE JSON Flattened
+### JWE JSON flattened
 
 This serialization mode is useful when you need to use the unprotected header. It it a simple JSON object.
 
@@ -146,7 +146,7 @@ Example:
 }
 ```
 
-### JWE JSON General
+### JWE JSON general
 
 This serialization mode is similar to the JWE JSON Flattened, but may contain more than one recipient. It it a JSON object.
 
@@ -174,7 +174,7 @@ Example:
  }
 ```
 
-### JWE Serializer Manager
+### JWE serializer manager
 
 The serializer manager can be helpful when your application deals more than one serialization mode.
 

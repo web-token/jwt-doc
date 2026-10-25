@@ -1,4 +1,4 @@
-# Unencoded Payload
+# Unencoded payload
 
 The [RFC7797](https://tools.ietf.org/html/rfc7797) allows the use of an unencoded payload for the signed tokens. This behaviour is interesting when your tokens have a detached payload and may reduce the token computation.
 

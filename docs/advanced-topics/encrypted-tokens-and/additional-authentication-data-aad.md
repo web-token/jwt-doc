@@ -1,4 +1,4 @@
-# Additional Authentication Data (AAD)
+# Additional authentication data (AAD)
 
 The Additional Authenticated Data (AAD) is an input to an Authenticated Encryption operation. The AAD is integrity protected but not encrypted.
 

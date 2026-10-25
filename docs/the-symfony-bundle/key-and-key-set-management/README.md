@@ -1,4 +1,4 @@
-# Key and Key Set Management
+# Key and key set management
 
 We recommend you to load these objects through environment variables. With Symfony, an environment variables processor is provided:
 
