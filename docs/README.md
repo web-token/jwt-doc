@@ -1,4 +1,4 @@
-# Introduction
+# JWT Framework
 
 This project is a framework that provides an implementation of:
 
