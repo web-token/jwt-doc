@@ -1,7 +1,0 @@
-# GitBook serves the domain until it points to GitHub Pages. The pages moved to docs/ for MkDocs, and this
-# tells GitBook where they are. It goes away with the GitBook space.
-root: ./docs/
-
-structure:
-  readme: README.md
-  summary: SUMMARY.md
