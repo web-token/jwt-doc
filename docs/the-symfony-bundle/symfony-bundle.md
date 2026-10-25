@@ -30,6 +30,6 @@ The bundle capabilities will depend on the components installed in your applicat
 
 * [Algorithm Management](algorithm-management.md)
 * [Header and Claim Checkers](header-and-claim-checker-management.md)
-* [Keys and key sets](key-and-key-set-management/)
-* [Signed tokens](signed-tokens/)
-* [Encrypted tokens](encrypted-tokens/)
+* [Keys and key sets](key-and-key-set-management/README.md)
+* [Signed tokens](signed-tokens/README.md)
+* [Encrypted tokens](encrypted-tokens/README.md)
