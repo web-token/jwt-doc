@@ -1,0 +1,73 @@
+name: Default branch
+
+# A new version branch becomes the default branch of the repository, so that a clone and the "edit this
+# page" links land on the newest documentation. Changing the default branch is an administration
+# permission, which the token of Actions cannot be granted: it needs a personal access token with the
+# "repo" scope, in the DEFAULT_BRANCH_TOKEN secret. Without it the workflow does nothing.
+on:
+    create:
+    workflow_dispatch:
+
+jobs:
+    switch:
+        if: github.event_name == 'workflow_dispatch' || github.event.ref_type == 'branch'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        env:
+            GH_TOKEN: ${{ secrets.DEFAULT_BRANCH_TOKEN }}
+        steps:
+            - name: Is the token available?
+              id: token
+              run: |
+                  if [ -z "${GH_TOKEN}" ]; then
+                    echo "DEFAULT_BRANCH_TOKEN is not set, nothing to do."
+                    echo "available=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "available=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: The version of the branch that was created
+              id: created
+              if: steps.token.outputs.available == 'true'
+              run: |
+                  ref="${GITHUB_REF#refs/heads/}"
+                  version="${ref#v}"
+                  version="${version%.x}"
+                  if [[ ! "$version" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+                    echo "The branch '$ref' is not a version, nothing to do."
+                    echo "valid=false" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
+                  echo "valid=true" >> "$GITHUB_OUTPUT"
+                  echo "branch=$ref" >> "$GITHUB_OUTPUT"
+                  echo "major=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+                  echo "minor=${BASH_REMATCH[2]}" >> "$GITHUB_OUTPUT"
+
+            - name: Is it newer than the default branch?
+              id: decide
+              if: steps.created.outputs.valid == 'true'
+              run: |
+                  current=$(gh repo view "${GITHUB_REPOSITORY}" --json defaultBranchRef --jq .defaultBranchRef.name)
+                  clean="${current#v}"
+                  clean="${clean%.x}"
+                  if [[ ! "$clean" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+                    echo "The current default branch '$current' is not a version, nothing to do."
+                    echo "switch=false" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
+                  major="${{ steps.created.outputs.major }}"
+                  minor="${{ steps.created.outputs.minor }}"
+                  if [ "$major" -gt "${BASH_REMATCH[1]}" ] || { [ "$major" -eq "${BASH_REMATCH[1]}" ] && [ "$minor" -gt "${BASH_REMATCH[2]}" ]; }; then
+                    echo "${major}.${minor} is newer than $clean, switching."
+                    echo "switch=true" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "${major}.${minor} is not newer than $clean, nothing to do."
+                    echo "switch=false" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Switch it
+              if: steps.decide.outputs.switch == 'true'
+              run: |
+                  gh api -X PATCH "repos/${GITHUB_REPOSITORY}" \
+                    -f default_branch="${{ steps.created.outputs.branch }}"
