@@ -333,6 +333,26 @@ The fetching code moved to an internal trait the two factories use, so **they no
 
 `enabledCache()`, deprecated by annotation since 4.1, raises the notice now and states its replacement: an HTTP client that caches the responses, which honours the cache directives of the endpoint where the fixed lifetime of a cache pool ignores them.
 
+### HPKE for JWE
+
+[draft-ietf-jose-hpke-encrypt](https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/) brings HPKE (RFC 9180) to JWE, the first new key management for JWE since RFC 7518 and the path to post-quantum encryption in JOSE. The specification waits in the RFC Editor queue; its fourteen identifiers are registered by IANA. The library ships all of them, on `EC` (P-256, P-384, P-521) and `OKP` (X25519, X448) keys:
+
+* **Integrated Encryption** — `HPKE-0` to `HPKE-7`: HPKE encrypts the payload itself. The token has no `enc` header parameter, a single recipient whose encrypted key is the HPKE encapsulated key, and an empty IV and tag. This is a new key management mode: `IntegratedEncryption` is the interface of such algorithms, and the builder and the decrypter enforce its rules.
+* **Key Encryption** — `HPKE-0-KE`, `HPKE-1-KE`, `HPKE-2-KE`, `HPKE-3-KE`, `HPKE-5-KE` and `HPKE-7-KE`: HPKE encrypts the CEK, the encapsulated key being the `ek` header parameter. They combine with the other recipients of a JWE JSON Serialization.
+
+```php
+<?php
+
+use Jose\Component\Core\AlgorithmManager;
+use Jose\Component\Encryption\Algorithm\ContentEncryption\A128GCM;
+use Jose\Component\Encryption\Algorithm\KeyEncryption\HPKE0KE;
+use Jose\Component\Encryption\Algorithm\KeyEncryption\HPKE3;
+
+$algorithmManager = new AlgorithmManager([new HPKE3(), new HPKE0KE(), new A128GCM()]);
+```
+
+The pre-shared key mode of HPKE is supported too: the application sets the `psk_id` header parameter, and gives the key as the sender key to the builder and to the decrypter. The X25519 suites need `sodium` or OpenSSL on PHP 8.4, the X448 suites PHP 8.4, `HPKE-4` and `HPKE-6` an OpenSSL providing ChaCha20Poly1305: `HPKE0::isSupported()` and its siblings tell, and the Symfony Bundle registers the algorithms only when they can run. See the [HPKE](../advanced-topics/encrypted-tokens/hpke.md) page.
+
 ## Announced for 5.0
 
 Some interfaces of the library are implemented by third-party code, so they cannot change without breaking it. 4.3 is the last release able to give notice, so it documents the signature they will have in 5.0 and **ships the objects they will return**, ready to be used.
@@ -397,10 +417,11 @@ A support given a token it does not handle returns an object carrying two empty 
 
 ## Behaviour changes
 
-Nothing that requires a change in your code. Two points are worth knowing:
+Nothing that requires a change in your code. Three points are worth knowing:
 
 * **`JWEDecrypter::decrypt()` does not modify the JWE it receives.** The deprecated `decryptUsingKey()`/`decryptUsingKeySet()` still write the payload into the object passed by reference, so both behaviours coexist until 5.0.
 * **The builders no longer depend on the order of the calls.** Sequences that used to fail — adding a recipient before the shared protected header carrying its `alg`, or reusing a shared builder service after a `b64` build — now succeed. Nothing that worked before stops working.
+* **The JWE JSON Serializations omit an empty IV or tag.** The `iv` and `tag` members are left out when the value is empty, and their absence is accepted, as RFC 7516 requires: the Integrated Encryption of HPKE has neither. No algorithm of the previous versions produces an empty IV or tag, so the serialization of your tokens is unchanged. A JSON token without these members used to make the serializers fail with a `TypeError`.
 
 An unrelated misconfiguration is now reported early: passing an algorithm that is neither a key encryption nor a content encryption algorithm to `JWEBuilder` or `JWEDecrypter` is deprecated, where it used to turn into a much later *algorithm not supported* error.
 

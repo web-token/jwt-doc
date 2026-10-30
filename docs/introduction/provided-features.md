@@ -43,13 +43,13 @@ JWK objects support JSON Web Key Thumbprint ([RFC 7638](https://tools.ietf.org/h
 
 | Key Type | Curve                              | Supported | Comment                                                                                          |
 | -------- | ---------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| EC       |P-256<br>P-384<br>P-521| YES       | ECDSA signatures (`ES256`/`ES384`/`ES512`) and `ECDH-ES*`/`ECDH-SS*` key agreement               |
+| EC       |P-256<br>P-384<br>P-521| YES       | ECDSA signatures (`ES256`/`ES384`/`ES512`), `ECDH-ES*`/`ECDH-SS*` key agreement and `HPKE-*` encryption |
 | EC       | secp256k1                          | YES       | `ES256K` signatures (RFC 8812) and `ECDH-ES*`/`ECDH-SS*` key agreement                             |
 | EC       |BP-256<br>BP-384<br>BP-512| YES  | Brainpool curves. `BP256R1`/`BP384R1`/`BP512R1` signatures are in the `Jose\Experimental` namespace |
 | OKP      | Ed25519                            | YES       | `Ed25519` signatures (and the deprecated `EdDSA`). SODIUM extension, or OpenSSL on PHP 8.4+ |
-| OKP      | X25519                             | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement. SODIUM extension, or OpenSSL on PHP 8.4+ |
+| OKP      | X25519                             | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement and `HPKE-*` encryption. SODIUM extension, or OpenSSL on PHP 8.4+ |
 | OKP      | Ed448                              | YES       | `Ed448` signatures. PHP 8.4+ is required (OpenSSL) |
-| OKP      | X448                               | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement. PHP 8.4+ is required (OpenSSL) |
+| OKP      | X448                               | YES       | `ECDH-ES*`/`ECDH-SS*` key agreement and `HPKE-*` encryption. PHP 8.4+ is required (OpenSSL) |
 
 !!! warning
 
@@ -93,6 +93,8 @@ JWKSet is fully supported.
 |A128GCMKW<br>A192GCMKW<br>A256GCMKW| YES       | `spomky-labs/aes-key-wrap` is required                                                                                                                           |
 | ECDH-ES with X25519 curve                                                     | YES       | SODIUM extension, or OpenSSL on PHP 8.4+                                                                                                  |
 | ECDH-ES with X448 curve                                                       | YES       | PHP 8.4+ is required (OpenSSL). Since 4.3                                                                                     |
+|HPKE-0-KE<br>HPKE-1-KE<br>HPKE-2-KE<br>HPKE-3-KE<br>HPKE-5-KE<br>HPKE-7-KE| YES       | HPKE Key Encryption (draft-ietf-jose-hpke-encrypt). X25519 needs SODIUM or OpenSSL on PHP 8.4+, X448 PHP 8.4+. See [HPKE](../advanced-topics/encrypted-tokens/hpke.md). Since 4.3 |
+|HPKE-0<br>HPKE-1<br>HPKE-2<br>HPKE-3<br>HPKE-4<br>HPKE-5<br>HPKE-6<br>HPKE-7| YES       | HPKE Integrated Encryption (draft-ietf-jose-hpke-encrypt): no content encryption algorithm, one recipient. Same requirements, and an OpenSSL providing ChaCha20Poly1305 for `HPKE-4` and `HPKE-6`. Since 4.3 |
 
 !!! info
 

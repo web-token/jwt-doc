@@ -247,6 +247,7 @@ nav:
           - advanced-topics/encrypted-tokens/unprotected-headers.md
           - advanced-topics/encrypted-tokens/multiple-recipients.md
           - advanced-topics/encrypted-tokens/additional-authentication-data-aad.md
+          - advanced-topics/encrypted-tokens/hpke.md
   - "Benchmarks":
       - benchmark/benchmarks.md
       - benchmark/result-table.md

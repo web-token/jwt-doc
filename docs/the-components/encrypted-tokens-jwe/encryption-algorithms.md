@@ -22,6 +22,8 @@ This framework comes with several encryption algorithms. These algorithms are in
 | ECDH-SS<br>ECDH-SS+A128KW<br>ECDH-SS+A192KW<br>ECDH-SS+A256KW | No |
 | PBES2-HS256+A128KW<br>PBES2-HS384+A192KW<br>PBES2-HS512+A256KW | `p2s`: (PBES2 salt input) encodes a Salt Input value, which is used as part of the PBKDF2 salt value.<br>`p2c`: (PBES2 count) contains the PBKDF2 iteration count, represented as a positive JSON integer. |
 | RSA1_5<br>RSA-OAEP<br>RSA-OAEP-256 |  |
+| HPKE-0-KE<br>HPKE-1-KE<br>HPKE-2-KE<br>HPKE-3-KE<br>HPKE-5-KE<br>HPKE-7-KE | `ek`: (encapsulated key) the base64url-encoded HPKE encapsulated key, added by the algorithm.<br>`psk_id`: (pre-shared key identifier) set by the application to use a pre-shared key. |
+| HPKE-0<br>HPKE-1<br>HPKE-2<br>HPKE-3<br>HPKE-4<br>HPKE-5<br>HPKE-6<br>HPKE-7 | `psk_id`: (pre-shared key identifier) set by the application to use a pre-shared key.<br>These algorithms encrypt the content themselves: there is no `enc` header parameter. |
 
 !!! warning
 
@@ -57,6 +59,10 @@ use Jose\Rsa15\KeyEncryption\RSA15;
 !!! warning
 
     `Jose\Component\Encryption\Algorithm\KeyEncryption\RSA15` still works — it is an empty subclass of the new class — but it is deprecated since 4.3 and removed in 5.0. In the Symfony Bundle, the configuration alias is unchanged: `RSA1_5` still names the algorithm.
+
+### The HPKE algorithms
+
+Since 4.3, the `HPKE-*` algorithms of [draft-ietf-jose-hpke-encrypt](https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/) bring HPKE to JWE in two key management modes: Integrated Encryption (`HPKE-0` to `HPKE-7`), where HPKE encrypts the payload itself and the token has no `enc`, and Key Encryption (`HPKE-*-KE`), where HPKE encrypts the CEK of a regular content encryption algorithm. Each identifier fixes the key type, the curve and the HPKE cipher suite. See the [HPKE](../../advanced-topics/encrypted-tokens/hpke.md) page for the details, the pre-shared key mode and the platform requirements.
 
 ### Curves supported by the key agreement algorithms
 

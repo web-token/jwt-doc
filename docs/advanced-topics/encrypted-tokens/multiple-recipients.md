@@ -45,6 +45,14 @@ Each Key Encryption Algorithm has its own Key Management Mode.
 | A128GCMKW                      |                | X            |                      |                                 |                   |
 | A192GCMKW                      |                | X            |                      |                                 |                   |
 | A256GCMKW                      |                | X            |                      |                                 |                   |
+| HPKE-0-KE                      | X              |              |                      |                                 |                   |
+| HPKE-1-KE                      | X              |              |                      |                                 |                   |
+| HPKE-2-KE                      | X              |              |                      |                                 |                   |
+| HPKE-3-KE                      | X              |              |                      |                                 |                   |
+| HPKE-5-KE                      | X              |              |                      |                                 |                   |
+| HPKE-7-KE                      | X              |              |                      |                                 |                   |
+
+The `HPKE-0` to `HPKE-7` algorithms use a sixth mode, the Integrated Encryption of [draft-ietf-jose-hpke-encrypt](hpke.md): they encrypt the content themselves, without content encryption algorithm, and cannot be combined with any other recipient.
 
 ### Compatibility table between key management modes:
 
