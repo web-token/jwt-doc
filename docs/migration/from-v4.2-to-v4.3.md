@@ -329,12 +329,12 @@ The `ConfigurationHelper::addHeaderChecker()` helper accepts the same list as an
 
 [RFC 9901](https://www.rfc-editor.org/rfc/rfc9901.html) lets an Issuer sign a JWT whose claims the Holder discloses one by one to each Verifier, optionally bound to the key of the Holder. It is the credential format of SD-JWT VC, of the EU Digital Identity Wallet and of OpenID for Verifiable Credentials.
 
-The new `Jose\Component\SelectiveDisclosure` component of the library implements the three roles of the RFC on top of the JWS services:
+The new `web-token/jwt-selective-disclosure` package (`composer require web-token/jwt-selective-disclosure`) implements the three roles of the RFC on top of the JWS services of the library, in the `Jose\SelectiveDisclosure` namespace:
 
 ```php
 <?php
 
-use Jose\Component\SelectiveDisclosure\Disclosable;
+use Jose\SelectiveDisclosure\Disclosable;
 
 // Issuer
 $sdJwt = $issuer->issue(['iss' => $iss, 'given_name' => new Disclosable('John'), 'cnf' => ['jwk' => $holderKey]], $issuerKey, ['alg' => 'ES256', 'typ' => 'example+sd-jwt']);
@@ -346,7 +346,7 @@ $presentation = $holder->present($sdJwt->select(['given_name']), $holderPrivateK
 $claims = $verifier->verifyWithKeyBinding($presentation->toString(), $issuerKeySet, $audience, $nonce)->getClaims();
 ```
 
-The Symfony Bundle creates the services from a `jose.selective_disclosure` configuration. See the [Selective Disclosure](../advanced-topics/selective-disclosure.md) page.
+The Symfony Bundle creates the services from a `jose.selective_disclosure` configuration once the package is installed. See the [Selective Disclosure](../advanced-topics/selective-disclosure.md) page.
 
 ### JKUFactory and X5UFactory stand on their own
 

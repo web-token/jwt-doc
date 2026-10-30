@@ -2,7 +2,13 @@
 
 [RFC 9901](https://www.rfc-editor.org/rfc/rfc9901.html) defines Selective Disclosure for JWTs. The Issuer replaces the claims it wants to make selectively disclosable by salted digests, signs the result and hands the Holder the signed JWT together with the *Disclosures*, the salted claims themselves. The Holder later presents the signed JWT with the Disclosures of the claims it chooses to reveal, optionally bound to its own key by a *Key Binding JWT*. The Verifier checks the signature, recomputes the digests of the presented Disclosures and gets back the claims that were disclosed, and only those.
 
-SD-JWT is the credential format of SD-JWT VC, of the EU Digital Identity Wallet and of OpenID for Verifiable Credentials. This page describes the three roles of the RFC as the `Jose\Component\SelectiveDisclosure` component of the library implements them. It is available since 4.3.
+SD-JWT is the credential format of SD-JWT VC, of the EU Digital Identity Wallet and of OpenID for Verifiable Credentials. This page describes the three roles of the RFC as the `web-token/jwt-selective-disclosure` package implements them, in the `Jose\SelectiveDisclosure` namespace. It is available since 4.3.
+
+The package is not part of `web-token/jwt-library`, on which it depends: SD-JWT is a layer on top of the JWS services, installed when it is needed.
+
+```sh
+composer require web-token/jwt-selective-disclosure
+```
 
 The compact format of the RFC is supported:
 
@@ -22,8 +28,8 @@ The `SDJWTIssuer` signs the SD-JWT with a `JWSBuilder`, hence with any signature
 <?php
 
 use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\SelectiveDisclosure\Disclosable;
-use Jose\Component\SelectiveDisclosure\SDJWTIssuer;
+use Jose\SelectiveDisclosure\Disclosable;
+use Jose\SelectiveDisclosure\SDJWTIssuer;
 use Jose\Component\Signature\Algorithm\ES256;
 use Jose\Component\Signature\JWSBuilder;
 
@@ -106,7 +112,7 @@ The Holder parses the SD-JWT it received with `SDJWT::fromString()`. Before stor
 ```php
 <?php
 
-use Jose\Component\SelectiveDisclosure\SDJWT;
+use Jose\SelectiveDisclosure\SDJWT;
 
 $sdJwt = SDJWT::fromString($token);
 
@@ -126,7 +132,7 @@ When the Verifier requires Key Binding, the Holder adds a Key Binding JWT signed
 ```php
 <?php
 
-use Jose\Component\SelectiveDisclosure\SDJWTHolder;
+use Jose\SelectiveDisclosure\SDJWTHolder;
 
 $holder = new SDJWTHolder($jwsBuilder, $clock); // A PSR-20 clock
 
@@ -156,7 +162,7 @@ use Jose\Component\Checker\IssuedAtChecker;
 use Jose\Component\Checker\IssuerChecker;
 use Jose\Component\Checker\NotBeforeChecker;
 use Jose\Component\Checker\TypeChecker;
-use Jose\Component\SelectiveDisclosure\SDJWTVerifier;
+use Jose\SelectiveDisclosure\SDJWTVerifier;
 use Jose\Component\Signature\JWSLoader;
 use Jose\Component\Signature\JWSTokenSupport;
 
@@ -214,12 +220,12 @@ The Key Binding JWT is rejected when its signature cannot be verified with the k
 
 ## Disclosures
 
-The `Disclosure` class is the building block of the component. It creates the Disclosure of an object property or of an array element, parses one, and computes its digest:
+The `Disclosure` class is the building block of the package. It creates the Disclosure of an object property or of an array element, parses one, and computes its digest:
 
 ```php
 <?php
 
-use Jose\Component\SelectiveDisclosure\Disclosure;
+use Jose\SelectiveDisclosure\Disclosure;
 
 $disclosure = Disclosure::forObjectProperty('family_name', 'Doe');  // A random salt
 $disclosure = Disclosure::forArrayElement('FR', 'lklxF5jMYlGTPUovMNIvCA');
@@ -237,6 +243,8 @@ The JSON arrays are serialized as the examples of the RFC are: elements separate
 ## Symfony bundle
 
 ### Configuration
+
+The `selective_disclosure` section of the configuration exists when the `web-token/jwt-selective-disclosure` package is installed; the bundle suggests it but does not require it.
 
 ```yaml
 jose:
