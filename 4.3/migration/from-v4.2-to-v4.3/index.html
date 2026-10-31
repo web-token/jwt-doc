@@ -4170,6 +4170,7 @@
 </span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="c1">// Verifier</span>
 </span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="nv">$claims</span> <span class="o">=</span> <span class="nv">$verifier</span><span class="o">-&gt;</span><span class="na">verifyWithKeyBinding</span><span class="p">(</span><span class="nv">$presentation</span><span class="o">-&gt;</span><span class="na">toString</span><span class="p">(),</span> <span class="nv">$issuerKeySet</span><span class="p">,</span> <span class="nv">$audience</span><span class="p">,</span> <span class="nv">$nonce</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getClaims</span><span class="p">();</span>
 </span></code></pre></div>
+<p>Both formats of the RFC are supported: the compact format and the JWS JSON serialization of section 8, issued by <code>issueJson()</code>.</p>
 <p>The Symfony Bundle creates the services from a <code>jose.selective_disclosure</code> configuration once the package is installed. See the <a href="../../advanced-topics/selective-disclosure/">Selective Disclosure</a> page.</p>
 <h3 id="jkufactory-and-x5ufactory-stand-on-their-own">JKUFactory and X5UFactory stand on their own<a class="headerlink" href="#jkufactory-and-x5ufactory-stand-on-their-own" title="Link to this section">&para;</a></h3>
 <p><code>UrlKeySetFactory</code> is announced for removal in 5.0, yet <code>JKUFactory</code> and <code>X5UFactory</code> — the documented way to load a <code>jku</code> or a <code>x5u</code> key set, and not deprecated themselves — extended it.</p>
@@ -4475,7 +4476,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 07:00:09 UTC">October 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 08:55:53 UTC">October 31, 2026</span>
   </span>
 
     
