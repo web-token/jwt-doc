@@ -10,15 +10,17 @@ The package is not part of `web-token/jwt-library`, on which it depends: SD-JWT 
 composer require web-token/jwt-selective-disclosure
 ```
 
-The compact format of the RFC is supported:
+Both formats of the RFC are supported: the compact format,
 
 ```
 <Issuer-signed JWT>~<Disclosure 1>~...~<Disclosure N>~[<Key Binding JWT>]
 ```
 
+and the [JWS JSON serialization](#jws-json-serialization) of section 8.
+
 !!! note
 
-    The JWS JSON serialization of SD-JWTs (section 8 of the RFC) is not supported. The profiles built on top of SD-JWT, such as SD-JWT VC (`dc+sd-jwt`, `vct`, status lists) and the OpenID for Verifiable Credentials flows, are left to the application.
+    The profiles built on top of SD-JWT, such as SD-JWT VC (`dc+sd-jwt`, `vct`, status lists) and the OpenID for Verifiable Credentials flows, are left to the application.
 
 ## Issuing an SD-JWT
 
@@ -209,7 +211,7 @@ The Holder key is read from the `cnf` claim of the Processed SD-JWT Payload, wit
 
 The SD-JWT is rejected when:
 
-* its format is not the compact format of the RFC, or the Issuer-signed JWT cannot be verified by the loader, or is not signed with a digital signature algorithm;
+* it is in neither format of the RFC, or the Issuer-signed JWT cannot be verified by the loader, or is not signed with a digital signature algorithm;
 * `_sd_alg` is not one of the accepted hash algorithms;
 * a Disclosure is malformed, has the reserved claim name `_sd` or `...`, is presented twice or is not referenced by any digest of the Issuer-signed JWT or of another presented Disclosure;
 * a digest appears twice, whether it matches a Disclosure or not;
@@ -217,6 +219,77 @@ The SD-JWT is rejected when:
 * the claims of the Processed SD-JWT Payload are rejected by the claim checkers, or a mandatory claim is missing.
 
 The Key Binding JWT is rejected when its signature cannot be verified with the key of `cnf`, its algorithm is not a digital signature algorithm, its `typ` is not `kb+jwt`, its `iat` is in the future or older than the maximum age, its `aud` or `nonce` is not the expected one, its `sd_hash` does not match the presented SD-JWT, or its `exp` or `nbf`, if any, says it is not valid.
+
+## JWS JSON serialization
+
+Section 8 of the RFC defines a second format. The Issuer-signed JWT is a JWS in the [JSON serialization](serialization.md#jws-json-flattened), flattened or general, and the Disclosures and the Key Binding JWT are two parameters of the unprotected header of its first signature, `disclosures` and `kb_jwt`:
+
+```json
+{
+    "payload": "eyJfc2QiOiBbIjRIQm42YUlZM1d0dUdHV1R4LXFVajZjZGs2V0JwWn...",
+    "protected": "eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImV4YW1wbGUrc2Qtand0In0",
+    "header": {
+        "disclosures": [
+            "WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd",
+            "WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BIiwgImdpdmVuX25hbWUiLCAiSm9obiJd"
+        ],
+        "kb_jwt": "eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL3ZlcmlmaWVyLmV4YW1wbGUub3JnIiwgImlhdCI6IDE3NDg1MzcyNDQsICJzZF9oYXNoIjogIlZqdFBzZ1pwUVRSeEtKdkRwU0otblhsWktFOVo5TGdENEZ5Q3d3b05NUncifQ.GrDvJ2jhYNmUvqdwVEIrxeTFEuI5qKSM7I6P95JmA6Wko-FBB5vPGQn0wvmdgjLCE2iDRh1r82zchjmABQ3V8w"
+    },
+    "signature": "3oOtvPxU3QdDWUmfGexVB5rWyON2f1atg5rL825bvvD1g7ywjKDKy2UHqHoH2QS4FA99JbG5qnlqFaGXFChfjQ"
+}
+```
+
+The unprotected header is not signed: the Holder removes Disclosures and adds the Key Binding JWT without invalidating the signature of the Issuer, as it removes the `~` segments of the compact format. Each Disclosure stays bound by its digest in the signed payload, and the Key Binding JWT by its own signature and its `sd_hash`. The other parameters of the unprotected header, a `kid` for instance, are not protected.
+
+### Issuing in the JSON serialization
+
+`issueJson()` signs the Issuer-signed JWT once for each `IssuerSignature`, which holds the key, the protected header and the unprotected header of a signature, as `JWSBuilder::addSignature()` takes them. With one signature, the SD-JWT is in the flattened serialization; with several, in the general one, which signs the same payload with several keys, while a key or an algorithm is replaced for instance:
+
+```php
+<?php
+
+use Jose\SelectiveDisclosure\IssuerSignature;
+
+$sdJwt = $issuer->issueJson(
+    $claims,
+    new IssuerSignature($issuerPrivateKey1, ['alg' => 'ES256', 'typ' => 'example+sd-jwt'], ['kid' => 'issuer-key-1']),
+    new IssuerSignature($issuerPrivateKey2, ['alg' => 'ES384', 'typ' => 'example+sd-jwt'], ['kid' => 'issuer-key-2']),
+);
+
+$sdJwt->getSerialization(); // "jws_json_general"
+$token = $sdJwt->toString(); // The JSON object, the Disclosures in the header of the first signature
+```
+
+The claims are processed as by `issue()`. The unprotected headers cannot have the `disclosures` and `kb_jwt` parameters, which belong to the SD-JWT.
+
+### Presenting in the JSON serialization
+
+`SDJWT::fromString()` reads a JSON object as the JWS JSON serialization, and any other string as the compact format. `getSerialization()` names the format as the JWS serializers do: `jws_compact`, `jws_json_flattened` or `jws_json_general`.
+
+The SD-JWT keeps its serialization. The Holder selects the Disclosures and adds the Key Binding JWT as with the compact format, and `toString()` writes the SD-JWT back in the JSON serialization, the other signatures and their headers unchanged. In the JSON serialization, `getIssuerSignedJwt()` returns the JWS without the `disclosures` and `kb_jwt` parameters.
+
+The `sd_hash` of the Key Binding JWT is computed over the compact format, made of the protected header, the payload and the signature of the first signature: an SD-JWT has the same `sd_hash` in both formats.
+
+### Verifying in the JSON serialization
+
+The serializers of the loader of the Issuer-signed JWT decide whether the Verifier accepts the JWS JSON serialization: give it the JSON serializers besides the compact one.
+
+```php
+<?php
+
+use Jose\Component\Signature\Serializer\CompactSerializer;
+use Jose\Component\Signature\Serializer\JSONFlattenedSerializer;
+use Jose\Component\Signature\Serializer\JSONGeneralSerializer;
+use Jose\Component\Signature\Serializer\JWSSerializerManager;
+
+$serializerManager = new JWSSerializerManager([
+    new CompactSerializer(),
+    new JSONFlattenedSerializer(),
+    new JSONGeneralSerializer(),
+]);
+```
+
+The Key Binding JWT is always in the compact serialization. In the general serialization, the Issuer-signed JWT is accepted once one of its signatures is verified, as the JWS loader does, and the algorithm of that signature must be a digital signature algorithm. The `sd_hash` is computed over the first signature, whichever one is verified.
 
 ## Disclosures
 
@@ -276,8 +349,11 @@ jose:
                 hash_algorithms: ['sha-256']    # Optional, all the supported ones by default
                 key_binding_max_age: 300        # Optional, 300 seconds by default
                 allowed_time_drift: 0           # Optional, 0 by default
+                serializers: ['jws_compact', 'jws_json_flattened', 'jws_json_general'] # Optional, ['jws_compact'] by default
                 is_public: true
 ```
+
+The `serializers` of a verifier are those of its Issuer-signed JWTs: the SD-JWTs in the JWS JSON serialization are only accepted with the JSON serializers.
 
 This configuration creates three services:
 

@@ -346,6 +346,8 @@ $presentation = $holder->present($sdJwt->select(['given_name']), $holderPrivateK
 $claims = $verifier->verifyWithKeyBinding($presentation->toString(), $issuerKeySet, $audience, $nonce)->getClaims();
 ```
 
+Both formats of the RFC are supported: the compact format and the JWS JSON serialization of section 8, issued by `issueJson()`.
+
 The Symfony Bundle creates the services from a `jose.selective_disclosure` configuration once the package is installed. See the [Selective Disclosure](../advanced-topics/selective-disclosure.md) page.
 
 ### JKUFactory and X5UFactory stand on their own
