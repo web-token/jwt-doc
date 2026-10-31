@@ -325,6 +325,29 @@ jose:
 
 The `ConfigurationHelper::addHeaderChecker()` helper accepts the same list as an additional argument after the tags. See the [Header Checker](../the-components/header-checker.md#explicit-typing-with-the-typ-header) page.
 
+### Selective Disclosure for JWTs (SD-JWT)
+
+[RFC 9901](https://www.rfc-editor.org/rfc/rfc9901.html) lets an Issuer sign a JWT whose claims the Holder discloses one by one to each Verifier, optionally bound to the key of the Holder. It is the credential format of SD-JWT VC, of the EU Digital Identity Wallet and of OpenID for Verifiable Credentials.
+
+The new `web-token/jwt-selective-disclosure` package (`composer require web-token/jwt-selective-disclosure`) implements the three roles of the RFC on top of the JWS services of the library, in the `Jose\SelectiveDisclosure` namespace:
+
+```php
+<?php
+
+use Jose\SelectiveDisclosure\Disclosable;
+
+// Issuer
+$sdJwt = $issuer->issue(['iss' => $iss, 'given_name' => new Disclosable('John'), 'cnf' => ['jwk' => $holderPublicKey->all()]], $issuerPrivateKey, ['alg' => 'ES256', 'typ' => 'example+sd-jwt']);
+
+// Holder
+$presentation = $holder->present($sdJwt->select(['given_name']), $holderPrivateKey, ['alg' => 'ES256'], $audience, $nonce);
+
+// Verifier
+$claims = $verifier->verifyWithKeyBinding($presentation->toString(), $issuerKeySet, $audience, $nonce)->getClaims();
+```
+
+The Symfony Bundle creates the services from a `jose.selective_disclosure` configuration once the package is installed. See the [Selective Disclosure](../advanced-topics/selective-disclosure.md) page.
+
 ### JKUFactory and X5UFactory stand on their own
 
 `UrlKeySetFactory` is announced for removal in 5.0, yet `JKUFactory` and `X5UFactory` — the documented way to load a `jku` or a `x5u` key set, and not deprecated themselves — extended it.

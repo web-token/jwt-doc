@@ -18,6 +18,7 @@ This framework provides full implementation of the following RFCs:
 * **JSON Web Key Thumbprint** - [RFC 7638](https://tools.ietf.org/html/rfc7638) - Generate unique key identifiers
 * **JWK Thumbprint URI** - [RFC 9278](https://www.rfc-editor.org/rfc/rfc9278.html) - Name a key by its thumbprint, as DPoP, SIOP v2 and OpenID for Verifiable Credentials do
 * **ML-DSA for JOSE** - [RFC 9964](https://www.rfc-editor.org/rfc/rfc9964.html) - Post-quantum signatures (FIPS 204) with the `AKP` key type; needs PHP 8.4 and OpenSSL 3.5
+* **SD-JWT** - [Selective Disclosure for JSON Web Tokens (RFC 9901)](https://www.rfc-editor.org/rfc/rfc9901.html) - Issue, present and verify SD-JWTs and their Key Binding JWTs, the credential format of SD-JWT VC and of the EU Digital Identity Wallet
 * **Unencoded Payload Option** - [RFC 7797](https://tools.ietf.org/html/rfc7797) - Support for unencoded payloads in JWS
 
 ## Key features

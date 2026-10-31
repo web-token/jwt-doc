@@ -234,6 +234,7 @@ nav:
       - console-command/symfony-console.md
   - "Advanced topics":
       - advanced-topics/nested-tokens.md
+      - advanced-topics/selective-disclosure.md
       - advanced-topics/serialization.md
       - advanced-topics/custom-algorithm.md
       - "Signed tokens":
