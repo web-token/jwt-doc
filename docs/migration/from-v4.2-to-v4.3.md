@@ -337,7 +337,7 @@ The new `web-token/jwt-selective-disclosure` package (`composer require web-toke
 use Jose\SelectiveDisclosure\Disclosable;
 
 // Issuer
-$sdJwt = $issuer->issue(['iss' => $iss, 'given_name' => new Disclosable('John'), 'cnf' => ['jwk' => $holderKey]], $issuerKey, ['alg' => 'ES256', 'typ' => 'example+sd-jwt']);
+$sdJwt = $issuer->issue(['iss' => $iss, 'given_name' => new Disclosable('John'), 'cnf' => ['jwk' => $holderPublicKey->all()]], $issuerPrivateKey, ['alg' => 'ES256', 'typ' => 'example+sd-jwt']);
 
 // Holder
 $presentation = $holder->present($sdJwt->select(['given_name']), $holderPrivateKey, ['alg' => 'ES256'], $audience, $nonce);
